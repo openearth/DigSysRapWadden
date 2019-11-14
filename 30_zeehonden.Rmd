@@ -1,0 +1,72 @@
+# Zeezoogdieren
+
+
+```{r setupZeeZoogdieren, include = FALSE}
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE,
+	echo = FALSE
+)
+require(sf)
+require(leaflet)
+require(tidyverse)
+baseurl = "https://wad.deontwikkelfabriek.nl/geoserver/wmr/ows?"
+wfs_request = "service=WFS&version=1.0.0&request=GetFeature&typeName=wmr:zeehondtelgebieden&outputForma=application/json"
+zeehondTelgebieden <- st_read(paste0(baseurl, wfs_request), crs = 4326)
+land <- read_sf("d:/GIS_DATA/Nederland/administratief/Gemeentegrenzen_2017_zonder_water_gen.shp") %>% st_transform(4326) %>% summarise()
+names(st_geometry(zeehondTelgebieden)) = NULL
+```
+
+*De data op deze pagina zijn afkomstig van Wageningen Marine Research. Ze worden ontsloten via een Geoserver ("https://wad.deontwikkelfabriek.nl/geoserver/ ; laag "wmr:zeehondtelgebieden"). De data voor de figuren op deze pagina zijn op `r Sys.Date()` gedownload van deze Geoserver. *
+
+Veertig jaar geleden leefden in de Nederlandse Waddenzee nog maar vijfhonderd gewone zeehonden. Dankzij beschermende maatregelen zijn er gezonde populaties van naar schatting bijna 8000 gewone zeehonden en zo’n 3500 grijze zeehonden.
+
+Na Groot-Brittannië is Nederland nu het belangrijkste gebied voor de grijze zeehond in West-Europa. De toename van deze soort in het waddengebied is niet helemaal toe te schrijven aan hun voortplantingssucces. Ongeveer 35 procent van de populatiegroei is het gevolg van migratie vanuit de Engelse en Schotse Noordzeekustzone.
+
+Na jarenlange sterke toename lijkt de groei van het aantal gewone en grijze zeehonden iets te vertragen. Dat kan betekenen dat de aantallen een natuurlijk plafond hebben bereikt, maar ook dat menselijke activiteiten hun leefgebied verstoren. Onderzoek en telresultaten van Wageningen Marine Research moeten nog uitwijzen wat de beperkende factoren zijn.
+
+```{r deelgebiedenZeehonden, echo=FALSE, fig.cap = "Deelgebieden waarin zeehondentellingen worden gedaan. "}
+#https://wad.deontwikkelfabriek.nl/geoserver/wmr/wms?service=WMS&version=1.1.0&request=GetMap&layers=wmr:zeehondtelgebieden&styles=&bbox=4.60876843096072,52.8925725677043,7.23596666283722,53.5597891771861&width=768&height=330&srs=EPSG:4326&format=image%2Fpng
+gebieden <- zeehondTelgebieden %>% distinct(gebied)
+leaflet(gebieden) %>%
+  addTiles() %>%
+  # addWMSTiles("https://wad.deontwikkelfabriek.nl:443/geoserver/wmr/ows?", 
+  #             layers = "wmr:zeehondtelgebieden",
+  #             options = WMSTileOptions(format = "image/png", transparent = F)) # wms does not work
+  leaflet::addPolygons(data = gebieden, popup = ~gebied, fillColor = "green") #%>%
+  # addLegend(position = "bottomright", pal = pal, values = zeehondTelgebieden$n, opacity = 1)
+```
+
+
+```{r aantallenZeehonden, fig.width=8, fig.height=10, fig.cap="Aantallen zeehonden per jaar in de verschillende deelgebieden."}
+zeehondTelgebieden %>% 
+  ggplot() +
+  geom_sf(data = land, fill = "lightgrey") +
+  geom_sf(aes(fill = n)) + scale_fill_viridis_c(option = "D") +
+  geom_sf(data = land, fill = "lightgrey", alpha = 0.3) +
+  facet_wrap(~jaar, ncol = 3) +
+  theme_minimal() +
+  theme(axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        legend.key.width = unit(2, "cm")) +
+  coord_sf(xlim = st_bbox(zeehondTelgebieden)[c(1,3)], ylim = st_bbox(zeehondTelgebieden)[c(2,4)])
+```
+
+
+Behalve zeehonden komen in de Waddenzee ook bruinvissen voor. Deze zeezoogdieren kunnen vooral in de periode februari t/m maart worden gezien, wanneer ze de scholen vis achterna zwemt die via de zeegaten de Waddenzee in trekken.
+
+Beschikbare informatie over zeezoogdieren, bijeengebracht in het project WaLTER. Een klik op de titels brengt u naar het dataportaal van de website WaLTER. Daar vindt u ook een link naar de gegevensbronnen van de verschillende programma’s.
+
+[Populatiedynamica Gewone en Grijze zeehonden](http://eva.walterwaddenmonitor.org/monitoringtools/#Z1)
+
+[Tellingen mariene zeezoogdieren in Noordzee en kustwateren](http://eva.walterwaddenmonitor.org/monitoringtools/#Z3)
+
+[Verspreiding en dichtheden zeezoogdieren Noordzee (SCANS)](http://eva.walterwaddenmonitor.org/monitoringtools/#Z4)
+
+[Verspreiding en dichtheden zeezoogdieren Noordzee (MWTL)](http://eva.walterwaddenmonitor.org/monitoringtools/#Z5)
+
+[Aantalsontwikkelingen zeezoogdieren in Noordzee en kustwateren](http://eva.walterwaddenmonitor.org/monitoringtools/#Z6)

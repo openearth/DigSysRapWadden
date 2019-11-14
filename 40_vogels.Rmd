@@ -1,0 +1,164 @@
+# Vogels
+
+```{r setupZeeZoogdieren, include = FALSE}
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE,
+	echo = FALSE
+)
+#wad.deontwikkelfabriek.nl/geoserver/sovon/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=sovon:koloniebroedvogels&maxFeatures=50
+require(sf)
+require(tidyverse)
+baseurl = "https://wad.deontwikkelfabriek.nl/geoserver/sovon/ows?"
+wfs_request = "service=WFS&version=1.0.0&request=GetFeature&typeName=sovon:koloniebroedvogels"
+koloniebroedvogels <- st_read(paste0(baseurl, wfs_request), crs = 4326) %>% st_transform(28992)
+land <- read_sf("d:/GIS_DATA/Nederland/administratief/Gemeentegrenzen_2017_zonder_water_gen.shp") %>% st_transform(28992) %>%
+  summarise()
+```
+
+
+*De data op deze pagina zijn afkomstig van SOVON. Ze worden ontsloten via een Geoserver ("https://wad.deontwikkelfabriek.nl/geoserver/ , laag "sovon:koloniebroedvogels"") . De data voor de figuren op deze pagina zijn op `r Sys.Date()` gedownload van deze Geoserver. *
+
+
+
+e meeste trekvogelsoorten die niet in het waddengebied broeden, gaat het goed. Een sinds 1980 gemiddeld stijgende lijn in aantallen lijkt stabiel te worden. De broedvogels doen het minder goed, volgens gegevens uit het reproductiemeetnet Waddenzee. Het komt vaker voor dat hoge waterstanden bij zomerstormen legsels wegspoelen. Andere negatieve invloeden kunnen zijn: bedreiging door roofdieren (vooral op het vasteland) en gebrek aan voedsel (bijvoorbeeld door afwezigheid of onbereikbaarheid van jonge vis).
+
+
+```{r, fig.width=8, fig.height=8, fig.cap="Totaal aantal koloniebroedvogels (som van individuen in alle getelde kolonies) in het Waddengebied. De grootte van de punten representeert de gemiddelde koloniegrootte in dat jaar."}
+koloniebroedvogels %>% group_by(jaar, soort) %>%
+  summarise(sum = sum(n), meanColonySize = mean(n)) %>%
+  # gather(key = variable, value = value, sum, meansize) %>%
+  ggplot(aes(jaar, sum)) +
+  geom_line() +
+  geom_point(aes(size = meanColonySize), shape = 21, fill = "white") + 
+  # scale_y_log10() +
+  facet_wrap(~soort, scales = "free", ncol = 3) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+Vogels zijn altijd al intensief bestudeerd. Rijkswaterstaat en het ministerie van EZ tellen wad- en watervogels vanuit schepen en vliegtuigen. Er bestaat een groot netwerk van vrijwilligers die, gecoördineerd door SOVON, vogeltellingen uitvoeren. Zo worden wadvogels elke maand in het hele Waddengebied tijdens hoogwater geteld. Daarnaast zijn er specifieke meetprogramma’s voor kenmerkende waddensoorten zoals de lepelaar, de grote stern en de kanoet. Ook worden nesten en slaapplaatsen in kaart gebracht, het overlevingspercentage van jonge vogels bepaald en vogels voorzien van pootringen om hun trekgedrag te leren kennen.
+
+
+```{r, fig.width=8, fig.height=12, fig.cap = "Ruimtelijke verdeling van kolonies in het Waddengebied."}
+
+koloniebroedvogels %>% #head(100) %>%
+  ggplot() +
+  geom_sf(data = land, fill = "lightgrey") +
+  geom_sf(aes(size = n + 1), shape = 21, show.legend = 'point', color = "white", fill = "olivedrab4") + #
+  scale_color_viridis_c(option = "D", direction = -1) +
+  facet_grid(jaar ~ soort) +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        strip.text.x = element_text(angle = 300),
+        strip.text.y = element_text(angle = 0),
+        axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()) +
+  scale_size_continuous(trans = "sqrt") +
+  coord_sf(xlim = range(koloniebroedvogels$x), ylim = range(koloniebroedvogels$y))
+
+```
+
+
+
+
+Het project WaLTER heeft een groot aantal meetprogramma’s voor vogels bijeengebracht. Een klik op de titels brengt u naar het dataportaal van de website WaLTER. Daar vindt u ook een link naar de gegevensbronnen van de verschillende programma’s.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V1" target="_blank">Zeetrektellingen Noordzeekustzone&nbsp;</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V2" target="_blank">Aantallen en verspreiding pleisterende watervogels in de 
+Waddenzee</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V3" target="_blank">Aantallen en verspreiding pleisterende wad- en watervogels in de 
+Waddenzee</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V4" target="_blank">Aantallen watervogels in de Waddenzee (op basis van 
+boottellingen)</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V5" target="_blank">Aantallen watervogels in de Waddenzee (vliegtuigtellingen)</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V6" target="_blank">Aantallen broedende wad- en watervogels langs Waddenzee en 
+Noordzeekustzone</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V7" target="_blank">Broedsucces van wad- en watervogels in Waddenzee en 
+Noordzeekustzone</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V12" target="_blank">Aantallen ganzen en zwanen (Wz, Delta, kustgebieden)</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V13" target="_blank">Monitoring zeevogels Noordzee (vliegtuigtellingen)</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V14" target="_blank">Populatiestudies: Aalscholver&nbsp;</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V15" target="_blank">Populatiestudies: Blauwe Kiekendief&nbsp;</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V16" target="_blank">Populatiestudies: Grote Stern</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V44" target="_blank">Populatiestudies: Noordse Stern</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V17a" target="_blank">Populatiestudies: Monitoring Kanoet</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V17b" target="_blank">Populatiestudies: Monitoring Rosse Grutto</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V18" target="_blank">Populatiestudies: Lepelaar</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V19" target="_blank">Populatiestudies: Rotgans&nbsp;</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V20" target="_blank">Verspreiding en overleving individuele broed- en trekvogels</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V21" target="_blank">Ringonderzoek aan wadvogels in getijdengebieden</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V22" target="_blank">Populatiestudies: Scholekster</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V31" target="_blank">Meetnet Nestkaarten</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V32" target="_blank">PTT (Punt-Transect-Tellingen</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V33" target="_blank">CES-project</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V34" target="_blank">Meetnet slaapplaatsen</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V35" target="_blank">Vogel- en zoogdiersterfte</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V36" target="_blank">Wadplaattellingen waddenunit EZ</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V37" target="_blank">Populatiestudies: Drieteenstrandloper&nbsp;</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V38" target="_blank">Populatiestudie Kleine Mantelmeeuw&nbsp;</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V39" target="_blank">Populatiestudies: Zilvermeeuw</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V40" target="_blank">Populatiestudies: Tureluur</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V41" target="_blank">Populatiestudies: Steenloper&nbsp;</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V42" target="_blank">Populatiestudies: Kluut</a>
+
+<a href="http://eva.walterwaddenmonitor.org/monitoringtools/#V43" target="_blank">Populatiestudies: Visdief</a>
+
+
+
+
+
+
+

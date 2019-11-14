@@ -1,0 +1,50 @@
+---
+title: "Waddenzee systeemrapportage"
+author: "Deltares, Rijkswaterstaat, Wageningen Marine Research"
+date: '`r Sys.Date()`'
+output:
+  bookdown::gitbook:
+    config:
+      search: yes
+      toc:
+        collapse: section
+link-citations: yes
+subtitle: update 2019
+---
+
+# Voorwoord
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE,
+	cache = TRUE
+)
+```
+
+```{r, fig.height=2, fig.width=3}
+knitr::include_graphics("www/logo.png", dpi = 300)
+knitr::include_graphics("www/Rijkswaterstaat-logo-e1473888123824-1-300x300.jpg", dpi = 300)
+```
+
+
+```{r, fig.height=2, fig.width=3}
+
+# knitr::include_graphics("www/Logo-Staatsbosbeheer.jpg", dpi = 300)
+knitr::include_graphics("www/c07587c0-b789-4345-968e-c25c76e2276e_WUR_logo_1000px_bec3f252_530x156.jpg", dpi = 300)
+
+```
+
+De informatie op deze website is op dit moment onder constructie en bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden.
+
+This website is a test version. Nothing from this website may be used.
+
+Deze watersysteemrapportage is een initiatief van
+
+* Rijkswaterstaat
+    + Zee en Delta
+    + WVL
+* Deltares
+* Wageningen Marine Research
