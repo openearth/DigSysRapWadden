@@ -6,8 +6,6 @@ require(rmarkdown)
 require(tufte)
 require(bookdown)
 
-source("runThisFirst.R")
-
 # gitbook formatted html pages (gebruikt op testpagina)
 bookdown::render_book("index.Rmd", output_format = bookdown::gitbook(split_by = "chapter", collapse = "section"), 
                       new_session = T, clean_envir = T)

@@ -1,7 +1,7 @@
 # Zeezoogdieren
 
 
-```{r setupZeeZoogdieren, include = FALSE}
+```{r setupZeeZoogdieren, include = FALSE, cache=T}
 knitr::opts_chunk$set(
 	message = FALSE,
 	warning = FALSE,
@@ -10,6 +10,12 @@ knitr::opts_chunk$set(
 require(sf)
 require(leaflet)
 require(tidyverse)
+source("runThisFirst.R")
+```
+
+
+
+```{r readDataZeehonden}
 baseurl = "https://wad.deontwikkelfabriek.nl/geoserver/wmr/ows?"
 wfs_request = "service=WFS&version=1.0.0&request=GetFeature&typeName=wmr:zeehondtelgebieden&outputForma=application/json"
 zeehondTelgebieden <- st_read(paste0(baseurl, wfs_request), crs = 4326)
@@ -25,22 +31,34 @@ Na Groot-Brittannië is Nederland nu het belangrijkste gebied voor de grijze zee
 
 Na jarenlange sterke toename lijkt de groei van het aantal gewone en grijze zeehonden iets te vertragen. Dat kan betekenen dat de aantallen een natuurlijk plafond hebben bereikt, maar ook dat menselijke activiteiten hun leefgebied verstoren. Onderzoek en telresultaten van Wageningen Marine Research moeten nog uitwijzen wat de beperkende factoren zijn.
 
-```{r deelgebiedenZeehonden, echo=FALSE, fig.cap = "Deelgebieden waarin zeehondentellingen worden gedaan. "}
-#https://wad.deontwikkelfabriek.nl/geoserver/wmr/wms?service=WMS&version=1.1.0&request=GetMap&layers=wmr:zeehondtelgebieden&styles=&bbox=4.60876843096072,52.8925725677043,7.23596666283722,53.5597891771861&width=768&height=330&srs=EPSG:4326&format=image%2Fpng
-gebieden <- zeehondTelgebieden %>% distinct(gebied)
-leaflet(gebieden) %>%
-  addTiles() %>%
-  # addWMSTiles("https://wad.deontwikkelfabriek.nl:443/geoserver/wmr/ows?", 
-  #             layers = "wmr:zeehondtelgebieden",
-  #             options = WMSTileOptions(format = "image/png", transparent = F)) # wms does not work
-  leaflet::addPolygons(data = gebieden, popup = ~gebied, fillColor = "green") #%>%
-  # addLegend(position = "bottomright", pal = pal, values = zeehondTelgebieden$n, opacity = 1)
-```
 
 
-```{r aantallenZeehonden, fig.width=8, fig.height=10, fig.cap="Aantallen zeehonden per jaar in de verschillende deelgebieden."}
-zeehondTelgebieden %>% 
-  ggplot() +
+
+Achtergrond
+
+Tellingen
+
+Sinds de jaren ‘60 van de vorige eeuw telt Wageningen Marine Research de gewone zeehonden op de zandbanken in de Nederlandse Waddenzee. Dat gebeurt in opdracht van het ministerie van Landbouw, Natuur en Voedselkwaliteit (LNV). Tijdens een telling wordt met een vliegtuig het hele Nederlandse waddengebied afgevlogen, van Den Helder tot in de Dollard. Alle bekende plekken waar zeehonden tijdens laagwater op de zandbanken liggen worden bezocht. Er wordt gevlogen op minstens 500 voet (ruim 150 meter) om de zeehonden goed te zien. Van alle zeehonden die waargenomen worden tijdens de vlucht worden er foto’s gemaakt. De opnames worden later op het instituut geanalyseerd en uitgewerkt. De GPS-locaties* worden tijdens de vlucht ook geregistreerd. Zo ontstaat er tevens een beeld van de verspreiding van de zeehonden over de verschillende gebieden in de Waddenzee. Praktisch alle zeehonden die dan op de kant liggen zijn hiermee geregistreerd.
+
+
+## Verspreiding Gewone Zeehond
+
+Gewone zeehonden in de Waddenzee
+
+De kaart laat de telgegevens zien vanaf 2002 gemiddeld over dertien telgebieden (figuur \@ref(fig:ruimteSpreidingZeehonden)). De telgebieden komen overeen met kombergingsgebieden, waarbij grote kombergingsgebieden zoals het Marsdiep of de Eems-Dollard in tweeën of drieën zijn geknipt.
+
+
+
+
+
+
+
+Telperiode
+Het tellen van de gewone zeehondenpopulatie vindt op twee momenten plaats; tijdens de geboorteperiode (mei-juli) en wanneer de dieren verharen (augustus). Om een goed beeld te krijgen van het aantal geboren dieren en het moment van de geboortepiek wordt er drie keer in de geboorteperiode geteld. Tijdens de vliegtuigtellingen wordt onderscheid gemaakt tussen de pups en de volwassen dieren. Uit de tellingen blijkt dat de geboortepiek in de afgelopen 30 jaar een maand naar voren is geschoven (Reijnders et al., 2010 ). Tijdens de verharingsperiode in augustus wordt twee keer geteld. Dan zijn de jongen niet meer te onderscheiden van de 1 a 2 jarige dieren. In Europa is afgesproken dat de maximumtelling in augustus wordt gebruikt om de populatieontwikkelingen in de verschillende jaren met elkaar te vergelijken (Ecological Quality Objectives, OSPAR). Met de andere Waddenlanden (Duitsland en Denemarken) zijn strengere afspraken gemaakt om de tellingen in de drie landen te synchroniseren en te standaardiseren. Uit de twee augustustellingen van de drie Waddenlanden wordt de meest betrouwbare en volledige telling gebruikt als index voor de populatiegrootte in de gehele Waddenzee. Met deze index wordt de populatieontwikkeling in dit gebied van jaar op jaar gevolgd.
+
+```{r ruimteSpreidingZeehonden, fig.width=8, fig.height=10, fig.cap="Aantallen zeehonden per jaar in de verschillende telgebieden"}
+
+  ggplot(zeehondTelgebieden) +
   geom_sf(data = land, fill = "lightgrey") +
   geom_sf(aes(fill = n)) + scale_fill_viridis_c(option = "D") +
   geom_sf(data = land, fill = "lightgrey", alpha = 0.3) +
@@ -55,6 +73,24 @@ zeehondTelgebieden %>%
         legend.key.width = unit(2, "cm")) +
   coord_sf(xlim = st_bbox(zeehondTelgebieden)[c(1,3)], ylim = st_bbox(zeehondTelgebieden)[c(2,4)])
 ```
+
+
+Teldata
+De tellingen van de hele internationale Waddenzee-populatie worden online gepresenteerd op de site van het Common Wadden Sea Secretariat (CWSS; zie voor het laatste rapport "Aerial Surveys of Harbour Seals in the Wadden Sea in 2017"). De aantallen in Nederland (t/m 2016), inclusief die in het Deltagebied staan ook op de site van het Natuurcompendium van het Planbureau voor de leefomgeving ( "Gewone en grijze zeehonden in Waddenzee en Deltagebied, 1960 - 2016"). In 2017 is in het kader van de Wettelijke Onderzoektaken een rapport uitgebracht over de aantallen gewone en grijze zeehonden sinds 2002 (Monitoring van gewone en grijze zeehonden in de Nederlandse Waddenzee, 2002-2017 - Cremer et. al. 2017).
+
+
+
+```{r aantallenZeehonden, fig.width=8, fig.height=5, fig.cap="Trend in aantallen getelde zeehonden per deelgebied"}
+zeehondAantallen <- zeehondTelgebieden %>% 
+  mutate(date = lubridate::as_date(date), 
+         gebied = as.factor(gebied)) %>%
+  ungroup()
+st_geometry(zeehondAantallen) <- NULL
+  ggplot(zeehondAantallen) +
+  geom_area(aes(x = jaar, y = n, group = gebied, fill = gebied))
+```
+
+Voor meer up-to-date informatie over de tellingen, zie de website van Wageningen Marine Research: https://www.wur.nl/nl/show/Populatie-Gewone-Zeehonden-in-de-Nederlandse-Waddenzee.htm .
 
 
 Behalve zeehonden komen in de Waddenzee ook bruinvissen voor. Deze zeezoogdieren kunnen vooral in de periode februari t/m maart worden gezien, wanneer ze de scholen vis achterna zwemt die via de zeegaten de Waddenzee in trekken.

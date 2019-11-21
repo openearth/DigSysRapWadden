@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
 	warning = FALSE,
 	cache = TRUE
 )
+source("runThisFirst.R")
 ```
 
 ```{r, fig.height=2, fig.width=3}
@@ -48,3 +49,5 @@ Deze watersysteemrapportage is een initiatief van
     + WVL
 * Deltares
 * Wageningen Marine Research
+
+
