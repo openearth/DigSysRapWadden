@@ -15,7 +15,7 @@ bookdown::render_book("index.Rmd", output_format = bookdown::tufte_html_book(spl
                       output_dir = "tufte_book", new_session = T, clean_envir = T)
 
 # "normal" pdf
-options(tinytex.verbose = FALSE) # change to TRUE for debugging
+# options(tinytex.verbose = FALSE) # change to TRUE for debugging
 bookdown::render_book("index.Rmd", output_format = bookdown::pdf_book(latex_engine = "xelatex"),
                       new_session = T, clean_envir = T)
 

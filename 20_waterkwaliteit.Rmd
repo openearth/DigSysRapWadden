@@ -1,0 +1,166 @@
+# Waterkwaliteit
+
+```{r setupZeeZoogdieren, include = FALSE}
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE,
+	echo = FALSE
+)
+require(sf)
+require(leaflet)
+require(tidyverse)
+source("runThisFirst.R")
+```
+
+
+
+
+## Data bron voor waterkwaliteit
+
+MWTL metingen van Rijkswaterstaat worden beschikbaar gemaakt via Waterinfo ([link](https://waterinfo.rws.nl/)) en zijn ook direct via een webservice te downloaden uit de Datadistributielaag (DDL) ([documentatie webservice](https://www.rijkswaterstaat.nl/rws/opendata/DistributielaagWebservices-SUM-2v7.pdf)). 
+
+De DDL bevat metingen voor locaties in de Waddenzee zoals aangegeven in figuur \@ref(fig:kaartDDLlocaties). Het soort metingen per locatie verschilt. Ook zijn er nog metingen beschikbaar in het Eems-Dollard gebied, die hier nog niet bij getoond worden. 
+
+
+
+
+```{r kaartDDLlocaties, cache=T, fig.cap = "Alle locaties met RWS metingen in oppervlaktewater. "}
+wl2006 <- sf::read_sf("../1_data/administratief/waterlichamen2006.shp", "waterlichamen2006")
+mijnShape <- wl2006[grepl(x = tolower(wl2006$OWMNAAM), pattern = tolower(mijnGebied)),]
+rm(wl2006)
+
+mijnLocaties_wgs <- readr::read_delim(file.path("../1_data/", "administratief", paste(mijnGebied, "DDLLocations.csv")), delim = ";")
+leaflet::leaflet(mijnLocaties_wgs) %>%
+  leaflet::addTiles(group = "OSM") %>%
+  addProviderTiles(providers$Esri.WorldTopoMap, group = "Esri.WorldTopoMap") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
+  leaflet::addPolygons(data = sf::st_transform(mijnShape, 4326), group = "watersysteem", color = "green", opacity = 0.3) %>%
+  # leaflet::addPolygons(data = sf::st_transform(wl2006, 4326), group = "KRW waterlichamen 2006", popup = ~htmltools::htmlEscape(OWMNAAM)) %>%
+  leaflet::addProviderTiles("OpenSeaMap", group = "OpenSeaMap") %>%
+  leaflet::addCircleMarkers(lng = ~x_wgs, lat = ~y_wgs, label = ~htmltools::htmlEscape(paste0(Naam)), group = "all_locations", radius = 4) %>%
+  leaflet::addLayersControl(
+    baseGroups = c("OSM",  "Esri.WorldTopoMap", "Esri.WorldImagery"),
+    overlayGroups = c("all_locations", "watersysteem", "OpenSeaMap")) %>%    #, "KRW waterlichamen 2006"
+  hideGroup("KRW waterlichamen 2006")
+
+```
+
+
+## Zwevend stof metingen
+
+
+```{r readEutroData}
+WQ <- read_delim(file.path( datadir, "ddl/standard/", paste0("2019-11-20", 'eutro_short_ddl_ow.csv')), delim = ";")
+```
+
+
+Metingen van zwevend stof zijn beschikbaar voor de locaties in figuur \@ref(fig:plotZSLocaties)
+
+```{r plotZSLocaties, fig.cap="Kaart met locaties waar zwevend stof is gemeten. De grootte van de cirkel is indicatief voor het aantal metingen."}
+
+WQ %>% 
+  filter(grepl("ZS", parameter)) %>%
+  group_by(locatie, EPSG, x.long, y.lat) %>%
+  summarize(n = n()) %>% 
+  st_as_sf(coords = c('x.long', 'y.lat'), crs = 25831) %>%
+  st_transform(4326) %>%
+  leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(radius = ~n/40, label = ~paste(locatie, " n = ", n))
+```
+
+
+
+De frequentie en tijdsperiode van de zwevend stofmetingen verschilt per station. De databeschikbaarheid per station is af te lezen in figuur \@fig(ref:ZSDataBeschikbaarheid)
+
+```{r ZSDataBeschikbaarheid, fig.height=12, fig.width=6, fig.cap="Beschikbaarheid van metingen voor zwevend stof per station in de Waddenzee."}
+WQ %>%
+  mutate(locatie = factor(locatie, levels = unique(WQ$locatie)[order(unique(WQ$x.long))])) %>%
+ggplot(aes(datumtijd, 1)) + 
+  geom_point(aes(), size = 0.5, shape = 16) + 
+  facet_grid(locatie ~ parameter) +
+  xlab("datum") +
+  ylab("") +  
+  ylim(c(0,2)) +
+  ggtitle("beschikbaarheid data per parameter en station") +# Y Axis Label
+  theme_bw()+   #text = element_text(size = 7)
+  theme(strip.text.x = element_text(size = 8, colour = "blue", angle = 90)) +
+  theme(strip.text.y = element_text(size = 8, colour = "blue", angle = 0)) +
+  theme(panel.spacing = unit(0.2, "lines")) +
+  theme(plot.title = element_text(hjust=0.5, vjust=-0.4, size=10),
+        legend.key.width = unit(5, "mm"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        # panel.border = element_rect(colour="lightgoldenrod"),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(angle = 90, size = 7),
+        axis.text.y = element_blank(),
+        legend.position = "top")
+```
+
+
+Locaties waarop regelmatig zwevend stof gemeten is tot recente datum zijn:
+
+* Vliestroom
+* Marsdiep noord
+* Doove Balg west
+* Dantziggat
+* Boomkensdiep
+
+Voor deze stations worden hieronder resultaten gepresenteerd. 
+
+Jaargemiddelde concentraties verschillen per station, en in de tijd (\@ref(fig:jaargemiddeldeZS)). Meer duiding is nodig...  
+
+
+```{r jaargemiddeldeZS, fig.height=3, fig.width=10, fig.cap="Jaargemiddelde concentratie van zwevend stof in de Waddenzee"}
+plotlocaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep")
+plotWQyears(WQ, loc = plotlocaties, param= c("ZS_mg/l"), beginjaar = 1970, eindjaar = 2018, mystyle = mystyle) +
+  facet_grid(parameter ~ locatie) 
+
+```
+
+
+Over de laatste 10 jaar lijkt er een neergaande, maar fluctuerende, trend in zwevend stofgehalte bij station Vliestroom (figuur \@ref(fig:plotZStrend)). 
+
+```{r plotZStrend, fig.margin=TRUE, fig.height=3, fig.cap="Zwevend stof trend over de laatste 10 jaar. De lijn is een loess regressielijn. "}
+plotWQdata(WQ, loc = plotlocaties[1], param = "ZS_mg/l", perc90line = F, line = F, loess = T, span = 0.3, trend = F, mystyle = legendbottomstyle, beginjaar = 2008, eindjaar = 2017) + facet_wrap(~ locatie)
+```
+
+
+Een breekpuntanalyse over een langere periode laat zien dat er, afgezien van de geleidelijke verandering in de laatste 10 jaar, ook een meer abrupte vermindering van zwevend stof was in het begin van de 80er jaren (figuur \@ref(fig:plotZStrendbreuk)). 
+
+
+
+```{r plotZStrendbreuk, fig.height=3, fig.cap="Breekpunt analyse voor Zwevend stof voor de periode 1999 - 2016, dus na de de-eutrofiering. Groene lijn is het langjarig gemiddelde, blauw is de gemiddelde concentratie in de onderscheiden deelperioden, de verticale onderbroken lijnen zijn de meest waarschijnlijke breekpunten en de rode lijnen geven de onzekerheid daarin aan."}
+
+location <- plotlocaties[1]
+substance <- "ZS_mg/l"
+plotBreakPointTimeSeries(df = WQ, mylocation = location, mysubstance = substance, minjaar = 1970, maxjaar = 2018, breaks = 2, h = NULL)
+
+```
+
+
+Het seizoensverloop van zwevend stof laat zien dat concentraties hoger zijn in de winter, vergeleken met zomerwaarden. Dit wordt veroorzaakt door meer opwerveling in de winter door hogere windsterktes, en mogelijk andere factoren. 
+
+
+```{r plotZSseason, fig.margin=TRUE, fig.height = 8, fig.width = 12, fig.cap="Seizoensvariatie van opgelost zwevend stof voor de periode 2000 - 2018"}
+plotWQseason(WQ, loc = plotlocaties, param = "ZS_mg/l", maxPlotwaarde = 200, mystyle = legendbottomstyle, beginjaar = 2000, eindjaar = 2018, boxplotting = F, smoothing = T, lineplot = F) + facet_wrap(~ locatie)
+```
+
+`
+
+## Nutrienten
+
+...tekst....
+
+## Chlorofyl-a en fytoplankton
+
+...tekst....
+
+
+
+
+
