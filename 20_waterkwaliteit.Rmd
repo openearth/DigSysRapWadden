@@ -1,6 +1,6 @@
 # Waterkwaliteit
 
-```{r setupZeeZoogdieren, include = FALSE}
+```{r setupWaterkwaliteit, include = FALSE}
 knitr::opts_chunk$set(
 	message = FALSE,
 	warning = FALSE,
