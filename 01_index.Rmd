@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 	warning = FALSE,
 	cache = TRUE
 )
-source("runThisFirst.R")
+source("r/runThisFirst.R")
 ```
 
 ```{r, fig.height=2, fig.width=3}

@@ -11,8 +11,8 @@ bookdown::render_book("index.Rmd", output_format = bookdown::gitbook(split_by = 
                       new_session = T, clean_envir = T)
 
 # tufte style html pages (accepts no more than 2-level sections)
-bookdown::render_book("index.Rmd", output_format = bookdown::tufte_html_book(split_by = "chapter"), 
-                      output_dir = "tufte_book", new_session = T, clean_envir = T)
+# bookdown::render_book("index.Rmd", output_format = bookdown::tufte_html_book(split_by = "chapter"), 
+#                       output_dir = "tufte_book", new_session = T, clean_envir = T)
 
 # "normal" pdf
 # options(tinytex.verbose = FALSE) # change to TRUE for debugging
@@ -20,8 +20,8 @@ bookdown::render_book("index.Rmd", output_format = bookdown::pdf_book(latex_engi
                       new_session = T, clean_envir = T)
 
 # tufte pdf (accepts no more than 2-level sections)
-bookdown::render_book("index.Rmd", output_format = bookdown::tufte_book2(), 
-                      output_dir = "tufte_book", new_session = T, clean_envir = T)
+# bookdown::render_book("index.Rmd", output_format = bookdown::tufte_book2(), 
+#                       output_dir = "tufte_book", new_session = T, clean_envir = T)
 
 
 # Veel gemaakte fouten

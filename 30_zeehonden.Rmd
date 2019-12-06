@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
 require(sf)
 require(leaflet)
 require(tidyverse)
-source("runThisFirst.R")
+source("r/runThisFirst.R")
 ```
 
 

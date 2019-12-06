@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 require(sf)
 require(leaflet)
 require(tidyverse)
-source("runThisFirst.R")
+source("r/runThisFirst.R")
 ```
 
 
@@ -73,8 +73,10 @@ WQ %>%
 
 De frequentie en tijdsperiode van de zwevend stofmetingen verschilt per station. De databeschikbaarheid per station is af te lezen in figuur \@fig(ref:ZSDataBeschikbaarheid)
 
-```{r ZSDataBeschikbaarheid, fig.height=12, fig.width=6, fig.cap="Beschikbaarheid van metingen voor zwevend stof per station in de Waddenzee."}
+```{r ZSDataBeschikbaarheid, fig.height=4, fig.width=6, fig.cap="Beschikbaarheid van metingen voor zwevend stof per station in de Waddenzee. (alleen locaties waar na 2000 nog gemeten is. "}
+recentLocations <- WQ %>% filter(jaar == 2001) %>% distinct(locatie) %>% unlist() %>% unname()
 WQ %>%
+  filter(locatie %in% recentLocations) %>%
   mutate(locatie = factor(locatie, levels = unique(WQ$locatie)[order(unique(WQ$x.long))])) %>%
 ggplot(aes(datumtijd, 1)) + 
   geom_point(aes(), size = 0.5, shape = 16) + 
