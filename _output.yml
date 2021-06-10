@@ -1,0 +1,10 @@
+bookdown::gitbook:
+  split_by: section
+  config:
+    toc:
+      collapse: section
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+  includes:
+    in_header: clickandzoom.html

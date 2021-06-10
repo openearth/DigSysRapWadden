@@ -13,6 +13,10 @@ source("r/runThisFirst.R")
 ```
 
 
+```{r readEutroData}
+WQ <- read_delim(file.path( datadir, "ddl/standard/", paste0("2019-11-20", 'eutro_short_ddl_ow.csv')), delim = ";")
+```
+
 
 
 ## Data bron voor waterkwaliteit
@@ -25,6 +29,7 @@ De DDL bevat metingen voor locaties in de Waddenzee zoals aangegeven in figuur \
 
 
 ```{r kaartDDLlocaties, cache=T, fig.cap = "Alle locaties met RWS metingen in oppervlaktewater. "}
+
 wl2006 <- sf::read_sf("../1_data/administratief/waterlichamen2006.shp", "waterlichamen2006")
 mijnShape <- wl2006[grepl(x = tolower(wl2006$OWMNAAM), pattern = tolower(mijnGebied)),]
 rm(wl2006)
@@ -46,12 +51,42 @@ leaflet::leaflet(mijnLocaties_wgs) %>%
 ```
 
 
-## Zwevend stof metingen
+
+## Watertemperatuur
+
+De watertemperatuur wordt opgenomen als indicator omdat deze direct van invloed is op veel ecologische processen.
+
+Analyse(s)/figuren:
+
+1.	Jaargemiddelde watertemperatuur (doorgetrokken lijn), incl. losse metingen (punten)
+Eerst bepalen maandgemiddelden (vanwege verschillende meetfrequentie winter/zomer) en maanden middelen naar jaar. Alle metingen toevoegen aan figuur als losse punten. 
+2.	Zomer- en wintergemiddelde. Middelen metingen 1 apr-30 sep (zomer) en 1 okt-31 maart
+
+Brondata: 
+•	MWTL data. Orde 20 meetmomenten per jaar (zomer 2x p.m. bemeten worden en winter 1x p.m.) op ~1m onder wateroppervlak op ~10 locaties 
+•	Continue metingen bij NIOZ steiger Texel (niet vrij verkrijgbaar?) en meetpaal Eemshaven worden in eerste instantie buiten beschouwing gelaten.
+
+ 
+ 
+
+## Saliniteit
+
+De saliniteit wordt opgenomen als indicator omdat deze van invloed is op de ecologie en de slibdynamiek. Veranderingen in saliniteit duiden op veranderingen in zoetwaterafvoer en/of getijvoortplanting.
+
+Analyse(s)/figuren:
+1.	Jaargemiddelde saliniteit (doorgetrokken lijn), incl. losse metingen (punten)
+Eerst bepalen maandgemiddelden (vanwege verschillende meetfrequentie winter/zomer) en maanden middelen naar jaar. Alle metingen toevoegen aan figuur als losse punten. 
+
+Brondata: 
+•	MWTL data. Orde 20 meetmomenten per jaar (zomer 2x p.m. bemeten worden en winter 1x p.m.) op ~1m onder wateroppervlak op ~10 locaties 
+•	Continue metingen bij NIOZ steiger Texel (niet vrij verkrijgbaar?) en meetpaal Eemshaven worden in eerste instantie buiten beschouwing gelaten.
+
+ 
 
 
-```{r readEutroData}
-WQ <- read_delim(file.path( datadir, "ddl/standard/", paste0("2019-11-20", 'eutro_short_ddl_ow.csv')), delim = ";")
-```
+## Zwevend stof
+
+
 
 
 Metingen van zwevend stof zijn beschikbaar voor de locaties in figuur \@ref(fig:plotZSLocaties)
@@ -154,13 +189,6 @@ plotWQseason(WQ, loc = plotlocaties, param = "ZS_mg/l", maxPlotwaarde = 200, mys
 
 `
 
-## Nutrienten
-
-...tekst....
-
-## Chlorofyl-a en fytoplankton
-
-...tekst....
 
 
 
