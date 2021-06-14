@@ -26,7 +26,7 @@ getPackage("rgdal")
 getPackage("sf")
 getPackage("leaflet")
 getPackage("purrr")
-source("runThisFirst.R")
+source("r/runThisFirst.R")
 getPackage("devtools")
 ## install functions for rwsapi from private github.
 if(!require("rwsapi", character.only = TRUE)){
@@ -55,20 +55,23 @@ if(locsTable %>% distinct(Coordinatenstelsel) %>% length() == 1){
 # lapply(locsTable, Coordinatenstelsel, fun ) etc.. 
 
 
-# wl_act_v <- sf::st_read("https://geodata.nationaalgeoregister.nl/rws/kaderrichtlijnwateractueel/wfs/v1_0?service=WFS&request=GetFeature&version=1.1.0&typeName=kaderrichtlijnwateractueel:krw_oppervlaktewaterlichamen_rws_act_v&outputFormat=application%2Fjson%3B%20subtype%3Dgeojson")
-# possibleShapes <- unlist(apply(array(wl_act_v$owmnaam), 1, function(x) str_subset(x, pattern = mijnGebied)))
-# # check if these areas are the ones wanted. Subset if necessary.
-# mijnShape <- wl_act_v[wl_act_v$owmnaam %in% possibleShapes,]
+wl_act_v <- sf::st_read("https://geodata.nationaalgeoregister.nl/rws/kaderrichtlijnwateractueel/wfs/v1_0?service=WFS&request=GetFeature&version=1.1.0&typeName=kaderrichtlijnwateractueel:krw_oppervlaktewaterlichamen_rws_act_v&outputFormat=application%2Fjson%3B%20subtype%3Dgeojson")
+
+possibleShapes <- unlist(apply(array(wl_act_v$owmnaam), 1, function(x) str_subset(x, pattern = mijnGebieden)))
+# check if these areas are the ones wanted. Subset if necessary.
+shapesOfInterest <- possibleShapes[!grepl("Waddenkust", possibleShapes) &!grepl("territ", possibleShapes)]
+mijnShape <- wl_act_v[wl_act_v$owmnaam %in% shapesOfInterest,]
+
 # buffer_in_m <- 100 
 # mijnLocaties <- sf::st_intersection(locs_sf_rd, sf::st_buffer(mijnShape, buffer_in_m))
 # # something wrong with intersection... 
 
 
 # alternative, but older water body shape
-wl2006 <- sf::read_sf("../1_data/administratief/waterlichamen2006.shp", "waterlichamen2006")
-
-wl2006 <- sf::st_set_crs(wl2006, 28992)
-mijnShape <- wl2006[grepl(x = tolower(wl2006$OWMNAAM), pattern = tolower(mijnGebied)),]
+# wl2006 <- sf::read_sf("../1_data/administratief/waterlichamen2006.shp", "waterlichamen2006")
+# 
+# wl2006 <- sf::st_set_crs(wl2006, 28992)
+# mijnShape <- wl2006[grepl(x = tolower(wl2006$OWMNAAM), pattern = tolower(mijnGebied)),]
 
 buffer_in_m <- 100
 mijnLocaties <- sf::st_intersection(locs_sf_rd, sf::st_buffer(mijnShape, buffer_in_m))
@@ -153,7 +156,18 @@ mijnCompartiment = Compartimenten[1]
 #==== Eutrofiering data ==================================
 
 # ophaalCatalogus <- mijnCatalogus[mijnCatalogus$parameter.code ==  "ZS",]
-ophaalCatalogus <- eutroCatalogus 
+# Selectie voor deze versie van Waddenrapport. 
+ophaalCatalogus <- mijnCatalogus  %>%
+  filter(
+    parameter_wat_omschrijving %in% c(
+      "Temperatuur Oppervlaktewater oC",
+      "Saliniteit Oppervlaktewater",
+      "Natgewicht Zwevende stof g", # niet zeker dat dit de goede is. CONCTT ZS is niet aanwezig !!
+      "Windrichting Lucht t.o.v. ware Noorden in graad",
+      "Windsnelheid Lucht m/s",
+      "Windsnelheid Lucht t.o.v. Mean Sea Level in m/s"
+    ),
+  )
 
 nieuwedataophalen <- T
 
@@ -181,7 +195,7 @@ if(nieuwedataophalen) {
   # toJSON(getList[[12]], auto_unbox = T, digits = NA)
   
   # opnemen als functie in rwsapi package
-  for(jj in c(670:length(getList))){   #
+  for(jj in c(1:length(getList))){   #
     print(paste("getting", jj, ophaalCatalogus$locatie.code[jj], ophaalCatalogus$compartiment.code[jj], ophaalCatalogus$grootheid.code[jj], ophaalCatalogus$parameter.code[jj]))
     response <- rws_observations2(bodylist = getList[[jj]])
     if(!is.null(response)){
@@ -193,7 +207,19 @@ if(nieuwedataophalen) {
 
 #=== Fysische data ================================================
 
-ophaalCatalogus <- fysischCatalogus 
+ophaalCatalogus <- mijnCatalogus %>%
+  filter(
+    (
+      grepl("golf", parameter_wat_omschrijving, ignore.case = T) |
+        grepl("hoogte", parameter_wat_omschrijving, ignore.case = T) |
+        grepl("getij", parameter_wat_omschrijving, ignore.case = T)
+      ) &
+      !grepl("berekend", parameter_wat_omschrijving, ignore.case = T)
+  )
+
+# check
+
+ophaalCatalogus %>% distinct(parameter_wat_omschrijving, grootheid.code, compartiment.code, parameter.code) %>% View()
 
 if(!dir.exists(file.path(datadir, "ddl/raw"))) dir.create(file.path(datadir, "ddl/raw"))
 
@@ -203,6 +229,8 @@ if(nieuwedataophalen) {
   # DDL bevat niet de niewste waarden en niet alle benodigde parameters
   
   # options(digits=22)
+  
+  dir.create(file.path(datadir, "ddl/raw/fysisch"))
   
   for(year in seq(startyear, endyear, 1)){
     
@@ -212,12 +240,11 @@ if(nieuwedataophalen) {
     
     getList <- rws_makeDDLapiList(beginDatumTijd = startdate, 
                                   eindDatumTijd = enddate, 
-                                  mijnCompartiment = "OW",
                                   mijnCatalogus = ophaalCatalogus
     )
     
     # ## example json string 
-    # toJSON(getList[[12]], auto_unbox = T, digits = NA)
+    toJSON(getList[[12]], auto_unbox = T, digits = NA)
     
     # opnemen als functie in rwsapi package
     for(jj in c(1:length(getList))){   #
@@ -225,6 +252,7 @@ if(nieuwedataophalen) {
       response <- rws_observations2(bodylist = getList[[jj]])
       if(!is.null(response)){
         filename <- paste(ophaalCatalogus$locatie.code[jj], ophaalCatalogus$compartiment.code[jj], str_replace(ophaalCatalogus$grootheid.code[jj], "[^A-Za-z0-9]+", "_"), ophaalCatalogus$parameter.code[jj], str_replace(ophaalCatalogus$hoedanigheid.code[jj], "[^A-Za-z0-9]+", "_"), year, "ddl_wq.csv", sep = "_")
+        filename <- str_replace(filename, "/", "_")
         write_delim(response$content, path = file.path(datadir, "ddl/raw/fysisch", filename), delim = ";")} else next
     }
   }
@@ -232,82 +260,120 @@ if(nieuwedataophalen) {
 
 #==== metalen ===============================================
 
-ophaalCatalogus <- metalenCatalogus 
+# ophaalCatalogus <- metalenCatalogus 
+# 
+# if(!dir.exists(file.path(datadir, "ddl/raw"))) dir.create(file.path(datadir, "ddl/raw"))
+# if(!dir.exists(file.path(datadir, "ddl/raw/metalen"))) dir.create(file.path(datadir, "ddl/raw/metalen"))
+# 
+# nieuwedataophalen <- TRUE
+# 
+# if(nieuwedataophalen) {
+#   
+#   #=== DDL metingen ophalen (experimenteel voor de rapportage) ===========================
+#   # DDL bevat niet de niewste waarden en niet alle benodigde parameters
+#   
+#   # options(digits=22)
+#   
+#   startdate <- paste0(startyear, "-01-01T09:00:00.000+01:00")
+#   enddate <- paste0(endyear, "-12-31T23:00:00.000+01:00")
+#   
+#   # rws_makeDDLapiList <- function (mijnCatalogus, beginDatumTijd, eindDatumTijd, mijnCompartiment = NULL) 
+#   # {
+#   #   result <- list()
+#   #   for (ii in seq(1:dim(mijnCatalogus[1]))) {
+#   #     if (ii == 1) 
+#   #       ll <- list()
+#   #     l <- list(AquoPlusWaarnemingMetadata = list(AquoMetadata = list(Compartiment = list(Code = mijnCompartiment), 
+#   #                                                                     Parameter = list(Code = mijnCatalogus$parameter.code[ii]), 
+#   #                                                                     Grootheid = list(Code = mijnCatalogus$grootheid.code[ii]), 
+#   #                                                                     Hoedanigheid = list(Code = mijnCatalogus$hoedanigheid.code[ii]))), 
+#   #               Locatie = list(X = as.character(mijnCatalogus["x"][ii, 
+#   #               ]), Y = as.character(mijnCatalogus["y"][ii, 
+#   #               ]), Code = as.character(mijnCatalogus["locatie.code"][ii, 
+#   #               ])), Periode = list(Begindatumtijd = beginDatumTijd, 
+#   #                                   Einddatumtijd = eindDatumTijd))
+#   #     ll[[ii]] <- l
+#   #   }
+#   #   return(ll)
+#   # }
+#   # 
+#   getList <- rws_makeDDLapiList(beginDatumTijd = startdate, 
+#                                 eindDatumTijd = enddate, 
+#                                 mijnCatalogus = ophaalCatalogus
+#   )
+#   
+#   # ## example json string 
+#   # toJSON(getList[[12]], auto_unbox = T, digits = NA)
+#   
+#   # opnemen als functie in rwsapi package
+#   for(jj in c(1:length(getList))){   #
+#     print(paste("getting", jj, ophaalCatalogus$locatie.code[jj], ophaalCatalogus$compartiment.code[jj], ophaalCatalogus$grootheid.code[jj], ophaalCatalogus$parameter.code[jj]))
+#     response <- rws_observations2(bodylist = getList[[jj]])
+#     if(!is.null(response)){
+#       filename <- paste(
+#         ophaalCatalogus$locatie.code[jj], 
+#         ophaalCatalogus$compartiment.code[jj], 
+#         str_replace(ophaalCatalogus$grootheid.code[jj], "[^A-Za-z0-9]+", "_"), 
+#         ophaalCatalogus$parameter.code[jj], 
+#         str_replace(ophaalCatalogus$hoedanigheid.code[jj], "[^A-Za-z0-9]+", "_"), 
+#         "ddl_wq.csv", sep = "_")
+#       write_delim(response$content, path = file.path(datadir, "ddl/raw/metalen", filename), delim = ";")} else next
+#   }
+# }
+# 
+# #==== Contaminanten data ==================================
+# 
+# # ophaalCatalogus <- mijnCatalogus[mijnCatalogus$parameter.code ==  "ZS",]
+# ophaalCatalogus <- contaminantenCatalogus 
+# 
+# nieuwedataophalen <- T
+# 
+# if(!dir.exists(file.path(datadir, "ddl/raw"))) dir.create(file.path(datadir, "ddl/raw"))
+# if(!dir.exists(file.path(datadir, "ddl/raw/contaminanten"))) dir.create(file.path(datadir, "ddl/raw/contaminanten"))
+# 
+# if(nieuwedataophalen) {
+#   
+#   #=== DDL metingen ophalen (experimenteel voor de rapportage) ===========================
+#   # DDL bevat niet de niewste waarden en niet alle benodigde parameters
+#   
+#   # options(digits=22)
+#   
+#   startdate <- paste0(startyear, "-01-01T09:00:00.000+01:00")
+#   enddate <- paste0(endyear, "-12-31T23:00:00.000+01:00")
+#   
+#   
+#   getList <- rws_makeDDLapiList(beginDatumTijd = startdate, 
+#                                 eindDatumTijd = enddate, 
+#                                 # mijnCompartiment = "OW",
+#                                 mijnCatalogus = ophaalCatalogus
+#   )
+#   
+#   # ## example json string 
+#   # toJSON(getList[[12]], auto_unbox = T, digits = NA)
+#   
+#   # opnemen als functie in rwsapi package
+#   for(jj in c(670:length(getList))){   #
+#     print(paste("getting", jj, ophaalCatalogus$locatie.code[jj], ophaalCatalogus$compartiment.code[jj], ophaalCatalogus$grootheid.code[jj], ophaalCatalogus$parameter.code[jj]))
+#     response <- rws_observations2(bodylist = getList[[jj]])
+#     if(!is.null(response)){
+#       filename <- paste(ophaalCatalogus$locatie.code[jj], ophaalCatalogus$compartiment.code[jj], str_replace(ophaalCatalogus$grootheid.code[jj], "[^A-Za-z0-9]+", "_"), ophaalCatalogus$parameter.code[jj], str_replace(ophaalCatalogus$hoedanigheid.code[jj], "[^A-Za-z0-9]+", "_"), "ddl_wq.csv", sep = "_")
+#       write_delim(response$content, path = file.path(datadir, "ddl/raw/contaminanten", filename), delim = ";")} else next
+#   }
+# }
 
-if(!dir.exists(file.path(datadir, "ddl/raw"))) dir.create(file.path(datadir, "ddl/raw"))
-if(!dir.exists(file.path(datadir, "ddl/raw/metalen"))) dir.create(file.path(datadir, "ddl/raw/metalen"))
-
-nieuwedataophalen <- TRUE
-
-if(nieuwedataophalen) {
-  
-  #=== DDL metingen ophalen (experimenteel voor de rapportage) ===========================
-  # DDL bevat niet de niewste waarden en niet alle benodigde parameters
-  
-  # options(digits=22)
-  
-  startdate <- paste0(startyear, "-01-01T09:00:00.000+01:00")
-  enddate <- paste0(endyear, "-12-31T23:00:00.000+01:00")
-  
-  # rws_makeDDLapiList <- function (mijnCatalogus, beginDatumTijd, eindDatumTijd, mijnCompartiment = NULL) 
-  # {
-  #   result <- list()
-  #   for (ii in seq(1:dim(mijnCatalogus[1]))) {
-  #     if (ii == 1) 
-  #       ll <- list()
-  #     l <- list(AquoPlusWaarnemingMetadata = list(AquoMetadata = list(Compartiment = list(Code = mijnCompartiment), 
-  #                                                                     Parameter = list(Code = mijnCatalogus$parameter.code[ii]), 
-  #                                                                     Grootheid = list(Code = mijnCatalogus$grootheid.code[ii]), 
-  #                                                                     Hoedanigheid = list(Code = mijnCatalogus$hoedanigheid.code[ii]))), 
-  #               Locatie = list(X = as.character(mijnCatalogus["x"][ii, 
-  #               ]), Y = as.character(mijnCatalogus["y"][ii, 
-  #               ]), Code = as.character(mijnCatalogus["locatie.code"][ii, 
-  #               ])), Periode = list(Begindatumtijd = beginDatumTijd, 
-  #                                   Einddatumtijd = eindDatumTijd))
-  #     ll[[ii]] <- l
-  #   }
-  #   return(ll)
-  # }
-  # 
-  getList <- rws_makeDDLapiList(beginDatumTijd = startdate, 
-                                eindDatumTijd = enddate, 
-                                mijnCatalogus = ophaalCatalogus
-  )
-  
-  # ## example json string 
-  # toJSON(getList[[12]], auto_unbox = T, digits = NA)
-  
-  # opnemen als functie in rwsapi package
-  for(jj in c(1:length(getList))){   #
-    print(paste("getting", jj, ophaalCatalogus$locatie.code[jj], ophaalCatalogus$compartiment.code[jj], ophaalCatalogus$grootheid.code[jj], ophaalCatalogus$parameter.code[jj]))
-    response <- rws_observations2(bodylist = getList[[jj]])
-    if(!is.null(response)){
-      filename <- paste(
-        ophaalCatalogus$locatie.code[jj], 
-        ophaalCatalogus$compartiment.code[jj], 
-        str_replace(ophaalCatalogus$grootheid.code[jj], "[^A-Za-z0-9]+", "_"), 
-        ophaalCatalogus$parameter.code[jj], 
-        str_replace(ophaalCatalogus$hoedanigheid.code[jj], "[^A-Za-z0-9]+", "_"), 
-        "ddl_wq.csv", sep = "_")
-      write_delim(response$content, path = file.path(datadir, "ddl/raw/metalen", filename), delim = ";")} else next
-  }
-}
-
-#==== Contaminanten data ==================================
+#========korrelCatalogus ophalen====================================
 
 # ophaalCatalogus <- mijnCatalogus[mijnCatalogus$parameter.code ==  "ZS",]
-ophaalCatalogus <- contaminantenCatalogus 
+ophaalCatalogus <- korrelCatalogus 
 
 nieuwedataophalen <- T
 
 if(!dir.exists(file.path(datadir, "ddl/raw"))) dir.create(file.path(datadir, "ddl/raw"))
-if(!dir.exists(file.path(datadir, "ddl/raw/contaminanten"))) dir.create(file.path(datadir, "ddl/raw/contaminanten"))
+if(!dir.exists(file.path(datadir, "ddl/raw/korrelgrootte"))) dir.create(file.path(datadir, "ddl/raw/korrelgrootte"))
 
 if(nieuwedataophalen) {
   
-  #=== DDL metingen ophalen (experimenteel voor de rapportage) ===========================
-  # DDL bevat niet de niewste waarden en niet alle benodigde parameters
-  
+
   # options(digits=22)
   
   startdate <- paste0(startyear, "-01-01T09:00:00.000+01:00")
@@ -324,13 +390,12 @@ if(nieuwedataophalen) {
   # toJSON(getList[[12]], auto_unbox = T, digits = NA)
   
   # opnemen als functie in rwsapi package
-  for(jj in c(670:length(getList))){   #
+  for(jj in c(1:length(getList))){   #
     print(paste("getting", jj, ophaalCatalogus$locatie.code[jj], ophaalCatalogus$compartiment.code[jj], ophaalCatalogus$grootheid.code[jj], ophaalCatalogus$parameter.code[jj]))
     response <- rws_observations2(bodylist = getList[[jj]])
     if(!is.null(response)){
       filename <- paste(ophaalCatalogus$locatie.code[jj], ophaalCatalogus$compartiment.code[jj], str_replace(ophaalCatalogus$grootheid.code[jj], "[^A-Za-z0-9]+", "_"), ophaalCatalogus$parameter.code[jj], str_replace(ophaalCatalogus$hoedanigheid.code[jj], "[^A-Za-z0-9]+", "_"), "ddl_wq.csv", sep = "_")
-      write_delim(response$content, path = file.path(datadir, "ddl/raw/contaminanten", filename), delim = ";")} else next
+      write_delim(response$content, path = file.path(datadir, "ddl/raw/korrelgrootte", filename), delim = ";")} else next
   }
 }
-
 

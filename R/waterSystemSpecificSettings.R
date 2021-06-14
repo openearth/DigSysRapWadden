@@ -2,21 +2,23 @@
 # still to be finalised
 
 runonline = F
-local = TRUE
+local = T
 
-startyear <- 1970
-endyear <- 2018
+startyear <- 2000
+endyear <- 2020
 
-
+# voor naamgeving directory etc
 mijnGebied <- "Wadden"
+# voor selectie van data uit de DDL op basis van waterlichaam naam
+mijnGebieden <- c("Wadden", "Eems", "Dollard")
 
 trendLocaties <- c(
 
 )
 
 # time periods
-wintermonths <- c(11, 12, 1, 2)
-summermonths <- c(3,4,5,6,7,8,9,10)
+wintermonths <- c(10, 11, 12, 1, 2, 3)
+summermonths <- c(4,5,6,7,8,9)
 springmonths <- c(3,4,5)
 
 #directories

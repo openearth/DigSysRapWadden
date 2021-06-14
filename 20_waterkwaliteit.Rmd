@@ -14,7 +14,7 @@ source("r/runThisFirst.R")
 
 
 ```{r readEutroData}
-WQ <- read_delim(file.path( datadir, "ddl/standard/", paste0("2019-11-20", 'eutro_short_ddl_ow.csv')), delim = ";")
+WQ <- read_delim(file.path( datadir, "ddl/standard/", paste0("2020-02-04", 'eutro_short_ddl_ow.csv')), delim = ";")
 ```
 
 
@@ -30,11 +30,12 @@ De DDL bevat metingen voor locaties in de Waddenzee zoals aangegeven in figuur \
 
 ```{r kaartDDLlocaties, cache=T, fig.cap = "Alle locaties met RWS metingen in oppervlaktewater. "}
 
-wl2006 <- sf::read_sf("../1_data/administratief/waterlichamen2006.shp", "waterlichamen2006")
+
+wl2006 <- sf::read_sf(file.path(datadir, "../administratief/waterlichamen2006.geojson"), "waterlichamen2006")
 mijnShape <- wl2006[grepl(x = tolower(wl2006$OWMNAAM), pattern = tolower(mijnGebied)),]
 rm(wl2006)
 
-mijnLocaties_wgs <- readr::read_delim(file.path("../1_data/", "administratief", paste(mijnGebied, "DDLLocations.csv")), delim = ";")
+mijnLocaties_wgs <- readr::read_delim(file.path(datadir, "../administratief", "mwtlLocations.csv"), delim = ";")
 leaflet::leaflet(mijnLocaties_wgs) %>%
   leaflet::addTiles(group = "OSM") %>%
   addProviderTiles(providers$Esri.WorldTopoMap, group = "Esri.WorldTopoMap") %>%
