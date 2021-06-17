@@ -9,6 +9,7 @@ filenamesRaw = list.files(file.path(datadir, "ddl/raw/eutro"), full.names = T, r
 allFiles <- lapply(filenamesRaw, function(x) read_delim(x, delim = ";", guess_max = 10000,
                                                         col_types = 'nccnnnccncccncccccccccccccccccccccccccccccccccccn'))
 df_all <- bind_rows(allFiles)
+rm(allFiles)
 df_all$tijdstip <- lubridate::as_datetime(as.character(df_all$tijdstip))
 df_all$numeriekewaarde[df_all$numeriekewaarde == 999999999999] <- NA
 df_all$numeriekewaarde[df_all$numeriekewaarde == 999999999] <- NA

@@ -10,7 +10,6 @@ getPackage <- function(pkg){
 
 getPackage("shiny")
 getPackage("rmarkdown")
-getPackage("tidyverse")
 getPackage("rgdal")
 getPackage("sf")
 getPackage("bookdown")
@@ -25,8 +24,8 @@ getPackage("lubridate")
 getPackage("rlist")
 getPackage("mblm")
 getPackage("leaflet")
-getPackage("purrr")
 getPackage("webshot")
+getPackage("tidyverse")
 
 
 if(!require("rwsapi", character.only = TRUE)){

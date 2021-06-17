@@ -2,12 +2,6 @@
 title: "Waddenzee systeemrapportage"
 author: "Deltares, Rijkswaterstaat, Wageningen Marine Research"
 date: '`r Sys.Date()`'
-output:
-  bookdown::gitbook:
-    config:
-      search: yes
-      toc:
-        collapse: section
 link-citations: yes
 subtitle: update 2019
 ---
