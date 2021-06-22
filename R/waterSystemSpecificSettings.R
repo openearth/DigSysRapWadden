@@ -1,7 +1,7 @@
 
 # still to be finalised
 
-runonline = T
+runonline = F
 local = F
 
 startyear <- 1990
@@ -14,16 +14,11 @@ mijnGebieden <- c("Wadden", "Eems", "Dollard")
 
 # RWS stations with long term data
 trendLocaties <- c(
-  "BOCHTVWTM", 
-  "DANTZGT", 
-  "DOOVBWT", 
-  "GROOTGND", 
-  "HUIBGOT", 
-  "MARSDND", 
-  "ROTTMPT3", 
-  "TERSLG10", 
-  "VLIESM"
-)
+  "ROTTMPT3", "VLIESM", "TERSLG10", "BOCHTVWTM", "DANTZGT", "DOOVBWT", "GROOTGND", "HUIBGOT", "MARSDND",  
+  "BOOMKDP", "BOONTNMPL", "DOOVBMDN", "EEMSHVSMPL", "OORT", "WESTKSRK")
+
+
+trendLocatiesFysisch <- c()
 
 # time periods
 wintermonths <- c(10, 11, 12, 1, 2, 3)

@@ -13,8 +13,9 @@ source("r/runThisFirst.R")
 ```
 
 
-```{r readEutroData}
-WQ <- read_delim(file.path( datadir, "ddl/standard/", paste0("2020-02-04", 'eutro_short_ddl_ow.csv')), delim = ";")
+```{r readWQData}
+# ddl\standard\WQ_TS_trendstations_allyears.csv
+WQ <- read_delim(file.path( datadir, "ddl/standard/", "WQ_TS_trendstations_allyears.csv"), delim = ";", guess_max = 1000000, na = c("999999999999", "999999e32"))
 ```
 
 
@@ -30,20 +31,16 @@ De DDL bevat metingen voor locaties in de Waddenzee zoals aangegeven in figuur \
 
 ```{r kaartDDLlocaties, cache=T, fig.cap = "Alle locaties met RWS metingen in oppervlaktewater. "}
 
+WQlocations <- read_delim(file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.csv")), delim = ";") %>%
+  st_as_sf(coords = c("x", "y"), crs = 25831) %>% 
+  st_transform(4326)
 
-wl2006 <- sf::read_sf(file.path(datadir, "../administratief/waterlichamen2006.geojson"), "waterlichamen2006")
-mijnShape <- wl2006[grepl(x = tolower(wl2006$OWMNAAM), pattern = tolower(mijnGebied)),]
-rm(wl2006)
-
-mijnLocaties_wgs <- readr::read_delim(file.path(datadir, "../administratief", "mwtlLocations.csv"), delim = ";")
-leaflet::leaflet(mijnLocaties_wgs) %>%
+leaflet::leaflet(WQlocations) %>%
   leaflet::addTiles(group = "OSM") %>%
   addProviderTiles(providers$Esri.WorldTopoMap, group = "Esri.WorldTopoMap") %>%
   addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
-  leaflet::addPolygons(data = sf::st_transform(mijnShape, 4326), group = "watersysteem", color = "green", opacity = 0.3) %>%
-  # leaflet::addPolygons(data = sf::st_transform(wl2006, 4326), group = "KRW waterlichamen 2006", popup = ~htmltools::htmlEscape(OWMNAAM)) %>%
   leaflet::addProviderTiles("OpenSeaMap", group = "OpenSeaMap") %>%
-  leaflet::addCircleMarkers(lng = ~x_wgs, lat = ~y_wgs, label = ~htmltools::htmlEscape(paste0(Naam)), group = "all_locations", radius = 4) %>%
+  leaflet::addCircleMarkers(label = ~htmltools::htmlEscape(paste0(locatie.naam)), group = "all_locations", radius = 4) %>%
   leaflet::addLayersControl(
     baseGroups = c("OSM",  "Esri.WorldTopoMap", "Esri.WorldImagery"),
     overlayGroups = c("all_locations", "watersysteem", "OpenSeaMap")) %>%    #, "KRW waterlichamen 2006"
@@ -67,7 +64,26 @@ Brondata:
 •	MWTL data. Orde 20 meetmomenten per jaar (zomer 2x p.m. bemeten worden en winter 1x p.m.) op ~1m onder wateroppervlak op ~10 locaties 
 •	Continue metingen bij NIOZ steiger Texel (niet vrij verkrijgbaar?) en meetpaal Eemshaven worden in eerste instantie buiten beschouwing gelaten.
 
- 
+```{r jaargemiddeldeSal, fig.height=6, fig.width=10, fig.cap="Jaargemiddelde concentratie van zwevend stof in de Waddenzee"}
+
+locaties = WQ %>%
+  filter(grootheid.code == "T", kwaliteitswaarde.code < 50) %>%
+  arrange(geometriepunt.x) %>% distinct(locatie.naam) %>% unlist %>% unname
+
+WQ %>%
+  filter(grootheid.code == "T", kwaliteitswaarde.code < 50, waardebewerkingsmethode.code == "NVT") %>%
+  arrange(geometriepunt.x) %>%
+  mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
+  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
+  group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), n = sum(n)) %>% ungroup() %>%
+  mutate(locatie.naam = factor(locatie.naam, levels = locaties)) %>%
+  ggplot(aes(jaar, jaargemiddelde)) + 
+  geom_point(aes(color = locatie.naam, size = n), shape = 21, fill = "white") +
+  geom_line(aes(color = locatie.naam, alpha = n))   #+
+  # facet_wrap(~locatie.naam) 
+
+
+```
  
 
 ## Saliniteit
@@ -82,12 +98,46 @@ Brondata:
 •	MWTL data. Orde 20 meetmomenten per jaar (zomer 2x p.m. bemeten worden en winter 1x p.m.) op ~1m onder wateroppervlak op ~10 locaties 
 •	Continue metingen bij NIOZ steiger Texel (niet vrij verkrijgbaar?) en meetpaal Eemshaven worden in eerste instantie buiten beschouwing gelaten.
 
- 
+```{r plotSalLocaties, fig.cap="Kaart met locaties waar zwevend stof is gemeten. De grootte van de cirkel is indicatief voor het aantal metingen."}
+
+WQ %>% 
+  filter(grepl("SAL", grootheid.code)) %>%
+  group_by(locatie.naam, geometriepunt.x, geometriepunt.y, ) %>%
+  summarize(n = n()) %>% 
+  st_as_sf(coords = c('geometriepunt.x', 'geometriepunt.y'), crs = 25831) %>%
+  st_transform(4326) %>%
+  leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(radius = ~n/40, label = ~paste(locatie.naam, " n = ", n))
+```
+
+
+
+```{r jaargemiddeldeSal, fig.height=6, fig.width=10, fig.cap="Jaargemiddelde concentratie van zwevend stof in de Waddenzee"}
+
+locaties = WQ %>%
+  filter(grootheid.code == "SALNTT", kwaliteitswaarde.code < 50) %>%
+  arrange(geometriepunt.x) %>% distinct(locatie.naam) %>% unlist %>% unname
+
+WQ %>%
+  filter(grootheid.code == "SALNTT", kwaliteitswaarde.code < 50) %>%
+  arrange(geometriepunt.x) %>%
+  mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
+  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
+  group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), n = sum(n)) %>% ungroup() %>%
+  mutate(locatie.naam = factor(locatie.naam, levels = locaties)) %>%
+  ggplot(aes(jaar, jaargemiddelde)) + 
+  geom_point(aes(color = locatie.naam, size = n), shape = 21, fill = "white") +
+  geom_line(aes(color = locatie.naam))   #+
+  # facet_wrap(~locatie.naam) 
+
+
+```
+
+
 
 
 ## Zwevend stof
-
-
 
 
 Metingen van zwevend stof zijn beschikbaar voor de locaties in figuur \@ref(fig:plotZSLocaties)
