@@ -25,6 +25,8 @@ getPackage("rlist")
 getPackage("mblm")
 getPackage("leaflet")
 getPackage("webshot")
+getPackage("scales")
+getPackage("RColorBrewer")
 getPackage("tidyverse")
 
 

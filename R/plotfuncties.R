@@ -336,7 +336,8 @@ plot.windrose <- function(data,
                           spdseq = NULL,
                           palette = "YlGnBu",
                           countmax = NA,
-                          debug = 0){
+                          debug = 0,
+                          location = NULL){
   
   
   # Look to see what data was passed in to the function
@@ -443,7 +444,8 @@ plot.windrose <- function(data,
     #theme_bw() +
     theme(axis.title.x = element_blank(),
           #panel.border = element_rect(colour = "blank"),
-          panel.grid.major = element_line(colour="grey65"))
+          panel.grid.major = element_line(colour="grey65")) +
+    ggtitle(location)
   
   # adjust axes if required
   if (!is.na(countmax)){
@@ -452,7 +454,7 @@ plot.windrose <- function(data,
   }
   
   # print the plot
-  print(p.windrose + theme_minimal())  
+  p.windrose + theme_minimal()
   
   # return the handle to the wind rose
   # return(p.windrose)

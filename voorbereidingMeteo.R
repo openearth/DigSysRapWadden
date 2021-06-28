@@ -1,40 +1,62 @@
 
+source("r/runThisFirst.R")
 
 # voorbereding meteo gegevens
 # zie: https://www.knmi.nl/kennis-en-datacentrum/achtergrond/data-ophalen-vanuit-een-script
 # bij kopje "uurgegevens"
 # 
+
 baseurl <- "https://www.daggegevens.knmi.nl/klimatologie/uurgegevens"
-# for(year in startyear:endyear){
+years <- c(startyear:endyear)
 
-year = 2000
-start <- paste0(year, "010101")
-end <- paste0(year + 1, "010101")
-vars <- "DD:FH:FF:FX"  # Wind
-stns <- "235:242:251:277"
+getWindForYear <- function(x){
+cat("
+De volgende parameters worden opgehaald:
+DD: Windrichting (in graden) gemiddeld over de laatste 10 minuten van het afgelopen uur (360=noord, 90=oost, 180=zuid, 270=west, 0=windstil 990=veranderlijk.
+FH: Uurgemiddelde windsnelheid (in 0.1 m/s). Meer info
+FF: Windsnelheid (in 0.1 m/s) gemiddeld over de laatste 10 minuten van het afgelopen uur
+FX: Hoogste windstoot (in 0.1 m/s) over het afgelopen uurvak
+voor jaar       ")
+print(x)
 
-require(httr)
-res <- POST(baseurl,
-            body = paste(paste0("start=", start), 
-                         paste0("end=", end), 
-                         paste0("vars=", vars), 
-                         paste0("stns=", stns), 
-                         sep = "&")
-            # body = list(stns = stns,
-            #             vars = stns,
-            #             start = start,
-            #             end = end
-            # )#, encode = "multipart"
-)
+  require(httr)
+  require(data.table)
+  start <- paste0(x, "010101")
+  end <- paste0(x + 1, "010124")
+  vars <- "DD:FH:FF:FX"  # Wind
+  stns <- "235:242:251:277"
+  res <- POST(baseurl,
+              body = paste(paste0("start=", start), 
+                           paste0("end=", end), 
+                           paste0("vars=", vars), 
+                           paste0("stns=", stns), 
+                           sep = "&")
+  )
+  fread(content(res, "text", encoding = "UTF_8"))[,
+                                                  .(
+                                                    date = as.Date(as.character(YYYYMMDD), format = "%Y%m%d"),
+                                                    datetime = as.POSIXct(paste(YYYYMMDD, H), format = "%Y%m%d %H"),
+                                                    station = fcase(
+                                                      `# STN` == 235, "De Kooy",
+                                                      `# STN` == 277, "Lauwersoog",
+                                                      `# STN` == 251, "Hoorn Terschelling",
+                                                      `# STN` == 242, "Vlieland"
+                                                    ),
+                                                    stationnr = `# STN`,
+                                                    "Windrichting in graden" = DD,
+                                                    "Uurgemiddelde windsnelheid in 0.1 m/s" = FH,
+                                                    "Windsnelheid in 0.1 m/s" = FF,
+                                                    "Hoogste windstoot laatste uur in 0.1 m/s" = FX
+                                                  )
+  ]
+}
 
-res$status_code
-res$request
-content(res, "text", encoding = "UTF_8")
-# geeft geen data weer
-View(content(res, "text"))
 
-write(content(res, "text", encoding = "UTF-8"), output_file)
+winddata <- map(years, getWindForYear) %>%
+  data.table::rbindlist()
 
-# }
+winddata[, year := lubridate::year(date)]
+winddata[, month := lubridate::month(date)]
 
-"https://www.daggegevens.knmi.nl/klimatologie/uurgegevens/stns=235:242:251:277&vars=DD:FH:FF:FX&start=2000010101&end=2001010101"
+str(winddata)
+data.table::fwrite(winddata, file = file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"), sep = ";", append = F, )
