@@ -27,16 +27,26 @@ wl_act_v <- sf::st_read("https://geodata.nationaalgeoregister.nl/rws/kaderrichtl
 
 # manual selection
 WBofinterest <- c(
-  "Eems-Dollard", "Eems-Dollard", "Waddenzee vastelandskust", 
-  "Waddenzee", "Rijn territoriaal water", "Eems-Dollard (kustwater)", 
-  "Eems-Dollard (kustwater)", "Waddenkust (kustwater)", "Eems territoriaal water"   
-)
+  "Eems-Dollard", "Eems-Dollard (kustwater)", "Eems territoriaal water",
+  "Waddenzee vastelandskust", "Waddenzee", "Waddenkust (kustwater)",
+  "Rijn territoriaal water")
 
 mijnShape <- wl_act_v[wl_act_v$owmnaam %in% WBofinterest,]
+mijnShape2 <- st_make_valid(mijnShape)
+names(st_geometry(mijnShape2)) = NULL
 
-buffer_in_m <- 100
-mijnLocaties <- sf::st_intersection(locs_sf_rd, sf::st_buffer(mijnShape, buffer_in_m))
+leaflet::leaflet(mijnShape) %>%
+  leaflet::addTiles(group = "OSM") %>%
+  leaflet::addPolygons(data = sf::st_transform(wl_act_v, 4326), fillColor = "blue", group = "KRW waterlichamen", popup = ~htmltools::htmlEscape(nametext)) %>%
+  leaflet::addPolygons(data = sf::st_transform(mijnShape2, 4326), group = "watersysteem", color = "green", opacity = 0.3) %>%
+  leaflet::addLayersControl(baseGroups = c("OSM"),
+  overlayGroups = c("watersysteem", "KRW waterlichamen"))
+  
+buffer_in_m <- 0
+mijnLocaties <- sf::st_intersection(locs_sf_rd, sf::st_buffer(mijnShape2, buffer_in_m))
 southernBorder = min(st_coordinates(mijnLocaties[grepl("Callantsoog", mijnLocaties$Naam),])[,"Y"])
+
+BOOMKDP <- locs_sf %>% filter(Code == "BOOMKDP") %>% st_transform(4326)
 
 mijnLocaties <- mijnLocaties %>% 
   bind_cols(mijnLocaties %>% 
@@ -46,7 +56,7 @@ mijnLocaties <- mijnLocaties %>%
   filter(Y >= southernBorder)
 mijnLocaties_wgs <- sf::st_transform(mijnLocaties, crs = 4326)
 
-st_write(mijnShape, file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.geojson")))
+st_write(mijnShape, file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.geojson")), append = F)
 
 # stationspal <- colorFactor(rainbow(3), mijnLocaties_wgs$stationsoort)
 
@@ -56,15 +66,14 @@ leaflet::leaflet(mijnLocaties_wgs) %>%
   leaflet::addTiles(group = "OSM") %>%
   addProviderTiles(providers$Esri.WorldTopoMap, group = "Esri.WorldTopoMap") %>%
   addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
-  leaflet::addPolygons(data = sf::st_transform(wl_act_v, 4326), fillColor = "blue", group = "KRW waterlichamen", popup = ~htmltools::htmlEscape(nametext)) %>%
+  # leaflet::addPolygons(data = sf::st_transform(wl_act_v, 4326), fillColor = "blue", group = "KRW waterlichamen", popup = ~htmltools::htmlEscape(nametext)) %>%
   leaflet::addPolygons(data = sf::st_transform(mijnShape, 4326), group = "watersysteem", color = "green", opacity = 0.3) %>%
   leaflet::addProviderTiles("OpenSeaMap", group = "OpenSeaMap") %>%
   leaflet::addCircleMarkers(label = ~htmltools::htmlEscape(paste0(Naam)), group = "all_locations", radius = 4) %>%
+  leaflet::addCircleMarkers(data = BOOMKDP, label = ~htmltools::htmlEscape(paste0(Naam)), radius = 10) %>%
   leaflet::addLayersControl(
     baseGroups = c("OSM",  "Esri.WorldTopoMap", "Esri.WorldImagery"),
-    overlayGroups = c("all_locations", "watersysteem", "OpenSeaMap")) %>%    #, "KRW waterlichamen 2006"
-  leaflet::hideGroup("KRW waterlichamen 2006")
-
+    overlayGroups = c("all_locations", "watersysteem", "OpenSeaMap")) 
 
 
 mijnCatalogus <- rwsapi::rws_getParameters(metadata, locatiecode = unique(mijnLocaties$Code)) %>%

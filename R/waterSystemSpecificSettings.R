@@ -4,7 +4,7 @@
 runonline = F
 local = F
 
-startyear <- 1990
+startyear <- 1970
 endyear <- 2020
 
 # voor naamgeving directory etc

@@ -23,7 +23,7 @@ WQcatalogus <- mijnCatalogus  %>%
 if(!dir.exists(file.path(datadir, "ddl/raw"))) dir.create(file.path(datadir, "ddl/raw"))
 if(!dir.exists(file.path(datadir, "ddl/raw/eutro_allyears"))) dir.create(file.path(datadir, "ddl/raw/eutro_allyears"))
 
-ophaalCatalogus2 <- ophaalCatalogus %>% filter(locatie.code %in% trendLocaties)
+ophaalCatalogus2 <- WQcatalogus %>% filter(locatie.code %in% trendLocaties)
 
 startdate <- paste0(startyear, "-01-01T09:00:00.000+01:00")  # hardcoded startyear
 enddate <- paste0(endyear, "-12-31T23:00:00.000+01:00")
@@ -42,7 +42,7 @@ for(jj in c(1:length(getList))){   #
     write_delim(response$content, path = file.path(datadir, "ddl/raw/eutro_allyears", filename), delim = ";")} else next
 }
 
-filenamesRaw2 = list.files(file.path(datadir, "ddl/raw/eutro_allyears"), full.names = T, recursive = T)
+filenamesRaw = list.files(file.path(datadir, "ddl/raw/eutro_allyears"), full.names = T, recursive = T)
 
 allFiles <- lapply(filenamesRaw, function(x) read_delim(x, delim = ";", guess_max = 10000,
                                                          col_types = 'nccnnnccncccncccccccccccccccccccccccccccccccccccn'))
