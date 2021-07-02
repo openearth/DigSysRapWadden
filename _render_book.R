@@ -14,7 +14,7 @@ require(bookdown)
 # bookdown::preview_chapter("70_waterkwantiteit.Rmd")
 
 # gitbook formatted html pages (gebruikt op testpagina)
-bookdown::render_book("index.Rmd", output_format = NULL, 
+bookdown::render_book("01_index.Rmd", output_format = NULL, 
                       new_session = T)
 
 # "normal" pdf

@@ -47,6 +47,7 @@ winddata <- dtwind %>%
   #   `windsnelheid daggemiddeld` = mean(`Uurgemiddelde windsnelheid in 0.1 m/s`),
   #   ) %>%
   filter(year >= 1990, !is.na(`Windrichting in graden`)) %>% 
+  filter(`Windrichting in graden` > 0 & `Windrichting in graden` <= 360) %>% 
   dplyr::select(station, datum = date, `Windrichting in graden` , `Uurgemiddelde windsnelheid in 0.1 m/s`)
 
 # View(split(winddata, by = "station"))
@@ -108,14 +109,14 @@ dtwind %>%
 
 2.	Duur (uren) dat windsnelheid > 7 m/s (en/of andere grenzen) 
 
-```{r consecDays, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 7 m/s is geweest. }
+```{r consecHours, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 7 m/s is geweest. }
 
 dtwind %>% filter(year > 2010) %>%
   select(datetime, station, `Uurgemiddelde windsnelheid in 0.1 m/s`) %>%
   group_by(station, ID = data.table::rleid(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70)) %>%
-  mutate(Consec_Days = if_else(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70, row_number(), 0L)) %>%
-  ggplot(aes(datetime, Consec_Days)) +  # `Uurgemiddelde windsnelheid in 0.1 m/s`
-  geom_point(aes(color = Consec_Days), size = 0.5) +
+  mutate(`duur in uren` = if_else(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70, row_number(), 0L)) %>%
+  ggplot(aes(datetime, `duur in uren`)) +  # `Uurgemiddelde windsnelheid in 0.1 m/s`
+  geom_point(aes(color = `duur in uren`), size = 0.5) +
   scale_color_viridis_c() +
   facet_wrap(~ station, ncol = 1) +
   theme(legend.position = "bottom")
@@ -126,7 +127,7 @@ dtwind %>% filter(year > 2010) %>%
 3.	Duur (uren) dat windsnelheid > 7 m/s uitgesplitst naar de 4 kwadranten: NO, ZO, ZW, NW  
 
 
-```{r consecDays, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 7 m/s is geweest per richting (kwadrant). }
+```{r consecHoursPerDirection, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 7 m/s is geweest per richting (kwadrant). }
 
 dtwind %>% filter(year > 2010) %>%
   filter(`Windrichting in graden` < 361) %>%
@@ -139,12 +140,13 @@ dtwind %>% filter(year > 2010) %>%
   )) %>%
   select(datetime, station, `Uurgemiddelde windsnelheid in 0.1 m/s`, kwadrant) %>%
   group_by(station, kwadrant, ID = data.table::rleid(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70)) %>%
-  mutate(Consec_Days = if_else(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70, row_number(), 0L)) %>%
-  ggplot(aes(datetime, Consec_Days)) +  # `Uurgemiddelde windsnelheid in 0.1 m/s`
+  mutate(`duur in uren` = if_else(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70, row_number(), 0L)) %>%
+  ggplot(aes(datetime, `duur in uren`)) +  # `Uurgemiddelde windsnelheid in 0.1 m/s`
   geom_point(aes(), size = 0.5) +
   scale_color_viridis_c() +
-  facet_grid(kwadrant ~ station) +
-  theme(legend.position = "bottom")
+  facet_grid(station ~ kwadrant) +
+  theme(legend.position = "bottom",
+        strip.text.y = element_text(angle = 0))
 
 ```
 

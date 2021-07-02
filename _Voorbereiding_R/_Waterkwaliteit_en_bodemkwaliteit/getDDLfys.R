@@ -131,7 +131,7 @@ pred <- predict.tidem(m)
 obs <- sl@data$elevation
 time <- sl@data$time
 
-oce.plot.ts(time, obs - pred, ylab = "obs - pred")
+oce.plot.ts(time, obs-pred, ylab = "obs - pred")
 
 m@data$amplitude
 m@data$phase

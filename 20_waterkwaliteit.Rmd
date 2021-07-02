@@ -17,6 +17,11 @@ source("r/runThisFirst.R")
 ```{r readWQData}
 # ddl\standard\WQ_TS_trendstations_allyears.csv
 WQ <- read_delim(file.path( datadir, "ddl/standard/", "WQ_TS_trendstations_allyears.csv"), delim = ";", guess_max = 1000000, na = c("999999999999", "999999e32"))
+ZS <- read_delim(file.path(datadir, "RWS", "standard", "ZS_all.csv"), delim = ";") %>%
+  mutate(kwaliteitswaarde.code = as.character(kwaliteitswaarde.code))
+
+WQ <- WQ %>% bind_rows(ZS)
+
 ```
 
 
@@ -32,8 +37,8 @@ De DDL bevat metingen voor locaties in de Waddenzee zoals aangegeven in figuur \
 
 ```{r kaartDDLlocaties, cache=T, fig.cap = "Alle locaties met RWS metingen in oppervlaktewater. "}
 
-WQlocations <- read_delim(file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.csv")), delim = ";") %>%
-  st_as_sf(coords = c("x", "y"), crs = 25831) %>% 
+WQlocations <- WQ %>%
+  distinct(locatie.code, locatie.naam, geometriepunt.x, geometriepunt.y, grootheid.code, parameter.code) %>% st_as_sf(coords = c("geometriepunt.x", "geometriepunt.y"), crs = 25831) %>% 
   st_transform(4326)
 
 leaflet::leaflet(WQlocations) %>%
@@ -67,39 +72,50 @@ Brondata:
 
 ```{r jaargemiddeldeTemp, fig.height=8, fig.width=10, fig.cap="Jaargemiddelde concentratie van zwevend stof in de Waddenzee"}
 
-# MARSDND
-# DOOVBWT
-# VLIESM
-# BOOMKDP
-# TERSLG10
-# DANTZGT
-# ROTTMPT3
-# HUIBGOT
-# BOCHTVWTM
-# GROOTGND
+locaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep", "Terschelling 10 km uit de kust","Rottumerplaat 3 km uit de kust", "Huibertgat oost", "Bocht van Watum", "Groote Gat noord")
+
+par = "NVT"
+gro = "T"
+parlabel = "jaargemiddeld temperatuur in oC"
+
+plotlocaties = WQ %>% ungroup() %>% 
+  filter(parameter.code == par, grootheid.code == gro) %>%
+  group_by(locatie.naam) %>% summarize(x = mean(geometriepunt.x)) %>% 
+  filter(locatie.naam %in% locaties) %>%  
+  arrange(x) %>% # tricky, want niet alle data heeft zelfde epsg
+  select(locatie.naam) %>% unlist %>% unname
 
 
-locaties = WQ %>%
-  filter(grootheid.code == "T", kwaliteitswaarde.code < 50) %>%
-  arrange(geometriepunt.x) %>% distinct(locatie.naam) %>% unlist %>% unname
 
 WQ %>%
-  filter(grootheid.code == "T", kwaliteitswaarde.code < 50, waardebewerkingsmethode.code == "NVT") %>%
+  filter(parameter.code == par, grootheid.code == gro, as.numeric(kwaliteitswaarde.code) < 50) %>%
+  filter(locatie.naam %in% plotlocaties) %>%
   arrange(geometriepunt.x) %>%
   mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
   group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
-  group_by(locatie.naam, jaar) %>% summarize(`jaargemiddelde temperatuur` = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
-  mutate(locatie.naam = factor(locatie.naam, levels = locaties)) %>%
-  filter(`n/jaar` > 10) %>%
-  ggplot(aes(jaar, `jaargemiddelde temperatuur`)) + 
-  geom_point(aes(color = locatie.naam, size = `n/jaar`), shape = 21, fill = "white") +
-  geom_line(aes(color = locatie.naam)) +  #, alpha = `n/jaar`
-  geom_smooth(method = "lm", alpha = 0, aes(color = locatie.naam)) +
-  # ylim(0,NA) +
-  facet_wrap(~locatie.naam, scales = "free") +
+  group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
+  mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
+  filter(`n/jaar` > 10) %>% 
+  ggplot(aes(jaar, jaargemiddelde)) + 
+  geom_point(aes(size = `n/jaar`), shape = 21, fill = "white") +
+  geom_line(aes(alpha = `n/jaar`)) +  #
+  geom_smooth(method = "lm", alpha = 0.3, aes(weight = `n/jaar`), size = 1, color = "darkgrey") +
+  geom_smooth(data = WQ %>%
+                filter(parameter.code == par, grootheid.code == gro, kwaliteitswaarde.code < 50) %>%
+                filter(year(tijdstip) > 2009) %>%
+                filter(locatie.naam %in% plotlocaties) %>%
+                arrange(geometriepunt.x) %>%
+                mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
+                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
+                group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
+                mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
+                filter(`n/jaar` > 10), 
+              method = "lm", alpha = 0.3, aes(), size = 2) +
+  ylim(0,NA) +
+  ylab(parlabel) +
+  facet_wrap(~ locatie.naam, ncol = 3) +  #scales = "free",
+  theme_minimal() +
   theme(legend.position = "bottom")
-
-
 
 ```
  
@@ -133,25 +149,53 @@ WQ %>%
 
 ```{r jaargemiddeldeSal, fig.height=6, fig.width=10, fig.cap="Jaargemiddelde concentratie van zwevend stof in de Waddenzee"}
 
-locaties = WQ %>%
-  filter(grootheid.code == "SALNTT", kwaliteitswaarde.code < 50) %>%
-  arrange(geometriepunt.x) %>% distinct(locatie.naam) %>% unlist %>% unname
+
+locaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep", "Terschelling 10 km uit de kust","Rottumerplaat 3 km uit de kust", "Huibertgat oost", "Bocht van Watum", "Groote Gat noord")
+
+par = "NVT"
+gro = "SALNTT"
+parlabel = "jaargemiddeld saliniteit in PSU"
+
+plotlocaties = WQ %>% ungroup() %>% 
+  filter(parameter.code == par, grootheid.code == gro) %>%
+  group_by(locatie.naam) %>% summarize(x = mean(geometriepunt.x)) %>% 
+  filter(locatie.naam %in% locaties) %>%  
+  arrange(x) %>% # tricky, want niet alle data heeft zelfde epsg
+  select(locatie.naam) %>% unlist %>% unname
+
+
 
 WQ %>%
-  filter(grootheid.code == "SALNTT", kwaliteitswaarde.code < 50, waardebewerkingsmethode.code == "NVT") %>%
+  filter(parameter.code == par, grootheid.code == gro, as.numeric(kwaliteitswaarde.code) < 50) %>%
+  filter(locatie.naam %in% plotlocaties) %>%
   arrange(geometriepunt.x) %>%
   mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
   group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
   group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
-  mutate(locatie.naam = factor(locatie.naam, levels = locaties)) %>%
-  filter(`n/jaar` > 10) %>%
+  mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
+  filter(`n/jaar` > 10) %>% 
   ggplot(aes(jaar, jaargemiddelde)) + 
-  geom_point(aes(color = locatie.naam, size = `n/jaar`), shape = 21, fill = "white") +
-  geom_line(aes(color = locatie.naam)) +  #, alpha = `n/jaar`
-  geom_smooth(method = "lm", alpha = 0, aes(color = locatie.naam)) +
-  # ylim(0,NA) +
-  facet_wrap(~locatie.naam, scales = "free") +
-  theme(legend.position = "bottom")
+  geom_point(aes(size = `n/jaar`), shape = 21, fill = "white") +
+  geom_line(aes(alpha = `n/jaar`)) +  #
+  geom_smooth(method = "lm", alpha = 0.3, aes(weight = `n/jaar`), size = 1, color = "darkgrey") +
+  geom_smooth(data = WQ %>%
+                filter(parameter.code == par, grootheid.code == gro, kwaliteitswaarde.code < 50) %>%
+                filter(year(tijdstip) > 2009) %>%
+                filter(locatie.naam %in% plotlocaties) %>%
+                arrange(geometriepunt.x) %>%
+                mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
+                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
+                group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
+                mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
+                filter(`n/jaar` > 10), 
+              method = "lm", alpha = 0.3, aes(), size = 2) +
+  ylim(15,NA) +
+  ylab(parlabel) +
+  facet_wrap(~ locatie.naam, ncol = 3) +  #scales = "free",
+  theme(legend.position = "bottom") +
+  theme_minimal()
+
+
 
 ```
 
@@ -160,71 +204,133 @@ WQ %>%
 
 ## Zwevend stof
 
+Zwevende stof wordt opgenomen als indicator omdat deze de lichtdoordringing in de waterkolom bepaald (van belang voor ecologische processen) en het de resultante is van de slibdynamiek. Trends in zwevende stof dienen tijdig te worden gesignaleerd, om de hieraan ten grondslag liggende processen te kunnen begrijpen en eventueel maatregelen te nemen.
 
-Metingen van zwevend stof zijn beschikbaar voor de locaties in figuur \@ref(fig:plotZSLocaties)
+Brondata: 
+•	MWTL data. Orde 20 meetmomenten per jaar (zomer 2x p.m. bemeten worden en winter 1x p.m.) op ~1m onder wateroppervlak op ~10 locaties 
 
 ```{r plotZSLocaties, fig.cap="Kaart met locaties waar zwevend stof is gemeten. De grootte van de cirkel is indicatief voor het aantal metingen."}
 
+
+
 WQ %>% 
-  filter(grepl("ZS", parameter)) %>%
-  group_by(locatie, EPSG, x.long, y.lat) %>%
+  filter(grepl("ZS", parameter.code)) %>%
+  group_by(locatie.code, coordinatenstelsel, geometriepunt.x, geometriepunt.y) %>%
   summarize(n = n()) %>% 
-  st_as_sf(coords = c('x.long', 'y.lat'), crs = 25831) %>%
-  st_transform(4326) %>%
+  st_as_sf(coords = c('geometriepunt.x', 'geometriepunt.y'), crs = 28992) %>%
+           # crs = WQ %>% filter(parameter.code == "ZS") %>% distinct(coordinatenstelsel) %>% unlist() %>% unname()) %>%
+  st_transform(4326) %>% View()
   leaflet() %>%
   addTiles() %>%
-  addCircleMarkers(radius = ~n/40, label = ~paste(locatie, " n = ", n))
+  addCircleMarkers(radius = ~n/40, label = ~paste(locatie.code, " n = ", n))
 ```
+
+Analyse(s)/figuren:
+1.	Jaargemiddelde zwevend stof (doorgetrokken lijn), incl. losse metingen (punten)
+Eerst bepalen maandgemiddelden (vanwege verschillende meetfrequentie winter/zomer) en maanden middelen naar jaar. Alle metingen toevoegen aan figuur als losse punten. 
+
+```{r ZSdataplot, fig.height=12, fig.width=10, fig.cap="Concentratie van zwevend stof in de Waddenzee en Eems estuarium. Jaargemiddeld (lijn), maandgemiddeld (zwarte punten), en individuele metingen (grijze punten). "}
+locaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep", "Terschelling 10 km uit de kust","Rottumerplaat 3 km uit de kust", "Huibertgat oost", "Bocht van Watum", "Groote Gat noord")
+
+plotlocaties = WQ %>% ungroup() %>% 
+  filter(parameter.code == "ZS") %>%
+  group_by(locatie.naam) %>% summarize(x = mean(geometriepunt.x)) %>% 
+  filter(locatie.naam %in% locaties) %>%  
+  arrange(x) %>% # tricky, want niet alle data heeft zelfde epsg
+  select(locatie.naam) %>% unlist %>% unname
+
+par = "ZS"
+parlabel = "zwevend stof in mg/l"
+xlabel = "jaar"
+
+parData <- WQ %>% 
+  filter(parameter.code == par, as.numeric(kwaliteitswaarde.code) < 50) %>%
+  filter(locatie.naam %in% plotlocaties) %>%
+  arrange(geometriepunt.x) %>%
+  mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
+  mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties))
+
+
+
+  ggplot() +
+    geom_point(data = parData, aes(as.Date(tijdstip), numeriekewaarde, color = "metingen"), alpha = 1, size = 0.65) +
+    geom_point(data = parData %>%
+                 group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
+               aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
+    ) +
+    geom_line(data = parData %>%
+                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
+                group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
+                filter(`n/jaar` > 10),
+              aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
+    ) +
+    coord_cartesian(ylim = c(0,250)) +
+    ylab(parlabel) + xlab(xlabel) +
+    facet_wrap(~ locatie.naam, ncol = 1) +  #scales = "free",
+    theme(legend.position = "bottom") +
+    theme_minimal() +
+    scale_colour_manual(name = "",
+                        values = c("maandgemiddelde" = "black", 
+                                   "jaargemiddelde" = "red",
+                                   "metingen" = "darkgrey")) +
+    guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
+  
+```
+
+
+
 
 
 
  
 
 
-```{r jaargemiddeldeZS, fig.height=3, fig.width=10, fig.cap="Jaargemiddelde concentratie van zwevend stof in de Waddenzee"}
-plotlocaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep")
-plotWQyears(WQ, loc = plotlocaties, param= c("ZS_mg/l"), beginjaar = 1970, eindjaar = 2018, mystyle = mystyle) +
-  facet_grid(parameter ~ locatie) 
+```{r jaargemiddeldeZS, fig.height=10, fig.width=10, fig.cap="Jaargemiddelde concentratie van zwevend stof in de Waddenzee"}
 
-locaties = WQ %>%
-  filter(parameter.code == "ZS", kwaliteitswaarde.code < 50) %>%
-  arrange(geometriepunt.x) %>% distinct(locatie.naam) %>% unlist %>% unname
+locaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep", "Terschelling 10 km uit de kust","Rottumerplaat 3 km uit de kust", "Huibertgat oost", "Bocht van Watum", "Groote Gat noord")
+
+plotlocaties = WQ %>% ungroup() %>% 
+  filter(parameter.code == "ZS") %>%
+  group_by(locatie.naam) %>% summarize(x = mean(geometriepunt.x)) %>% 
+  filter(locatie.naam %in% locaties) %>%  
+  arrange(x) %>% # tricky, want niet alle data heeft zelfde epsg
+  select(locatie.naam) %>% unlist %>% unname
+
+par = "ZS"
+parlabel = "jaargemiddeld zwevend stof in mg/l"
 
 WQ %>%
-  filter(parameter.code == "ZS", kwaliteitswaarde.code < 50, waardebewerkingsmethode.code == "NVT") %>%
+  filter(parameter.code == par, as.numeric(kwaliteitswaarde.code) < 50, year(tijdstip) >= 1989) %>%
+  filter(locatie.naam %in% plotlocaties) %>%
   arrange(geometriepunt.x) %>%
   mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
-  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
-  group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
-  mutate(locatie.naam = factor(locatie.naam, levels = locaties)) %>%
-  filter(`n/jaar` > 10) %>%
-  ggplot(aes(jaar, jaargemiddelde)) + 
-  geom_point(aes(color = locatie.naam, size = `n/jaar`), shape = 21, fill = "white") +
-  geom_line(aes(color = locatie.naam)) +  #, alpha = `n/jaar`
-  geom_smooth(method = "lm", alpha = 0, aes(color = locatie.naam)) +
+  group_by(locatie.naam, jaar, maand) %>% summarize(logmaandgemiddelde = mean(log(numeriekewaarde)), n = n()) %>% ungroup() %>%
+  group_by(locatie.naam, jaar) %>% summarize(logjaargemiddelde = mean(logmaandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
+  mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
+  filter(`n/jaar` > 10) %>% 
+  ggplot(aes(jaar, exp(logjaargemiddelde))) + 
+  geom_point(aes(size = `n/jaar`), shape = 21, fill = "white") +
+  geom_line(aes(alpha = `n/jaar`)) +  #
+  geom_smooth(method = "lm", formula = y ~ x, alpha = 0.3, aes(weight = `n/jaar`), size = 1, color = "darkgrey") +
+  geom_smooth(data = WQ %>%
+                filter(parameter.code == par, kwaliteitswaarde.code < 50) %>%
+                filter(year(tijdstip) > 2009) %>%
+                filter(locatie.naam %in% plotlocaties) %>%
+                arrange(geometriepunt.x) %>%
+                mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
+                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
+                group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
+                mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
+                filter(`n/jaar` > 10), 
+              method = "lm", alpha = 0.3, aes(), size = 2) +
+  scale_y_log10() +
   # ylim(0,NA) +
-  facet_wrap(~locatie.naam, scales = "free") +
-  theme(legend.position = "bottom")
-```
+  ylab(parlabel) +
+  facet_wrap(~ locatie.naam, ncol = 3) +  #scales = "free",
+  theme(legend.position = "bottom") +
+  theme_minimal()
 
-
-Over de laatste 10 jaar lijkt er een neergaande, maar fluctuerende, trend in zwevend stofgehalte bij station Vliestroom (figuur \@ref(fig:plotZStrend)). 
-
-```{r plotZStrend, fig.margin=TRUE, fig.height=3, fig.cap="Zwevend stof trend over de laatste 10 jaar. De lijn is een loess regressielijn. "}
-plotWQdata(WQ, loc = plotlocaties[1], param = "ZS_mg/l", perc90line = F, line = F, loess = T, span = 0.3, trend = F, mystyle = legendbottomstyle, beginjaar = 2008, eindjaar = 2017) + facet_wrap(~ locatie)
-```
-
-
-Een breekpuntanalyse over een langere periode laat zien dat er, afgezien van de geleidelijke verandering in de laatste 10 jaar, ook een meer abrupte vermindering van zwevend stof was in het begin van de 80er jaren (figuur \@ref(fig:plotZStrendbreuk)). 
-
-
-
-```{r plotZStrendbreuk, fig.height=3, fig.cap="Breekpunt analyse voor Zwevend stof voor de periode 1999 - 2016, dus na de de-eutrofiering. Groene lijn is het langjarig gemiddelde, blauw is de gemiddelde concentratie in de onderscheiden deelperioden, de verticale onderbroken lijnen zijn de meest waarschijnlijke breekpunten en de rode lijnen geven de onzekerheid daarin aan."}
-
-location <- plotlocaties[1]
-substance <- "ZS_mg/l"
-plotBreakPointTimeSeries(df = WQ, mylocation = location, mysubstance = substance, minjaar = 1970, maxjaar = 2018, breaks = 2, h = NULL)
-
+ggsave(file.path(datadir, "RWS", "producten", "ZStrends.pdf"))
 ```
 
 
@@ -232,11 +338,72 @@ Het seizoensverloop van zwevend stof laat zien dat concentraties hoger zijn in d
 
 
 ```{r plotZSseason, fig.margin=TRUE, fig.height = 8, fig.width = 12, fig.cap="Seizoensvariatie van opgelost zwevend stof voor de periode 2000 - 2018"}
-plotWQseason(WQ, loc = plotlocaties, param = "ZS_mg/l", maxPlotwaarde = 200, mystyle = legendbottomstyle, beginjaar = 2000, eindjaar = 2018, boxplotting = F, smoothing = T, lineplot = F) + facet_wrap(~ locatie)
+
+
+par = "ZS"
+parlabel = "maandgemiddeld zwevend stof in mg/l"
+
+WQ %>%
+  filter(parameter.code == par, as.numeric(kwaliteitswaarde.code) < 50, year(tijdstip) >= 1989) %>%
+  filter(locatie.naam %in% plotlocaties) %>%
+  arrange(geometriepunt.x) %>%
+  mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
+  filter(jaar >= 2000) %>%
+  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(log(numeriekewaarde)), n = n()) %>% ungroup() %>%
+  group_by(locatie.naam, jaar) %>% mutate(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n), ) %>% ungroup() %>%
+  mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
+  filter(`n/jaar` > 10) %>%
+  ggplot(aes(maand, exp(maandgemiddelde))) + 
+  # geom_smooth(aes(color = jaar, group = jaar), alpha = 0, method = "loess", size = 0.5) +
+  geom_path(aes(color = jaar, group = jaar), size = 2, alpha = 0.5) +
+  geom_violin(aes(group = maand), fill = "white", alpha = 0.5) +
+  coord_cartesian(ylim = c(0,300))  +
+  ylab(parlabel) +
+  facet_wrap(~ locatie.naam, ncol = 3) +  #scales = "free",
+  scale_x_continuous(breaks = pretty_breaks()) +
+  theme(legend.position = "bottom") +
+  theme_minimal()
+
 ```
 
 `
 
+
+2.	Jaargemiddelde anomalie van SPM -> zie analyse Peter Herman voor KRW slib
+
+```{r plotZSanomalie, fig.margin=TRUE, fig.height = 8, fig.width = 10, fig.cap="Anomalie van gesuspendeerd zwevend stof voor de gehele meetperiode"}
+
+par = "ZS"
+parlabel = "anomalie zwevend stof"
+
+k = 13
+
+WQ %>%
+  select(tijdstip, locatie.naam, grootheid.code, parameter.code, eenheid.code, geometriepunt.x, geometriepunt.y, coordinatenstelsel, bemonsteringshoogte, referentievlak, kwaliteitswaarde.code, numeriekewaarde) %>%
+  filter(parameter.code == par, as.numeric(kwaliteitswaarde.code) < 50, year(tijdstip) >= 1989) %>%
+  filter(locatie.naam %in% plotlocaties) %>%
+  mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
+  mutate(logwaarde = log(numeriekewaarde)+0.001) %>%
+  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(logwaarde)) %>% ungroup() %>%
+  group_by(locatie.naam) %>% mutate(anomalie = maandgemiddelde - mean(maandgemiddelde)) %>% 
+  complete(locatie.naam, jaar, maand, fill = list(maandgemiddelde = NA, anomalie = NA)) %>% 
+  mutate(datum = as.Date(lubridate::ymd(paste(jaar, maand, "15")))) %>%
+  arrange(locatie.naam, datum) %>%
+  # mutate(anomalie = oce::fillGap(anomalie)) %>%
+  group_by(locatie.naam) %>% mutate(rM=rollmean(anomalie,k, na.pad=TRUE, align="center", na.rm = T)) %>%
+  mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
+  ggplot(aes(datum, exp(anomalie))) + 
+  geom_point(aes(color = locatie.naam), alpha = 0.2) +   #size = `n/jaar`
+  geom_line(aes(y=exp(rM), color = locatie.naam), size = 1)  +
+  coord_cartesian(ylim = c(0,3)) +
+  ylab(parlabel) +
+  facet_wrap(~ locatie.naam, ncol = 3) +  #scales = "free",
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+ggsave(file.path(datadir, "RWS", "producten", "ZSanomalie.pdf"))
+  
+```
 
 
 

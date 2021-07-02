@@ -10,15 +10,16 @@ knitr::opts_chunk$set(
 require(raster)
 require(tidyverse)
 require(leaflet)
-source("runThisFirst.R")
+source("r/runThisFirst.R")
 ```
 
 
 
 
-```{r WaddenBathymetrieLeaflet, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"}
+```{r WaddenBathymetrieLeaflet, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee", eval=F}
 
 # change !!!!
+
 filename <- file.path(datadir, "hydrometeo/products/Grev_5x5_aan41_wgs.tif")
 bathymetry_wgs <- raster::raster(filename)
 
@@ -26,16 +27,15 @@ bathymetry_wgs <- raster::raster(filename)
 #   mutate(Name = sub("Grevelingen_vak_", "", Name))
 # 
 # pal = colorNumeric(palette = "viridis", domain = values(bathymetry_wgs), na.color = "transparent", reverse = T)
-# palrev = colorNumeric(palette = "viridis", domain = values(bathymetry_wgs), na.color = "transparent", reverse = F)
+palrev = colorNumeric(palette = "viridis", domain = values(bathymetry_wgs), na.color = "transparent", reverse = F)
 
-leaflet(vakken_wgs) %>%
+leaflet() %>%
   leaflet::addTiles(group = "OSM") %>%
-  addPolygons(label = ~htmltools::htmlEscape(Name), group = "vakken", color = "white", fillColor = "transparent", labelOptions = labelOptions(noHide = T, textOnly = TRUE, textsize = 14, style = list('color' = "white")), weight = 2) %>%
-  addRasterImage(bathymetry_wgs, colors = pal, group = "bathymetrie", opacity = 80) %>%
+  addRasterImage(bathymetry_wgs, colors = palrev, group = "bathymetrie", opacity = 80) %>%
   leaflet::addLegend(position = "bottomleft", pal = palrev, values = values(bathymetry_wgs), labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
   addLayersControl(
     baseGroups = c("OSM"),
-    overlayGroups = c("vakken", "bathymetrie"),
+    overlayGroups = c("bathymetrie"),
     options = layersControlOptions(collapsed = FALSE)
   ) %>% hideGroup("vakken")
 ```
