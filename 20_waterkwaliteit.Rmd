@@ -318,8 +318,8 @@ WQ %>%
                 filter(locatie.naam %in% plotlocaties) %>%
                 arrange(geometriepunt.x) %>%
                 mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
-                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
-                group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
+                group_by(locatie.naam, jaar, maand) %>% summarize(logmaandgemiddelde = mean(log(numeriekewaarde)), n = n()) %>% ungroup() %>%
+                group_by(locatie.naam, jaar) %>% summarize(logjaargemiddelde = mean(logmaandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
                 mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
                 filter(`n/jaar` > 10), 
               method = "lm", alpha = 0.3, aes(), size = 2) +
@@ -375,7 +375,8 @@ WQ %>%
 
 par = "ZS"
 parlabel = "anomalie zwevend stof"
-
+jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"))
+my_breaks = c(1, 2, 5, 10, 20, 50, 100, 250, 500)
 k = 13
 
 WQ %>%
@@ -384,22 +385,26 @@ WQ %>%
   filter(locatie.naam %in% plotlocaties) %>%
   mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
   mutate(logwaarde = log(numeriekewaarde)+0.001) %>%
-  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(logwaarde)) %>% ungroup() %>%
-  group_by(locatie.naam) %>% mutate(anomalie = maandgemiddelde - mean(maandgemiddelde)) %>% 
-  complete(locatie.naam, jaar, maand, fill = list(maandgemiddelde = NA, anomalie = NA)) %>% 
+  group_by(locatie.naam, jaar, maand) %>% summarize(logmaandgemiddelde = mean(logwaarde)) %>% ungroup() %>%
+  group_by(locatie.naam) %>% mutate(anomalie = logmaandgemiddelde - mean(logmaandgemiddelde)) %>% 
+  complete(locatie.naam, jaar, maand, fill = list(logmaandgemiddelde = NA, anomalie = NA)) %>% 
   mutate(datum = as.Date(lubridate::ymd(paste(jaar, maand, "15")))) %>%
   arrange(locatie.naam, datum) %>%
   # mutate(anomalie = oce::fillGap(anomalie)) %>%
   group_by(locatie.naam) %>% mutate(rM=rollmean(anomalie,k, na.pad=TRUE, align="center", na.rm = T)) %>%
   mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
   ggplot(aes(datum, exp(anomalie))) + 
-  geom_point(aes(color = locatie.naam), alpha = 0.2) +   #size = `n/jaar`
-  geom_line(aes(y=exp(rM), color = locatie.naam), size = 1)  +
+  geom_point(aes(color = exp(logmaandgemiddelde)), alpha = 0.4) +   #size = `n/jaar`
+  geom_line(aes(y=exp(rM)), size = 1, color = "blue")  +
   coord_cartesian(ylim = c(0,3)) +
   ylab(parlabel) +
   facet_wrap(~ locatie.naam, ncol = 3) +  #scales = "free",
+  scale_color_gradientn(colours = jet.colors(7), name = "maandgemiddelde ZS in mg/l",
+                        trans = "log", breaks = my_breaks, labels = my_breaks) +
+  # scale_color_viridis_c(values = rescale(0:300)) +
+  # guides(colour = guide_legend("maandgemiddeld ZS")) +
   theme_minimal() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm"))
 
 ggsave(file.path(datadir, "RWS", "producten", "ZSanomalie.pdf"))
   
