@@ -33,8 +33,11 @@ projectDataPath <- "p:/11202493--systeemrap-grevelingen/1_data"
 # mirror of the p directory above
 ThreddsDataPath <- "https://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata"
 
-# calalogue of the thredds server
+# calalogue of the thredds server wadden
 cataloguePath <- "https://watersysteemdata.deltares.nl/thredds/catalog/watersysteemdata/Wadden/catalog.html"
+# calalogue of vaklodingen thredds server
+catalogueVaklodingenPath <- "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/vaklodingen_new/catalog.nc"
+
 
 # local path !!!!! depends on manual copy from p. adjust name if necessary
 localDataPath <- "../1_data"
