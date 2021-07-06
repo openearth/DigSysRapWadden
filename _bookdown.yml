@@ -2,7 +2,7 @@ title: "Concept Basismonitoring Rapportage Wadden"
 subtitle: 2021
 author: "Deltares, Rijkswaterstaat"
 date: '`r Sys.Date()`'
-rmd_files: ["01_index.Rmd", "20_waterkwaliteit.Rmd","060_Bathymetrie_en_morfodynamiek.Rmd",  "70_waterkwantiteit.Rmd"]
+rmd_files: ["01_index.Rmd", "10_meteorologieenklimaat.Rmd", "20_waterkwaliteit.Rmd","70_waterkwantiteit.Rmd"]
 # bibliography: ["bib/library.bib"]
 # biblio-style: "apalike"
 # link-citations: yes

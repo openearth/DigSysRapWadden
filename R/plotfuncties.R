@@ -425,7 +425,6 @@ plot.windrose <- function(data,
   
   # deal with change in ordering introduced somewhere around version 2.2
   if(packageVersion("ggplot2") > "2.2"){    
-    cat("Hadley broke my code\n")
     data$spd.binned = with(data, factor(spd.binned, levels = rev(levels(spd.binned))))
     spd.colors = rev(spd.colors)
   }

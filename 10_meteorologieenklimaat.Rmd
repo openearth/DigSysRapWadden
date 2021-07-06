@@ -4,22 +4,20 @@
 # Meteorologie en klimaat {#meteo}
 
 
-
 ```{r setupMeteo, include=FALSE}
 knitr::opts_chunk$set(
 	echo = FALSE,
 	message = FALSE,
 	warning = FALSE,
 	fig.width = 8,
-	out.width = "100%", 
-	cache = TRUE
+	out.width = "100%"
 )
 source("r/runThisFirst.R")
 
 ```
 
 
-```{r readMeteodata}
+```{r readMeteodata, cache=T}
 dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 # paste(unique(dtwind$station), collapse = ", ")
 ```
@@ -28,16 +26,13 @@ dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 Voor de meteorologische beschrijving is uitgegaan van de uurgegevens van het KNMI voor de stations `r paste(unique(dtwind$station), collapse = ", ")`. [KNMI uurgegevens](https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens). 
 
 
+##  Wind   {#wind}
 
 
-
-##  Wind
-
-
-De windrichting is overwegend west-zuidwest geweest. De verdeling van windsterkte per richting is te zien in figuur \@ref(fig:windroos). Deze richting staat ongeveer diagonaal op de lange as van het Krammer-Volkerak en het Zoommeer. De strijklengte in het Volkerak is het langst(~25 km, gemiddelde diepte 5 m ),en in het Zoommeer is deze korter (~4 km, gemiddelde diepte 7 m ) [@Weeber2018]. Een kortere strijklengte leidt tot minder hoge golven en minder verticale menging.
+De windrichting is overwegend west-zuidwest geweest. De verdeling van windsterkte per richting is te zien in figuur \@ref(fig:windroos). 
 
 
-```{r windroos, fig.width = 6, fig.cap="Windroos over de periode 1990 - 2018. Kleuren geven klassen van windsnelheid aan, de lengte van de spaken de windsterktefrequentie/voorkomen per windrichting."}
+```{r windroos, figures-side, fig.show="hold", out.width="50%", fig.width = 6, fig.cap="Windroos over de periode 1990 - 2018. Kleuren geven klassen van windsnelheid aan, de lengte van de spaken de windsterktefrequentie/voorkomen per windrichting."}
 require(RColorBrewer)
 # inlezen knmi data
 winddata <- dtwind %>% 
@@ -46,7 +41,7 @@ winddata <- dtwind %>%
   #   `windsnelheid daggemiddeld` = mean(`Uurgemiddelde windsnelheid in 0.1 m/s`),
   #   `windsnelheid daggemiddeld` = mean(`Uurgemiddelde windsnelheid in 0.1 m/s`),
   #   ) %>%
-  filter(year >= 1990, !is.na(`Windrichting in graden`)) %>% 
+  filter(year >= 2000, !is.na(`Windrichting in graden`)) %>% 
   filter(`Windrichting in graden` > 0 & `Windrichting in graden` <= 360) %>% 
   dplyr::select(station, datum = date, `Windrichting in graden` , `Uurgemiddelde windsnelheid in 0.1 m/s`)
 
@@ -76,40 +71,40 @@ dtwind %>%
 ```
 
 
-1.	25, 50, 75 en 95-percentiel van de windsnelheid per jaar
+###	25, 50, 75 en 95-percentiel van de windsnelheid per jaar
 
 
-```{r percentilesPerYear, fig.height=15, fig.width=10}
+```{r percentilesPerYear, fig.height=8, fig.width=8, fig.cap="25, 50, 75 en 95-percentiel van de windsnelheid per jaar"}
 
-f <- function(x, probs=c(0.1, 0.25, 0.5, 0.75, .9)) {
-  r <- quantile(x, probs=probs , na.rm=TRUE)
-  names(r) <- c("ymin", "lower", "middle", "upper", "ymax")
-  r
-}
-
-dtwind %>%
-  filter(year < 2021) %>%
-  mutate(decade = 10*trunc(year/10)) %>%
-  mutate(plotyear = year - decade) %>% mutate(plotdatetime = as.POSIXct(paste(plotyear, "01", "01", sep = "-"))) %>%
-  # filter(year >= 2010) %>% sample_n(1000) %>%
-  ggplot(aes(plotdatetime, `Windsnelheid in 0.1 m/s` / 10)) +  #, aes(fill = station, group = interaction(year, station))
-  geom_boxplot(aes(fill = station, group = interaction(year, station))) +
-  # stat_summary(fun.data=f, geom="boxplot", aes(year)) + 
-  # coord_cartesian(ylim = c(0,20)) +
-  scale_x_datetime(breaks = pretty_breaks(n = 10)) +
-  theme(legend.position = "bottom") +
-  facet_wrap(~ decade, ncol = 1)
-
+dtwind %>% 
+  filter(year < 2021 ) %>%
+  select(year, station, `Windsnelheid in 0.1 m/s`) %>%
+  group_by(year, station) %>%
+  summarize(
+    # y05 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.05, na.rm = T),
+    y25 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.25, na.rm = T),
+    y50 = median(`Windsnelheid in 0.1 m/s`/10, na.rm = T),
+    y75 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.75, na.rm = T),
+    y95 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.95, na.rm = T)
+  ) %>% ungroup() %>% 
+  pivot_longer(c(y25, y50, y75, y95), "percentiel", values_to = "value") %>%
+  mutate(percentiel = as.factor(percentiel)) %>%
+  mutate(percentiel = fct_reorder(percentiel, -value)) %>%
+ggplot(aes(year, value)) +
+ #  geom_boxplot(
+ #   aes(ymin = y05, lower = y25, middle = y50, upper = y75, ymax = y95, group = interaction(year, station), fill = station), stat = "identity", size = 1
+ # ) +
+  geom_line(aes(color = station, linetype = percentiel), size = 1) +
+  # facet_grid(percentiel ~.) +
+  # theme_classic() +
+  theme(legend.position = "bottom")
 ```
 
+###	Duur (uren) dat windsnelheid > 7 m/s (en/of andere grenzen) was
 
 
 
-
-
-2.	Duur (uren) dat windsnelheid > 7 m/s (en/of andere grenzen) 
-
-```{r consecHours, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 7 m/s is geweest. }
+```{r consecHours, fig.height=10, fig.width=10, fig.cap="Aantal achtereenvolgende uren dat de windsnelheid boven 7 m/s is geweest."  }
 
 dtwind %>% filter(year > 2010) %>%
   select(datetime, station, `Uurgemiddelde windsnelheid in 0.1 m/s`) %>%
@@ -127,7 +122,7 @@ dtwind %>% filter(year > 2010) %>%
 3.	Duur (uren) dat windsnelheid > 7 m/s uitgesplitst naar de 4 kwadranten: NO, ZO, ZW, NW  
 
 
-```{r consecHoursPerDirection, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 7 m/s is geweest per richting (kwadrant). }
+```{r consecHoursPerDirection, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 7 m/s is geweest per richting (kwadrant) vanaf 2010."  }
 
 dtwind %>% filter(year > 2010) %>%
   filter(`Windrichting in graden` < 361) %>%
@@ -144,10 +139,15 @@ dtwind %>% filter(year > 2010) %>%
   ggplot(aes(datetime, `duur in uren`)) +  # `Uurgemiddelde windsnelheid in 0.1 m/s`
   geom_point(aes(), size = 0.5) +
   scale_color_viridis_c() +
+  xlab("jaren") +
   facet_grid(station ~ kwadrant) +
   theme(legend.position = "bottom",
         strip.text.y = element_text(angle = 0))
 
 ```
 
+
+```{r cleanupWind}
+rm(dtwind, winddatalist, winddata)
+```
 

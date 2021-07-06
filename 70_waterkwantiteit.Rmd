@@ -10,6 +10,8 @@ knitr::opts_chunk$set(
 require(sf)
 require(leaflet)
 require(tidyverse)
+require(data.table)
+require(oce)
 source("r/runThisFirst.R")
 ```
 
@@ -23,15 +25,7 @@ Analyse(s)/figuren:
 Brondata: afvoergegevens (LMW?) in het Waddengebied
 
  
-1.4	Wind
-Wind wordt opgenomen als indicator omdat waterbeweging in de Waddenzee erg gevoelig is voor windgedreven stroming door de ondiepe ligging en grote strijklengtes. Windstatistieken geven inzicht in hoe dynamisch een bepaald jaar was en of er lange termijn veranderingen optreden.
-
-Analyse(s)/figuren:
-1.	25, 50, 75 en 95-percentiel van de windsnelheid per jaar
-2.	Duur (uren) dat windsnelheid > 7 m/s (en/of andere grenzen) 
-Duur (uren) dat windsnelheid > 7 m/s uitgesplitst naar de 4 kwadranten: NO, ZO, ZW, NW 
-
-Brondata: 4 KNMI windstations in het Waddengebied
+Voor de presentatie van winddata wordt verwezen naar het [desbetreffende hoofdstuk](#wind)
 
 
 1.5	Golfhoogte
@@ -39,6 +33,14 @@ De golfhoogtes geven ook inzicht in de dynamiek van de verschillende jaren.
 
 Analyse(s)/figuren:
 1.	95-percentiel van de significante golfhoogte per jaar
+
+```{r}
+
+```
+
+
+
+
 2.	Afwijking maandgemiddeld t.o.v. langjarig gemiddelde, als maat voor seizoensdynamiek. Verschillende jaren weergeven als lijnen met kleurverloop (oude jaren blauw en naar heden toe verkleurend naar rood) 
 
 Brondata: Golfboeien in de Noordzee en Waddenzee. Of de boeien in de Waddenzee ook echt operationeel zijn is twijfelachtig…
@@ -60,6 +62,37 @@ Waterstanden tijdens events geven inzicht hoeveel en hoe krachtige stormen er zi
 
 Analyse(s)/figuren:
 1.	Opzet/afzet = gemeten waterstand - astronomische waterstand. Weergeven: tijdreeks of 95-percentiel
+
+```{r wateropzet}
+filename <- file.path(datadir, "ddl\\standard\\fysisch_trendstations_allyears.csv")
+df.h <- fread(filename)[, list(locatie.naam, tijdstip, grootheid.code, eenheid.code, hoedanigheid.code, numeriekewaarde)]
+
+df.h.d <- dcast(df.h, locatie.naam + tijdstip + eenheid.code + hoedanigheid.code ~ grootheid.code, value.var = "numeriekewaarde")
+
+monthlyMax <- df.h.d[hoedanigheid.code == "NAP", .(
+  opzet = WATHTE - WATHTBRKD,
+  month = lubridate::month(tijdstip) , 
+  year = lubridate::year(tijdstip),
+  station = locatie.naam
+)][, .(
+  station = station,
+  max = max(opzet),
+  p95 = quantile(opzet, 0.95, na.rm = T)
+  ),
+  by = list(year, month, station)][,.(
+    station, max, p95, datum = as.Date(paste(year, month, "15", sep = "-"))),
+  ]
+
+# boxplot per year based on monthly max
+ggplot(monthlyMax, aes(datum, p95)) +
+  geom_point(aes(color = station)) +
+  coord_cartesian(ylim = c(0, 450))
+
+
+```
+
+
+
 2.	Stormhoogte = gemeten waterstand: 95-percentiel per jaar. 
 
 Brondata: ~23 waterstandstations in het Waddengebied en de Noordzeekustzone van LMW. 
