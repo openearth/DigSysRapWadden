@@ -185,58 +185,94 @@ df_all_WATHTE2 <- df_all_WATHTE %>%
 # filter(year(tijdstip) >=2000) %>% # voor testen
 arrange(tijdstip) %>%
   group_split(locatie.naam)
+
+names(df_all_WATHTE2) <- map_chr(df_all_WATHTE2, function(x) unique(x$locatie.naam))
+
 ```
+
+
+```{r berekeningGaps}
+
+gaps <- lapply(df_all_WATHTE2,
+       function(x) Tides::gapsts(x$tijdstip, dtMax = 61, unit = "mins")
+  
+)
+# gaps <- Tides::gapsts(df_all_WATHTE2[[3]]$tijdstip, dtMax = 61, unit = "mins")
+
+rbindlist(gaps, idcol = "locatie.naam") %>%
+  ggplot() +
+  geom_point(aes(x = t1, y = dt/(60*60)), color = "red", size = 1) +
+  facet_wrap(~locatie.naam) +
+  coord_cartesian(ylim = c(0,10))
+```
+
 
 
 ```{r berekeningGetij}
 
-gaps <- Tides::gapsts(df_all_WATHTE2[[3]]$tijdstip, dtMax = 61, unit = "mins")
+h <- lapply(df_all_WATHTE2, function(x) 
+  x %>% select(time = tijdstip, h = numeriekewaarde))
 
-if(!is.null(gaps)){
-  ggplot() +
-  geom_point(data = gaps, aes(x = t1, y = dt/(60*60)), color = "red", size = 1) #+
-  # geom_point(data = df_all_WATHTE[df_all_WATHTE$locatie.naam == "Eemshaven",], aes(x = tijdstip, y = numeriekewaarde), size = 0.2)
-}
+extrema = lapply(h, function(x) Tides::extrema(x, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3))
 
-h <- df_all_WATHTE2[[3]] %>%
-  select(time = tijdstip, h = numeriekewaarde)
-
-extrema <- Tides::extrema(h, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3)
+# h <- df_all_WATHTE2[[3]] %>%
+#   select(time = tijdstip, h = numeriekewaarde)
+# 
+# extrema <- Tides::extrema(h, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3)
 
 ```
 
+onderstaand aanpassen aan liststructuur van extrema
 
 ```{r, fig.width=8, fig.cap= "Hoog- en laagwater voor eind maart 2018 (inclusief overgang naar zomertijd), zoals berekend voor de hele tijdserie." }
 minplottime = ymd("2018-03-23")
 maxplottime = ymd("2018-03-27")
-df_all_WATHTE2[[3]] %>%
+df_all_WATHTE2[["Eemshaven"]] %>%
   filter(tijdstip > minplottime, tijdstip < maxplottime) %>%
   ggplot() +
   geom_point(aes(tijdstip, numeriekewaarde)) +
-  geom_point(data = extrema$HL %>% filter(time > minplottime, time < maxplottime), aes(time, h, color = HL), size = 5, shape = 21, fill = "transparent") +
+  geom_point(data = extrema[["Eemshaven"]]$HL %>% filter(time > minplottime, time < maxplottime), aes(time, h, color = HL), size = 5, shape = 21, fill = "transparent") +
   theme(legend.position = "bottom")
 ```
 
 
 
-```{r Tides, fig.height=6, fig.width=8, fig.cap="Jaargemiddeld laag- en hoogwater voor station Eemshaven. De lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
+```{r Hoogwaters, fig.height=10, fig.width=10, fig.cap="Jaargemiddeld hoogwater voor stations. De lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
 
-  extrema$HL %>%
-    # filter(HL == "L") %>%
+rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
+  filter(HL == "H") %>%
     mutate(
       jaar = year(time)
     ) %>% 
-    filter(jaar != 2021 & jaar > 1980) %>%
+    filter(jaar != 2021 & jaar > 1970) %>%
     ggplot() +
     # geom_point(aes(time, h, color = HL), alpha = 0.3) +
     geom_smooth(aes(time, h, group = jaar), method = "lm", formula = y ~ 1) +
     geom_smooth(aes(time, h), method = "lm", 
                 formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6*31556995))) + I(sin(2 * pi * as.numeric(x) / (18.6*31556995)))) +
     # coord_cartesian(ylim = c(-160, -100)) +
-    facet_grid(HL ~ ., scales = "free")
+    facet_wrap(~locatie.naam, scales = "free_y")
 
 ```
 
+
+```{r Laagwaters, fig.height=10, fig.width=10, fig.cap="Jaargemiddeld laagwater voor stations. De lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
+
+rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
+  filter(HL == "L") %>%
+    mutate(
+      jaar = year(time)
+    ) %>% 
+    filter(jaar != 2021 & jaar > 1970) %>%
+    ggplot() +
+    # geom_point(aes(time, h, color = HL), alpha = 0.3) +
+    geom_smooth(aes(time, h, group = jaar), method = "lm", formula = y ~ 1) +
+    geom_smooth(aes(time, h), method = "lm", 
+                formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6*31556995))) + I(sin(2 * pi * as.numeric(x) / (18.6*31556995)))) +
+    # coord_cartesian(ylim = c(-160, -100)) +
+    facet_wrap(~locatie.naam, scales = "free_y")
+
+```
  
 3.	Jaargemiddelde getijslag (GHW-GLW) en 19-jarig lopend gemiddelde om te verdisconteren voor de 18,6 jarige cyclus.
 
@@ -244,24 +280,29 @@ df_all_WATHTE2[[3]] %>%
 
 
 
-```{r getijslag}
-  extrema$HL %>%
+```{r getijslag, fig.height=10, fig.width=10, fig.cap="Jaargemiddeld getijslag voor stations. De lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
+
+rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
     # filter(HL == "L") %>%
     mutate(jaar = year(time)) %>% 
-    filter(jaar != 2021 & jaar > 1980) %>%
-  group_by(jaar, HL) %>% summarise(mean = mean(h)) %>%
-  pivot_wider(id_cols = c(jaar), names_from = HL, values_from = mean) %>%
+    filter(jaar != 2021 & jaar > 1970) %>%
+  group_by(locatie.naam, jaar, HL) %>% summarise(mean = mean(h)) %>%
+  pivot_wider(id_cols = c(locatie.naam, jaar), names_from = HL, values_from = mean) %>%
   mutate(getijslag_cm = H-L) %>%
   ggplot() +
   geom_line(aes(jaar, getijslag_cm)) +
   geom_smooth(aes(jaar, getijslag_cm), method = "lm", 
-                formula = y ~ x + I(cos(2 * pi * x / (18.6))) + I(sin(2 * pi * (x) / (18.6))))
+                formula = y ~ x + I(cos(2 * pi * x / (18.6))) + I(sin(2 * pi * (x) / (18.6)))) +
+      facet_wrap(~locatie.naam, scales = "free_y")
 
 ```
 
 
 4.	Kaart met getijslag van het meest actuele jaar om verloop in de Waddenzee te laten zien.
 
+```{r}
+
+```
 
 
 
