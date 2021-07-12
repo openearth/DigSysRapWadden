@@ -28,6 +28,7 @@ getPackage("webshot")
 getPackage("scales")
 getPackage("RColorBrewer")
 getPackage("tidyverse")
+getPackage("tides")
 
 
 if(!require("rwsapi", character.only = TRUE)){

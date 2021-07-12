@@ -31,11 +31,30 @@ Voor de presentatie van winddata wordt verwezen naar het [desbetreffende hoofdst
 1.5	Golfhoogte
 De golfhoogtes geven ook inzicht in de dynamiek van de verschillende jaren. 
 
+```{r leesGolfData}
+golf.df <- "golven2021-07-08.csv"
+golf.pad <- file.path(datadir, "ddl", "standard")
+gdf <- read_delim(file.path(golf.pad, golf.df), delim = ";")
+```
+
+
 Analyse(s)/figuren:
 1.	95-percentiel van de significante golfhoogte per jaar
 
-```{r}
-
+```{r golfhoogte95perc, fig.cap="Tijdserie van jaarlijks 95-percentiel van de significante golfhoogte in het spectrale domein Oppervlaktewater golffrequentie tussen 30 en 500 mHz in cm.", fig.height=4, fig.width=8}
+gdf %>% distinct(locatie.naam, parameter.wat.omschrijving)
+param = "Significante golfhoogte in het spectrale domein Oppervlaktewater golffrequentie tussen 30 en 500 mHz in cm"
+gdf %>% 
+        filter(parameter.wat.omschrijving == param) %>%
+        group_by(locatie.naam, jaar) %>% mutate(n_maanden = n()) %>% 
+        filter(n_maanden == 12) %>%
+        group_by(locatie.naam, jaar, parameter.wat.omschrijving) %>%
+        summarize(`95-percentiel per jaar in cm` = mean(yearly_perc95)) %>%
+        mutate(locatie.naam = factor(locatie.naam)) %>%
+        mutate(locatie.naam = fct_reorder(locatie.naam, `95-percentiel per jaar in cm`)) %>%
+        ggplot(aes(jaar, `95-percentiel per jaar in cm`)) +
+        geom_line(aes(color = locatie.naam), size = 1) +
+  scale_x_continuous(breaks = pretty_breaks())
 ```
 
 
@@ -45,13 +64,40 @@ Analyse(s)/figuren:
 
 Brondata: Golfboeien in de Noordzee en Waddenzee. Of de boeien in de Waddenzee ook echt operationeel zijn is twijfelachtig…
 
+```{r golfanomalie, fig.height=10, fig.cap="Afwijking maandgemiddeld t.o.v. langjarig gemiddelde, als maat voor seizoensdynamiek. Verschillende jaren weergeven als lijnen met kleurverloop (oude jaren blauw en naar heden toe verkleurend naar rood). Aan de positie van de punten is ruis toegevoegd, om overlappende punten te voorkomen. "}
+
+gdf %>% 
+  filter(parameter.wat.omschrijving == "Significante golfhoogte in het spectrale domein Oppervlaktewater golffrequentie tussen 30 en 500 mHz in cm") %>%
+  group_by(locatie.naam, jaar) %>% mutate(n_maanden = n()) %>% 
+  filter(n_maanden == 12) %>%
+  mutate(locatie.naam = factor(locatie.naam)) %>%
+  mutate(locatie.naam = fct_reorder(locatie.naam, yearly_perc95)) %>%
+  group_by(locatie.naam) %>% mutate(`langjarig gemiddelde` = mean(maandgemiddelde)) %>% ungroup() %>%
+  group_by(locatie.naam, jaar, maand, parameter.wat.omschrijving) %>% 
+  summarize(anomalie = maandgemiddelde - `langjarig gemiddelde`) %>% ungroup() %>%
+  # mutate(datum = ymd(paste(as.character(jaar), as.character(maand), "15"))) %>%
+  ggplot(aes(maand, anomalie)) +
+  geom_jitter(aes(color = jaar), size = 2) +
+  # geom_smooth(aes(color = jaar, group = jaar), alpha = 0.5, method = "loess", se = F) +
+  scale_color_gradient2(low = "blue", high = "red", mid = "blue",  midpoint = 1995) +
+  facet_wrap( ~ locatie.naam, ncol = 4)
+```
+
+ 
  
 
 1.6	Golfperiode (extra toegevoegd)
 De golfperiodes geven ook inzicht in de dynamiek van de verschillende jaren. 
 
+```{r}
+
+```
+
+
 Analyse(s)/figuren:
 1.	95-percentiel van de golfperiode Tm02 per jaar, incl metingen als losse puntjes
+
+
 
 Brondata: Golfboeien in de Noordzee en Waddenzee. Of de boeien in de Waddenzee ook echt operationeel zijn is twijfelachtig…
 
@@ -63,44 +109,59 @@ Waterstanden tijdens events geven inzicht hoeveel en hoe krachtige stormen er zi
 Analyse(s)/figuren:
 1.	Opzet/afzet = gemeten waterstand - astronomische waterstand. Weergeven: tijdreeks of 95-percentiel
 
-```{r wateropzet}
-filename <- file.path(datadir, "ddl\\standard\\fysisch_trendstations_allyears.csv")
-df.h <- fread(filename)[, list(locatie.naam, tijdstip, grootheid.code, eenheid.code, hoedanigheid.code, numeriekewaarde)]
+```{r wateropzet, fig.cap= "Maandelijks 95-percentiel voor opzet/afzet = gemeten waterstand - astronomische waterstand.", fig.height=10, fig.width=10}
 
-df.h.d <- dcast(df.h, locatie.naam + tijdstip + eenheid.code + hoedanigheid.code ~ grootheid.code, value.var = "numeriekewaarde")
+monthlyStat  <- read_delim(file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", "2021-07-12", ".csv")), delim = ";")
 
-monthlyMax <- df.h.d[hoedanigheid.code == "NAP", .(
-  opzet = WATHTE - WATHTBRKD,
-  month = lubridate::month(tijdstip) , 
-  year = lubridate::year(tijdstip),
-  station = locatie.naam
-)][, .(
-  station = station,
-  max = max(opzet),
-  p95 = quantile(opzet, 0.95, na.rm = T)
-  ),
-  by = list(year, month, station)][,.(
-    station, max, p95, datum = as.Date(paste(year, month, "15", sep = "-"))),
-  ]
+# hist(monthlyStat$p95, breaks = 100)
 
-# boxplot per year based on monthly max
-ggplot(monthlyMax, aes(datum, p95)) +
-  geom_point(aes(color = station)) +
-  coord_cartesian(ylim = c(0, 450))
-
-
+# plot per year based on monthly statistics
+monthlyStat %>%
+ggplot(aes(datum, p95)) +
+  geom_point(aes(color = station), size = 0.3) +
+  # coord_cartesian(ylim = c(0, 450)) +
+  scale_x_date(breaks = seq(as.Date("1970-01-01"), as.Date("2021-12-31"), by = "5 year"), 
+               minor_breaks = "1 year",
+               date_labels = "%Y") +
+  facet_grid(station ~.) +
+  theme(legend.position = "bottom",
+        strip.text.y = element_text(angle = 0))
 ```
 
 
 
 2.	Stormhoogte = gemeten waterstand: 95-percentiel per jaar. 
 
+```{r stormhoogte, fig.cap="Tijdserie van stormhoogte, berekend als 95-percentiel van de gemeten waterhoogte per jaar. ", fig.width=10, fig.height=5}
+
+yearlyStat <-  read_delim(file.path(datadir, "ddl", "standard", paste0("yearlyStatWaterhoogte", "2021-07-12", ".csv")), delim = ";")
+
+# hist(yearlyStat$p95, breaks = 100)
+
+# plot per year based on monthly statistics
+yearlyStat %>%
+  complete(station, year, fill = list(p95 = NA, max = NA)) %>%
+  mutate(station = factor(station)) %>%
+  mutate(station = fct_reorder(station, p95)) %>%
+ggplot(aes(year, p95)) +
+  geom_line(aes(color = station), size = 0.3) +
+  theme(
+    strip.text.y = element_text(angle = 0)) +
+  xlab("jaar") + ylab("95-percentiel van gemeten waterhoogte (cm) per jaar.")
+
+
+```
+
+
 Brondata: ~23 waterstandstations in het Waddengebied en de Noordzeekustzone van LMW. 
+
 1.8	Zeespiegelstijging
 Hier wordt de jaargemiddelde waterstand weergegeven en verwezen naar de zeespiegelstijgingsmonitor voor de uitgebreidere analyses en benodigde correcties. 
 
 Analyse(s)/figuren:
 1.	Jaargemiddelde waterstand en 19-jarig lopend gemiddelde om te verdisconteren voor de 18,6 jarige cyclus.
+
+[Link naar zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb)
 
 Brondata: ~23 waterstandstations in het Waddengebied en de Noordzeekustzone van LMW. 
 
@@ -108,19 +169,103 @@ Brondata: ~23 waterstandstations in het Waddengebied en de Noordzeekustzone van 
  
 
 1.9	GLW, GHW en getijslag
+
 De Gemiddelde Hoog Water en Gemiddelde Laag Water niveaus zijn relevant voor de ecologie en samen met de getijslag ook voor de morfologische ontwikkeling. Voor deze analyse moeten eerst alle hoog- en laagwaters per station worden bepaald op basis van de gemeten waterstand. Let op, voor oudere jaren werd in het verleden maar eens per uur gemeten en HW en LW separaat geregistreerd. Uiteraard moet er dan gemiddeld worden over deze HW en LW standen.
 
 Analyse(s)/figuren:
 1.	Jaargemiddelde GLW en 19-jarig lopend gemiddelde om te verdisconteren voor de 18,6 jarige cyclus.
 2.	Jaargemiddelde GHW en 19-jarig lopend gemiddelde om te verdisconteren voor de 18,6 jarige cyclus.
-3.	Jaargemiddelde getijslag (GHW-GLW) en 19-jarig lopend gemiddelde om te verdisconteren voor de 18,6 jarige cyclus.
-4.	Kaart met getijslag van het meest actuele jaar om verloop in de Waddenzee te laten zien.
 
 Brondata: ~23 waterstandstations in het Waddengebied en de Noordzeekustzone van LMW. 
 
+
+```{r loadWaterhoogteData}
+load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-12", ".Rdata")))
+df_all_WATHTE2 <- df_all_WATHTE %>%
+# filter(year(tijdstip) >=2000) %>% # voor testen
+arrange(tijdstip) %>%
+  group_split(locatie.naam)
+```
+
+
+```{r berekeningGetij}
+
+gaps <- Tides::gapsts(df_all_WATHTE2[[3]]$tijdstip, dtMax = 61, unit = "mins")
+
+if(!is.null(gaps)){
+  ggplot() +
+  geom_point(data = gaps, aes(x = t1, y = dt/(60*60)), color = "red", size = 1) #+
+  # geom_point(data = df_all_WATHTE[df_all_WATHTE$locatie.naam == "Eemshaven",], aes(x = tijdstip, y = numeriekewaarde), size = 0.2)
+}
+
+h <- df_all_WATHTE2[[3]] %>%
+  select(time = tijdstip, h = numeriekewaarde)
+
+extrema <- Tides::extrema(h, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3)
+
+```
+
+
+```{r, fig.width=8, fig.cap= "Hoog- en laagwater voor eind maart 2018 (inclusief overgang naar zomertijd), zoals berekend voor de hele tijdserie." }
+minplottime = ymd("2018-03-23")
+maxplottime = ymd("2018-03-27")
+df_all_WATHTE2[[3]] %>%
+  filter(tijdstip > minplottime, tijdstip < maxplottime) %>%
+  ggplot() +
+  geom_point(aes(tijdstip, numeriekewaarde)) +
+  geom_point(data = extrema$HL %>% filter(time > minplottime, time < maxplottime), aes(time, h, color = HL), size = 5, shape = 21, fill = "transparent") +
+  theme(legend.position = "bottom")
+```
+
+
+
+```{r Tides, fig.height=6, fig.width=8, fig.cap="Jaargemiddeld laag- en hoogwater voor station Eemshaven. De lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
+
+  extrema$HL %>%
+    # filter(HL == "L") %>%
+    mutate(
+      jaar = year(time)
+    ) %>% 
+    filter(jaar != 2021 & jaar > 1980) %>%
+    ggplot() +
+    # geom_point(aes(time, h, color = HL), alpha = 0.3) +
+    geom_smooth(aes(time, h, group = jaar), method = "lm", formula = y ~ 1) +
+    geom_smooth(aes(time, h), method = "lm", 
+                formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6*31556995))) + I(sin(2 * pi * as.numeric(x) / (18.6*31556995)))) +
+    # coord_cartesian(ylim = c(-160, -100)) +
+    facet_grid(HL ~ ., scales = "free")
+
+```
+
  
- 
- 
+3.	Jaargemiddelde getijslag (GHW-GLW) en 19-jarig lopend gemiddelde om te verdisconteren voor de 18,6 jarige cyclus.
+
+
+
+
+
+```{r getijslag}
+  extrema$HL %>%
+    # filter(HL == "L") %>%
+    mutate(jaar = year(time)) %>% 
+    filter(jaar != 2021 & jaar > 1980) %>%
+  group_by(jaar, HL) %>% summarise(mean = mean(h)) %>%
+  pivot_wider(id_cols = c(jaar), names_from = HL, values_from = mean) %>%
+  mutate(getijslag_cm = H-L) %>%
+  ggplot() +
+  geom_line(aes(jaar, getijslag_cm)) +
+  geom_smooth(aes(jaar, getijslag_cm), method = "lm", 
+                formula = y ~ x + I(cos(2 * pi * x / (18.6))) + I(sin(2 * pi * (x) / (18.6))))
+
+```
+
+
+4.	Kaart met getijslag van het meest actuele jaar om verloop in de Waddenzee te laten zien.
+
+
+
+
+
  
 1.10	GLLWS & GHHWS
 Gemiddeld Laag Laagwater Spring en Gemiddeld Hoog Hoogwater Spring zijn van belang voor de ecologie? En worden daarom hierbij opgenomen. Veranderingen hierin kunnen gekoppeld worden aan veranderingen in de getijcomponenten. De springtij-doodtij cyclus ontstaat door interactie van de M2 en S2 getijcomponent, die opgenomen zijn in de volgende paragraaf.
