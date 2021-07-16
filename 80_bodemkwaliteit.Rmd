@@ -1,0 +1,47 @@
+
+# Bodemkwaliteit
+
+```{r setupBodem, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE,
+	fig.width = 8,
+	out.width = "100%"
+)
+source("r/runThisFirst.R")
+
+```
+
+## Korrelgrootteverdeling
+
+```{r readKorrelgrootteData}
+korrel.df <- read_delim(file.path(datadir, "ddl", "standard", paste0("korrelgrootte", today(), ".csv")), delim = ";")
+gemeentegrenzen <- sf::read_sf(file.path(datadir, "../administratief/NL_gemeentegrenzen\\Gemeentegrenzen_2017_zonder_water_gen.geojson"))
+gemeentegrenzen <- gemeentegrenzen %>% sf::st_transform(crs = 4326)
+
+```
+
+### Slibgehalte
+
+
+
+
+```{r kaartSlibgehalte, fig.cap = "Korrelgroottefractie Bodem/Sediment diameter kleiner dan 63 um / drooggewicht in %}
+par <- "Korrelgroottefractie Bodem/Sediment diameter kleiner dan 63 um / drooggewicht in %"
+# unique(korrel.df[korrel.df$parameter.wat.omschrijving == par,])
+
+korrel.df %>% filter(parameter.wat.omschrijving == par) %>%
+  mutate(jaar = as.factor(year(tijdstip))) %>%
+  st_as_sf(coords = c("geometriepunt.x", "geometriepunt.y"), crs = 25831) %>%
+  select(-coordinatenstelsel) %>% 
+  st_transform(4326) %>%
+  ggplot(aes()) +
+  geom_sf(data = gemeentegrenzen, fill = "lightyellow") +
+  geom_sf(aes(color = numeriekewaarde, shape = jaar), size = 4) +
+  coord_sf(ylim = c(52.8, NA), xlim = c(4.5, NA)) +
+  scale_color_gradientn(colours = jet.colors(7), name = "slibgehalte") +
+  theme_light() +
+  theme(legend.position = "bottom")
+```
+
