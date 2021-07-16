@@ -29,25 +29,22 @@ Voor de meteorologische beschrijving is uitgegaan van de uurgegevens van het KNM
 ##  Wind   {#wind}
 
 
+### Windrichting
+
 De windrichting is overwegend west-zuidwest geweest. De verdeling van windsterkte per richting is te zien in figuur \@ref(fig:windroos). 
 
 
 ```{r windroos, figures-side, fig.show="hold", out.width="50%", fig.width = 6, fig.cap="Windroos over de periode 1990 - 2018. Kleuren geven klassen van windsnelheid aan, de lengte van de spaken de windsterktefrequentie/voorkomen per windrichting."}
+
 require(RColorBrewer)
+
 # inlezen knmi data
-winddata <- dtwind %>% 
-  # group_by(date, station, year, month) %>%
-  # summarize(
-  #   `windsnelheid daggemiddeld` = mean(`Uurgemiddelde windsnelheid in 0.1 m/s`),
-  #   `windsnelheid daggemiddeld` = mean(`Uurgemiddelde windsnelheid in 0.1 m/s`),
-  #   ) %>%
+winddatalist <- dtwind %>% 
   filter(year >= 2000, !is.na(`Windrichting in graden`)) %>% 
   filter(`Windrichting in graden` > 0 & `Windrichting in graden` <= 360) %>% 
-  dplyr::select(station, datum = date, `Windrichting in graden` , `Uurgemiddelde windsnelheid in 0.1 m/s`)
+  dplyr::select(station, datum = date, `Windrichting in graden` , `Uurgemiddelde windsnelheid in 0.1 m/s`) %>% 
+  group_split(station)
 
-# View(split(winddata, by = "station"))
-
-winddatalist <- split(winddata, by = "station")
 map(
   winddatalist, 
   function(x)
@@ -67,7 +64,7 @@ De seizoensverdeling van windsterkte laat zien dat de hogere windsnelheden vaker
 dtwind %>% 
   group_by(year, month, date, station) %>% summarize(`windsnelheid daggemiddeld` = mean(`Uurgemiddelde windsnelheid in 0.1 m/s`)) %>%
   group_by(year, month, station) %>% summarize(`windsnelheid in m/s` = mean(`windsnelheid daggemiddeld`)/10, na.rm = T) %>%
-  ggplot(aes(year, month)) + geom_tile(aes(fill = `windsnelheid in m/s`)) + scale_fill_viridis_c() +theme_minimal() + theme(legend.position = "bottom") + facet_grid(station ~ .)
+  ggplot(aes(year, month)) + geom_tile(aes(fill = `windsnelheid in m/s`)) + scale_fill_viridis_c() +theme_light() + theme(legend.position = "bottom") + facet_grid(station ~ .)
 ```
 
 
@@ -97,6 +94,7 @@ ggplot(aes(year, value)) +
   geom_line(aes(color = station, linetype = percentiel), size = 1) +
   # facet_grid(percentiel ~.) +
   # theme_classic() +
+  theme_light() +
   theme(legend.position = "bottom")
 ```
 
@@ -106,14 +104,23 @@ ggplot(aes(year, value)) +
 
 ```{r consecHours, fig.height=10, fig.width=10, fig.cap="Aantal achtereenvolgende uren dat de windsnelheid boven 7 m/s is geweest."  }
 
+jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"))
+
 dtwind %>% filter(year > 2010) %>%
   select(datetime, station, `Uurgemiddelde windsnelheid in 0.1 m/s`) %>%
   group_by(station, ID = data.table::rleid(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70)) %>%
   mutate(`duur in uren` = if_else(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70, row_number(), 0L)) %>%
   ggplot(aes(datetime, `duur in uren`)) +  # `Uurgemiddelde windsnelheid in 0.1 m/s`
   geom_point(aes(color = `duur in uren`), size = 0.5) +
-  scale_color_viridis_c() +
+  # scale_color_viridis_c() +
+  scale_color_gradientn(colours = jet.colors(7), name = "duur in uren"#,
+                        # trans = "log",
+                        # breaks = my_breaks, 
+                        # labels = my_breaks
+                        ) +
+
   facet_wrap(~ station, ncol = 1) +
+  theme_light() +
   theme(legend.position = "bottom")
 
 ```
@@ -137,10 +144,17 @@ dtwind %>% filter(year > 2010) %>%
   group_by(station, kwadrant, ID = data.table::rleid(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70)) %>%
   mutate(`duur in uren` = if_else(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70, row_number(), 0L)) %>%
   ggplot(aes(datetime, `duur in uren`)) +  # `Uurgemiddelde windsnelheid in 0.1 m/s`
-  geom_point(aes(), size = 0.5) +
-  scale_color_viridis_c() +
+  geom_point(aes(color =`duur in uren` ), size = 0.5) +
+  # scale_color_viridis_c() +
+    scale_color_gradientn(colours = jet.colors(7), name = "duur in uren"#,
+                        # trans = "log",
+                        # breaks = my_breaks, 
+                        # labels = my_breaks
+                        ) +
+
   xlab("jaren") +
   facet_grid(station ~ kwadrant) +
+  theme_light() +
   theme(legend.position = "bottom",
         strip.text.y = element_text(angle = 0))
 

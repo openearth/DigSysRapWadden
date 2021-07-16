@@ -46,6 +46,16 @@ filenamesRaw = list.files(file.path(datadir, "ddl/raw/eutro_allyears"), full.nam
 
 allFiles <- lapply(filenamesRaw, function(x) read_delim(x, delim = ";", guess_max = 10000,
                                                          col_types = 'nccnnnccncccncccccccccccccccccccccccccccccccccccn'))
-df_all <- bind_rows(allFiles)
+df_all <- bind_rows(allFiles) %>%
+  filter(kwaliteitswaarde.code == "00") %>% # alleen metingen met kwaliteitscode 0 of "00"
+  sf::st_as_sf(coords = c("geometriepunt.x", "geometriepunt.y"), crs = unique(.$coordinatenstelsel)) %>% 
+  sf::st_transform(4326) %>%                                                # transformatie naar WGS84
+  mutate(geometriepunt.x = unlist(map(.$geometry,1)),
+         geometriepunt.y = unlist(map(.$geometry,2)),
+         coordinatenstelsel = 4326) %>%
+  sf::st_drop_geometry()
+
+
+
 write_delim(df_all, file.path(datadir, "ddl/standard/WQ_TS_trendstations_allyears.csv"), delim = ";")
 

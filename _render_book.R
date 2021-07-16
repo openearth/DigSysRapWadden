@@ -16,9 +16,10 @@ require(bookdown)
 # knitr::clean_cache() # kan soms handig zijn
 
 file.remove("_main.md")
+file.remove("_main.Rmd")
 # gitbook formatted html pages (gebruikt op testpagina)
-bookdown::render_book("01_index.Rmd", output_format = NULL, 
-                      new_session = T)
+bookdown::render_book("index.Rmd", output_format = NULL, 
+                      new_session = F)
 # "normal" pdf
 # options(tinytex.verbose = FALSE) # change to TRUE for debugging
 # bookdown::render_book("index.Rmd", output_format = bookdown::pdf_book(latex_engine = "xelatex"),
