@@ -89,7 +89,7 @@ if(!dir.exists(file.path(datadir, "ddl/raw/waterhoogte"))) dir.create(file.path(
 # waterhoogteLocaties <- df_all %>% distinct(locatie.naam) %>% unlist %>% unname
 
 
-#=== ophalen alle jaren golven ===============================
+#===  golven ophalen alle jaren ===============================
 
 for(year in c(1970:2021)){
   startdate <- paste0(year, "-01-01T00:00:00.000+01:00")  
@@ -127,7 +127,7 @@ for(year in c(1970:2021)){
 }
 
 
-#==== alle jaren voor waterhoogte ===============================
+#==== waterhoogte alle jaren  ===============================
 
 for(year in c(1991:2021)){
   startdate <- paste0(year, "-01-01T00:00:00.000+01:00")  # hardcoded startyear
@@ -158,9 +158,11 @@ for(year in c(1991:2021)){
   }
 }
 
-#====================
+#=== golven opwerking =================
 
-# opwerking golven
+
+
+#====  golfhoogte ======================
 # 1.	95-percentiel van de significante golfhoogte per jaar
 # 2.	Aantal stormen (gedefinieerd als Hs> xx m) per jaar
 # 3.	Afwijking maandgemiddeld t.o.v. langjarig gemiddelde, als maat voor seizoensdynamiek. Verschillende jaren weergeven als lijnen met kleurverloop (oude jaren blauw en naar heden toe verkleurend naar rood) 
@@ -205,6 +207,36 @@ ggplot(df_all, aes(x = (jaar + maand/12))) +
 
 df_all %>% group_by(locatie.naam, grootheid.code) %>% summarise(n = n()) %>% View()
 golfLocaties <- df_all %>% distinct(locatie.naam) %>% unlist %>% unname
+
+
+#====  golfperiode ======================
+
+# 1.	95-percentiel van de golfperiode Tm02 per jaar, incl metingen als losse puntjes
+
+
+filenamesRawTm02 = list.files(file.path(datadir, "ddl/raw/golven"), full.names = T, recursive = T, pattern = "Tm02")
+
+listData <- lapply(filenamesRawTm02, function(x) 
+  read_delim(x, delim = ";", guess_max = 10000,
+             # col_types = 'nccnnnccncccncccccccccccccccccccccccccccccccccccn', 
+             col_types = 'cccccccccccn',
+             na = c("-999999999", "999999e32", "999999999")
+  ) %>%
+    # select(locatie.naam, locatie.code, tijdstip, statuswaarde, kwaliteitswaarde.code, parameter.wat.omschrijving, eenheid.code, hoedanigheid.omschrijving, meetapparaat.omschrijving,
+    #        parameter.code, grootheid.code, numeriekewaarde) %>%
+    # drop_na(numeriekewaarde) %>%
+    filter(kwaliteitswaarde.code < 50, numeriekewaarde < 10000 & numeriekewaarde >= 0) %>%
+    mutate(tijdstip = as_datetime(as.character(tijdstip), tz = "CET")) %>%
+    mutate(jaar = year(tijdstip), maand = month(tijdstip), yearly_perc95 = quantile(numeriekewaarde, 0.95, na.rm = T)) %>%
+    filter(jaar == median(jaar)) # to filter out first tijdstip in next year
+)
+
+df_all <- bind_rows(listData)
+save(df_all, 
+     file = file.path(datadir, "ddl", "standard", paste0("golfperiode", today(), ".Rdata"))
+     )
+# write_delim(df_all, file.path(datadir, "ddl", "standard", paste0("golfperiode", today(), ".csv")), delim = ";")
+
 
 
 

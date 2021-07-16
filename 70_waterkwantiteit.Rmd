@@ -20,6 +20,7 @@ source("r/runThisFirst.R")
 De zoetwaterafvoer wordt opgenomen als indicator omdat het de saliniteit en de waterbeweging beïnvloedt. De data van de grootste afvoeren (Den Oever, Kornwerderzand, Lauwersoog) zijn goed ontsloten en worden als indicator opgenomen. Andere/kleinere afvoeren zijn zeer nuttig om te ontsluiten, maar deze gegevens zijn via de waterschappen zeer moeilijk te verkrijgen. Bovendien is de verwachting dat de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval) zullen volgen. De afvoeren bij Den Oever en Kornwerderzand worden beïnvloed door het peilbeheer in het IJsselmeer. Daarom worden ook zomer- en wintergemiddelde afvoeren gevizualiseerd.
 
 Analyse(s)/figuren:   (gepland)
+
 1.	Jaargemiddelde afvoer
 2.	Zomer- en wintergemiddelde
 
@@ -111,14 +112,38 @@ gdf %>%
 
 De golfperiodes geven ook inzicht in de dynamiek van de verschillende jaren. (nog niet gedaan, data wel gedownloadt)
 
-```{r}
+
+```{r readGolfperiodeData}
+path = file.path(datadir, "ddl", "standard", paste0("golfperiode", "2021-07-16", ".Rdata"))
+load(path)
 
 ```
 
 
 Analyse(s)/figuren:
-1.	95-percentiel van de golfperiode Tm02 per jaar, incl metingen als losse puntjes
+95-percentiel van de golfperiode Tm02 per jaar, incl metingen als losse puntjes. 
 
+
+
+```{r plotGolfperiode, fig.height=20, fig.width=10, fig.cap = "Tijdserie van 95-percentiel van de golfperiode Tm02 per jaar, incl metingen als losse puntjes. de metingen in deze figuur is een sample uit alle data (n = 100000 uit totaal van 10 miljoen datapunten)."}
+df_all %>% sample_n(100000) %>% #group_by(locatie.naam) %>% summarize(n = n())
+  filter( numeriekewaarde < 9999) %>%
+  ggplot() +
+  geom_point(aes(tijdstip, numeriekewaarde, color = "metingen"), size = 0.5) +
+  geom_point(data = df_all %>% distinct(locatie.naam, jaar, yearly_perc95), aes(ymd_hms(paste0(jaar, "-06-01 00:00:00")), yearly_perc95, color = "p95 per jaar")) +
+  facet_wrap(~ locatie.naam, ncol =2) +
+  theme_light() +
+  theme(legend.position = "bottom",
+        strip.text.y = element_text(angle = 0)) +
+  # coord_cartesian(ylim = c(-20, 200)) +
+  scale_colour_manual(name = "",
+                      values = c("p95 per jaar" = "red", 
+                                 "metingen" = "blue"))
+
+
+# rm(df_all)
+
+```
 
 
 Brondata: Golfboeien in de Noordzee en Waddenzee. Of de boeien in de Waddenzee ook echt operationeel zijn is twijfelachtig…

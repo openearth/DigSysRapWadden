@@ -26,10 +26,8 @@ gemeentegrenzen <- gemeentegrenzen %>% sf::st_transform(crs = 4326)
 
 
 
-
-```{r kaartSlibgehalte, fig.cap = "Korrelgroottefractie Bodem/Sediment diameter kleiner dan 63 um / drooggewicht in %}
+```{r kaartSlibgehalte, fig.cap = "Korrelgroottefractie Bodem/Sediment diameter kleiner dan 63 um / drooggewicht in %"}
 par <- "Korrelgroottefractie Bodem/Sediment diameter kleiner dan 63 um / drooggewicht in %"
-# unique(korrel.df[korrel.df$parameter.wat.omschrijving == par,])
 
 korrel.df %>% filter(parameter.wat.omschrijving == par) %>%
   mutate(jaar = as.factor(year(tijdstip))) %>%

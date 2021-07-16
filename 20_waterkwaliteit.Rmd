@@ -26,8 +26,7 @@ WQ <- WQ %>% bind_rows(ZS)
 ```
 
 
-
-## Data bron voor waterkwaliteit
+Databron voor waterkwaliteit
 
 MWTL metingen van Rijkswaterstaat worden beschikbaar gemaakt via Waterinfo ([link](https://waterinfo.rws.nl/)) en zijn ook direct via een webservice te downloaden uit de Datadistributielaag (DDL) ([documentatie webservice](https://www.rijkswaterstaat.nl/rws/opendata/DistributielaagWebservices-SUM-2v7.pdf)). 
 
@@ -45,14 +44,14 @@ WQlocations <- WQ %>%
 
 leaflet::leaflet(WQlocations) %>%
   leaflet::addTiles(group = "OSM") %>%
-  addProviderTiles(providers$Esri.WorldTopoMap, group = "Esri.WorldTopoMap") %>%
-  addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
-  leaflet::addProviderTiles("OpenSeaMap", group = "OpenSeaMap") %>%
-  leaflet::addCircleMarkers(label = ~htmltools::htmlEscape(paste0(locatie.naam)), group = "all_locations", radius = 4, labelOptions = labelOptions(noHide = T, direction = 30)) %>%
-  leaflet::addLayersControl(
-    baseGroups = c("OSM",  "Esri.WorldTopoMap", "Esri.WorldImagery"),
-    overlayGroups = c("all_locations", "watersysteem", "OpenSeaMap")) %>%    #, "KRW waterlichamen 2006"
-  hideGroup("KRW waterlichamen 2006")
+  # addProviderTiles(providers$Esri.WorldTopoMap, group = "Esri.WorldTopoMap") %>%
+  # addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
+  # leaflet::addProviderTiles("OpenSeaMap", group = "OpenSeaMap") %>%
+  leaflet::addCircleMarkers(label = ~htmltools::htmlEscape(paste0(locatie.naam)), group = "all_locations", radius = 4, labelOptions = labelOptions(noHide = T, direction = 30)) #%>%
+  # leaflet::addLayersControl(
+  #   baseGroups = c("OSM",  "Esri.WorldTopoMap", "Esri.WorldImagery"),
+  #   overlayGroups = c("all_locations", "watersysteem", "OpenSeaMap")) %>%    #, "KRW waterlichamen 2006"
+  # hideGroup("KRW waterlichamen 2006")
 
 ```
 
@@ -64,7 +63,9 @@ De watertemperatuur wordt opgenomen als indicator omdat deze direct van invloed 
 
 Analyse(s)/figuren:
 
-1.	Jaargemiddelde watertemperatuur (doorgetrokken lijn), incl. losse metingen (punten)
+### Jaargemiddelde watertemperatuur
+
+Jaargemiddelde watertemperatuur (doorgetrokken lijn), incl. losse metingen (punten)
 Eerst bepalen maandgemiddelden (vanwege verschillende meetfrequentie winter/zomer) en maanden middelen naar jaar. Alle metingen toevoegen aan figuur als losse punten. 
 
 ```{r jaargemiddeldeTemp, fig.height=20, fig.width=10, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten)."}
@@ -109,7 +110,7 @@ parData <- WQ %>%
 ```
  
 
-2.	Zomer- en wintergemiddelde. Middelen metingen 1 apr-30 sep (zomer) en 1 okt-31 maart
+###Zomer- en wintergemiddelde. Middelen metingen 1 apr-30 sep (zomer) en 1 okt-31 maart
 
 ```{r seizoensgemiddelden, fig.width=8, fig.height=20, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) watertemperatuur in de Waddenzee. Seizoensgemiddelden zijn alleen berekend en meegenomen in de grafiek wanneer er 5 of meer metingen per seizoen beschikbaar waren. "}
 
@@ -160,27 +161,35 @@ Brondata:
 
 De saliniteit wordt opgenomen als indicator omdat deze van invloed is op de ecologie en de slibdynamiek. Veranderingen in saliniteit duiden op veranderingen in zoetwaterafvoer en/of getijvoortplanting.
 
-Analyse(s)/figuren:
-1.	Jaargemiddelde saliniteit (doorgetrokken lijn), incl. losse metingen (punten)
-Eerst bepalen maandgemiddelden (vanwege verschillende meetfrequentie winter/zomer) en maanden middelen naar jaar. Alle metingen toevoegen aan figuur als losse punten. 
-
 Brondata: 
-•	MWTL data. Orde 20 meetmomenten per jaar (zomer 2x p.m. bemeten worden en winter 1x p.m.) op ~1m onder wateroppervlak op ~10 locaties 
-•	Continue metingen bij NIOZ steiger Texel (niet vrij verkrijgbaar?) en meetpaal Eemshaven worden in eerste instantie buiten beschouwing gelaten.
+
+*   MWTL data. Orde 20 meetmomenten per jaar (zomer 2x p.m. bemeten worden en winter 1x p.m.) op ~1m onder wateroppervlak op ~10 locaties 
+*   Continue metingen bij NIOZ steiger Texel (niet vrij verkrijgbaar?) en meetpaal Eemshaven worden in eerste instantie buiten beschouwing gelaten.
 
 ```{r plotSalLocaties, fig.cap="Kaart met locaties waar saliniteit is gemeten. De grootte van de cirkel is indicatief voor het aantal metingen."}
 
 WQ %>% 
   filter(grepl("SAL", grootheid.code)) %>%
-  group_by(locatie.naam, geometriepunt.x, geometriepunt.y, ) %>%
+  group_by(locatie.naam, geometriepunt.x, geometriepunt.y) %>%
   summarize(n = n()) %>% 
   filter(locatie.naam %in% plotlocaties) %>%
-  st_as_sf(coords = c('geometriepunt.x', 'geometriepunt.y'), crs = 25831) %>%
+  st_as_sf(coords = c('geometriepunt.x', 'geometriepunt.y'), crs = 4326) %>%
   st_transform(4326) %>%
   leaflet() %>%
   addTiles() %>%
   addCircleMarkers(radius = ~n/40, label = ~paste(locatie.naam, " n = ", n))
 ```
+
+
+
+Analyse(s)/figuren:
+
+### Jaargemiddelde saliniteit
+
+Jaargemiddelde saliniteit (doorgetrokken lijn), incl. losse metingen (punten)
+
+Eerst bepalen maandgemiddelden (vanwege verschillende meetfrequentie winter/zomer) en maanden middelen naar jaar. Alle metingen toevoegen aan figuur als losse punten. 
+
 
 
 
@@ -226,6 +235,7 @@ parData <- WQ %>%
 
 ```
 
+### Afwijking van langjarig gemiddelde voor Saliniteit
 
 ```{r plotSaliniteitAnomalie, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Anomalie (afwijking van het langjarig gemiddelde) van saliniteit voor de gehele meetperiode"}
 

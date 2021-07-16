@@ -3,6 +3,9 @@ bookdown::gitbook:
   config:
     toc:
       collapse: section
+      before: |
+        <li><a href="http://www.deltares.nl"><img src="www/logo.png" style="width: 175px;"></a></li>
+        <li><a href="http://www.rws.nl"><img src="www/Rijkswaterstaat-logo-e1473888123824-1-300x300.jpg" style="width: 175px;"></a></li>
     toc_float:
       collapsed: false
       smooth_scroll: false

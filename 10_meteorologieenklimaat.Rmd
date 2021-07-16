@@ -1,5 +1,4 @@
 
-\newpage
 
 # Meteorologie en klimaat {#meteo}
 
@@ -34,7 +33,7 @@ Voor de meteorologische beschrijving is uitgegaan van de uurgegevens van het KNM
 De windrichting is overwegend west-zuidwest geweest. De verdeling van windsterkte per richting is te zien in figuur \@ref(fig:windroos). 
 
 
-```{r windroos, figures-side, fig.show="hold", out.width="50%", fig.width = 6, fig.cap="Windroos over de periode 1990 - 2018. Kleuren geven klassen van windsnelheid aan, de lengte van de spaken de windsterktefrequentie/voorkomen per windrichting."}
+```{r windroos, fig.show="hold", out.width="50%", fig.width = 8, fig.cap="Windroos over de periode 1990 - 2018. Kleuren geven klassen van windsnelheid aan, de lengte van de spaken de windsterktefrequentie/voorkomen per windrichting."}
 
 require(RColorBrewer)
 
@@ -42,16 +41,20 @@ require(RColorBrewer)
 winddatalist <- dtwind %>% 
   filter(year >= 2000, !is.na(`Windrichting in graden`)) %>% 
   filter(`Windrichting in graden` > 0 & `Windrichting in graden` <= 360) %>% 
+  drop_na() %>%
   dplyr::select(station, datum = date, `Windrichting in graden` , `Uurgemiddelde windsnelheid in 0.1 m/s`) %>% 
   group_split(station)
 
-map(
+walk(
   winddatalist, 
-  function(x)
-    plot.windrose(spd = x$`Uurgemiddelde windsnelheid in 0.1 m/s`/10, 
-                  dir = x$`Windrichting in graden`, 
-                  palette = "YlOrRd",
-                  location = unique(x$station)) 
+  function(x){
+    p <- plot.windrose(spd = x$`Uurgemiddelde windsnelheid in 0.1 m/s`/10, 
+                       dir = x$`Windrichting in graden`, 
+                       palette = "YlOrRd",
+                       location = unique(x$station)
+    ) 
+    print(p)
+  }
 )
 
 ```
@@ -126,7 +129,7 @@ dtwind %>% filter(year > 2010) %>%
 ```
 
 
-3.	Duur (uren) dat windsnelheid > 7 m/s uitgesplitst naar de 4 kwadranten: NO, ZO, ZW, NW  
+###	Duur (uren) dat windsnelheid > 7 m/s uitgesplitst naar de 4 kwadranten: NO, ZO, ZW, NW  
 
 
 ```{r consecHoursPerDirection, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 7 m/s is geweest per richting (kwadrant) vanaf 2010."  }
