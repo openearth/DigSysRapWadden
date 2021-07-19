@@ -112,7 +112,7 @@ parData <- WQ %>%
 
 ###Zomer- en wintergemiddelde. Middelen metingen 1 apr-30 sep (zomer) en 1 okt-31 maart
 
-```{r seizoensgemiddelden, fig.width=8, fig.height=20, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) watertemperatuur in de Waddenzee. Seizoensgemiddelden zijn alleen berekend en meegenomen in de grafiek wanneer er 5 of meer metingen per seizoen beschikbaar waren. "}
+```{r seizoensgemiddeldenWatertemperatuur, fig.width=8, fig.height=20, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) watertemperatuur in de Waddenzee. Seizoensgemiddelden zijn alleen berekend en meegenomen in de grafiek wanneer er 5 of meer metingen per seizoen beschikbaar waren. "}
 
 parData <- WQ %>% 
   filter(parameter.code == par, grootheid.code == gro, as.numeric(kwaliteitswaarde.code) == "0") %>%
