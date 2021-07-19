@@ -16,7 +16,7 @@ source("r/runThisFirst.R")
 ## Korrelgrootteverdeling
 
 ```{r readKorrelgrootteData}
-korrel.df <- read_delim(file.path(datadir, "ddl", "standard", paste0("korrelgrootte", today(), ".csv")), delim = ";")
+korrel.df <- read_delim(file.path(datadir, "ddl", "standard", paste0("korrelgrootte", "2021-07-16", ".csv")), delim = ";")
 gemeentegrenzen <- sf::read_sf(file.path(datadir, "../administratief/NL_gemeentegrenzen\\Gemeentegrenzen_2017_zonder_water_gen.geojson"))
 gemeentegrenzen <- gemeentegrenzen %>% sf::st_transform(crs = 4326)
 
