@@ -25,16 +25,11 @@ WQ <- WQ %>% bind_rows(ZS)
 
 ```
 
+Voor de waterkwaliteit zijn de parameters watertemperatuur, saliniteit en concentratie van zwevende stof geselecteerd. Deze parameters worden tweewekelijks tot maandelijks bemeten vanaf een schip op 1 m onder het wateroppervlak onder het meetnet Monitoring Waterstaatkundige Toestand des Lands (MWTL). 
 
-Databron voor waterkwaliteit
+De MWTL metingen zijn beschikbaar op locaties in de Waddenzee, Noordzee en het Eems estuarium zoals aangegeven in figuur \@ref(fig:kaartDDLlocaties). Vroeger werd op veel meer locaties de waterkwaliteit bemeten. Voor deze systeemrapportage is ervoor gekozen om alleen de nog actieve meetpunten op te nemen. De locaties Bocht van Watum en Rotummerplaat 3 km uit de kust zijn in het verleden verplaatst en daarom 2x terug te vinden in de kaart.
 
-MWTL metingen van Rijkswaterstaat worden beschikbaar gemaakt via Waterinfo ([link](https://waterinfo.rws.nl/)) en zijn ook direct via een webservice te downloaden uit de Datadistributielaag (DDL) ([documentatie webservice](https://www.rijkswaterstaat.nl/rws/opendata/DistributielaagWebservices-SUM-2v7.pdf)). 
-
-Zwevend stof is niet beschikbaar uit de DDL, en is apart opgevraagd bij de servicedesk data van RWS
-
-De DDL bevat metingen voor locaties in de Waddenzee zoals aangegeven in figuur \@ref(fig:kaartDDLlocaties). Het soort metingen per locatie verschilt. Ook zijn er nog metingen beschikbaar in het Eems-Dollard gebied, die hier nog niet bij getoond worden.
-
-```{r kaartDDLlocaties, cache=F, fig.cap = "Alle locaties met RWS metingen in oppervlaktewater. "}
+```{r kaartDDLlocaties, cache=F, fig.cap = "Locaties met MWTL metingen in het oppervlaktewater in de relevante delen van de Noordzee, de Waddenzee en het Eems estuarium die nog steeds worden bemeten"}
 
 plotlocaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep", "Terschelling 10 km uit de kust","Rottumerplaat 3 km uit de kust", "Huibertgat oost", "Bocht van Watum", "Groote Gat noord")
 
@@ -56,17 +51,43 @@ leaflet::leaflet(WQlocations) %>%
 ```
 
 
+### Databronnen, naar appendix?
+MWTL metingen van Rijkswaterstaat worden beschikbaar gemaakt via Waterinfo ([link](https://waterinfo.rws.nl/)) en zijn ook direct via een webservice te downloaden uit de Datadistributielaag (DDL) ([documentatie webservice](https://www.rijkswaterstaat.nl/rws/opendata/DistributielaagWebservices-SUM-2v7.pdf)). 
+
+Zwevend stof is niet beschikbaar uit de DDL, en is apart opgevraagd bij de servicedesk data van RWS.
+
+Continue metingen van temperatuur en saliniteit bij NIOZ steiger Texel (niet vrij verkrijgbaar?) en van temperatuur, saliniteit en zwevende stof bij meetpaal Eemshaven worden in eerste instantie buiten beschouwing gelaten, omdat deze data niet goed ontsloten en/of gevalideerd is.
+
+
+### Berekeningswijze, naar appendix of los hoofdstuk?
+Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang de metingen eerst te 'middelen' per maand en vervolgens naar jaar, indien jaargemiddelden worden berekend. Als dit niet wordt gedaan, zijn de jaargemiddelden beinvloed door de hogere meetfrequentie in de zomer. Het woord middelen staat tussen aanhalingstekens, omdat het vaak in de winterperiode slechts 1 meting per maand betreft.
+
+Voor de watertemperatuur worden zomer- en wintergemiddelde berekend om te zien of er trends in de seizoenen zitten die bij jaargemiddelden weg worden gemiddeld. 
 
 ## Watertemperatuur
 
-De watertemperatuur wordt opgenomen als indicator omdat deze direct van invloed is op veel ecologische processen.
+De watertemperatuur wordt opgenomen als indicator omdat deze direct van invloed is op veel ecologische processen en indirect op de waterbeweging (viscositeit). De zoninstraling, luchttemperatuur en bewolkingsgraad hebben invloed op de watertemperatuur en zijn niet afzonderlijk opgenomen in de systeemrapportage, maar de watertemperatuur als resultante wel.
 
-Analyse(s)/figuren:
+Figuur \@(fig:plotTempLocaties) toont het totaal aantal metingen per locatie over de gehele meetperiode.
+JV 20/7: Willem, hier klopt nog iets niet. N is veel te groot. Nog afstemmen of we deze kaart overal opnemen of alleen aan het begin van het hoofdstuk en een tabelletje met N.
 
-### Jaargemiddelde watertemperatuur
+```{r plotTempLocaties, fig.cap="Kaart met locaties waar watertemperatuur is gemeten. De grootte van de cirkel is indicatief voor het totaal aantal metingen."}
 
-Jaargemiddelde watertemperatuur (doorgetrokken lijn), incl. losse metingen (punten)
-Eerst bepalen maandgemiddelden (vanwege verschillende meetfrequentie winter/zomer) en maanden middelen naar jaar. Alle metingen toevoegen aan figuur als losse punten. 
+WQ %>% 
+  filter(parameter.code == "NVT", grepl("T", grootheid.code),as.numeric(kwaliteitswaarde.code) < 50) %>%
+  group_by(locatie.naam, geometriepunt.x, geometriepunt.y) %>%
+  summarize(n = n()) %>% 
+  filter(locatie.naam %in% plotlocaties) %>%
+  st_as_sf(coords = c('geometriepunt.x', 'geometriepunt.y'), crs = 4326) %>%
+  st_transform(4326) %>%
+  leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(radius = ~n/40, label = ~paste(locatie.naam, " n = ", n))
+```
+
+Figuur \@ref(fig:jaargemiddeldeTemp) toont de jaargemiddelde watertemperatuur in rood, de maandgemiddelden als zwarte punten en de individuele metingen als grijze punten. De punten laten de seizoensdynamiek zien met hogere waarden in de zomer (tot 20-25 graden Celcius). De locaties die dieper in de bekkens liggen tonen daarbij iets hogere piektemperaturen dan de meetpunten in dieper water, nabij de zeegaten en in de Noordzee.
+
+De zomer- en wintergemiddelden (\@ref(fig:seizoensgemiddeldenWatertemperatuur)) laten ook geen duidelijke trends zien. Het zomergemiddelde (tussen 1 april en 30 september) ligt voor de meeste locaties rond de 15 graden en het wintergemiddelde (tussen 1 oktober en 31 maart) rond de 7 graden. De hogere temperaturen dieper in de bekkens lijken bij middeling naar een half jaar grotendeels weg te vallen, zowel in de zomer als de winter.
 
 ```{r jaargemiddeldeTemp, fig.height=20, fig.width=10, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten)."}
 
@@ -108,9 +129,6 @@ parData <- WQ %>%
     guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
 
 ```
- 
-
-###Zomer- en wintergemiddelde. Middelen metingen 1 apr-30 sep (zomer) en 1 okt-31 maart
 
 ```{r seizoensgemiddeldenWatertemperatuur, fig.width=8, fig.height=20, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) watertemperatuur in de Waddenzee. Seizoensgemiddelden zijn alleen berekend en meegenomen in de grafiek wanneer er 5 of meer metingen per seizoen beschikbaar waren. "}
 
@@ -150,23 +168,12 @@ parData <- WQ %>%
 
 ```
 
-
-
-Brondata: 
-•	MWTL data. Orde 20 meetmomenten per jaar (zomer 2x p.m. bemeten worden en winter 1x p.m.) op ~1m onder wateroppervlak op ~10 locaties 
-•	Continue metingen bij NIOZ steiger Texel (niet vrij verkrijgbaar?) en meetpaal Eemshaven worden in eerste instantie buiten beschouwing gelaten.
-
-
 ## Saliniteit
+De saliniteit wordt opgenomen als indicator omdat deze van invloed is op de ecologie en de slibdynamiek. Er zijn gemeenschappen van bodemdieren die alleen kunnen overleven bij bepaalde saliniteit van het Waddenwater en die maar voor een beperkte duur overschrijding van deze waarden kunnen verdragen. De MWTL metingen zijn echter te laagfrequent om een analyse te maken van deze kortstondige fluctuaties in saliniteit. Trendmatige veranderingen in saliniteit met een langere periode zijn wel waar te nemen en van belang voor de ecologie. Ook voor de slibdynamiek is de saliniteitsverdeling van belang, omdat deze een gravitatiecirculatie aandrijft, waarbij de stroming aan de bodem netto landwaarts is gericht en zeewaarts bij de oppervlakte. Omdat de sedimentconcentraties (zwevende stof) hoger zijn nabij de bodem dan nabij de oppervlakte, leidt dit ertoe dat er netto slib in de Wadden kan worden geimporteerd. Veranderingen in saliniteit duiden op veranderingen in zoetwaterafvoer, getijvoortplanting en/of windpatronen (zie hoofdstuk hydrodynamiek en hoofdstuk meteorologie).
 
-De saliniteit wordt opgenomen als indicator omdat deze van invloed is op de ecologie en de slibdynamiek. Veranderingen in saliniteit duiden op veranderingen in zoetwaterafvoer en/of getijvoortplanting.
+Figuur \@ref(fig:plotSalLocaties) toont het aantal saliniteitsmetingen per locatie over de gehele meetperiode.
 
-Brondata: 
-
-*   MWTL data. Orde 20 meetmomenten per jaar (zomer 2x p.m. bemeten worden en winter 1x p.m.) op ~1m onder wateroppervlak op ~10 locaties 
-*   Continue metingen bij NIOZ steiger Texel (niet vrij verkrijgbaar?) en meetpaal Eemshaven worden in eerste instantie buiten beschouwing gelaten.
-
-```{r plotSalLocaties, fig.cap="Kaart met locaties waar saliniteit is gemeten. De grootte van de cirkel is indicatief voor het aantal metingen."}
+```{r plotSalLocaties, fig.cap="Kaart met locaties waar saliniteit is gemeten. De grootte van de cirkel is indicatief voor het totaal aantal metingen."}
 
 WQ %>% 
   filter(grepl("SAL", grootheid.code)) %>%
@@ -179,18 +186,9 @@ WQ %>%
   addTiles() %>%
   addCircleMarkers(radius = ~n/40, label = ~paste(locatie.naam, " n = ", n))
 ```
+De individuele metingen (figuur \@ref(fig:jaargemiddeldeSal)) laten een seizoensfluctuatie van enkele ppt zien die gekoppeld is aan de seizoensfluctuatie in de zoetwaterafvoeren. De jaargemiddelde saliniteitswaarden laten fluctuaties zien zoals de dip rond 1995, maar het is lastig langjarige trends waar te nemen. Daartoe wordt ook de afwijking van het jaargemiddelde ten opzichte van het langjarig gemiddelde uitgezet (figuur \@ref(fig:plotSaliniteitAnomalie)). Hierin is de dip rond 1995 duidelijker terug te zien, maar lijkt de saliniteit in de Wadden sinds de jaren 2003 ook licht toe te nemen. Vooral in het Eems estuarium zijn de relatieve afwijkingen groot, tot een factor 5. In de Waddenzee zijn de afwijkingen dieper in de bekkens, op locaties dichter bij de spuilocaties, zoals te verwachten ook groter dan op de Noordzee en nabij de zeegaten. 
 
-
-
-Analyse(s)/figuren:
-
-### Jaargemiddelde saliniteit
-
-Jaargemiddelde saliniteit (doorgetrokken lijn), incl. losse metingen (punten)
-
-Eerst bepalen maandgemiddelden (vanwege verschillende meetfrequentie winter/zomer) en maanden middelen naar jaar. Alle metingen toevoegen aan figuur als losse punten. 
-
-
+JV 20/7: checken met trends in zoetwaterafvoer. Deze lijkt bij Den Oever wel licht af te nemen als zomer/wintergemiddelden worden bekeken.
 
 
 ```{r jaargemiddeldeSal, fig.height=20, fig.width=10, fig.cap="Jaargemiddelde salinteit in de Waddenzee. Maandgemiddelden (punten) en individuele metingen (kleinste punten) geven het bereik aan. Jaargemiddelde is alleen getoond bij meer dan 10 metingen per jaar. "}
@@ -235,7 +233,6 @@ parData <- WQ %>%
 
 ```
 
-### Afwijking van langjarig gemiddelde voor Saliniteit
 
 ```{r plotSaliniteitAnomalie, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Anomalie (afwijking van het langjarig gemiddelde) van saliniteit voor de gehele meetperiode"}
 
@@ -278,7 +275,6 @@ WQ %>%
 ggsave(file.path(datadir, "RWS", "producten", "SaliniteitAnomalie.pdf"))
   
 ```
-
 
 ## Zwevend stof
 
