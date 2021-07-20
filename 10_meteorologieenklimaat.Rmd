@@ -76,7 +76,8 @@ dtwind %>%
     y25 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.25, na.rm = T),
     y50 = median(`Windsnelheid in 0.1 m/s`/10, na.rm = T),
     y75 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.75, na.rm = T),
-    y95 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.95, na.rm = T)
+    y95 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.95, na.rm = T),
+    # y98 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.98, na.rm = T)
   ) %>% ungroup() %>% 
   pivot_longer(c(y25, y50, y75, y95), "percentiel", values_to = "value") %>%
   mutate(percentiel = as.factor(percentiel)) %>%
@@ -113,7 +114,7 @@ jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F"
 
 dtwind %>% filter(year > 2010) %>%
   select(datetime, station, `Uurgemiddelde windsnelheid in 0.1 m/s`) %>%
-  group_by(station, ID = data.table::rleid(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70)) %>%
+  group_by(station, ID = data.table::rleid(`Uurgemiddelde windsnelheid in 0.1 m/s` > 108)) %>%
   mutate(`duur in uren` = if_else(`Uurgemiddelde windsnelheid in 0.1 m/s` > 108, row_number(), 0L)) %>%
   ggplot(aes(datetime, `duur in uren`)) +  # `Uurgemiddelde windsnelheid in 0.1 m/s`
   geom_point(aes(color = `duur in uren`), size = 0.5) +
@@ -136,7 +137,7 @@ jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F"
 
 dtwind %>% filter(year > 2010) %>%
   select(datetime, station, `Uurgemiddelde windsnelheid in 0.1 m/s`) %>%
-  group_by(station, ID = data.table::rleid(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70)) %>%
+  group_by(station, ID = data.table::rleid(`Uurgemiddelde windsnelheid in 0.1 m/s` > 139)) %>%
   mutate(`duur in uren` = if_else(`Uurgemiddelde windsnelheid in 0.1 m/s` > 139, row_number(), 0L)) %>%
   ggplot(aes(datetime, `duur in uren`)) +  # `Uurgemiddelde windsnelheid in 0.1 m/s`
   geom_point(aes(color = `duur in uren`), size = 0.5) +
@@ -153,9 +154,9 @@ dtwind %>% filter(year > 2010) %>%
 
 ```
 
-Voor de opwekking van golven en de windopzet en -afzet is niet alleen de windsterkte, maar ook de windrichting van belang. Als de wind uit het zuidwesten komt, strijkt deze vanaf de Afsluitdijk over een lange afstand over de Waddenzee, waardoor er een veel groter verhang kan ontstaan dan bij bijvoorbeeld zuidenwind. In figuur \@ref(fig:consecHoursPerDirection) zijn de dynamische condities (windsnelheid>10,8 m/s) uitgezet per kwadrant.
+Voor de opwekking van golven en de windopzet en -afzet is niet alleen de windsterkte, maar ook de windrichting van belang. Als de wind uit het zuidwesten komt, strijkt deze vanaf de Afsluitdijk over een lange afstand over de Waddenzee, waardoor er een veel groter verhang kan ontstaan dan bij bijvoorbeeld zuidenwind. In figuur \@ref(fig:consecHoursPerDirection) zijn de dynamische condities (windsnelheid>10,8 m/s) uitgezet per kwadrant. De meeste energetische condities treden op bij zuidwesten wind, logischerwijs omdat deze windrichting ook het meestvoorkomend is. Ook uit het noordoosten komt af en toe krachtige wind.
 
-JV 20/7 Willem, afhankelijk van resultaat van bovenstaande deze misschien ook sommeren.
+JV 20/7 Willem, afhankelijk van resultaat van bovenstaande deze misschien ook sommeren per jaar.
 
 ```{r consecHoursPerDirection, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 10,8 m/s is geweest per richting (kwadrant) vanaf 2010."  }
 
@@ -169,7 +170,7 @@ dtwind %>% filter(year > 2010) %>%
     (`Windrichting in graden` > 270 &  `Windrichting in graden` <= 360) | `Windrichting in graden` == 0 ~ "NW"
   )) %>%
   select(datetime, station, `Uurgemiddelde windsnelheid in 0.1 m/s`, kwadrant) %>%
-  group_by(station, kwadrant, ID = data.table::rleid(`Uurgemiddelde windsnelheid in 0.1 m/s` > 70)) %>%
+  group_by(station, kwadrant, ID = data.table::rleid(`Uurgemiddelde windsnelheid in 0.1 m/s` > 108)) %>%
   mutate(`duur in uren` = if_else(`Uurgemiddelde windsnelheid in 0.1 m/s` > 108, row_number(), 0L)) %>%
   ggplot(aes(datetime, `duur in uren`)) +  # `Uurgemiddelde windsnelheid in 0.1 m/s`
   geom_point(aes(color =`duur in uren` ), size = 0.5) +
