@@ -50,7 +50,7 @@ De inhoudsopgave van deze digitale systeemrapportage vindt u links in uw scherm.
 De abiotische indicatoren zijn onderverdeeld in:
 1. Meteorologioe en wind
 2. Waterkwaliteit
-3. Waterkwantiteit
+3. Hydrodynamiek
 4. Bodemkwaliteit
 
 JV 19/7: check deze indeling met eerdere documenten ernst&herman, Raven. 
