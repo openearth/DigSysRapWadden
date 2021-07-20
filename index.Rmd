@@ -1,12 +1,10 @@
 ---
-title: "Waddenzee systeemrapportage"
-author: "Deltares, Rijkswaterstaat"
+title: "Digitale systeemrapportage Wadden, concept 0.1"
+author: "Deltares"
 date: '`r Sys.Date()`'
 link-citations: yes
-subtitle: "concept tbv basismonitoring Wadden"
+subtitle: "Natuurmonitoring, onderdeel morfologie"
 ---
-
-# Voorwoord
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 
@@ -18,18 +16,57 @@ knitr::opts_chunk$set(
 source("r/runThisFirst.R")
 ```
 
+# Introductie
+Deze digitale systeemrapportage van het Waddengebied wordt gemaakt als onderdeel van het project Natuurmonitoring Wadden, onderdeel morfologie. Het project Natuurmonitoring is onderdeel van de Basismonitoring Wadden.
 
+## Doel
+Basismonitoring Wadden heeft tot doelen:
+- inzicht te geven in de toestand en trends in het Waddengebied
+- effectieve en efficiente systeemgerichte monitoring uit te (laten) voeren
+- het ontsluiten van de beschikbare informatie en monitoringgevens.
 
+Om deze doelen te bereiken werken we voor Natuurmonitoring, onderdeel morfologie met drie pijlers:
+- data op orde
+- informatie op orde
+- kennis op orde
+
+Het ontsluiten van de juiste data en het werken naar een consistente dataverzameling en verwerking en de kwaliteitsborging is onderdeel van 'Data op orde'. Pijler 'Data op orde' is ondergebracht bij het Datahuis Wadden. 
+
+Deze systeemrapportage draagt bij aan de pijler 'Informatie op orde'. We stellen een aantal abiotische indicatoren op, waarmee we de toestand en trends van het (abiotische) systeem kunnen beschrijven. Veel indicatoren zijn in verschillende studies en projecten al eens afgeleid, maar binnen het huidige project gebeurd dit op een consistente manier. De digitale rapportage maakt het bovendien mogelijk de rapportage gemakkelijker te updaten indien nieuwe monitoringsdata beschikbaar komen. Het analyseren van de ontwikkelingen, het verklaren van geobserveerde trends en het toetsen van indicatoren is geen onderdeel van de systeemrapportage. Die werkzaamheden vallen onder de pijler 'Kennis op orde'.
+
+Een kombergingsrapportage is een voorbeeld van een product onder de pijler 'Kennis op orde'. 
+
+## Afbakening
+Omdat de ecologische toestand van de Waddenzee sterk aan de hydromorfologische ontwikkeling is gerelateerd (o.a. waterbeweging, geul- en plaatontwikkeling, sedimentsamenstelling, zoet/zoutgradiënten, troebelheid),  is ‘morfologie’ een van de onderdelen van Natuurmonitoring Waddenzee. Morfologie mag in deze context breder worden opgevat dan enkel bodemveranderingen. Het gaat om alle abiotische veranderingen die invloed hebben op de natuur van het Waddensysteem, zoals ook sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc.
+
+Deze digitale systeemrapportage richt zich op de morfologie ofwel de abiotiek.
+
+## Proces
+Deze systeemrapportage wordt door Deltares in consultatie met stakeholders en experts ontwikkeld. We volgen een iteratieve werkwijze, waarmee toegewerkt wordt naar een bruikbaar een hoogwaardig product voor belanghebbenden in het Waddengebied.
+
+## Leeswijzer
+De inhoudsopgave van deze digitale systeemrapportage vindt u links in uw scherm. Door met de pijlen naar links "<" of naar rechts ">" te gaan, bladert u naar het volgende hoofdstuk. Door op het hoofdstuk te klikken worden de paragrafen uitgeklapt en kunt u direct naar de data van interesse gaan. Figuren kunnen worden vergroot door erop te klikken.
+
+De abiotische indicatoren zijn onderverdeeld in:
+1. Meteorologioe en wind
+2. Waterkwaliteit
+3. Waterkwantiteit
+4. Bodemkwaliteit
+
+JV 19/7: check deze indeling met eerdere documenten ernst&herman, Raven. 
+
+# Disclaimer
 De informatie op deze website is op dit moment onder constructie en bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden.
 
 This website is a test version. Nothing from this website may be used.
 
-Deze watersysteemrapportage is een initiatief van
-
+Deze watersysteemrapportage is een initiatief van:
 * Rijkswaterstaat
-    + Zee en Delta
+    + Noord-Nederland
     + WVL
 * Deltares
-* Wageningen Marine Research
+
+# Brondata en nabewerking
+JV 19/7 Willem: Kunnen we een hoofdstuk toevoegen hierover? Lijkt me goed te beschrijven welke data uit de DDL komen en welke los zijn aangevraagd. Eventueel ook hoe de data zijn nabewerkt, of zetten we dat bij de indicatoren zelf? 
 
 
