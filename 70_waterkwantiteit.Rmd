@@ -311,25 +311,38 @@ gdf %>%
 ```
 De afwijking van maandgemiddelde golfhoogte ten opzichte van het langjarig gemiddelde is een maat voor de seizoensdynamiek. In figuur \@ref(fig:golfanomalie) is dit uitgezet voor alle stations. Te zien is dat er in de winter over het algemeen hogere golven zijn dan in de zomer. In Uithuizerwad en Wieringerwad is dit niet zichtbaar. Dit zijn zeer beschutte locaties zonder hoge golven. Uit de langjarige series bij Schiermonnikoog Noord en Eijerlandse Gat is ook de variatie van de seizoensdynamiek in de tijd te zien, maar er lijkt geen duidelijke trend te zijn. Tussen de maanden en jaren zitten flink fluctuaties.
 
-JV 20/7 Willem: moeten we hier nog iets toevoegen over de berekeningswijze van de anomalie? En bij de as de eenheid weergeven? Zou het inzichtelijk zijn de langjarige series ook als jaarlijkse anomalie te plotten?
+De afwijking is berekend in de volgende stappen:
+
+1)  incomplete jaren verwijderen
+1)  langjarig gemiddelde voor elk station als gemiddelde van alle maandgemiddelden
+1)  de afwijking wordt berekend per station en maand als het verschil tussen maandgemiddelde en langjarig gemiddelde
+1)  De afwijking wordt dan uitgezet tegen de maand in het jaar voor alle jaren in een plot. De kleurenschaal geeft het jaar aan waarin de afwijking is opgetreden. 
+
+*   JV 20/7 Willem: moeten we hier nog iets toevoegen over de berekeningswijze van de anomalie? En bij de as de eenheid weergeven? Zou het inzichtelijk zijn de langjarige series ook als jaarlijkse anomalie te plotten?
+    +  maanden nu als tekst in grafieken
+    +  beschrijving toegevoegd hierboven
 
 ```{r golfanomalie, fig.height=20, fig.width = 8, fig.cap="Afwijking maandgemiddeld t.o.v. langjarig gemiddelde, als maat voor seizoensdynamiek. Verschillende jaren weergeven als lijnen met kleurverloop (oude jaren blauw en naar heden toe verkleurend naar rood). Aan de positie van de punten is ruis toegevoegd, om overlappende punten te voorkomen. "}
+
+labels = tibble(bind_cols(x = 1:12, y = month.abb))
 
 gdf %>% 
   filter(parameter.wat.omschrijving == "Significante golfhoogte in het spectrale domein Oppervlaktewater golffrequentie tussen 30 en 500 mHz in cm") %>%
   group_by(locatie.naam, jaar) %>% mutate(n_maanden = n()) %>% 
   filter(n_maanden == 12) %>%
   mutate(locatie.naam = factor(locatie.naam)) %>%
-  mutate(locatie.naam = fct_reorder(locatie.naam, yearly_perc95)) %>%
+  mutate(locatie.naam = fct_reorder(locatie.naam, yearly_perc95)) %>% # ordening naar p95 golfhoogte voor grafiek
   group_by(locatie.naam) %>% mutate(`langjarig gemiddelde` = mean(maandgemiddelde)) %>% ungroup() %>%
   group_by(locatie.naam, jaar, maand, parameter.wat.omschrijving) %>% 
   summarize(anomalie = maandgemiddelde - `langjarig gemiddelde`) %>% ungroup() %>%
   # mutate(datum = ymd(paste(as.character(jaar), as.character(maand), "15"))) %>%
   ggplot(aes(maand, anomalie)) +
   geom_jitter(aes(color = jaar), size = 2) +
+  geom_text(data = labels, aes(x = x, y = -100, label = y), size = 3.5) +
   # geom_smooth(aes(color = jaar, group = jaar), alpha = 0.5, method = "loess", se = F) +
   scale_color_gradient2(low = "blue", high = "red", mid = "blue",  midpoint = 1995) +
   facet_wrap( ~ locatie.naam, ncol = 2) +
+  scale_x_continuous(breaks = 1:12, labels = NULL) +
   theme_light() +
   theme(legend.position = "bottom")
 ```
@@ -348,7 +361,8 @@ load(path)
 
 
 ```{r plotGolfperiode, fig.height=20, fig.width=10, fig.cap = "Tijdserie van 95-percentiel van de golfperiode Tm02 per jaar, incl metingen als losse puntjes. de metingen in deze figuur is een sample uit alle data (n = 100000 uit totaal van 10 miljoen datapunten)."}
-df_all %>% sample_n(100000) %>% #group_by(locatie.naam) %>% summarize(n = n())
+
+df_all %>% sample_n(100000) %>%            #group_by(locatie.naam) %>% summarize(n = n())
   filter( numeriekewaarde < 9999) %>%
   ggplot() +
   geom_point(aes(tijdstip, numeriekewaarde, color = "metingen"), size = 0.5) +
@@ -357,7 +371,7 @@ df_all %>% sample_n(100000) %>% #group_by(locatie.naam) %>% summarize(n = n())
   theme_light() +
   theme(legend.position = "bottom",
         strip.text.y = element_text(angle = 0)) +
-  # coord_cartesian(ylim = c(-20, 200)) +
+  coord_cartesian(ylim = c(0, 15)) +
   scale_colour_manual(name = "",
                       values = c("p95 per jaar" = "red", 
                                  "metingen" = "blue"))
@@ -374,8 +388,8 @@ De zoetwaterafvoer leidt tot saliniteits- en dichtheidsverschillen tussen het zo
 
 De 10-minuutwaarden van de afvoeren (grijze punten in figuur \@ref(fig:jaargemiddeldeAfvoer)) laten de sterke pulsen in afvoeren zien. Dit is het gevolg van het spuien onder vrij verval, waardoor een deel van de tijd niet gespuid kan worden. Bij een groot verval kunnen pieken tot boven de 2000 m3/s optreden bij Den Oever en 1500 m3/s bij Kornwerderzand. Ook laten de grijze punten en de zwarte punten die je maandgemiddelden voorstellen, een duidelijk seizoenssignaal zien, waarbij in de zomer minder wordt gespuid dan in de winter. In de jaargemiddelden is het lastig trends te herkennen. In figuur \@ref(fig:seizoensgemiddeldenAfvoer) is de afvoer gemiddeld per zomerperiode (1 april - 30 september) en winterperiode (1 oktober - 31 maart). Hieruit is duidelijk te zien dat de zomerafvoer 2 tot 3 keer zo laag is als de winterafvoer. Ook de droge zomers van 2018, 2019 en 2020 zijn terug te zien in de figuur.
 
-JV 20/7 Willem: zijn dit daggemiddelden of kleinere tijdsresolutie?
-
+*   JV 20/7 Willem: zijn dit daggemiddelden of kleinere tijdsresolutie?
+    +   Dit zijn 10-minutendata. Er waren ook uurgemiddelden, maar daar zaten veel onderbrekingen en lege data in. Bovendien zat daar ook nog 1 of 2 zeer hoge waarden bij. weet niet wat ik daarmee moet. 
 ```{r leesAfvoerData}
 afvoerDir <- file.path(datadir, "RWS", "afvoeren")
 afvoerFiles <- list.files(afvoerDir, pattern = "csv", full.names = T)
@@ -423,8 +437,8 @@ xlabel = "jaar"
 
 plotlocaties = c("Den Oever", "Kornwerderzand", "Lauwersoog")
 
-parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>% 
-  filter(tydstp == 1440) %>%  # ga alleen uit van uurgemiddelden
+parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>% #distinct(tydstp)
+  filter(tydstp == 1440) %>% #View # ga alleen uit van uurgemiddelden
   mutate(jaar = year(datum), maand = month(datum)) %>%
   mutate(locatie = factor(locatie, levels = plotlocaties))%>%
   group_by(locatie, jaar, maand, datum) %>% summarize(`Q daggemiddeld` = mean(waarde))
@@ -489,7 +503,7 @@ parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>%
 
 
 ```{r cleanupWaterkwantiteit}
-rm(df_all_WATHTE, df_all_WATHTE2)
+rm(df_all_WATHTE, df_all_WATHTE2, df_all, extrema, h)
 
 ```
 
