@@ -69,12 +69,23 @@ Voor de watertemperatuur worden zomer- en wintergemiddelde berekend om te zien o
 De watertemperatuur wordt opgenomen als indicator omdat deze direct van invloed is op veel ecologische processen en indirect op de waterbeweging (viscositeit). De zoninstraling, luchttemperatuur en bewolkingsgraad hebben invloed op de watertemperatuur en zijn niet afzonderlijk opgenomen in de systeemrapportage, maar de watertemperatuur als resultante wel.
 
 Figuur \@(fig:plotTempLocaties) toont het totaal aantal metingen per locatie over de gehele meetperiode.
-JV 20/7: Willem, hier klopt nog iets niet. N is veel te groot. Nog afstemmen of we deze kaart overal opnemen of alleen aan het begin van het hoofdstuk en een tabelletje met N.
+JV 20/7: Willem, nog afstemmen of we deze kaart overal opnemen of alleen aan het begin van het hoofdstuk en een tabelletje met N. Check of deze figuur klopt.
 
 ```{r plotTempLocaties, fig.cap="Kaart met locaties waar watertemperatuur is gemeten. De grootte van de cirkel is indicatief voor het totaal aantal metingen."}
 
+par = "NVT"
+gro = "T"
+parlabel = "jaargemiddeld temperatuur in oC"
+xlabel = "jaar"
+
+plotlocaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep", "Terschelling 10 km uit de kust","Rottumerplaat 3 km uit de kust", "Huibertgat oost", "Bocht van Watum", "Groote Gat noord")
+
 WQ %>% 
-  filter(parameter.code == "NVT", grepl("T", grootheid.code),as.numeric(kwaliteitswaarde.code) < 50) %>%
+#parData <- WQ %>% 
+  filter(parameter.code == par, grootheid.code == gro, as.numeric(kwaliteitswaarde.code) < 50) %>%
+  filter(locatie.naam %in% plotlocaties) %>%
+
+ # filter(grepl("T", grootheid.code)) %>%
   group_by(locatie.naam, geometriepunt.x, geometriepunt.y) %>%
   summarize(n = n()) %>% 
   filter(locatie.naam %in% plotlocaties) %>%
@@ -278,10 +289,10 @@ ggsave(file.path(datadir, "RWS", "producten", "SaliniteitAnomalie.pdf"))
 
 ## Zwevend stof
 
-Zwevende stof wordt opgenomen als indicator omdat deze de lichtdoordringing in de waterkolom bepaald (van belang voor ecologische processen) en het de resultante is van de slibdynamiek. Trends in zwevende stof dienen tijdig te worden gesignaleerd, om de hieraan ten grondslag liggende processen te kunnen begrijpen en eventueel maatregelen te nemen.
+Zwevende stof is direct van belang voor de ecologie omdat deze de lichtdoordringing in de waterkolom bepaald. Slib in de bodem is ook van belang voor de ecologie, omdat algen en bodemdieren voedingsstoffen opnemen die aan het slib zijn gehecht. Door golven en stroming wordt slib vanaf de bodem in suspensie gebracht en getransporteerd om elders weer afgezet te worden. Als het slib zich afzet in vaargeulen en daarmee de toegankelijkheid wordt beknot, moet dit worden gebaggerd. De concentraties van zwevende stof laten zien of er veranderingen optreden in de slibdynamiek, die kunnen leiden tot negatieve effecten voor de ecologie (te weinig lichtdoordringing in de waterkolom) en/of morfologische veranderingen. Slib vormt eveneens een belangrijk aandeel in de netto sedimentatie in de Waddenzee, wat op de langere termijn ook van belang is voor het meegroeien met versnelde zeespiegelstijging. 
 
-Brondata: 
-•	MWTL data. Orde 20 meetmomenten per jaar (zomer 2x p.m. bemeten worden en winter 1x p.m.) op ~1m onder wateroppervlak op ~10 locaties 
+Trends in zwevende stof dienen tijdig te worden gesignaleerd, om de hieraan ten grondslag liggende processen te kunnen begrijpen en eventueel maatregelen te nemen.
+
 
 ```{r plotZSLocaties, fig.cap="Kaart met locaties waar zwevend stof is gemeten. De grootte van de cirkel is indicatief voor het aantal metingen."}
 WQ %>% 
@@ -294,10 +305,7 @@ WQ %>%
   addTiles() %>%
   addCircleMarkers(radius = ~n/40, label = ~paste(locatie.naam, " n = ", n))
 ```
-
-Analyse(s)/figuren:
-1.	Jaargemiddelde zwevend stof (doorgetrokken lijn), incl. losse metingen (punten)
-Eerst bepalen maandgemiddelden (vanwege verschillende meetfrequentie winter/zomer) en maanden middelen naar jaar. Alle metingen toevoegen aan figuur als losse punten. 
+Figuur \@(fig:ZSdataplot) toont de individuele metingen (grijze puntjes) en de maandgemiddelden (zwarte puntjes) voor zwevende stof voor alle actieve stations. Uit deze data kan de fluctuatie in zwevende stof worden afgelezen en de ruimtelijke variatie. In de Noordzee zijn de concentraties veel lager dan dieper in de Waddenzee. De rode lijn geeft de jaargemiddelden weer, daaruit blijken ook grote fluctuaties maar geen duidelijke langjarige trends.
 
 ```{r ZSdataplot, fig.height=20, fig.width=10, fig.cap="Concentratie van zwevend stof in de Waddenzee en Eems estuarium. Jaargemiddeld (lijn), maandgemiddeld (zwarte punten), en individuele metingen (kleine punten). "}
 locaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep", "Terschelling 10 km uit de kust","Rottumerplaat 3 km uit de kust", "Huibertgat oost", "Bocht van Watum", "Groote Gat noord")
@@ -346,14 +354,7 @@ parData <- WQ %>%
     guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
   
 ```
-
-
-
-
-
-
- 
-Volgende deel niet gebruiken voor slib. Eventueel kan de code voor andere parameters bruikbaar zijn, zoals temperatuur. 
+<!-- Volgende deel niet gebruiken voor slib. Eventueel kan de code voor andere parameters bruikbaar zijn, zoals temperatuur. 
 
 <!-- ```{r jaargemiddeldeZS, fig.height=10, fig.width=10, fig.cap="Jaargemiddelde concentratie van zwevend stof in de Waddenzee"} -->
 
@@ -403,39 +404,9 @@ Volgende deel niet gebruiken voor slib. Eventueel kan de code voor andere parame
 <!-- ggsave(file.path(datadir, "RWS", "producten", "ZStrends.pdf")) -->
 <!-- ``` -->
 
+Indien het zwevende stofgehalte wordt gelogtransformeerd en het maandgemiddelde wordt uitgedrukt als relatieve afwijking ten opzichte van het langjarig gemiddelde (figuur \@ref(fig:plotZSanomalie)), dan zijn de fluctuaties veel beter zichtbaar. De tijdseries vertonen gelijke patronen, met pieken rond 2008 en 2012, maar geen langjarige trends. Hoewel de absolute concentraties van zwevende stof sterk verschillend zijn (figuur \@ref(fig:ZSdataplot)), is de relatieve afwijking van het langjarig gemiddelde vergelijkbaar. In Herman et al. (2018) zijn de karakteristieken van zwevende stof tijdseries in meer detail beschreven.
 
-Het seizoensverloop van zwevend stof laat zien dat concentraties hoger zijn in de winter, vergeleken met zomerwaarden. Dit wordt veroorzaakt door meer opwerveling in de winter door hogere windsterktes, en mogelijk andere factoren. 
-
-
-```{r plotZSseason, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Seizoensvariatie van opgelost zwevend stof voor de periode 2000 - 2018"}
-
-
-par = "ZS"
-parlabel = "maandgemiddeld zwevend stof in mg/l"
-
-WQ %>%
-  filter(parameter.code == par, as.numeric(kwaliteitswaarde.code) < 50, year(tijdstip) >= 1989) %>%
-  filter(locatie.naam %in% plotlocaties) %>%
-  arrange(geometriepunt.x) %>%
-  mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
-  # filter(jaar >= 2000) %>%
-  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(log(numeriekewaarde)), n = n()) %>% ungroup() %>%
-  group_by(locatie.naam, jaar) %>% mutate(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n), ) %>% ungroup() %>%
-  mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
-  filter(`n/jaar` > 10) %>%
-  ggplot(aes(maand, maandgemiddelde)) +
-  geom_jitter(aes(color = jaar), size = 2) +
-  scale_color_gradient2(low = "blue", high = "red", mid = "blue",  midpoint = 2000) +
-  scale_x_continuous(breaks = pretty_breaks()) +
-  ylab(parlabel) +  facet_wrap( ~ locatie.naam, ncol = 2, scales = "free") +
-  theme_light() +
-  theme(legend.position = "bottom")
-```
-
-`
-
-
-2.	Jaargemiddelde anomalie van SPM -> zie analyse Peter Herman voor KRW slib
+Het seizoensverloop van zwevend stof (figuur \@ref(fig:plotZSseason)) laat zien dat concentraties hoger zijn in de winter, vergeleken met zomerwaarden. Dit wordt onder andere veroorzaakt door meer opwerveling in de winter door hogere golven. Vastlegging van slib door algenmatten in de zomer en toegenomen flocculatie door algen in de zomer en daarmee bezinking van slib dragen ook bij aan de seizoensdynamiek.
 
 ```{r plotZSanomalie, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Anomalie van gesuspendeerd zwevend stof voor de gehele meetperiode"}
 
@@ -472,9 +443,36 @@ WQ %>%
   theme_light() +
   theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm"))
 
-ggsave(file.path(datadir, "RWS", "producten", "ZSanomalie.pdf"))
+# ggsave(file.path(datadir, "RWS", "producten", "ZSanomalie.pdf"))
   
 ```
+
+```{r plotZSseason, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Seizoensvariatie van opgelost zwevend stof voor de periode 1989 - 2018"}
+
+
+par = "ZS"
+parlabel = "maandgemiddeld zwevend stof in mg/l"
+
+WQ %>%
+  filter(parameter.code == par, as.numeric(kwaliteitswaarde.code) < 50, year(tijdstip) >= 1989) %>%
+  filter(locatie.naam %in% plotlocaties) %>%
+  arrange(geometriepunt.x) %>%
+  mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
+  # filter(jaar >= 2000) %>%
+  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(log(numeriekewaarde)), n = n()) %>% ungroup() %>%
+  group_by(locatie.naam, jaar) %>% mutate(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n), ) %>% ungroup() %>%
+  mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
+  filter(`n/jaar` > 10) %>%
+  ggplot(aes(maand, maandgemiddelde)) +
+  geom_jitter(aes(color = jaar), size = 2) +
+  scale_color_gradient2(low = "blue", high = "red", mid = "blue",  midpoint = 2000) +
+  scale_x_continuous(breaks = pretty_breaks()) +
+  ylab(parlabel) +  facet_wrap( ~ locatie.naam, ncol = 2, scales = "free") +
+  theme_light() +
+  theme(legend.position = "bottom")
+```
+
+
 
 
 

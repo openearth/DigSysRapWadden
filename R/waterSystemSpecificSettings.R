@@ -1,10 +1,10 @@
 
 # still to be finalised
 
-runonline = F
+runonline = T
 local = F
 
-startyear <- 1970
+startyear <- 1990
 endyear <- 2020
 
 # voor naamgeving directory etc

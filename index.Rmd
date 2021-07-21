@@ -50,12 +50,11 @@ Voor het opstellen van deze systeemrapportage wordt dankbaar gebruik gemaakt van
 De inhoudsopgave van deze digitale systeemrapportage vindt u links in uw scherm. Door met de pijlen naar links "<" of naar rechts ">" te gaan, bladert u naar het volgende hoofdstuk. Door op het hoofdstuk te klikken worden de paragrafen uitgeklapt en kunt u direct naar de data van interesse gaan. Figuren kunnen worden vergroot door erop te klikken.
 
 De abiotische indicatoren zijn onderverdeeld in:
-1. Meteorologioe en wind
-2. Waterkwaliteit
-3. Hydrodynamiek
-4. Bodemkwaliteit
-
-JV 19/7: check deze indeling met eerdere documenten ernst&herman, Raven. 
+1. Hydrodynamiek
+2. Meteorologie
+3. Waterkwaliteit
+4. Morfologie en sedimentsamenstelling (nog geen concept beschikbaar)
+5. Menselijke ingrepen (nog geen concept beschikbaar)
 
 # Disclaimer
 De informatie op deze website is op dit moment onder constructie en bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden.
