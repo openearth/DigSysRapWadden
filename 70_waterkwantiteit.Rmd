@@ -29,7 +29,8 @@ In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheids
 Hier wordt de jaargemiddelde waterstand weergegeven en verwezen naar de zeespiegelstijgingsmonitor voor de uitgebreidere analyses en benodigde correcties. 
 
 Analyse(s)/figuren:
-1.	Jaargemiddelde waterstand en 19-jarig lopend gemiddelde om te verdisconteren voor de 18,6 jarige cyclus.
+
+Jaargemiddelde waterstand en 19-jarig lopend gemiddelde om te verdisconteren voor de 18,6 jarige cyclus.
 
 [Link naar zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb)
 
@@ -41,11 +42,15 @@ Om trends te kunnen bepalen is vervolgens een lineaire trendlijn toegevoegd die 
 Voor 1984 is met een lagere frequentie gemeten (1 uur en nog eerder zelfs 3 uur) en is deze methode te onnauwkeurig. Voor die periode zal de RWS dataset van hoog- en laagwaterstanden worden gebruikt en worden gemiddeld per jaar.
 
 JV 20/7 Willem: 
-- ik dacht dat jij deze had aangevraagd? 
-- En ik neem aan dat je ook een filter hebt gezet op hoever de minima/maxima uit elkaar moeten liggen, anders kan je meerdere lokale maxima per getijcyclus vinden. 
-- En misschien nog iets meer info over de lineaire trendlijn toevoegen? Hoe heb je de amplitude en fase van de 18,6 jarige cyclus bepaald? 
-- Ik mis nog een aantal stations (AWG platform, Den Oever buiten, Kornwerderzand buiten, Nieuwe Statenzijl, Oudeschild, Termuntenzijl en Vlieland haven). Kan je ook een kaartje met deze stations invoegen?
-- Kunnen we een kaartje maken met alle stations in 1 paneel in plaats van 1 paneel per station? Dan kan je ook goed de verschillen in hoogwaters zien.
+*   ik dacht dat jij deze had aangevraagd? 
+*   En ik neem aan dat je ook een filter hebt gezet op hoever de minima/maxima uit elkaar moeten liggen, anders kan je meerdere lokale maxima per getijcyclus vinden. 
+    +   Er is een filter van >4 uur toegepast. 
+*   En misschien nog iets meer info over de lineaire trendlijn toevoegen? Hoe heb je de amplitude en fase van de 18,6 jarige cyclus bepaald?
+    + De amplitude en fase worden gefit door de data. Alleen de periode staat vast
+*   Ik mis nog een aantal stations (AWG platform, Den Oever buiten, Kornwerderzand buiten, Nieuwe Statenzijl, Oudeschild, Termuntenzijl en Vlieland haven). Kan je ook een kaartje met deze stations invoegen?
+    + zal ik naar kijken.
+*   Kunnen we een kaartje maken met alle stations in 1 paneel in plaats van 1 paneel per station? Dan kan je ook goed de verschillen in hoogwaters zien.
+    + zal ik ook naar kijken
 
 
 ```{r loadWaterhoogteData}
@@ -149,7 +154,8 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
 
 ## Getijslag 
 
-JV 20/7 Willem: Bij de getijslag wordt een doorgetrokken lijn getekend. Dat ziet er bij Holwerd gek uit, want daar zit een gat in de data. Misschien beter puntjes (of iets anders) gebruiken.
+*   JV 20/7 Willem: Bij de getijslag wordt een doorgetrokken lijn getekend. Dat ziet er bij Holwerd gek uit, want daar zit een gat in de data. Misschien beter puntjes (of iets anders) gebruiken.
+    + gedaan
 
 TO DO: Kaart met getijslag van het meest actuele jaar om verloop in de Waddenzee te laten zien.
 
@@ -173,9 +179,11 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
 ```
 
 ## To DO:	GLLWS & GHHWS
+
 Gemiddeld Laag Laagwater Spring en Gemiddeld Hoog Hoogwater Spring zijn van belang voor de ecologie? En worden daarom hierbij opgenomen. 
 
 ## TO DO: Getijcomponenten en -asymmetrie
+
 De M2 component van het getij heeft de grootste amplitude en ontstaat door aantrekkingskracht van de maan. De S2 component wordt veroorzaakt door de aantrekkingskracht van de zon en vormt met de M2 component de springtij-doodtij cyclus. De M4 component is een hogere harmonische component en een ondiepwatereffect van M2 (i.e. harmonische boventoon / veelvoud van M2). Ondiepwatereffecten ontstaat doordat de getijgolf sneller voorplant in hoogwater dan in laagwater.
 
 De M4/M2 amplitudeverhouding en het relatief faseverschil 2M2-M4 kunnen worden gebruikt voor de kwantificatie van de getijasymmetrie die belangrijk is voor het netto sedimenttransport (Friedrichs en Aubrery, 1988). Het relatief faseverschil bepaalt de aard van de asymmetrie: de pieksnelheid is vloeddominant als het tussen 0 en 180 graden is en ebdominant als het tussen 180 en 360 graden is. De grootte van de amplitudeverhouding (M4/M2) is een indicator voor de sterkte van de asymmetrie.
@@ -198,7 +206,7 @@ De opzet/afzet, berekend als $gemeten waterstand - astronomische waterstand$ en 
 
 De stormvloedhoogte, berekend als het maximum van de gemeten waterstand en hier uitgedrukt als het 95 percentiel per maand en maximum per jaar, laat de variatie van stormhoogte in de tijd zien. De jaren 1990 en in iets mindere mate 2020 springen eruit met relatief hoge waarden \@ref(fig:stormhoogte)). 
 
-JV 20/7 Willem: Omdat we het 95 percentiel nemen, pakken we alleen de opzet. Misschien beter om de tijdreeks of whiskerboxplot per jaar te tonen, zodat ook de afzet inzichtelijk wordt. In plaats van jaargemiddelde van de maandelijkse 95 percentielen misschien beter om het maximum per jaar te nemen? Voor de stormvloedhoogte ook het maximum per jaar pakken? Alle stations in 1 paneel vind ik wel heel inzichtelijk.
+*   JV 20/7 Willem: Omdat we het 95 percentiel nemen, pakken we alleen de opzet. Misschien beter om de tijdreeks of whiskerboxplot per jaar te tonen, zodat ook de afzet inzichtelijk wordt. In plaats van jaargemiddelde van de maandelijkse 95 percentielen misschien beter om het maximum per jaar te nemen? Voor de stormvloedhoogte ook het maximum per jaar pakken? Alle stations in 1 paneel vind ik wel heel inzichtelijk.
 
 ```{r wateropzet, fig.cap= "Maandelijks 95-percentiel voor opzet/afzet = gemeten waterstand - astronomische waterstand (rode punten) en het jaarlijks gemiddelde van dit maandelijks 95 percentiel.", fig.height=30, fig.width=10}
 
@@ -206,11 +214,15 @@ monthlyStat  <- read_delim(file.path(datadir, "ddl", "standard", paste0("monthly
 
 # plot per year based on monthly statistics
 monthlyStat %>% 
+  drop_na() %>%  # filter NA en -inf waarden
   mutate(jaar = year(datum)) %>%
-  drop_na() %>% 
-  ggplot(aes(datum, p95)) +
-  geom_line(aes(color = "p95 per maand"), size = 0.5) +
-  geom_smooth(method = "lm", formula = y ~ 1, aes(group = jaar, color = "jaargemiddelde p95 per maand")) +
+  group_by(station, jaar) %>% mutate(jaarmaximum = max(max, na.rm = T), n = n()) %>% ungroup() %>%
+  filter(n > 11, ) %>%  # filter incomplete jaren
+  complete(station, datum, fill = list(max = NA, p95 = NA)) %>% # stop weer NA's tussen de ontbrekende regels om lijnen af te breken bij ontbrekende data
+  ggplot(aes(x = datum)) +
+  geom_line(aes(y = p95, color = "p95 per maand"), size = 0.5) +
+  geom_point(aes(y = jaarmaximum,  color = "maximum per maand"), shape = "-") +
+  # geom_smooth(method = "lm", formula = y ~ 1, aes(group = jaar, color = "jaargemiddelde p95 per maand")) +
   # coord_cartesian(ylim = c(0, 450)) +
   scale_x_date(breaks = seq(as.Date("1970-01-01"), as.Date("2021-12-31"), by = "5 year"), 
                minor_breaks = "1 year",
@@ -219,10 +231,11 @@ monthlyStat %>%
   theme_light() +
   theme(legend.position = "bottom",
         strip.text.y = element_text(angle = 0)) +
-  coord_cartesian(ylim = c(-20, 200)) +
+  coord_cartesian(ylim = c(-20, NA)) +
       scale_colour_manual(name = "",
                         values = c("p95 per maand" = "red", 
-                                   "jaargemiddelde p95 per maand" = "blue"))
+                                   "jaargemiddelde p95 per maand" = "blue",
+                                   "maximum per maand" = "black"))
 
 ```
 
