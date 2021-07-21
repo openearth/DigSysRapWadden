@@ -1,5 +1,5 @@
 bookdown::gitbook:
-  split_by: section
+  split_by: chapter
   config:
     toc:
       collapse: section
@@ -10,4 +10,6 @@ bookdown::gitbook:
       collapsed: false
       smooth_scroll: false
   includes:
+    before_body: navbar/navbar.html
     in_header: clickandzoom.html
+  css: ["navbar/navbar.css", "style/deltares.css"]
