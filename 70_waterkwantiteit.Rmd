@@ -163,7 +163,7 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
   pivot_wider(id_cols = c(locatie.naam, jaar), names_from = HL, values_from = mean) %>%
   mutate(getijslag_cm = H-L) %>%
   ggplot() +
-  geom_line(aes(jaar, getijslag_cm)) +
+  geom_point(aes(jaar, getijslag_cm)) +
   geom_smooth(aes(jaar, getijslag_cm), method = "lm", 
                 formula = y ~ x + I(cos(2 * pi * x / (18.6))) + I(sin(2 * pi * (x) / (18.6)))) +
   # geom_line(aes(x = jaar, y=zoo::rollmean(getijslag_cm, 19, na.pad=TRUE))) + # poging om rolling average toe te voegen. Ziet er lelijk uit
