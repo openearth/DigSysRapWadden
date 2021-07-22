@@ -12,6 +12,8 @@ require(tidyverse)
 require(data.table)
 require(oce)
 source("r/runThisFirst.R")
+
+theme_hy <- theme_bw()
 ```
 
 In dit hoofdstuk is de beschrijving van de hydrodynamiek beperkt tot de waterstanden, golven en de grotere afvoeren. Deze parameters worden goed bemeten en de meetdata zijn goed ontsloten. Metingen van bijvoorbeeld stroomsnelheden zijn schaars en worden niet continu uitgevoerd. Bovendien worden de stroomsnelheden sterk beinvloed door de lokale bodemligging. Veranderingen in stroomsnelheden op een bepaald punt zijn daarom sterk gekoppeld aan (lokale) veranderingen in de morfologie. Debieten door de zeegaten vormen ook een interessante parameter, maar deze zijn niet consistent bemeten. Daarom zijn de debieten eveneens niet opgenomen.
@@ -77,7 +79,7 @@ rbindlist(gaps, idcol = "locatie.naam") %>%
   geom_point(aes(x = t1, y = dt/(60*60)), color = "red", size = 1) +
   facet_wrap(~locatie.naam) +
   # coord_cartesian(ylim = c(0,10)) +
-  theme_light()
+  theme_hy
 ```
 
 ```{r berekeningGetij}
@@ -102,7 +104,7 @@ df_all_WATHTE2[["Eemshaven"]] %>%
   ggplot() +
   geom_point(aes(tijdstip, numeriekewaarde)) +
   geom_point(data = extrema[["Eemshaven"]]$HL %>% filter(time > minplottime, time < maxplottime), aes(time, h, fill = HL), size = 5, shape = 21, color = "white") +
-  theme_light() +
+  theme_hy +
   theme(legend.position = "bottom")
 ```
 
@@ -125,7 +127,7 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
                 formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6*31556995))) + I(sin(2 * pi * as.numeric(x) / (18.6*31556995)))) +
     # coord_cartesian(ylim = c(-160, -100)) +
     facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
-  theme_light()
+  theme_hy
 
 ```
 
@@ -148,7 +150,7 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
                 formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6*31556995))) + I(sin(2 * pi * as.numeric(x) / (18.6*31556995)))) +
     # coord_cartesian(ylim = c(-160, -100)) +
     facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) + 
-  theme_light()
+  theme_hy
 
 ```
 
@@ -174,7 +176,7 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
                 formula = y ~ x + I(cos(2 * pi * x / (18.6))) + I(sin(2 * pi * (x) / (18.6)))) +
   # geom_line(aes(x = jaar, y=zoo::rollmean(getijslag_cm, 19, na.pad=TRUE))) + # poging om rolling average toe te voegen. Ziet er lelijk uit
   facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
-  theme_light()
+  theme_hy
 
 ```
 
@@ -228,9 +230,10 @@ monthlyStat %>%
                minor_breaks = "1 year",
                date_labels = "%Y") +
   facet_wrap(~ station, ncol =1) +
-  theme_light() +
+  theme_hy +
   theme(legend.position = "bottom",
         strip.text.y = element_text(angle = 0)) +
+  ylab("waterhoogte in cm") +
   coord_cartesian(ylim = c(-20, NA)) +
       scale_colour_manual(name = "",
                         values = c("p95 per maand" = "red", 
@@ -261,7 +264,7 @@ yearlyStat %>%
 ggplot(aes(year, p95)) +
   geom_line(aes(color = station), size = 0.8) +
   geom_label(data = labelpositions, aes(x = 1970 + x, y = y, label = station), size = 3) +
-  theme_light() +
+  theme_hy +
   theme(
     strip.text.y = element_text(angle = 0)) +
   xlab("jaar") + ylab("95-percentiel van gemeten waterhoogte (cm) per jaar")
@@ -307,7 +310,7 @@ gdf %>%
   ggplot(aes(jaar, `95-percentiel per jaar in cm`)) +
   geom_line(aes(color = locatie.naam), size = 1) +
   scale_x_continuous(breaks = pretty_breaks()) +
-  theme_light()
+  theme_hy
 ```
 De afwijking van maandgemiddelde golfhoogte ten opzichte van het langjarig gemiddelde is een maat voor de seizoensdynamiek. In figuur \@ref(fig:golfanomalie) is dit uitgezet voor alle stations. Te zien is dat er in de winter over het algemeen hogere golven zijn dan in de zomer. In Uithuizerwad en Wieringerwad is dit niet zichtbaar. Dit zijn zeer beschutte locaties zonder hoge golven. Uit de langjarige series bij Schiermonnikoog Noord en Eijerlandse Gat is ook de variatie van de seizoensdynamiek in de tijd te zien, maar er lijkt geen duidelijke trend te zijn. Tussen de maanden en jaren zitten flink fluctuaties.
 
@@ -337,13 +340,13 @@ gdf %>%
   summarize(anomalie = maandgemiddelde - `langjarig gemiddelde`) %>% ungroup() %>%
   # mutate(datum = ymd(paste(as.character(jaar), as.character(maand), "15"))) %>%
   ggplot(aes(maand, anomalie)) +
-  geom_jitter(aes(color = jaar), size = 2) +
+  geom_point(aes(color = jaar), size = 2, alpha = 0.3) +
   geom_text(data = labels, aes(x = x, y = -100, label = y), size = 3.5) +
-  # geom_smooth(aes(color = jaar, group = jaar), alpha = 0.5, method = "loess", se = F) +
+  geom_smooth(aes(), alpha = 0.5, method = "loess", se = F, size = 2) +
   scale_color_gradient2(low = "blue", high = "red", mid = "blue",  midpoint = 1995) +
   facet_wrap( ~ locatie.naam, ncol = 2) +
   scale_x_continuous(breaks = 1:12, labels = NULL) +
-  theme_light() +
+  theme_hy +
   theme(legend.position = "bottom")
 ```
 
@@ -368,7 +371,7 @@ df_all %>% sample_n(100000) %>%            #group_by(locatie.naam) %>% summarize
   geom_point(aes(tijdstip, numeriekewaarde, color = "metingen"), size = 0.5) +
   geom_point(data = df_all %>% distinct(locatie.naam, jaar, yearly_perc95), aes(ymd_hms(paste0(jaar, "-06-01 00:00:00")), yearly_perc95, color = "p95 per jaar")) +
   facet_wrap(~ locatie.naam, ncol =2) +
-  theme_light() +
+  theme_hy +
   theme(legend.position = "bottom",
         strip.text.y = element_text(angle = 0)) +
   coord_cartesian(ylim = c(0, 15)) +
@@ -423,7 +426,7 @@ ggplot() +
   # geom_histogram(aes(x = jaar), bins = 100, position = "dodge", na.rm = T) +
   # geom_violin(aes( fill = as.factor(tydstp))) +
   geom_point(aes(datum, log10(waarde + 100))) +
-  theme_light() +
+  theme_hy +
   theme(legend.position = "bottom") +
   facet_grid(tydstp ~ locatie)
 
@@ -457,7 +460,7 @@ parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>% #dist
     # coord_cartesian(ylim = c(5,NA)) +
     # ylab(parlabel) + xlab(xlabel) +
     facet_wrap(~ locatie, ncol = 1) +  #scales = "free",
-    theme_light() +
+    theme_hy +
     theme(legend.position = "bottom") +
     scale_colour_manual(name = "",
                         values = c("maandgemiddelde" = "black", 
@@ -495,7 +498,7 @@ parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>%
     ) +
     ylab(parlabel) + xlab(xlabel) +
     facet_wrap(~ locatie, ncol = 1) +  #scales = "free",
-    theme_light() +
+    theme_hy +
     theme(legend.position = "bottom") #+
 
 

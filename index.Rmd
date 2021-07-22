@@ -16,19 +16,37 @@ knitr::opts_chunk$set(
 source("r/runThisFirst.R")
 ```
 
+# Disclaimer
+
+De informatie op deze website is op dit moment onder constructie en bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden.
+
+This website is a test version. Nothing from this website may be used.
+
+Deze watersysteemrapportage is een initiatief van:
+
+* Rijkswaterstaat
+    + Noord-Nederland
+    + WVL
+* Deltares
+
+
 # Introductie
+
 Deze digitale systeemrapportage van het Waddengebied wordt gemaakt als onderdeel van het project Natuurmonitoring Wadden, onderdeel morfologie. Het project Natuurmonitoring is onderdeel van de Basismonitoring Wadden.
 
 ## Doel
+
 Basismonitoring Wadden heeft tot doelen:
-- inzicht te geven in de toestand en trends in het Waddengebied
-- effectieve en efficiente systeemgerichte monitoring uit te (laten) voeren
-- het ontsluiten van de beschikbare informatie en monitoringgevens.
+
+* inzicht te geven in de toestand en trends in het Waddengebied
+* effectieve en efficiente systeemgerichte monitoring uit te (laten) voeren
+* het ontsluiten van de beschikbare informatie en monitoringgevens.
 
 Om deze doelen te bereiken werken we voor Natuurmonitoring, onderdeel morfologie met drie pijlers:
-- data op orde
-- informatie op orde
-- kennis op orde
+
+* data op orde
+* informatie op orde
+* kennis op orde
 
 Het ontsluiten van de juiste data en het werken naar een consistente dataverzameling en verwerking en de kwaliteitsborging is onderdeel van 'Data op orde'. Pijler 'Data op orde' is ondergebracht bij het Datahuis Wadden. 
 
@@ -42,32 +60,27 @@ Omdat de ecologische toestand van de Waddenzee sterk aan de hydromorfologische o
 Deze digitale systeemrapportage richt zich op de morfologie ofwel de abiotiek.
 
 ## Proces
+
 Deze systeemrapportage wordt door Deltares in consultatie met stakeholders en experts ontwikkeld. We volgen een iteratieve werkwijze, waarmee toegewerkt wordt naar een bruikbaar een hoogwaardig product voor belanghebbenden in het Waddengebied.
 
 Voor het opstellen van deze systeemrapportage wordt dankbaar gebruik gemaakt van de ervaringen van de Evaluatiemethodiek en de Eerstelijnsrapportages van de Westerschelde en de (digitale) systeemrapportages die voor de zuidwestelijke delta (o.a. Grevelingen) worden gemaakt.
 
 ## Leeswijzer
+
 De inhoudsopgave van deze digitale systeemrapportage vindt u links in uw scherm. Door met de pijlen naar links "<" of naar rechts ">" te gaan, bladert u naar het volgende hoofdstuk. Door op het hoofdstuk te klikken worden de paragrafen uitgeklapt en kunt u direct naar de data van interesse gaan. Figuren kunnen worden vergroot door erop te klikken.
 
 De abiotische indicatoren zijn onderverdeeld in:
+
 1. Hydrodynamiek
 2. Meteorologie
 3. Waterkwaliteit
 4. Morfologie en sedimentsamenstelling (nog geen concept beschikbaar)
 5. Menselijke ingrepen (nog geen concept beschikbaar)
 
-# Disclaimer
-De informatie op deze website is op dit moment onder constructie en bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden.
 
-This website is a test version. Nothing from this website may be used.
-
-Deze watersysteemrapportage is een initiatief van:
-* Rijkswaterstaat
-    + Noord-Nederland
-    + WVL
-* Deltares
 
 # Brondata en nabewerking
+
 JV 19/7 Willem: Kunnen we een hoofdstuk toevoegen hierover? Lijkt me goed te beschrijven welke data uit de DDL komen en welke los zijn aangevraagd. Eventueel ook hoe de data zijn nabewerkt, of zetten we dat bij de indicatoren zelf? 
 
 

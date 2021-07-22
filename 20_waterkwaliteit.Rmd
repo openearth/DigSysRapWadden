@@ -12,6 +12,8 @@ require(lubridate)
 require(tidyverse)
 require(zoo)
 source("r/runThisFirst.R")
+
+theme_wq = theme_bw()
 ```
 
 
@@ -100,7 +102,7 @@ Figuur \@ref(fig:jaargemiddeldeTemp) toont de jaargemiddelde watertemperatuur in
 
 De zomer- en wintergemiddelden (\@ref(fig:seizoensgemiddeldenWatertemperatuur)) laten ook geen duidelijke trends zien. Het zomergemiddelde (tussen 1 april en 30 september) ligt voor de meeste locaties rond de 15 graden en het wintergemiddelde (tussen 1 oktober en 31 maart) rond de 7 graden. De hogere temperaturen dieper in de bekkens lijken bij middeling naar een half jaar grotendeels weg te vallen, zowel in de zomer als de winter.
 
-```{r jaargemiddeldeTemp, fig.height=20, fig.width=10, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten)."}
+```{r jaargemiddeldeTemp, fig.height=30, fig.width=10, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten)."}
 
 par = "NVT"
 gro = "T"
@@ -131,7 +133,7 @@ parData <- WQ %>%
     coord_cartesian(ylim = c(5,NA)) +
     ylab(parlabel) + xlab(xlabel) +
     facet_wrap(~ locatie.naam, ncol = 1) +  #scales = "free",
-    theme_light() +
+    theme_wq +
     theme(legend.position = "bottom") +
     scale_colour_manual(name = "",
                         values = c("maandgemiddelde" = "black", 
@@ -173,7 +175,7 @@ parData <- WQ %>%
     coord_cartesian(ylim = c(0,NA)) +
     ylab(parlabel) + xlab(xlabel) +
     facet_wrap(~ locatie.naam, ncol = 1) +  #scales = "free",
-    theme_light() +
+    theme_wq +
     theme(legend.position = "bottom") #+
 
 
@@ -234,7 +236,7 @@ parData <- WQ %>%
     coord_cartesian(ylim = c(5,NA)) +
     ylab(parlabel) + xlab(xlabel) +
     facet_wrap(~ locatie.naam, ncol = 1) +  #scales = "free",
-    theme_light() +
+    theme_wq +
     theme(legend.position = "bottom") +
     scale_colour_manual(name = "",
                         values = c("maandgemiddelde" = "black", 
@@ -280,7 +282,7 @@ WQ %>%
                         trans = "log", breaks = my_breaks, labels = my_breaks) +
   # scale_color_viridis_c(values = rescale(0:300)) +
   # guides(colour = guide_legend("maandgemiddeld ZS")) +
-  theme_light() +
+  theme_wq +
   theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm"))
 
 ggsave(file.path(datadir, "RWS", "producten", "SaliniteitAnomalie.pdf"))
@@ -345,7 +347,7 @@ parData <- WQ %>%
     coord_cartesian(ylim = c(0,250)) +
     ylab(parlabel) + xlab(xlabel) +
     facet_wrap(~ locatie.naam, ncol = 1) +  #scales = "free",
-    theme_light() +
+    theme_wq +
     theme(legend.position = "bottom") +
     scale_colour_manual(name = "",
                         values = c("maandgemiddelde" = "black", 
@@ -399,7 +401,7 @@ parData <- WQ %>%
 <!--   ylab(parlabel) + -->
 <!--   facet_wrap(~ locatie.naam, ncol = 3) +  #scales = "free", -->
 <!--   theme(legend.position = "bottom") + -->
-<!--   theme_light() -->
+<!--   theme_wq -->
 
 <!-- ggsave(file.path(datadir, "RWS", "producten", "ZStrends.pdf")) -->
 <!-- ``` -->
@@ -440,7 +442,7 @@ WQ %>%
                         trans = "log", breaks = my_breaks, labels = my_breaks) +
   # scale_color_viridis_c(values = rescale(0:300)) +
   # guides(colour = guide_legend("maandgemiddeld ZS")) +
-  theme_light() +
+  theme_wq +
   theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm"))
 
 # ggsave(file.path(datadir, "RWS", "producten", "ZSanomalie.pdf"))
@@ -468,7 +470,7 @@ WQ %>%
   scale_color_gradient2(low = "blue", high = "red", mid = "blue",  midpoint = 2000) +
   scale_x_continuous(breaks = pretty_breaks()) +
   ylab(parlabel) +  facet_wrap( ~ locatie.naam, ncol = 2, scales = "free") +
-  theme_light() +
+  theme_wq +
   theme(legend.position = "bottom")
 ```
 
