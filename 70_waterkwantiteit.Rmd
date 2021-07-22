@@ -443,7 +443,7 @@ plotlocaties = c("Den Oever", "Kornwerderzand", "Lauwersoog")
 parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>% #distinct(tydstp)
   filter(tydstp == 1440) %>% #View # ga alleen uit van uurgemiddelden
   mutate(jaar = year(datum), maand = month(datum)) %>%
-  mutate(locatie = factor(locatie, levels = plotlocaties))%>%
+  mutate(locatie = factor(locatie, levels = plotlocaties)) %>%
   group_by(locatie, jaar, maand, datum) %>% summarize(`Q daggemiddeld` = mean(waarde))
 
   ggplot() +
@@ -457,9 +457,9 @@ parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>% #dist
                 group_by(locatie, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
               aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
     ) +
-    # coord_cartesian(ylim = c(5,NA)) +
+    coord_cartesian(ylim = c(NA,1000)) +
     # ylab(parlabel) + xlab(xlabel) +
-    facet_wrap(~ locatie, ncol = 1) +  #scales = "free",
+    facet_wrap(~locatie , ncol = 1, scales = "free") +  #scales = "free",
     theme_hy +
     theme(legend.position = "bottom") +
     scale_colour_manual(name = "",
