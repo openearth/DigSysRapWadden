@@ -1,4 +1,4 @@
-# Hydrodynamiek
+# Hydrodynamiek {#hydro}
 
 ```{r setupWaterkwantiteit, include = FALSE}
 knitr::opts_chunk$set(
@@ -16,43 +16,40 @@ source("r/runThisFirst.R")
 theme_hy <- theme_bw()
 ```
 
-In dit hoofdstuk is de beschrijving van de hydrodynamiek beperkt tot de waterstanden, golven en de grotere afvoeren. Deze parameters worden goed bemeten en de meetdata zijn goed ontsloten. Metingen van bijvoorbeeld stroomsnelheden zijn schaars en worden niet continu uitgevoerd. Bovendien worden de stroomsnelheden sterk beinvloed door de lokale bodemligging. Veranderingen in stroomsnelheden op een bepaald punt zijn daarom sterk gekoppeld aan (lokale) veranderingen in de morfologie. Debieten door de zeegaten vormen ook een interessante parameter, maar deze zijn niet consistent bemeten. Daarom zijn de debieten eveneens niet opgenomen.
+## Afbakening 
 
-De waterstanden in de Waddenzee worden voor een groot deel bepaald door het getij. Het getij ontstaat door de aantrekkende kracht van de maan en de zon op de aarde. De variaties in het getij ontstaan door de draaiing van de aarde en de positie van de aarde t.o.v. de maan en de zon en doordat de maan en de aarde zich in een baan rond de zon bewegen. Daarnaast wordt het getij vervormd door de bodemligging van zeeën en oceanen. Wiskundig gezien kan het getij worden ontleed in groot aantal sinusvormige golven: de getijcomponenten. De M2-component ontstaat door de aantrekkingskracht van de maan en is een belangrijke getijcomponent in de Noordzee en de Waddenzee. De belangrijkste periodieke variaties in het getij zorgen voor de zogeheten dagelijkse ongelijkheid, de springtij-doodtij cyclus (interactie M2 en S2 component) en de 18,6-jarige cyclus. Het getij wordt verder vervormd in de bekkens. Vanaf de zeegaten dringt het getij als een langgerekte golf de bekkens binnen. De geringer wordende diepte en de geometrie van het bekken vervormen het getij. De waterstanden worden verder beinvloed door windforcering (zie hoofdstuk wind) en luchtdruk. 
+In dit hoofdstuk is de beschrijving van de hydrodynamiek beperkt tot de waterstanden, golven en de grotere zoetwaterafvoeren. Deze parameters worden continu bemeten en de meetdata zijn goed ontsloten. 
+
+Metingen van bijvoorbeeld stroomsnelheden zijn schaars en worden niet continu uitgevoerd en zijn daarom niet opgenomen. Bovendien worden de stroomsnelheden sterk beinvloed door de lokale bodemligging. Veranderingen in stroomsnelheden op een bepaald punt zijn sterk gekoppeld aan (lokale) veranderingen in de morfologie. Debieten door de zeegaten vormen ook een interessante parameter, maar deze zijn niet consistent bemeten. Daarom zijn de debieten eveneens niet opgenomen.
+
+De waterstanden in de Waddenzee worden voor een groot deel bepaald door het getij. Het getij ontstaat door de aantrekkende kracht van de maan en de zon op de aarde. De variaties in het getij ontstaan door de draaiing van de aarde en de positie van de aarde t.o.v. de maan en de zon en doordat de maan en de aarde zich in een baan rond de zon bewegen. Daarnaast wordt het getij vervormd door de bodemligging van zeeën en oceanen. Wiskundig gezien kan het getij worden ontleed in groot aantal sinusvormige golven: de getijcomponenten. De M2-component ontstaat door de aantrekkingskracht van de maan en is een belangrijke getijcomponent in de Noordzee en de Waddenzee. De belangrijkste periodieke variaties in het getij zorgen voor de zogeheten dagelijkse ongelijkheid, de springtij-doodtij cyclus (interactie M2 en S2 component) en de 18,6-jarige cyclus. Vanaf de zeegaten dringt het getij als een langgerekte golf de bekkens binnen. De geringer wordende diepte en de geometrie van het bekken vervormen het getij. De waterstanden worden verder beinvloed door windforcering (zie hoofdstuk wind) en luchtdruk. 
 
 De Gemiddelde Hoog Water (GHW), Gemiddeld Hoog Hoogwater Spring (GHHWS), Gemiddelde Laag Water (GLW), Gemiddeld Laag Laagwater Spring (GLLWS) en de getijslag (GHW-GLW) zijn relevant voor de ecologie en de morfologische ontwikkeling en daarom opgenomen in deze rapportage. De hoogteligging van wadplaten en de vegetatiegroei is gekoppeld aan het niveau van hoogwater. De getijslag laat zien hoe het getij zich voortplant in het bekken. Veranderingen in de getijslag door de tijd leiden tot veranderingen in de stroomsnelheden en hebben daarmee invloed op de morfologie. 
 
-Ook de zeespiegelstijging is opgenomen. Golven hebben invloed op de morfologie en de concentraties van zwevende stof in de waterkolom.
+Ook de zeespiegelstijging is opgenomen. Evenals golven, die invloed hebben op de morfologie, de concentraties van zwevende stof in de waterkolom en de ecologie.
 
-In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterspui ontstaan, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in hoofdstuk Waterkwaliteit) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. De drie grootsten afvoerpunten zitten in de Afsluitdijk (Den Oever en Kornwerderzand) en bij het Lauwersmeer. De data van kleinere afvoeren is minder goed bijgehouden en/of ontsloten, en worden daarom in deze rapportage buiten beschouwing gelaten. 
+In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterspui ontstaan, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in hoofdstuk (#waterkwaliteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. De drie grootsten afvoerpunten zitten in de Afsluitdijk (Den Oever en Kornwerderzand) en bij het Lauwersmeer. De data van kleinere afvoeren is minder goed bijgehouden en/of ontsloten, en worden daarom in deze rapportage buiten beschouwing gelaten. 
 
 ##	Zeespiegelstijging
 
 Hier wordt de jaargemiddelde waterstand weergegeven en verwezen naar de zeespiegelstijgingsmonitor voor de uitgebreidere analyses en benodigde correcties. 
 
-Analyse(s)/figuren:
-
-Jaargemiddelde waterstand en 19-jarig lopend gemiddelde om te verdisconteren voor de 18,6 jarige cyclus.
-
 [Link naar zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb)
 
-### Berekeningswijze: naar een appendix?
-Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de waterstand ingelezen van de Data Distributielaag. De berekening van GHW en GLW is gedaan door in de tijdseries met waterstanden te zoeken naar het maximum en minimum per getijcyclus. In figuur \@ref(fig:hooglaagvoorbeeld) is daarvan een voorbeeld te zien. Vervolgens worden deze hoogwaters en laagwaters per jaar gemiddeld. De getijslag wordt berekend door GHW-GLW. 
 
-Om trends te kunnen bepalen is vervolgens een lineaire trendlijn toegevoegd die varieert met de 18,6 jarige cyclus. 
+## Gemiddeld Hoogwater (GHW)
 
-Voor 1984 is met een lagere frequentie gemeten (1 uur en nog eerder zelfs 3 uur) en is deze methode te onnauwkeurig. Voor die periode zal de RWS dataset van hoog- en laagwaterstanden worden gebruikt en worden gemiddeld per jaar.
+De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix (#Appwaterstanden). 
+
 
 JV 20/7 Willem: 
-*   ik dacht dat jij deze had aangevraagd? 
-*   En ik neem aan dat je ook een filter hebt gezet op hoever de minima/maxima uit elkaar moeten liggen, anders kan je meerdere lokale maxima per getijcyclus vinden. 
-    +   Er is een filter van >4 uur toegepast. 
-*   En misschien nog iets meer info over de lineaire trendlijn toevoegen? Hoe heb je de amplitude en fase van de 18,6 jarige cyclus bepaald?
-    + De amplitude en fase worden gefit door de data. Alleen de periode staat vast
+
 *   Ik mis nog een aantal stations (AWG platform, Den Oever buiten, Kornwerderzand buiten, Nieuwe Statenzijl, Oudeschild, Termuntenzijl en Vlieland haven). Kan je ook een kaartje met deze stations invoegen?
     + zal ik naar kijken.
 *   Kunnen we een kaartje maken met alle stations in 1 paneel in plaats van 1 paneel per station? Dan kan je ook goed de verschillen in hoogwaters zien.
     + zal ik ook naar kijken
+    
+De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde periode van 1985 tot heden. Ook de ruimtelijke verschillen over de Waddenzee zijn duidelijk terug te zien in de grafieken.
 
 
 ```{r loadWaterhoogteData}
@@ -96,22 +93,6 @@ extrema = lapply(h, function(x) Tides::extrema(x, h0 = -900, hoffset = 0, T2 = 4
 
 ```
 
-```{r hooglaagvoorbeeld, fig.width=8, fig.height=4, fig.cap= "Gemeten waterstand en hoog- (rood) en laagwater (groen) voor eind maart 2018 (inclusief overgang naar zomertijd van 24 op 25 maart), zoals berekend voor de hele tijdserie." }
-minplottime = ymd("2018-03-23")
-maxplottime = ymd("2018-03-27")
-df_all_WATHTE2[["Eemshaven"]] %>%
-  filter(tijdstip > minplottime, tijdstip < maxplottime) %>%
-  ggplot() +
-  geom_point(aes(tijdstip, numeriekewaarde)) +
-  geom_point(data = extrema[["Eemshaven"]]$HL %>% filter(time > minplottime, time < maxplottime), aes(time, h, fill = HL), size = 5, shape = 21, color = "white") +
-  theme_hy +
-  theme(legend.position = "bottom")
-```
-
-## Gemiddeld Hoogwater (GHW)
-
-JV: hier nog een korte beschrijving van de resultaten opnemen, na opnieuw plotten van de data.
-
 ```{r Hoogwaters, fig.height=20, fig.width=10, fig.cap="Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
 
 rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
@@ -133,7 +114,10 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
 
 ## Gemiddeld Laagwater (GLW)
 
-JV: hier nog een korte beschrijving van de resultaten opnemen, na opnieuw plotten van de data.
+De berekeningswijze van de Gemiddelde LoogWaterstanden vergelijkbaar met de GHW en opgenomen in Appendix (#Appwaterstanden). 
+
+De GLW (figuur \@ref(fig:Laagwaters)) laten voor de meeste stations ook een stijging zien. Ook is wederom te zien dat de laagwaterniveaus verschillen over de Waddenzee.
+
 
 ```{r Laagwaters, fig.height=20, fig.width=10, fig.cap="Jaargemiddeld laagwater (GHW) per stations. De lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
 
@@ -156,10 +140,12 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
 
 ## Getijslag 
 
-*   JV 20/7 Willem: Bij de getijslag wordt een doorgetrokken lijn getekend. Dat ziet er bij Holwerd gek uit, want daar zit een gat in de data. Misschien beter puntjes (of iets anders) gebruiken.
-    + gedaan
+De getijslag (figuur \@ref(fig:getijslag)), die wordt gevormd door de combinatie van de GHW en de GLW laten zien dat sinds 1985 er sterke fluctuaties zijn als gevolg van de 18,6 jarige cyclus, en ook dat er op sommige stations een dalende trend lijkt te zijn, terwijl op andere stations een stijgende trend in de data zit. Indien de tijdreeksen worden uitgebreid met de historische data, kunnen deze schommelingen in beter historisch perspectief worden geplaatst.
 
-TO DO: Kaart met getijslag van het meest actuele jaar om verloop in de Waddenzee te laten zien.
+TO DO: 
+
+* Oudere data toevoegen.
+* Kaart met getijslag van het meest actuele jaar om verloop in de Waddenzee te laten zien.
 
 ```{r getijslag, fig.height=16, fig.width=10, fig.cap="Jaargemiddelde getijslag per stations. De lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
 
@@ -180,9 +166,14 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
 
 ```
 
-## To DO:	GLLWS & GHHWS
+## TO DO:	GLLWS & GHHWS
 
-Gemiddeld Laag Laagwater Spring en Gemiddeld Hoog Hoogwater Spring zijn van belang voor de ecologie? En worden daarom hierbij opgenomen. 
+Gemiddeld Laag Laagwater Spring en Gemiddeld Hoog Hoogwater Spring zijn van belang voor de ecologie? En worden daarom hierbij opgenomen.
+
+GLLWS: gemiddelde van de laagste waterstand per maand over een periode van 5 jaar. Op basis van astronomische waterstand
+GHHWS: gemiddelde van de hoogste waterstand per maand over een periode van 5 jaar. Op basis van astronomische waterstand
+
+Willem checkt deze berekeningswijze nog even bij Fedor.
 
 ## TO DO: Getijcomponenten en -asymmetrie
 
@@ -191,24 +182,28 @@ De M2 component van het getij heeft de grootste amplitude en ontstaat door aantr
 De M4/M2 amplitudeverhouding en het relatief faseverschil 2M2-M4 kunnen worden gebruikt voor de kwantificatie van de getijasymmetrie die belangrijk is voor het netto sedimenttransport (Friedrichs en Aubrery, 1988). Het relatief faseverschil bepaalt de aard van de asymmetrie: de pieksnelheid is vloeddominant als het tussen 0 en 180 graden is en ebdominant als het tussen 180 en 360 graden is. De grootte van de amplitudeverhouding (M4/M2) is een indicator voor de sterkte van de asymmetrie.
 
 Analyse(s)/figuren:
+
 1.	Tijdreeks van de amplitude M2 per jaar voor de verschillende stations en 19-jarig gemiddelde
 2.	Tijdreeks van de amplitude S2 per jaar voor de verschillende stations en 19-jarig gemiddelde
 3.	Tijdreeks van de amplitude M4 per jaar voor de verschillende stations en 19-jarig gemiddelde
 4.	Tijdreeks van de amplitudeverhouding M4/M2 per jaar voor de verschillende stations en 19-jarig gemiddelde
 5.	Tijdreeks van het relatieve faseverschil 2phiM2-phiM4 per jaar voor de verschillende stations en 19-jarig gemiddelde
 
-GLLWS: gemiddelde van de laagste waterstand per maand over een periode van 5 jaar. Op basis van astronomische waterstand
-GHHWS: gemiddelde van de hoogste waterstand per maand over een periode van 5 jaar. Op basis van astronomische waterstand
 
 ##	Waterhoogte bij storm
 
 Waterstanden tijdens events geven inzicht hoeveel en hoe krachtige stormen er zijn opgetreden per jaar. Er worden twee parameters opgenomen als indicator: de stormopzet of -afzet (excl. getij) en de stormvloedhoogte (incl. getij). De laatste geeft ook de afhankelijkheid weer van het moment in de getijfase dat een storm optreedt.
 
-De opzet/afzet, berekend als $gemeten waterstand - astronomische waterstand$ en hier uitgedrukt als xxx, laat de variatie van opzet in de tijd zien. De jaren 1990 en in iets mindere mate 2020 springen eruit met relatief hoge waarden \@ref(fig:wateropzet)). 
+Als maat voor stormen wordt het 99,5-percentiel per jaar getoond, wat overeen komt met bijna 2 dagen. In combinatie met het jaarmaximum geeft dit goed inzicht in de meest energetische condities per jaar.
 
-De stormvloedhoogte, berekend als het maximum van de gemeten waterstand en hier uitgedrukt als het 95 percentiel per maand en maximum per jaar, laat de variatie van stormhoogte in de tijd zien. De jaren 1990 en in iets mindere mate 2020 springen eruit met relatief hoge waarden \@ref(fig:stormhoogte)). 
+De opzet/afzet, berekend als $gemeten waterstand - astronomische waterstand$ en hier uitgedrukt als 0,5 en 99,5-percentiel per jaar en minimum en maximum per jaar, laat de variatie van opzet in de tijd zien. De jaren 1990 en in iets mindere mate 2020 springen eruit met relatief hoge waarden (figuur \@ref(fig:wateropzet)). 
 
-*   JV 20/7 Willem: Omdat we het 95 percentiel nemen, pakken we alleen de opzet. Misschien beter om de tijdreeks of whiskerboxplot per jaar te tonen, zodat ook de afzet inzichtelijk wordt. In plaats van jaargemiddelde van de maandelijkse 95 percentielen misschien beter om het maximum per jaar te nemen? Voor de stormvloedhoogte ook het maximum per jaar pakken? Alle stations in 1 paneel vind ik wel heel inzichtelijk.
+De stormvloedhoogte, berekend als het maximum van de gemeten waterstand en hier uitgedrukt als het 99,5-percentiel per jaar en maximum per jaar, laat de variatie van stormhoogte in de tijd zien. De jaren 1990 en in iets mindere mate 2020 springen eruit met relatief hoge waarden (figuur \@ref(fig:stormhoogte)). 
+
+*   JV 20/7 Willem: 
+
++ heb je hier wel de opzet/afzet (dus waterstand-astronomische waterstand) berekend? Nu je de getijanalyse gedaan hebt kan je het getijsignaal reconstrueren en dit aftrekken van de gemeten waterstand.
++ ik wil het 99,5-percentiel per jaar en de jaarmaxima. En hetzelfde voor de minima bij de afzet (niet bij de stormvloedhoogte).
 
 ```{r wateropzet, fig.cap= "Maandelijks 95-percentiel voor opzet/afzet = gemeten waterstand - astronomische waterstand (rode punten) en het jaarlijks gemiddelde van dit maandelijks 95 percentiel.", fig.height=30, fig.width=10}
 
@@ -220,11 +215,11 @@ monthlyStat %>%
   mutate(jaar = year(datum)) %>%
   group_by(station, jaar) %>% mutate(jaarmaximum = max(max, na.rm = T), n = n()) %>% ungroup() %>%
   filter(n > 11, ) %>%  # filter incomplete jaren
-  complete(station, datum, fill = list(max = NA, p95 = NA)) %>% # stop weer NA's tussen de ontbrekende regels om lijnen af te breken bij ontbrekende data
+  complete(station, datum, fill = list(max = NA, p995 = NA)) %>% # stop weer NA's tussen de ontbrekende regels om lijnen af te breken bij ontbrekende data
   ggplot(aes(x = datum)) +
-  geom_line(aes(y = p95, color = "p95 per maand"), size = 0.5) +
+  geom_line(aes(y = p995, color = "p995 per maand"), size = 0.5) +
   geom_point(aes(y = jaarmaximum,  color = "maximum per maand"), shape = "-") +
-  # geom_smooth(method = "lm", formula = y ~ 1, aes(group = jaar, color = "jaargemiddelde p95 per maand")) +
+  # geom_smooth(method = "lm", formula = y ~ 1, aes(group = jaar, color = "jaargemiddelde p99,5 per maand")) +
   # coord_cartesian(ylim = c(0, 450)) +
   scale_x_date(breaks = seq(as.Date("1970-01-01"), as.Date("2021-12-31"), by = "5 year"), 
                minor_breaks = "1 year",
@@ -236,20 +231,19 @@ monthlyStat %>%
   ylab("waterhoogte in cm") +
   coord_cartesian(ylim = c(-20, NA)) +
       scale_colour_manual(name = "",
-                        values = c("p95 per maand" = "red", 
-                                   "jaargemiddelde p95 per maand" = "blue",
-                                   "maximum per maand" = "black"))
+                        values = c("p99,5 per jaar" = "red", 
+                                   "maximum per jaar" = "black"))
 
 ```
 
 
-```{r stormhoogte, fig.cap="Tijdserie van stormhoogte, berekend als 95-percentiel van de gemeten waterhoogte per jaar. ", fig.width=10, fig.height=5}
+```{r stormhoogte, fig.cap="Tijdserie van stormhoogte, berekend als 99,5-percentiel van de gemeten waterhoogte per jaar. ", fig.width=10, fig.height=5}
 
 yearlyStat <-  read_delim(file.path(datadir, "ddl", "standard", paste0("yearlyStatWaterhoogte", "2021-07-12", ".csv")), delim = ";")
 
 labelpositions <-
   yearlyStat %>% group_by(station) %>% 
-  summarize(y = mean(p95)) %>% 
+  summarize(y = mean(p995)) %>% 
   mutate(x = 3*row_number()) 
 
 # hist(yearlyStat$p95, breaks = 100)
@@ -258,10 +252,10 @@ labelpositions <-
 yearlyStat %>%
   drop_na() %>%
   filter(station != "Eemshaven" | year != 1978) %>%
-  complete(station, year, fill = list(p95 = NA, max = NA)) %>%
+  complete(station, year, fill = list(p995 = NA, max = NA)) %>%
   mutate(station = factor(station)) %>%
   mutate(station = fct_reorder(station, p95)) %>%
-ggplot(aes(year, p95)) +
+ggplot(aes(year, p995)) +
   geom_line(aes(color = station), size = 0.8) +
   geom_label(data = labelpositions, aes(x = 1970 + x, y = y, label = station), size = 3) +
   theme_hy +
@@ -277,7 +271,7 @@ ggplot(aes(year, p95)) +
 
 De wind, de stormopzet/-afzet en stormvloedhoogte en de golfhoogtes geven allemaal inzicht in de dynamiek in de verschillende jaren. 
 
-Het 95-percentiel van de significante golfhoogte per jaar geeft de variatie van hoge golven tussen de jaren weer (figuur \@ref(fig:golfhoogte95perc)). Alleen voor de stations Schiermonnikoog Noord en Eijerlandse gat zijn langere complete tijdseries beschikbaar. De patronen van deze twee locaties zijn ongeveer gelijkvormig. In 2007 en 2011 lag het 95-percentiel hoger dan gemiddeld.
+Het 95-percentiel van de significante golfhoogte per jaar geeft de variatie van hoge golven tussen de jaren weer (figuur \@ref(fig:golfhoogte95perc)). Alleen voor de stations Schiermonnikoog Noord en Eierlandse Gat zijn langere complete tijdseries beschikbaar. De patronen van deze twee locaties zijn ongeveer gelijkvormig. In 2007 en 2011 lag het 95-percentiel hoger dan gemiddeld.
 
 ```{r leesGolfData}
 golf.df <- "golven2021-07-08.csv"
@@ -312,18 +306,9 @@ gdf %>%
   scale_x_continuous(breaks = pretty_breaks()) +
   theme_hy
 ```
-De afwijking van maandgemiddelde golfhoogte ten opzichte van het langjarig gemiddelde is een maat voor de seizoensdynamiek. In figuur \@ref(fig:golfanomalie) is dit uitgezet voor alle stations. Te zien is dat er in de winter over het algemeen hogere golven zijn dan in de zomer. In Uithuizerwad en Wieringerwad is dit niet zichtbaar. Dit zijn zeer beschutte locaties zonder hoge golven. Uit de langjarige series bij Schiermonnikoog Noord en Eijerlandse Gat is ook de variatie van de seizoensdynamiek in de tijd te zien, maar er lijkt geen duidelijke trend te zijn. Tussen de maanden en jaren zitten flink fluctuaties.
 
-De afwijking is berekend in de volgende stappen:
+De afwijking van maandgemiddelde golfhoogte ten opzichte van het langjarig gemiddelde is een maat voor de seizoensdynamiek (zie berekeningswijze in (#Appgolfhoogte)). In figuur \@ref(fig:golfanomalie) is dit uitgezet voor alle stations. Te zien is dat er in de winter over het algemeen hogere golven zijn dan in de zomer. In Uithuizerwad en Wieringerwad is dit niet zichtbaar. Dit zijn zeer beschutte locaties zonder hoge golven. Uit de langjarige series bij Schiermonnikoog Noord en Eierlandse Gat is ook de variatie van de seizoensdynamiek in de tijd te zien, maar er lijkt geen duidelijke trend te zijn. Tussen de maanden en jaren zitten flink fluctuaties.
 
-1)  incomplete jaren verwijderen
-1)  langjarig gemiddelde voor elk station als gemiddelde van alle maandgemiddelden
-1)  de afwijking wordt berekend per station en maand als het verschil tussen maandgemiddelde en langjarig gemiddelde
-1)  De afwijking wordt dan uitgezet tegen de maand in het jaar voor alle jaren in een plot. De kleurenschaal geeft het jaar aan waarin de afwijking is opgetreden. 
-
-*   JV 20/7 Willem: moeten we hier nog iets toevoegen over de berekeningswijze van de anomalie? En bij de as de eenheid weergeven? Zou het inzichtelijk zijn de langjarige series ook als jaarlijkse anomalie te plotten?
-    +  maanden nu als tekst in grafieken
-    +  beschrijving toegevoegd hierboven
 
 ```{r golfanomalie, fig.height=20, fig.width = 8, fig.cap="Afwijking maandgemiddeld t.o.v. langjarig gemiddelde, als maat voor seizoensdynamiek. Verschillende jaren weergeven als lijnen met kleurverloop (oude jaren blauw en naar heden toe verkleurend naar rood). Aan de positie van de punten is ruis toegevoegd, om overlappende punten te voorkomen. "}
 
@@ -354,7 +339,7 @@ gdf %>%
 
 De golfperiode is samen met de golfhoogte van belang voor de orbitaalsnelheden, die op hun beurt bijdragen aan de bodemschuifspanningen. 
 
-Figuur \@ref(fig:plotGolfperiode) toont de tijdserie van de golfperiode TM02, dat is de gemiddelde golfperiode van alle golven zoals bepaald uit het golfspectrum, als individuele blauwe punten. De rode stippen geven het 95-percentiel van de golfperiode TM02 per jaar. Er zijn enkele abrupte veranderingen in golfperiode te zien, die waarschijnlijk te wijten zijn aan verandering van de instellingen van de meetapparatuur en/of meetfouten. 
+Figuur \@ref(fig:plotGolfperiode) toont de tijdserie van de golfperiode T~M02~, dat is de gemiddelde golfperiode van alle golven zoals bepaald uit het golfspectrum, als individuele blauwe punten. De rode stippen geven het 95-percentiel van de golfperiode T~M02~ per jaar. Er zijn enkele abrupte veranderingen in golfperiode te zien, die waarschijnlijk te wijten zijn aan verandering van de instellingen van de meetapparatuur en/of meetfouten. Ook veranderingen in de lokale morfologie kunnen ertoe leiden dat een station meer geexponeerd of juist beschut komt te liggen. Dit geldt vooral voor de stations in de Waddenzee.
 
 ```{r readGolfperiodeData}
 path = file.path(datadir, "ddl", "standard", paste0("golfperiode", "2021-07-16", ".Rdata"))
@@ -363,7 +348,7 @@ load(path)
 ```
 
 
-```{r plotGolfperiode, fig.height=20, fig.width=10, fig.cap = "Tijdserie van 95-percentiel van de golfperiode Tm02 per jaar, incl metingen als losse puntjes. de metingen in deze figuur is een sample uit alle data (n = 100000 uit totaal van 10 miljoen datapunten)."}
+```{r plotGolfperiode, fig.height=20, fig.width=10, fig.cap = "Tijdserie van 95-percentiel van de golfperiode T~M02~ per jaar, incl metingen als losse puntjes. de metingen in deze figuur is een sample uit alle data (n = 100000 uit totaal van 10 miljoen datapunten)."}
 
 df_all %>% sample_n(100000) %>%            #group_by(locatie.naam) %>% summarize(n = n())
   filter( numeriekewaarde < 9999) %>%
@@ -387,12 +372,16 @@ df_all %>% sample_n(100000) %>%            #group_by(locatie.naam) %>% summarize
 
 ##	Zoetwaterafvoeren
 
-De zoetwaterafvoer leidt tot saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterspui, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in hoofdstuk Waterkwaliteit) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. De data van de grootste afvoeren (Den Oever, Kornwerderzand, Lauwersoog) zijn goed ontsloten en worden hier getoond. Andere/kleinere afvoeren zijn zeer nuttig om te ontsluiten, maar deze gegevens zijn via de waterschappen zeer moeilijk te verkrijgen. Bovendien is de verwachting dat de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval) zullen volgen. De afvoeren bij Den Oever en Kornwerderzand worden beïnvloed door het peilbeheer in het IJsselmeer. Daarom worden ook zomer- en wintergemiddelde afvoeren gevizualiseerd.
+De zoetwaterafvoer leidt tot saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterspui, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in hoofdstuk (#Waterkwaliteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. De data van de grootste afvoeren (Den Oever, Kornwerderzand, Lauwersoog) zijn goed ontsloten en worden hier getoond. Andere/kleinere afvoeren zijn zeer nuttig om te ontsluiten, maar deze gegevens zijn via de waterschappen zeer moeilijk te verkrijgen. Bovendien is de verwachting dat de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval) zullen volgen. De afvoeren bij Den Oever en Kornwerderzand worden beïnvloed door het peilbeheer in het IJsselmeer. Daarom worden ook zomer- en wintergemiddelde afvoeren gevizualiseerd.
 
-De 10-minuutwaarden van de afvoeren (grijze punten in figuur \@ref(fig:jaargemiddeldeAfvoer)) laten de sterke pulsen in afvoeren zien. Dit is het gevolg van het spuien onder vrij verval, waardoor een deel van de tijd niet gespuid kan worden. Bij een groot verval kunnen pieken tot boven de 2000 m3/s optreden bij Den Oever en 1500 m3/s bij Kornwerderzand. Ook laten de grijze punten en de zwarte punten die je maandgemiddelden voorstellen, een duidelijk seizoenssignaal zien, waarbij in de zomer minder wordt gespuid dan in de winter. In de jaargemiddelden is het lastig trends te herkennen. In figuur \@ref(fig:seizoensgemiddeldenAfvoer) is de afvoer gemiddeld per zomerperiode (1 april - 30 september) en winterperiode (1 oktober - 31 maart). Hieruit is duidelijk te zien dat de zomerafvoer 2 tot 3 keer zo laag is als de winterafvoer. Ook de droge zomers van 2018, 2019 en 2020 zijn terug te zien in de figuur.
+De daggemiddelde waarden van de afvoeren (grijze punten in figuur \@ref(fig:jaargemiddeldeAfvoer)) laten de sterke fluctuaties in afvoeren zien. Er treden pieken op tot boven de 2000 m^3^/s bij Den Oever en 1500 m^3^/s bij Kornwerderzand. Ook laten de grijze punten en de zwarte punten die je maandgemiddelden voorstellen, een duidelijk seizoenssignaal zien, waarbij in de zomer minder wordt gespuid dan in de winter. In de jaargemiddelden is het lastig trends te herkennen. 
 
-*   JV 20/7 Willem: zijn dit daggemiddelden of kleinere tijdsresolutie?
-    +   Dit zijn 10-minutendata. Er waren ook uurgemiddelden, maar daar zaten veel onderbrekingen en lege data in. Bovendien zat daar ook nog 1 of 2 zeer hoge waarden bij. weet niet wat ik daarmee moet. 
+Doordat er wordt gespuid onder vrij verval, kan er een deel van de tijd (tijdens hoogwater) niet gespuid kan worden. Indien de 10-minuutwaarden zouden worden gevizualiseerd, kunnen de pulsen in afvoer nog hogere debieten laten zien. Deze 10-minuutwaarden zijn alleen voor recente jaren beschikbaar, en bevatten vrij veel gaten. Daarom is ervoor gekozen hier de daggemiddelden te tonen.
+
+In figuur \@ref(fig:seizoensgemiddeldenAfvoer) is de afvoer gemiddeld per zomerperiode (1 april - 30 september) en winterperiode (1 oktober - 31 maart). Hieruit is duidelijk te zien dat de zomerafvoer 2 tot 3 keer zo laag is als de winterafvoer. Ook de droge zomers van 2018, 2019 en 2020 zijn terug te zien in de figuur. Bij Den Oever lijkt zowel de zomergemiddelde als de wintergemiddelde afvoer de laatste twee decennia langzaam af te nemen.
+
+Willem, nog een figuur maken met de jaargemiddelden minder uitgerekt in de breedte?
+
 ```{r leesAfvoerData}
 afvoerDir <- file.path(datadir, "RWS", "afvoeren")
 afvoerFiles <- list.files(afvoerDir, pattern = "csv", full.names = T)
@@ -459,7 +448,7 @@ parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>% #dist
     ) +
     coord_cartesian(ylim = c(NA,1000)) +
     # ylab(parlabel) + xlab(xlabel) +
-    facet_wrap(~locatie , ncol = 1, scales = "free") +  #scales = "free",
+    facet_wrap(~ locatie, ncol = 1, scales = "free") +  #scales = "free",
     theme_hy +
     theme(legend.position = "bottom") +
     scale_colour_manual(name = "",
