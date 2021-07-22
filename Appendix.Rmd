@@ -40,6 +40,96 @@ pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
 ```
 
 
+# Appendix C
 
+## Brondata waterstanden en berekeningswijze GHW, GLW en getijslag {#Appwaterstanden}
+Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de waterstand ingelezen van de Data Distributielaag. De berekening van GHW en GLW is gedaan door in de tijdseries met waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld) is daarvan een voorbeeld te zien. Vervolgens worden deze hoogwaters en laagwaters per jaar gemiddeld. De getijslag wordt berekend door $GHW-GLW$. 
 
+Om trends te kunnen bepalen is vervolgens een lineaire trendlijn toegevoegd die varieert met de 18,6 jarige cyclus. Doordat de frequentie van de 18,6 jarige cyclus bekend is en de tijdserie voldoende lang, kan de software zelf de amplitude en de fase van de 18,6-jarige cyclus fitten.
 
+Voor 1984 is met een lagere frequentie gemeten (1 uur en nog eerder zelfs 3 uur) en is deze methode te onnauwkeurig. Voor die periode zal de RWS dataset van hoog- en laagwaterstanden worden gebruikt en worden gemiddeld per jaar.
+
+    
+    ```{r loadWaterhoogteData}
+
+load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-12", ".Rdata")))
+df_all_WATHTE2 <- df_all_WATHTE %>%
+# filter(year(tijdstip) >=2000) %>% # voor testen
+arrange(tijdstip) %>%
+  group_split(locatie.naam)
+
+names(df_all_WATHTE2) <- map_chr(df_all_WATHTE2, function(x) unique(x$locatie.naam))
+
+```
+
+```{r berekeningGaps, include = F, eval=F}
+
+gaps <- lapply(df_all_WATHTE2,
+       function(x) Tides::gapsts(x$tijdstip, dtMax = 11, unit = "mins")
+)
+# gaps <- Tides::gapsts(df_all_WATHTE2[[3]]$tijdstip, dtMax = 61, unit = "mins")
+
+rbindlist(gaps, idcol = "locatie.naam") %>%
+  ggplot() +
+  geom_point(aes(x = t1, y = dt/(60*60)), color = "red", size = 1) +
+  facet_wrap(~locatie.naam) +
+  # coord_cartesian(ylim = c(0,10)) +
+  theme_hy
+```
+
+```{r berekeningGetij}
+
+h <- lapply(df_all_WATHTE2, function(x) 
+  x %>% select(time = tijdstip, h = numeriekewaarde) %>% filter(year(time) > 1984))
+
+extrema = lapply(h, function(x) Tides::extrema(x, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3))
+
+# h <- df_all_WATHTE2[[3]] %>%
+#   select(time = tijdstip, h = numeriekewaarde)
+# 
+# extrema <- Tides::extrema(h, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3)
+
+```
+
+```{r hooglaagvoorbeeld, fig.width=8, fig.height=4, fig.cap= "Gemeten waterstand en hoog- (rood) en laagwater (groen) voor eind maart 2018 (inclusief overgang naar zomertijd van 24 op 25 maart), zoals berekend voor de hele tijdserie." }
+minplottime = ymd("2018-03-23")
+maxplottime = ymd("2018-03-27")
+df_all_WATHTE2[["Eemshaven"]] %>%
+  filter(tijdstip > minplottime, tijdstip < maxplottime) %>%
+  ggplot() +
+  geom_point(aes(tijdstip, numeriekewaarde)) +
+  geom_point(data = extrema[["Eemshaven"]]$HL %>% filter(time > minplottime, time < maxplottime), aes(time, h, fill = HL), size = 5, shape = 21, color = "white") +
+  theme_hy +
+  theme(legend.position = "bottom")
+```
+
+## Brondata golven en berekeningswijze seizoensfluctuatie van golfhoogte {#Appgolfhoogte}
+Brondata golven....?
+
+De afwijking is berekend in de volgende stappen:
+
+1)  incomplete jaren verwijderen
+1)  langjarig gemiddelde voor elk station als gemiddelde van alle maandgemiddelden
+1)  de afwijking wordt berekend per station en maand als het verschil tussen maandgemiddelde en langjarig gemiddelde
+1)  De afwijking wordt dan uitgezet tegen de maand in het jaar voor alle jaren in een plot. De kleurenschaal geeft het jaar aan waarin de afwijking is opgetreden. 
+
+## Brondata wind {#Appwind}
+```{r readMeteodata, cache=T}
+dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
+# paste(unique(dtwind$station), collapse = ", ")
+```
+
+Voor de meteorologische beschrijving is uitgegaan van de [KNMI uurgegevens](https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens) voor de vier stations `r paste(unique(dtwind$station), collapse = ", ")`. 
+
+## Brondata en berekeningswijze waterkwaliteit {#Appwaterkwaliteit}
+MWTL metingen van Rijkswaterstaat worden beschikbaar gemaakt via Waterinfo ([link](https://waterinfo.rws.nl/)) en zijn ook direct via een webservice te downloaden uit de Datadistributielaag (DDL) ([documentatie webservice](https://www.rijkswaterstaat.nl/rws/opendata/DistributielaagWebservices-SUM-2v7.pdf)). 
+
+Zwevend stof is niet beschikbaar uit de DDL, en is apart opgevraagd bij de servicedesk data van RWS.
+
+Continue metingen van temperatuur en saliniteit bij NIOZ steiger Texel en van temperatuur, saliniteit en zwevende stof bij meetpaal Eemshaven worden in eerste instantie buiten beschouwing gelaten, omdat deze data niet goed ontsloten en/of gevalideerd is.
+
+Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang de metingen eerst te 'middelen' per maand en vervolgens naar jaar, indien jaargemiddelden worden berekend. Als dit niet wordt gedaan, zijn de jaargemiddelden beinvloed door de hogere meetfrequentie in de zomer. Het woord middelen staat tussen aanhalingstekens, omdat het vaak in de winterperiode slechts 1 meting per maand betreft.
+
+Voor de watertemperatuur worden zomer- en wintergemiddelden berekend om te zien of er trends in de seizoenen zitten die bij jaargemiddelden weg worden gemiddeld. 
+
+Berekeningswijze anomalien nog toevoegen

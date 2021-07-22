@@ -1,6 +1,6 @@
 ---
 title: "Digitale systeemrapportage Wadden, concept 0.1"
-author: "Deltares"
+author: "Deltares, Willem Stolte, Julia Vroom, Giorgio Santinelli"
 date: '`r Sys.Date()`'
 link-citations: yes
 subtitle: "Natuurmonitoring, onderdeel morfologie"
@@ -25,8 +25,10 @@ This website is a test version. Nothing from this website may be used.
 Deze watersysteemrapportage is een initiatief van:
 
 * Rijkswaterstaat
+
     + Noord-Nederland
     + WVL
+    
 * Deltares
 
 
@@ -55,6 +57,7 @@ Deze systeemrapportage draagt bij aan de pijler 'Informatie op orde'. We stellen
 Een kombergingsrapportage is een voorbeeld van een product onder de pijler 'Kennis op orde'. 
 
 ## Afbakening
+
 Omdat de ecologische toestand van de Waddenzee sterk aan de hydromorfologische ontwikkeling is gerelateerd (o.a. waterbeweging, geul- en plaatontwikkeling, sedimentsamenstelling, zoet/zoutgradiënten, troebelheid),  is ‘morfologie’ een van de onderdelen van Natuurmonitoring Waddenzee. Morfologie mag in deze context breder worden opgevat dan enkel bodemveranderingen. Het gaat om alle abiotische veranderingen die invloed hebben op de natuur van het Waddensysteem, zoals ook sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc.
 
 Deze digitale systeemrapportage richt zich op de morfologie ofwel de abiotiek.
@@ -76,11 +79,5 @@ De abiotische indicatoren zijn onderverdeeld in:
 3. Waterkwaliteit
 4. Morfologie en sedimentsamenstelling (nog geen concept beschikbaar)
 5. Menselijke ingrepen (nog geen concept beschikbaar)
-
-
-
-# Brondata en nabewerking
-
-JV 19/7 Willem: Kunnen we een hoofdstuk toevoegen hierover? Lijkt me goed te beschrijven welke data uit de DDL komen en welke los zijn aangevraagd. Eventueel ook hoe de data zijn nabewerkt, of zetten we dat bij de indicatoren zelf? 
 
 
