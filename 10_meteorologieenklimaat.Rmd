@@ -26,9 +26,33 @@ De luchttemperatuur, zoninstraling en bewolking hebben invloed op veel ecologisc
 
 Luchtdruk en neerslag zijn eveneens buiten beschouwing gelaten. Voor variaties in het waterniveau is vooral de wind van invloed, meer dan de luchtdruk. Op schaal van de Waddenzee wordt de saliniteitsverdeling in grotere mate beinvloed door het spuien van zoet water dan via neerslag. De afvoeren zijn opgenomen in hoofdstuk Waterkwantiteit.
 
-De wind wordt geanalyseerd en gevizualiseerd op vier KNMI stations (zie bron: Appendix #Appwind): `r paste(unique(dtwind$station), collapse = ", ")`. Zie figuur \@(fig:nogmaken) voor de ligging van deze stations.
+De wind wordt geanalyseerd en gevizualiseerd op vier KNMI stations (zie bron: Appendix #Appwind): `r paste(unique(dtwind$station), collapse = ", ")`. Zie figuur \@(fig:KNMIstationsmap) voor de ligging van deze stations.
 
-JV 19/7 Willem: kunnen we een kaartje invoegen?
+
+```{r KNMIstationsmap, fig.cap="Kaart met gebruikte KNMI waarnemingsstations."}
+
+file <- file.path(datadir, "KNMI", "netcdf", "STD___OPER_P___OBS_____L2.nc")
+# install.packages("RNetCDF")
+require(RNetCDF)
+nc <- open.nc(file)
+data <- RNetCDF::read.nc(nc)
+KNMIlocaties <- tibble(
+  naam = data$name,
+  lat = data$lat,
+  lon = data$lon  
+)
+
+myKNMIstations <- c("DE KOOY VK", "LAUWERSOOG AWS", "TERSCHELLING HOORN AWS", "VLIELAND")
+
+KNMIlocaties %>%
+  filter(naam %in% myKNMIstations) %>%
+leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(lat = ~lat, lng = ~lon, label = ~naam, labelOptions = labelOptions(noHide = T))
+
+```
+
+
 
 ##  Wind   {#wind}
 
@@ -66,7 +90,7 @@ walk(
 
 Om meer inzicht te krijgen in trendmatige veranderingen in de windsnelheid, worden de verschillende percentielen van de windsnelheid per jaar weergegeven in figuur \@ref(fig:percentilesPerYear). De figuur laat geen duidelijke trends zien. Doordat de data tot op 1 decimaal achter de komma worden opgeslagen, tonen de figuren een vrij schokkerig verloop. De verschillende percentielen en stations laten een vergelijkbaar verloop zien.
 
-```{r percentilesPerYear, fig.height=6, fig.width=8, fig.cap="25, 50, 75 en 95-percentiel van de windsnelheid per jaar"}
+```{r percentilesPerYear, fig.height=6, fig.width=7, fig.cap="25, 50, 75 en 95-percentiel van de windsnelheid per jaar"}
 
 dtwind %>% 
   filter(year < 2021 ) %>%
@@ -89,6 +113,7 @@ ggplot(aes(year, value)) +
  # ) +
   geom_line(aes(color = station, linetype = percentiel), size = 1) +
   # facet_grid(percentiel ~.) +
+  ylab ("windsnelheid in m/s") + xlab( "jaar") +
   theme_met +
   theme(legend.position = "bottom")
 ```
@@ -102,7 +127,10 @@ De seizoensverdeling van windsterkte laat zien dat de hogere windsnelheden vaker
 dtwind %>% 
   group_by(year, month, date, station) %>% summarize(`windsnelheid daggemiddeld` = mean(`Uurgemiddelde windsnelheid in 0.1 m/s`)) %>%
   group_by(year, month, station) %>% summarize(`windsnelheid in m/s` = mean(`windsnelheid daggemiddeld`)/10, na.rm = T) %>%
-  ggplot(aes(year, month)) + geom_tile(aes(fill = `windsnelheid in m/s`)) + scale_fill_viridis_c() + theme_met + theme(legend.position = "bottom") + facet_grid(station ~ .)
+  ggplot(aes(year, month)) + geom_tile(aes(fill = `windsnelheid in m/s`)) + scale_fill_viridis_c() + theme_met + theme(legend.position = "bottom") + facet_grid(station ~ .) +
+  scale_y_continuous(breaks = c(1,3,5,7,9,11), labels = month.abb[c(1,3,5,7,9,11)]) +
+  xlab("jaar") +
+  ylab("maanden")
 ```
 
 ###	Periodes met hoge windsterkte {#windperiodes}
@@ -129,7 +157,8 @@ dtwind %>% filter(year > 2010) %>%
 
   facet_wrap(~ station, ncol = 1) +
   theme_met +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  xlab("jaar")
 
 ```
 
@@ -166,10 +195,10 @@ dtwind %>% filter(year > 2010) %>%
   filter(`Windrichting in graden` < 361) %>%
   drop_na(`Windrichting in graden`) %>%
   mutate(kwadrant = case_when(
-    `Windrichting in graden` > 0 &  `Windrichting in graden` <= 90 ~ "NO",
-    `Windrichting in graden` > 90 &  `Windrichting in graden` <= 180 ~ "ZO",
-    `Windrichting in graden` > 180 &  `Windrichting in graden` <= 270 ~ "ZW",
-    (`Windrichting in graden` > 270 &  `Windrichting in graden` <= 360) | `Windrichting in graden` == 0 ~ "NW"
+    `Windrichting in graden` > 0 &  `Windrichting in graden` <= 90 ~ "noordoost",
+    `Windrichting in graden` > 90 &  `Windrichting in graden` <= 180 ~ "zuidoost",
+    `Windrichting in graden` > 180 &  `Windrichting in graden` <= 270 ~ "zuidwest",
+    (`Windrichting in graden` > 270 &  `Windrichting in graden` <= 360) | `Windrichting in graden` == 0 ~ "noordwest"
   )) %>%
   select(datetime, station, `Uurgemiddelde windsnelheid in 0.1 m/s`, kwadrant) %>%
   group_by(station, kwadrant, ID = data.table::rleid(`Uurgemiddelde windsnelheid in 0.1 m/s` > 108)) %>%
@@ -186,15 +215,17 @@ dtwind %>% filter(year > 2010) %>%
   xlab("jaren") +
   facet_grid(kwadrant ~ station) +
   theme_met +
-  theme(legend.position = "bottom",
-        strip.text.y = element_text(angle = 0))
+  theme(legend.position = "bottom"#,
+        # strip.text.y = element_text(angle = 0)
+        ) +
+  xlab("jaar")
 
 ```
 
 
 
 
-```{r jaarAggregatieTabel, fig.height=8, fig.width=8, fig.cap= "Totaal aantal uren per jaar, station en kwadrant boven een 10,8 m/s (Bft 6, links) en 13,9 m/s (Bft 7, rechts) grenswaarde. " }
+```{r jaarAggregatiePlot, fig.height=8, fig.width=8, fig.cap= "Totaal aantal uren per jaar, station en kwadrant boven een 10,8 m/s (Bft 6, links) en 13,9 m/s (Bft 7, rechts) grenswaarde. " }
 
 dtwind %>% filter(year > 2010) %>%
   filter(`Windrichting in graden` < 361) %>%
