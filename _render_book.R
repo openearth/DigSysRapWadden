@@ -6,7 +6,8 @@ require(rmarkdown)
 require(bookdown)
 
 # to preview a chapter, uncomment one of the lines and run.
-# bookdown::preview_chapter("01_index.Rmd")
+# bookdown::preview_chapter("index.Rmd")
+bookdown::preview_chapter("10_meteorologieenklimaat.Rmd")
 # bookdown::preview_chapter("060_Bathymetrie_en_morfodynamiek.Rmd")
 # bookdown::preview_chapter("20_waterkwaliteit.Rmd")
 # bookdown::preview_chapter("30_zeehonden.Rmd")

@@ -91,7 +91,7 @@ if(!dir.exists(file.path(datadir, "ddl/raw/waterhoogte"))) dir.create(file.path(
 
 #===  golven ophalen alle jaren ===============================
 
-for(year in c(1970:2021)){
+for(year in c(1870:1970)){
   startdate <- paste0(year, "-01-01T00:00:00.000+01:00")  
   enddate <- paste0(year+1, "-01-01T00:00:00.000+01:00")
   
@@ -129,7 +129,8 @@ for(year in c(1970:2021)){
 
 #==== waterhoogte alle jaren  ===============================
 
-for(year in c(1991:2021)){
+# for(year in c(1991:2021)){ # done
+for(year in c(1870:2021)){
   startdate <- paste0(year, "-01-01T00:00:00.000+01:00")  # hardcoded startyear
   enddate <- paste0(year+1, "-01-01T00:00:00.000+01:00")
   
@@ -291,30 +292,44 @@ rm(allFiles)
 
 # 
 # berekenen van maandelijkse statistiek
-load(file.path(datadir, "ddl", "standard", paste0("waterhoogteberekend", "2021-07-09", ".Rdata")))
-load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-09", ".Rdata")))
-df_all = data.table::rbindlist(list(data.table(df_all_WATHTBRKD), data.table(df_all_WATHTE)))
-df_all = unique(df_all)[grootheid.code != "WATOZT"]
+load(file.path(datadir, "ddl", "standard", paste0("waterhoogteberekend", "2021-07-26", ".Rdata")))
+load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-26", ".Rdata")))
 
-# df.h.d <- dcast(df.h, locatie.naam + tijdstip + eenheid.code + hoedanigheid.code ~ grootheid.code, value.var = "numeriekewaarde")
+df_all_WATHTE <- as.data.table(df_all_WATHTE)
+df_all_WATHTBRKD <- as.data.table(df_all_WATHTBRKD)
 
-df.h.d <- dcast(df_all, locatie.naam + tijdstip + eenheid.code + hoedanigheid.omschrijving ~ grootheid.code, value.var = "numeriekewaarde", fun.aggregate = mean, na.rm = T)
+setkey(df_all_WATHTE, "tijdstip", "locatie.code", "eenheid.code", "hoedanigheid.omschrijving")
+setkey(df_all_WATHTBRKD, "tijdstip", "locatie.code", "eenheid.code", "hoedanigheid.omschrijving")
+
+memory.limit(size = 32000)
+df.h.d <- df_all_WATHTE[df_all_WATHTBRKD]
+
+
+# df_all = data.table::rbindlist(list(data.table(df_all_WATHTBRKD), data.table(df_all_WATHTE)))
+# df_all = unique(df_all)[grootheid.code != "WATOZT"]
+# 
+# # df.h.d <- dcast(df.h, locatie.naam + tijdstip + eenheid.code + hoedanigheid.code ~ grootheid.code, value.var = "numeriekewaarde")
+
+# df.h.d <- dcast(df_all, locatie.naam + tijdstip + eenheid.code + hoedanigheid.omschrijving ~ grootheid.code, value.var = "numeriekewaarde", fun.aggregate = mean, na.rm = T)
 
 monthlyStat <- df.h.d[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterdams Peil", .(
-  opzet = WATHTE - WATHTBRKD,
+  opzet = numeriekewaarde - i.numeriekewaarde,
   month = lubridate::month(tijdstip) , 
   year = lubridate::year(tijdstip),
   station = locatie.naam
 )][, .(
   station = station,
   max = max(opzet, na.rm = T),
-  p95 = quantile(opzet, 0.95, na.rm = T)), by = list(year, month, station)][,.(
+  p95 = quantile(opzet, 0.95, na.rm = T),
+  p99 = quantile(opzet, 0.99, na.rm = T)
+  ), 
+  by = list(year, month, station)][,.(
   station, max, p95, datum = as.Date(paste(year, month, "15", sep = "-"))),
 ]
 
 write_delim(monthlyStat, file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", today(), ".csv")), delim = ";")
 
-yearlyStat <- df_all[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterdams Peil" & grootheid.code == "WATHTE", .(
+yearlyStat <- df_all_WATHTE[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterdams Peil" & grootheid.code == "WATHTE", .(
   year = lubridate::year(tijdstip),
   station = locatie.naam,
   parameter.wat.omschrijving,
@@ -323,14 +338,17 @@ yearlyStat <- df_all[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterdams Pei
 )][, .(
   station = station,
   max = max(numeriekewaarde, na.rm = T),
-  p95 = quantile(numeriekewaarde, 0.95, na.rm = T)), by = list(year, station,  parameter.wat.omschrijving, eenheid.code
-  )][,.(
-    station,  parameter.wat.omschrijving, eenheid.code, year, max, p95),
-  ]
+  p95 = quantile(numeriekewaarde, 0.95, na.rm = T),
+  p99 = quantile(numeriekewaarde, 0.99, na.rm = T)
+), 
+by = list(year, station,  parameter.wat.omschrijving, eenheid.code
+)][,.(
+  station,  parameter.wat.omschrijving, eenheid.code, year, max, p95),
+]
 
 write_delim(yearlyStat, file.path(datadir, "ddl", "standard", paste0("yearlyStatWaterhoogte", today(), ".csv")), delim = ";")
 
-rm(df_all, df_all_WATHTBRKD, df_all_WATHTE)
+rm(df_all, df_all_WATHTBRKD, df_all_WATHTE, df.h.d)
 
 # df_all %>% group_by(locatie.naam, grootheid.code) %>% summarise(n = n()) %>% View()
 # waterhoogteLocaties <- df_all %>% distinct(locatie.naam) %>% unlist %>% unname

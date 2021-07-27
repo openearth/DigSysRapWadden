@@ -68,7 +68,7 @@ Tides::gapsts(d1$tijdstip, 10)
 
 d1 <- d1 %>% arrange(tijdstip)
 
-TideHarmonics::ftide(d1$numeriekewaarde, d1$tijdstip, hcn = TideHarmonics::hc60)
+TideHarmonics::ftide(d1$numeriekewaarde, d1$tijdstip, hcn = TideHarmonics::hc60, nodal = T)
 
 
 

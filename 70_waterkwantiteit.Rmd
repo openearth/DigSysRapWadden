@@ -54,7 +54,7 @@ De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde p
 
 ```{r loadWaterhoogteData}
 
-load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-12", ".Rdata")))
+load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-26", ".Rdata")))
 df_all_WATHTE2 <- df_all_WATHTE %>%
 # filter(year(tijdstip) >=2000) %>% # voor testen
 arrange(tijdstip) %>%
@@ -82,7 +82,8 @@ rbindlist(gaps, idcol = "locatie.naam") %>%
 ```{r berekeningGetij}
 
 h <- lapply(df_all_WATHTE2, function(x) 
-  x %>% select(time = tijdstip, h = numeriekewaarde) %>% filter(year(time) > 1984))
+  x %>% select(time = tijdstip, h = numeriekewaarde) %>% filter(year(time) > 1984)
+  )
 
 extrema = lapply(h, function(x) Tides::extrema(x, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3))
 
@@ -97,18 +98,24 @@ extrema = lapply(h, function(x) Tides::extrema(x, h0 = -900, hoffset = 0, T2 = 4
 
 rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
   filter(HL == "H") %>%
-    mutate(
-      jaar = year(time)
-    ) %>% 
-    filter(jaar != 2021 & jaar > 1970) %>%
-    ggplot() +
-    # geom_point(aes(time, h, color = HL), alpha = 0.3) +
-    geom_smooth(aes(time, h, group = jaar), method = "lm", formula = y ~ 1) +
-    geom_smooth(aes(time, h), method = "lm", 
-                formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6*31556995))) + I(sin(2 * pi * as.numeric(x) / (18.6*31556995)))) +
-    # coord_cartesian(ylim = c(-160, -100)) +
-    facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
-  theme_hy
+  mutate(
+    jaar = year(time)
+  ) %>% 
+  filter(jaar != 2021 & jaar > 1984) %>%
+  ggplot () +
+  geom_point(
+    data = . %>% group_by(locatie.naam, jaar) %>% summarise(jaargemiddelde = mean(h)), 
+    aes(
+      x = as_datetime(paste(jaar, "07", "01")), 
+      y = jaargemiddelde)
+  ) +
+  # geom_smooth(aes(time, h, group = jaar), method = "lm", formula = y ~ 1, alpha = 0) +
+  geom_smooth(aes(time, h), method = "lm", 
+              formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6*31556995))) + I(sin(2 * pi * as.numeric(x) / (18.6*31556995)))) +
+  # coord_cartesian(ylim = c(-160, -100)) +
+  facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
+  theme_hy +
+  xlab("jaar") + ylab("jaargemiddelde gemeten waterstand in cm")
 
 ```
 
@@ -128,13 +135,18 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
     ) %>% 
     filter(jaar != 2021 & jaar > 1970) %>%
     ggplot() +
-    # geom_point(aes(time, h, color = HL), alpha = 0.3) +
-    geom_smooth(aes(time, h, group = jaar), method = "lm", formula = y ~ 1) +
+  geom_point(
+    data = . %>% group_by(locatie.naam, jaar) %>% summarise(jaargemiddelde = mean(h)), 
+    aes(
+      x = as_datetime(paste(jaar, "07", "01")), 
+      y = jaargemiddelde)
+  ) +
     geom_smooth(aes(time, h), method = "lm", 
                 formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6*31556995))) + I(sin(2 * pi * as.numeric(x) / (18.6*31556995)))) +
     # coord_cartesian(ylim = c(-160, -100)) +
     facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) + 
-  theme_hy
+  theme_hy +
+  xlab("jaar") + ylab("jaargemiddelde gemeten waterstand in cm")
 
 ```
 
@@ -155,12 +167,12 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
     filter(jaar != 2021 & jaar > 1970) %>%
   group_by(locatie.naam, jaar, HL) %>% summarise(mean = mean(h)) %>%
   pivot_wider(id_cols = c(locatie.naam, jaar), names_from = HL, values_from = mean) %>%
-  mutate(getijslag_cm = H-L) %>%
+  mutate(`getijslag in cm` = H-L) %>%
   ggplot() +
-  geom_point(aes(jaar, getijslag_cm)) +
-  geom_smooth(aes(jaar, getijslag_cm), method = "lm", 
+  geom_point(aes(jaar, `getijslag in cm`)) +
+  geom_smooth(aes(jaar, `getijslag in cm`), method = "lm", 
                 formula = y ~ x + I(cos(2 * pi * x / (18.6))) + I(sin(2 * pi * (x) / (18.6)))) +
-  # geom_line(aes(x = jaar, y=zoo::rollmean(getijslag_cm, 19, na.pad=TRUE))) + # poging om rolling average toe te voegen. Ziet er lelijk uit
+  # geom_line(aes(x = jaar, y=zoo::rollmean(`getijslag in cm`, 19, na.pad=TRUE))) + # poging om rolling average toe te voegen. Ziet er lelijk uit
   facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
   theme_hy
 
@@ -207,7 +219,7 @@ De stormvloedhoogte, berekend als het maximum van de gemeten waterstand en hier 
 
 ```{r wateropzet, fig.cap= "Maandelijks 95-percentiel voor opzet/afzet = gemeten waterstand - astronomische waterstand (rode punten) en het jaarlijks gemiddelde van dit maandelijks 95 percentiel.", fig.height=30, fig.width=10}
 
-monthlyStat  <- read_delim(file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", "2021-07-12", ".csv")), delim = ";")
+monthlyStat  <- read_delim(file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", "2021-07-26", ".csv")), delim = ";")
 
 # plot per year based on monthly statistics
 monthlyStat %>% 
@@ -215,9 +227,9 @@ monthlyStat %>%
   mutate(jaar = year(datum)) %>%
   group_by(station, jaar) %>% mutate(jaarmaximum = max(max, na.rm = T), n = n()) %>% ungroup() %>%
   filter(n > 11, ) %>%  # filter incomplete jaren
-  complete(station, datum, fill = list(max = NA, p995 = NA)) %>% # stop weer NA's tussen de ontbrekende regels om lijnen af te breken bij ontbrekende data
+  complete(station, datum, fill = list(max = NA, p95 = NA)) %>% # stop weer NA's tussen de ontbrekende regels om lijnen af te breken bij ontbrekende data
   ggplot(aes(x = datum)) +
-  geom_line(aes(y = p995, color = "p995 per maand"), size = 0.5) +
+  geom_line(aes(y = p95, color = "p995 per maand"), size = 0.5) +
   geom_point(aes(y = jaarmaximum,  color = "maximum per maand"), shape = "-") +
   # geom_smooth(method = "lm", formula = y ~ 1, aes(group = jaar, color = "jaargemiddelde p99,5 per maand")) +
   # coord_cartesian(ylim = c(0, 450)) +
