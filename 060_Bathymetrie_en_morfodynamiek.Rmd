@@ -11,6 +11,7 @@ require(raster)
 require(tidyverse)
 require(leaflet)
 source("r/runThisFirst.R")
+source("r/ncUtils.R")
 ```
 
 ```{r}
@@ -23,17 +24,62 @@ source("r/runThisFirst.R")
 
 
 ```{r WaddenBathymetrieLeaflet, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"}
-# change !!!! Start with the correct bathymetrie tif
-filename <- file.path("../Grev_5x5_aan41_wgs.tif")
-bathymetry_wgs <- raster::raster(filename)
+require(ncdf4)
+require(HelpersMG)
+# change !!!! Start with the correct bathymetrie in netcdf
+# filename <- file.path("../Grev_5x5_aan41_wgs.tif")
+filename <- file.path("../vaklodingenKB126_1918.nc")
+bathymetry_wgs <- brick(filename, varname="z")
+crs(bathymetry_wgs )=CRS("+init=EPSG:28992")
 
-# get polygon shapefile  and its boundingbox
-poly_wgs <- sf::st_read(file.path("../outer_boundary_poly.shp"), quiet = T) %>% sf::st_transform(poly_wgs, 4326)
+# get outer_boundary_poly.shp
+bigpoly_wgs <- sf::st_read(file.path("../outer_boundary_poly.shp"), quiet = T) # %>% sf::st_transform(poly_wgs, 28992)
+bigbbox_wgs <- sf::st_bbox(poly_wgs)
+
+
+# get polygon shapefile  and its boundingbox 
+poly_wgs <- sf::st_read(file.path("../polytest.shp"), quiet = T) # %>% sf::st_transform(poly_wgs, 28992)
 bbox_wgs <- sf::st_bbox(poly_wgs)
 
 # read netcdfs of bathymetry, based on polygon bbox
-catalogue <- catalogueVaklodingenPath
-bathy1tile <- raster::raster(file.path(ncdatadir, "RWS_bathymetrie/Vakloding/selection/OSbathymetrie2013_correct.tif"))
+cataloguevak <- catalogueVaklodingenPath
+ncin <- nc_open(cataloguevak) # read it
+ncvar_get(ncin, "urlPath")
+# read urls
+
+#tilesInPolygon(bigbbox_wgs,names,dataset='vaklodingen')
+
+# brick will go through all of them.
+bathy1tile <- raster::brick("../vaklodingenKB126_1918.nc")
+
+tile1 <- raster::brick("../vaklodingenKB126_1918.nc")
+tile2 <- raster::brick("../vaklodingenKB126_1514.nc")
+tile3 <- raster::brick("../vaklodingenKB125_1918.nc")
+tile4 <- raster::brick("../vaklodingenKB125_1514.nc")
+tile5 <- raster::brick("../vaklodingenKB126_1716.nc")
+tile6 <- raster::brick("../vaklodingenKB125_1716.nc")
+
+tilex <- raster::brick("http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/vaklodingen_new/vaklodingenKB125_1716.nc")
+
+years_in_raster <- as.character(c(2010, 2016))
+
+yeartab <- paste0('X',years_in_raster[2],'.01.01')
+
+t1 <- subset(tile1,yeartab) # tile1$X2016.01.01
+t2 <- subset(tile2,yeartab)
+t3 <- subset(tile3,yeartab)
+t4 <- subset(tile4,yeartab)
+t5 <- subset(tile5,yeartab)
+t6 <- subset(tile6,yeartab)
+tx <- subset(tilex,yeartab)
+
+x <- list(t1, t2, t3, t4, t5, t6)
+m <- do.call(merge, x) 
+crs(m )=CRS("+init=EPSG:28992")
+
+nlayers(tile1)
+writeRaster(m, paste0("../filled_", years_in_raster[2]), format = "GTiff")
+
 
 pal = colorNumeric(palette = "viridis", domain = values(bathymetry_wgs), na.color = "transparent", reverse = T)
 palrev = colorNumeric(palette = "viridis", domain = values(bathymetry_wgs), na.color = "transparent", reverse = F)
@@ -49,7 +95,6 @@ leaflet(poly_wgs) %>%
     options = layersControlOptions(collapsed = FALSE)
   ) %>% hideGroup("vakken")
 ```
-
 
 ## Hypsometrie en arealen
 
