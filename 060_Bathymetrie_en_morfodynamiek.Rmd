@@ -107,7 +107,7 @@ library(httr)
 library(tidyverse) 
 library(ows4R)
 library(leaflet)
-library(leaflet.extras)
+# library(leaflet.extras)
 
 wms_ecotopen <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/ecotopen/ows"
 
