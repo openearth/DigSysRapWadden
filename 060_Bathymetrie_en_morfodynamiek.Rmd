@@ -131,7 +131,8 @@ request_ecotopen_cyclus_4 <- build_url(url_ecotopen_cyclus_4)
 
 #maak een figuur van de ecotopen relevant voor het VZM
 leaflet() %>% 
-  setView(lng = 5.6, lat = 53, zoom = 8) %>% 
+  setView(lng = 6, lat = 53, zoom = 8) %>% 
+  addTiles(group = "OSM") %>%
   addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
   addWMSTiles(
     wms_ecotopen,
