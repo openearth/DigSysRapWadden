@@ -107,13 +107,14 @@ library(httr)
 library(tidyverse) 
 library(ows4R)
 library(leaflet)
-# library(leaflet.extras)
+library(leaflet.extras)
 
-wms_ecotopen <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/ecotopen/ows"
+# wms_ecotopen <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/ecotopen/ows"
+wms_ecotopen <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/ecotopen_zout/ows"
 
 # uitgezet omdat de service op dit moment niet in de lucht is.
 bwk_client <- WFSClient$new(wms_ecotopen,
-serviceVersion = "2.0.0")
+serviceVersion = "1.3.0")
 
 #bwk_client$getFeatureTypes(pretty = TRUE)
 
@@ -124,36 +125,36 @@ url_ecotopen_cyclus_4$query <- list(service = "wms",
                   SLD_VERSION = "1.1.0",
                   request = "GetLegendGraphic",
                   FORMAT = "image/jpeg",
-                  LAYER = "ecotopen_cyclus_4",
+                  LAYER = "ecotopen_zout:ezout_1996",
                   STYLE="")
 request_ecotopen_cyclus_4 <- build_url(url_ecotopen_cyclus_4)
 
 
 #maak een figuur van de ecotopen relevant voor het VZM
 leaflet() %>% 
-  setView(lng = 4.35, lat = 51.55, zoom = 11) %>% 
+  setView(lng = 5.6, lat = 53, zoom = 8) %>% 
   addTiles(group = "OSM") %>%
   addWMSTiles(
     wms_ecotopen,
-    layers = "ecotopen:ecotopen_cyclus_1",
+    layers = "ecotopenkaart_waddenzee_2017",
     options = WMSTileOptions(format = "image/png", transparent = TRUE),
-    group = "ecotopen_cyclus_1"
+    group = "ecotopenkaart_waddenzee_2017"
   ) %>%
   addWMSTiles(
     wms_ecotopen,
-    layers = "ecotopen:ecotopen_cyclus_2",
+    layers = "ecotopen_zout:ecotopenkaart_waddenzee_2017",
     options = WMSTileOptions(format = "image/png", transparent = TRUE),
-    group = "ecotopen_cyclus_2"
+    group = "ecotopen_zout:ecotopenkaart_waddenzee_2017"
   ) %>%
   addWMSTiles(
     wms_ecotopen,
-    layers = "ecotopen:ecotopen_cyclus_3",
+    layers = "ecotopen_zout:ezout_2001",
     options = WMSTileOptions(format = "image/png", transparent = TRUE),
-    group = "ecotopen_cyclus_3"
+    group = "ezout_2001"
   ) %>%
   addWMSTiles(
     wms_ecotopen,
-    layers = "ecotopen:ecotopen_cyclus_4",
+    layers = "ecotopen:eco.topen_cyclus_4",
     options = WMSTileOptions(format = "image/png", transparent = TRUE),
     group = "ecotopen_cyclus_4"
   ) %>%
@@ -168,7 +169,9 @@ leaflet() %>%
   ) %>%
   addLayersControl(
     baseGroups = "OSM",
-    overlayGroups = c("ecotopen_cyclus_1", "ecotopen_cyclus_2","ecotopen_cyclus_3","ecotopen_cyclus_4","ecotopen_cyclus_5"),
+    overlayGroups = c("ecotopenkaart_waddenzee_2017"
+                      # "ecotopen_zout:ecotopenkaart_waddenzee_2017","ezout_2001","ecotopen_cyclus_4","ecotopen_cyclus_5"
+                      ),
     options = layersControlOptions(collapsed = FALSE)
   )
 ```
