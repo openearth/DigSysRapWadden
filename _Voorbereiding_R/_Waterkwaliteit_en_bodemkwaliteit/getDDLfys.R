@@ -266,31 +266,61 @@ df_all_WATHTE <- bind_rows(allFiles)
 save(df_all_WATHTE, file = file.path(datadir, "ddl", "standard", paste0("waterhoogte", today(), ".Rdata")))
 # write_delim(df_all, file.path(datadir, "ddl", "standard", paste0("waterhoogte", today(), ".csv")), delim = ";")
 
-rm(allFiles, df_all)
+#==== maandelijkse waterhoogte  =======
 
-filenamesRaw = list.files(file.path(datadir, "ddl/raw/waterhoogte"), full.names = T, recursive = T, pattern = "WATHTBRKD")
-allFiles <- lapply(filenamesRaw, function(x) 
-  read_delim(x, delim = ";", 
-             col_types = 'cccccccccccn',
-             guess_max = 100000
-  ) %>%
-    filter(kwaliteitswaarde.code < 50, numeriekewaarde < 999, numeriekewaarde >= -999) %>%
-    mutate(tijdstip = as_datetime(as.character(tijdstip), tz = "CET")) %>%
-    filter(year(tijdstip) == median(year(tijdstip))) # to filter out first tijdstip in next year
-  
-)
+# berekenen van maandelijkse statistiek
+load(file.path(datadir, "ddl", "standard", paste0("waterhoogteberekend", "2021-07-26", ".Rdata")))
+load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-26", ".Rdata")))
+df_all = data.table::rbindlist(list(data.table(df_all_WATHTBRKD), data.table(df_all_WATHTE)))
+df_all = unique(df_all)[grootheid.code != "WATOZT"]
 
-# conversion should not be necessary, when reading is done as above
-# allFiles <- map(allFiles, function(x) x %>% mutate(kwaliteitswaarde.code = as.character(kwaliteitswaarde.code)))
-df_all_WATHTBRKD <- bind_rows(allFiles)
-save(df_all_WATHTBRKD, file = file.path(datadir, "ddl", "standard", paste0("waterhoogteberekend", today(), ".Rdata")))
-# write_delim(df_all, file.path(datadir, "ddl", "standard", paste0("waterhoogte", today(), ".csv")), delim = ";")
+# df.h.d <- dcast(df.h, locatie.naam + tijdstip + eenheid.code + hoedanigheid.code ~ grootheid.code, value.var = "numeriekewaarde")
 
+df.h.d <- dcast(df_all, locatie.naam + tijdstip + eenheid.code + hoedanigheid.omschrijving ~ grootheid.code, value.var = "numeriekewaarde", fun.aggregate = mean, na.rm = T)
 
+monthlyStat <- df.h.d[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterdams Peil", .(
+  opzet = WATHTE - WATHTBRKD,
+  month = lubridate::month(tijdstip) , 
+  year = lubridate::year(tijdstip),
+  station = locatie.naam
+)][, .(
+  station = station,
+  max = max(opzet, na.rm = T),
+  p005 = quantile(opzet, 0.005, na.rm = T),
+  p95 = quantile(opzet, 0.95, na.rm = T),
+  p995 = quantile(opzet, 0.995, na.rm = T),
+), by = list(year, month, station)][,.(
+  station, max, p95, datum = as.Date(paste(year, month, "15", sep = "-"))),
+]
 
-rm(allFiles)
+write_delim(monthlyStat, file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", today(), ".csv")), delim = ";")
 
+yearlyStat <- df_all[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterdams Peil" & grootheid.code == "WATHTE", .(
+  year = lubridate::year(tijdstip),
+  station = locatie.naam,
+  parameter.wat.omschrijving,
+  eenheid.code,
+  numeriekewaarde
+)][, .(
+  station = station,
+  max = max(numeriekewaarde, na.rm = T),
+  p95 = quantile(numeriekewaarde, 0.95, na.rm = T)), by = list(year, station,  parameter.wat.omschrijving, eenheid.code
+  )][,.(
+    station,  parameter.wat.omschrijving, eenheid.code, year, max, p95),
+  ]
+
+write_delim(yearlyStat, file.path(datadir, "ddl", "standard", paste0("yearlyStatWaterhoogte", today(), ".csv")), delim = ";")
+
+rm(df_all, df_all_WATHTBRKD, df_all_WATHTE)
+
+# df_all %>% group_by(locatie.naam, grootheid.code) %>% summarise(n = n()) %>% View()
+# waterhoogteLocaties <- df_all %>% distinct(locatie.naam) %>% unlist %>% unname
+
+#================================================================
+
+# test data processing
 # 
+=======
 # berekenen van maandelijkse statistiek
 load(file.path(datadir, "ddl", "standard", paste0("waterhoogteberekend", "2021-07-26", ".Rdata")))
 load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-26", ".Rdata")))
@@ -357,6 +387,7 @@ rm(df_all, df_all_WATHTBRKD, df_all_WATHTE, df.h.d)
 
 # test data processing
 # 
+>>>>>>> .r59
 # opzet berekenen
 f1 = file.path(datadir, "ddl/raw/fysisch/SCHIERMNOG_OW_WATHTBRKD_NVT_NAP_2020_ddl_wq.csv")
 f2 = file.path(datadir, "ddl/raw/fysisch/SCHIERMNOG_OW_WATHTE_NVT_NAP_2020_ddl_wq.csv")
