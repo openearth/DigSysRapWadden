@@ -79,7 +79,9 @@ rbindlist(gaps, idcol = "locatie.naam") %>%
   theme_hy
 ```
 
-```{r berekeningGetij}
+```{r wateropzet, fig.cap="Waterstand opzet en afzet berekend als gemeten waterstand - astronomische waterstand (nog niet alle data)."}
+filename <- file.path(datadir, "ddl\\standard\\fysisch_trendstations_allyears.csv")
+df.h <- fread(filename)[, list(locatie.naam, tijdstip, grootheid.code, eenheid.code, hoedanigheid.code, numeriekewaarde)]
 
 h <- lapply(df_all_WATHTE2, function(x) 
   x %>% select(time = tijdstip, h = numeriekewaarde) %>% filter(year(time) > 1984)
