@@ -11,7 +11,6 @@ require(raster)
 require(tidyverse)
 require(leaflet)
 source("r/runThisFirst.R")
-source("r/ncUtils.R")
 ```
 
 ```{r}
@@ -26,45 +25,38 @@ source("r/ncUtils.R")
 ```{r WaddenBathymetrieLeaflet, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"}
 require(ncdf4)
 require(HelpersMG)
+
+epsg28992 <- "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs"
+proj4wgs <- CRS('+init=EPSG:4326')
 # change !!!! Start with the correct bathymetrie in netcdf
-# filename <- file.path("../Grev_5x5_aan41_wgs.tif")
-filename <- file.path("../vaklodingenKB126_1918.nc")
-bathymetry_wgs <- brick(filename, varname="z")
-crs(bathymetry_wgs )=CRS("+init=EPSG:28992")
+bathymetry_2005 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2005.tif"))
+bathymetry_2010 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2010.tif"))
+bathymetry_2016 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2016.tif"))
+#bathymetry_wgs <- brick(filename, varname="z")
 
-# get outer_boundary_poly.shp
-bigpoly_wgs <- sf::st_read(file.path("../outer_boundary_poly.shp"), quiet = T) # %>% sf::st_transform(poly_wgs, 28992)
-bigbbox_wgs <- sf::st_bbox(poly_wgs)
-
+bathymetrywgs_2005 <- projectRaster(bathymetry_2005, crs = proj4wgs)
+bathymetrywgs_2010 <- projectRaster(bathymetry_2010, crs = proj4wgs)
+bathymetrywgs_2016 <- projectRaster(bathymetry_2016, crs = proj4wgs)
 
 # get polygon shapefile  and its boundingbox 
-poly_wgs <- sf::st_read(file.path("../polytest.shp"), quiet = T) # %>% sf::st_transform(poly_wgs, 28992)
-bbox_wgs <- sf::st_bbox(poly_wgs)
-
-# read netcdfs of bathymetry, based on polygon bbox
-cataloguevak <- catalogueVaklodingenPath
-ncin <- nc_open(cataloguevak) # read it
-ncvar_get(ncin, "urlPath")
-# read urls
-
-opendapdatapath <- "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/vaklodingen_new/"
-vakTiles <- fread("..//waddenZeeVaklodingen.csv")
-vakTiles$tiles <- paste0(opendapdatapath, vakTiles$tiles)
+poly <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)
+polywgs <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)  %>% sf::st_transform(4326)
+bbox <- sf::st_bbox(polywgs)
 
 # using tiffs generated with createVakRasters.R
+pal = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = T)
+palrev = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = F)
 
-
-pal = colorNumeric(palette = "viridis", domain = values(bathymetry_wgs), na.color = "transparent", reverse = T)
-palrev = colorNumeric(palette = "viridis", domain = values(bathymetry_wgs), na.color = "transparent", reverse = F)
-
-leaflet(poly_wgs) %>%
+leaflet(polywgs) %>%
   leaflet::addTiles(group = "OSM") %>%
-  addPolygons(label = ~htmltools::htmlEscape(Name), group = "vakken", color = "white", fillColor = "transparent", labelOptions = labelOptions(noHide = T, textOnly = TRUE, textsize = 14, style = list('color' = "white")), weight = 2) %>%
-  addRasterImage(bathymetry_wgs, colors = pal, group = "bathymetrie", opacity = 80) %>%
-  leaflet::addLegend(position = "bottomleft", pal = palrev, values = values(bathymetry_wgs), labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
+  addPolygons(label = ~htmltools::htmlEscape(layer), group = "vakken", color = "white", fillColor = "transparent", labelOptions = labelOptions(noHide = T, textOnly = TRUE, textsize = 14, style = list('color' = "white")), weight = 2) %>%
+  addRasterImage(bathymetrywgs_2005, colors = pal, group = "2005", opacity = 80) %>%
+  addRasterImage(bathymetrywgs_2010, colors = pal, group = "2010", opacity = 80) %>%
+  addRasterImage(bathymetrywgs_2016, colors = pal, group = "2016", opacity = 80) %>%
+  leaflet::addLegend(position = "bottomleft", pal = palrev, values = values(bathymetrywgs_2016), labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
   addLayersControl(
     baseGroups = c("OSM"),
-    overlayGroups = c("vakken", "bathymetrie"),
+    overlayGroups = c("vakken", "2005", "2010", "2016"),
     options = layersControlOptions(collapsed = FALSE)
   ) %>% hideGroup("vakken")
 ```
@@ -75,7 +67,7 @@ De hypsometrische curve geeft de verdeling van de hoogteligging in een bepaald g
 
 Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in 4 verschillende hoogteklassen:
 
-1. Geul (z < 5 m)
+1. Geul (z < -5 m)
 2. Proxy subgetijdengebied (-5 m < z <-1 m) 
 3. Proxy intergetijdengebied (-1 < z <1 m) 
 4. Proxy supragetijdengebied (z > 1 m)
@@ -88,6 +80,52 @@ Er is er voor deze rapportage voor gekozen om in eerste instantie uit te gaan va
 
 Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan de ontwikkeling per hoogteklasse beter worden gevolgd. 
 
+```{r hypsometriearealen, out.width="100%", fig.cap = "Hypsometrische curve van de Waddenzee"}
+# create 12 plots
+# make first dataframe with columns as polygon, interval-classes, depths in it, and then produce the cumsum 
+dftot = list()
+for(ii in 1:dim(poly)[1]){
+  ii
+  deelraster2016 <- raster::mask(bathymetry_2016, poly[ii,])
+  deelraster2010 <- raster::mask(bathymetry_2010, poly[ii,])
+  deelraster2005 <- raster::mask(bathymetry_2005, poly[ii,])
+  df2016 <- as.data.frame(deelraster2016) %>% drop_na() %>%
+    mutate(year=2016) %>%
+    mutate(class=case_when(
+      mosaic_2016 < -5 ~ "geul",
+      mosaic_2016 >= -5 && mosaic_2016 < -1 ~ "subgetijdengebied",
+      mosaic_2016 >= -1 && mosaic_2016 < 1 ~ "intergetijdengebied",
+      mosaic_2016 >= 1 ~ "supragetijdengebied"
+    )) %>%
+    rename(depth=mosaic_2016)
+  df2010 <- as.data.frame(deelraster2010) %>% drop_na() %>%
+    mutate(year=2010) %>%
+    mutate(class=case_when(
+      mosaic_2010 < -5 ~ "geul",
+      mosaic_2010 >= -5 && mosaic_2010 < -1 ~ "subgetijdengebied",
+      mosaic_2010 >= -1 && mosaic_2010 < 1 ~ "intergetijdengebied",
+      mosaic_2010 >= 1 ~ "supragetijdengebied"
+    )) %>%
+    rename(depth=mosaic_2010)
+  df2005 <- as.data.frame(deelraster2005) %>% drop_na() %>%
+    mutate(year=2005) %>%
+    mutate(class=case_when(
+      mosaic_2005 < -5 ~ "geul",
+      mosaic_2005 >= -5 && mosaic_2005 < -1 ~ "subgetijdengebied",
+      mosaic_2005 >= -1 && mosaic_2005 < 1 ~ "intergetijdengebied",
+      mosaic_2005 >= 1 ~ "supragetijdengebied"
+    )) %>%
+    rename(depth=mosaic_2005)
+  
+  df <- bind_rows(df2016, df2010, df2005)
+  dftot[[ii]] <- df
+  names(dftot[[ii]]) <- poly[ii,]$layer
+}
+
+# working on cumsum
+rbindlist(dftot,idcol = "vak")
+
+```
 
 
 ##	Plaathoogte
