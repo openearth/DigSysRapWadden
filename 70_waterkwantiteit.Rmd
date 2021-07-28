@@ -221,7 +221,7 @@ De stormvloedhoogte, berekend als het maximum van de gemeten waterstand en hier 
 
 ```{r wateropzet, fig.cap= "Maandelijks 95-percentiel voor opzet/afzet = gemeten waterstand - astronomische waterstand (rode punten) en het jaarlijks gemiddelde van dit maandelijks 95 percentiel.", fig.height=30, fig.width=10}
 
-monthlyStat  <- read_delim(file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", "2021-07-26", ".csv")), delim = ";")
+monthlyStat  <- read_delim(file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", "2021-07-28", ".csv")), delim = ";")
 
 # plot per year based on monthly statistics
 monthlyStat %>% 
@@ -231,7 +231,7 @@ monthlyStat %>%
   filter(n > 11, ) %>%  # filter incomplete jaren
   complete(station, datum, fill = list(max = NA, p95 = NA)) %>% # stop weer NA's tussen de ontbrekende regels om lijnen af te breken bij ontbrekende data
   ggplot(aes(x = datum)) +
-  geom_line(aes(y = p95, color = "p995 per maand"), size = 0.5) +
+  geom_line(aes(y = p995, color = "p995 per maand"), size = 0.5) +
   geom_point(aes(y = jaarmaximum,  color = "maximum per maand"), shape = "-") +
   # geom_smooth(method = "lm", formula = y ~ 1, aes(group = jaar, color = "jaargemiddelde p99,5 per maand")) +
   # coord_cartesian(ylim = c(0, 450)) +

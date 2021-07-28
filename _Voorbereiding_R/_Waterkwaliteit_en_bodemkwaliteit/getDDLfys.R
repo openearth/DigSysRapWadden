@@ -320,8 +320,9 @@ rm(df_all, df_all_WATHTBRKD, df_all_WATHTE)
 
 # test data processing
 # 
-=======
-# berekenen van maandelijkse statistiek
+
+#======= berekenen van maandelijkse statistiek ======
+
 load(file.path(datadir, "ddl", "standard", paste0("waterhoogteberekend", "2021-07-26", ".Rdata")))
 load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-26", ".Rdata")))
 
@@ -350,8 +351,9 @@ monthlyStat <- df.h.d[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterdams Pe
 )][, .(
   station = station,
   max = max(opzet, na.rm = T),
+  p005 = quantile(opzet, 0.005, na.rm = T),
   p95 = quantile(opzet, 0.95, na.rm = T),
-  p99 = quantile(opzet, 0.99, na.rm = T)
+  p995 = quantile(opzet, 0.995, na.rm = T)
   ), 
   by = list(year, month, station)][,.(
   station, max, p95, datum = as.Date(paste(year, month, "15", sep = "-"))),
@@ -368,8 +370,9 @@ yearlyStat <- df_all_WATHTE[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterd
 )][, .(
   station = station,
   max = max(numeriekewaarde, na.rm = T),
+  p005 = quantile(numeriekewaarde, 0.005, na.rm = T),
   p95 = quantile(numeriekewaarde, 0.95, na.rm = T),
-  p99 = quantile(numeriekewaarde, 0.99, na.rm = T)
+  p995 = quantile(numeriekewaarde, 0.995, na.rm = T)
 ), 
 by = list(year, station,  parameter.wat.omschrijving, eenheid.code
 )][,.(
@@ -382,142 +385,4 @@ rm(df_all, df_all_WATHTBRKD, df_all_WATHTE, df.h.d)
 
 # df_all %>% group_by(locatie.naam, grootheid.code) %>% summarise(n = n()) %>% View()
 # waterhoogteLocaties <- df_all %>% distinct(locatie.naam) %>% unlist %>% unname
-
-#================================================================
-
-# test data processing
-# 
->>>>>>> .r59
-# opzet berekenen
-f1 = file.path(datadir, "ddl/raw/fysisch/SCHIERMNOG_OW_WATHTBRKD_NVT_NAP_2020_ddl_wq.csv")
-f2 = file.path(datadir, "ddl/raw/fysisch/SCHIERMNOG_OW_WATHTE_NVT_NAP_2020_ddl_wq.csv")
-
-d1 <- fread(f1, na.strings = c("-999999999", "999999999"))[,list(locatie.code, tijdstip, statuswaarde, grootheid.code, hoedanigheid.code, eenheid.code, numeriekewaarde)]
-d2 <- fread(f2, na.strings = c("-999999999", "999999999"))[,list(locatie.code, tijdstip, statuswaarde, grootheid.code, hoedanigheid.code, eenheid.code, numeriekewaarde)]
-
-setkey(d1, "tijdstip", "locatie.code", "eenheid.code")
-setkey(d2, "tijdstip", "locatie.code", "eenheid.code")
-
-d3 <- d1[d2]
-
-# niet nodig om te casten... 
-# dcast(DT.m1, family_id + age_mother ~ child, value.var = "dob")
-
-d3$opzet <- data.table::fcase(
-  d3$i.numeriekewaarde - d3$numeriekewaarde < 50, "laag",
-  d3$i.numeriekewaarde - d3$numeriekewaarde >= 50, "hoog"
-)
-
-ggplot(d3, aes()) +
-  geom_point(aes(tijdstip, i.numeriekewaarde - numeriekewaarde, color = opzet), size = 0.4)
-
-
-# tidal analysis for one year
-require(oce)
-
-sl <- oce::as.sealevel(elevation = d1$numeriekewaarde, time = d1$tijdstip, stationName = d1$locatie.code)
-plot(sl)
-
-m <- tidem(sl)
-summary(m)
-plot(m)
-pred <- predict.tidem(m)
-obs <- sl@data$elevation
-time <- sl@data$time
-
-oce.plot.ts(time, obs-pred, ylab = "obs - pred")
-
-m@data$amplitude
-m@data$phase
-
-
-
-require(data.table)
-require(oce)
-require(lubridate)
-require(tidyverse)
-filenamesRaw = list.files(file.path(datadir, "ddl/raw/fysisch"), full.names = T, recursive = T)
-
-
-# locs = unique(ophaalCatalogus$locatie.code)
-# filenamesRaw = list.files(file.path(datadir, "ddl/raw/fysisch"), full.names = T, recursive = T, pattern = )
-
-# for(loc in locs){
-# loc = locs[1]
-fn1 <- filenamesRaw[grepl(paste("OW", "WATHTE", sep = "_"), filenamesRaw)]
-fn2 <- filenamesRaw[grepl(paste("OW", "WATHTBRKD", sep = "_"), filenamesRaw)]
-d1 <- rbindlist(lapply(fn1, function(x) fread(x, na.strings = c("-999999999", "999999999"))[,list(locatie.code, tijdstip, statuswaarde, grootheid.code, hoedanigheid.code, eenheid.code, numeriekewaarde)]))
-d2 <- rbindlist(lapply(fn2, function(x) fread(x, na.strings = c("-999999999", "999999999"))[,list(locatie.code, tijdstip, statuswaarde, grootheid.code, hoedanigheid.code, eenheid.code, numeriekewaarde)]))
-setkey(d1, "tijdstip", "locatie.code", "eenheid.code")
-setkey(d2, "tijdstip", "locatie.code", "eenheid.code")
-d3 <- d1[d2]
-rm(d1, d2)
-d3$numeriekewaarde <- oce::fillGap(d3$numeriekewaarde)
-
-# sl <- oce::as.sealevel(elevation = d3$numeriekewaarde, time = d3$tijdstip, stationName = d3$locatie.code)
-# plot(sl)
-
-# d3$opzet <- data.table::fcase(
-#   d3$i.numeriekewaarde - d3$numeriekewaarde < 50, "laag",
-#   d3$i.numeriekewaarde - d3$numeriekewaarde >= 50, "hoog"
-# )
-
-d3[locatie.code == "DELFZL"] %>% 
-  mutate(year = year(tijdstip)) %>%
-  group_by(year, hoedanigheid.code, i.hoedanigheid.code, eenheid.code) %>% summarize(n = n()) %>% View()
-
-
-monthlyMax <- d3[hoedanigheid.code == "NAP", .(
-  opzet = numeriekewaarde - i.numeriekewaarde,
-  month = lubridate::month(tijdstip) , 
-  year = lubridate::year(tijdstip),
-  station = locatie.code
-)][, .(
-  station = station,
-  max = max(opzet),
-  p99 = quantile(opzet, 0.99)
-  ),
-  by = list(year, month, station)][,.(
-    station, max, p99, datum = as.Date(paste(year, month, "15", sep = "-"))),
-  ]
-
-# boxplot per year based on monthly max
-ggplot(monthlyMax, aes(datum, max)) +
-  geom_boxplot(aes(group = year(datum))) +
-  # geom_smooth(method = "lm", aes(color = station), alpha = 0) +
-  geom_point(aes(color = station), alpha = 0.2) +
-  coord_cartesian(ylim = c(0, 450)) +
-  facet_wrap( ~ station)
-
-
-yearlyMax <- d3[hoedanigheid.code == "NAP", .(
-  opzet = numeriekewaarde - i.numeriekewaarde,
-  # month = lubridate::month(tijdstip) , 
-  year = lubridate::year(tijdstip),
-  station = locatie.code
-)][, .(
-  station = station,
-  max = max(opzet),
-  p99 = quantile(opzet, 0.99)
-),
-by = list(year, station)][,.(
-  station, max, p99, year),
-]
-
-ggplot(yearlyMax, aes(year, p99)) +
-  # geom_point(aes(color = station)) +
-  geom_ribbon(aes(ymin = p99, ymax = max)) + 
-  # geom_smooth(method = "loess", aes(color = station), alpha = 0) +
-  coord_cartesian(ylim = c(30, 350)) +
-  facet_grid(station ~ .)
-
-
-
-
-# }
-
-# allFiles <- lapply(filenamesRaw, function(x) read_delim(x, delim = ";", guess_max = 10000,
-#                                                          col_types = 'nccnnnccncccncccccccccccccccccccccccccccccccccccn'))
-# df_all <- bind_rows(allFiles)
-# write_delim(df_all, file.path(datadir, "ddl/standard/fysisch_trendstations_allyears.csv"), delim = ";")
 
