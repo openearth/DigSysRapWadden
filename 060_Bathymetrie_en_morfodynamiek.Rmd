@@ -47,38 +47,11 @@ ncin <- nc_open(cataloguevak) # read it
 ncvar_get(ncin, "urlPath")
 # read urls
 
-#tilesInPolygon(bigbbox_wgs,names,dataset='vaklodingen')
+opendapdatapath <- "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/vaklodingen_new/"
+vakTiles <- fread("..//waddenZeeVaklodingen.csv")
+vakTiles$tiles <- paste0(opendapdatapath, vakTiles$tiles)
 
-# brick will go through all of them.
-bathy1tile <- raster::brick("../vaklodingenKB126_1918.nc")
-
-tile1 <- raster::brick("../vaklodingenKB126_1918.nc")
-tile2 <- raster::brick("../vaklodingenKB126_1514.nc")
-tile3 <- raster::brick("../vaklodingenKB125_1918.nc")
-tile4 <- raster::brick("../vaklodingenKB125_1514.nc")
-tile5 <- raster::brick("../vaklodingenKB126_1716.nc")
-tile6 <- raster::brick("../vaklodingenKB125_1716.nc")
-
-tilex <- raster::brick("http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/vaklodingen_new/vaklodingenKB125_1716.nc")
-
-years_in_raster <- as.character(c(2010, 2016))
-
-yeartab <- paste0('X',years_in_raster[2],'.01.01')
-
-t1 <- subset(tile1,yeartab) # tile1$X2016.01.01
-t2 <- subset(tile2,yeartab)
-t3 <- subset(tile3,yeartab)
-t4 <- subset(tile4,yeartab)
-t5 <- subset(tile5,yeartab)
-t6 <- subset(tile6,yeartab)
-tx <- subset(tilex,yeartab)
-
-x <- list(t1, t2, t3, t4, t5, t6)
-m <- do.call(merge, x) 
-crs(m )=CRS("+init=EPSG:28992")
-
-nlayers(tile1)
-writeRaster(m, paste0("../filled_", years_in_raster[2]), format = "GTiff")
+# using tiffs generated with createVakRasters.R
 
 
 pal = colorNumeric(palette = "viridis", domain = values(bathymetry_wgs), na.color = "transparent", reverse = T)
