@@ -92,13 +92,12 @@ Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan
 
 ##	Plaathoogte
 
-De plaathoogte is afhankelijk van de hoogwaterstanden. Trendmatige veranderingen hierin beïnvloeden de ontwikkeling van de platen. De berekening van de plaathoogte is erg gevoelig voor de gekozen begrenzing, daarom wordt voorgesteld deze indicator per kombergingsgebied te berekenen en vaste grenzen te hanteren.
+De hoogte van het intergetijdengebied (plaathoogte) is afhankelijk van de hydrodynamiek en het aanbod van sediment. Het getij voert sediment aan, dat kan worden afgezet op de platen. Golfwerking leidt tot erosie van de platen. De balans tussen erosie en sedimentatie resulteert in een bepaalde plaathoogte. Indien er veranderingen optreden in het getij, kan dit leiden tot veranderingen in de stroomsnelheden, met andere sedimentbeschikbaarheid tot gevolg. Veranderingen in GHW (bijvoorbeeld door zeespiegelstijging) kunnen leiden tot veranderende invloed van de golven. Voor platen die in evenwicht zijn, zijn er evenwichtsrelaties afgeleid door Eysink (1992). 
 
-Analyse(s)/figuren:
+Bij analyse van deelgebieden, is de ruimtelijke begrenzing zeer van belang voor het berekenen van de plaathoogte. Indien een intergetijdengebied bijvoorbeeld verschuift, kan een stuk met lagere bodemligging (of zelfs geul) binnen de polygoon schuiven en daarmee de *gemiddelde* plaathoogte beïnvloeden. 
 
-3.	Tijdreeks van gemiddelde plaathoogte boven de -1 m NAP contour per kombergingsgebied. Dit bevat ook eventuele supragetijgebieden. 
+In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte voor het gehele Friesche Zeegat te berekenen. Hiervoor wordt het volume boven de NAP -1 m grens berekend, en gedeeld door de oppervlakte. 
 
-Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
 
 
 ##	Geuldiepte
