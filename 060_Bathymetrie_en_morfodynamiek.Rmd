@@ -23,8 +23,7 @@ source("r/runThisFirst.R")
 
 
 ```{r WaddenBathymetrieLeaflet, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"}
-require(ncdf4)
-require(HelpersMG)
+
 
 epsg28992 <- "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs"
 proj4wgs <- CRS('+init=EPSG:4326')
@@ -80,30 +79,33 @@ Er is er voor deze rapportage voor gekozen om in eerste instantie uit te gaan va
 
 Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan de ontwikkeling per hoogteklasse beter worden gevolgd. 
 
-```{r hypsometriearealen, out.width="100%", fig.cap = "Hypsometrische curve van de Waddenzee"}
+```{r hypsometriearealen, out.width="100%", fig.width=8, fig.height=8, fig.cap = "Hypsometrische curve van de Waddenzee"}
 # create 12 plots
 # make first dataframe with columns as polygon, interval-classes, depths in it, and then produce the cumsum 
 dftot = list()
+rename = dplyr::rename
 for(ii in 1:dim(poly)[1]){
   ii
   deelraster2016 <- raster::mask(bathymetry_2016, poly[ii,])
   deelraster2010 <- raster::mask(bathymetry_2010, poly[ii,])
   deelraster2005 <- raster::mask(bathymetry_2005, poly[ii,])
+  
   df2016 <- as.data.frame(deelraster2016) %>% drop_na() %>%
     mutate(year=2016) %>%
     mutate(class=case_when(
       mosaic_2016 < -5 ~ "geul",
-      mosaic_2016 >= -5 && mosaic_2016 < -1 ~ "subgetijdengebied",
-      mosaic_2016 >= -1 && mosaic_2016 < 1 ~ "intergetijdengebied",
+      mosaic_2016 >= -5 & mosaic_2016 < -1 ~ "subgetijdengebied",
+      mosaic_2016 >= -1 & mosaic_2016 < 1 ~ "intergetijdengebied",
       mosaic_2016 >= 1 ~ "supragetijdengebied"
     )) %>%
     rename(depth=mosaic_2016)
-  df2010 <- as.data.frame(deelraster2010) %>% drop_na() %>%
+
+    df2010 <- as.data.frame(deelraster2010) %>% drop_na() %>%
     mutate(year=2010) %>%
     mutate(class=case_when(
       mosaic_2010 < -5 ~ "geul",
-      mosaic_2010 >= -5 && mosaic_2010 < -1 ~ "subgetijdengebied",
-      mosaic_2010 >= -1 && mosaic_2010 < 1 ~ "intergetijdengebied",
+      mosaic_2010 >= -5 & mosaic_2010 < -1 ~ "subgetijdengebied",
+      mosaic_2010 >= -1 & mosaic_2010 < 1 ~ "intergetijdengebied",
       mosaic_2010 >= 1 ~ "supragetijdengebied"
     )) %>%
     rename(depth=mosaic_2010)
@@ -111,19 +113,41 @@ for(ii in 1:dim(poly)[1]){
     mutate(year=2005) %>%
     mutate(class=case_when(
       mosaic_2005 < -5 ~ "geul",
-      mosaic_2005 >= -5 && mosaic_2005 < -1 ~ "subgetijdengebied",
-      mosaic_2005 >= -1 && mosaic_2005 < 1 ~ "intergetijdengebied",
+      mosaic_2005 >= -5 & mosaic_2005 < -1 ~ "subgetijdengebied",
+      mosaic_2005 >= -1 & mosaic_2005 < 1 ~ "intergetijdengebied",
       mosaic_2005 >= 1 ~ "supragetijdengebied"
     )) %>%
     rename(depth=mosaic_2005)
   
   df <- bind_rows(df2016, df2010, df2005)
   dftot[[ii]] <- df
-  names(dftot[[ii]]) <- poly[ii,]$layer
+  names(dftot)[ii] <- poly[,]$layer[ii]
 }
 
 # working on cumsum
-rbindlist(dftot,idcol = "vak")
+rbindlist(dftot,idcol = "vak") %>% sample_n(100000) %>%
+arrange(depth) %>%
+group_by(vak, year) %>%
+  mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
+  ggplot() +
+  geom_line(aes(x = 400*(cum/count)/1000000, y = depth, color = as.factor(class)), size = 1.5) +
+  facet_grid(vak ~ year, scales = "free") +
+  xlab("area in km2") + ylab("diepte") +
+  theme(legend.position = "bottom")
+
+```
+
+
+```{r hypsometriearealen2, out.width="100%", fig.width=8, fig.height=8, fig.cap = "Hypsometrische curve van de Waddenzee"}
+rbindlist(dftot,idcol = "vak") %>% sample_n(100000) %>%
+arrange(depth) %>%
+group_by(vak, year) %>%
+  mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
+  ggplot() +
+  geom_line(aes(x = 400*(cum/count)/1000000, y = depth, color = as.factor(year)), size = 1.5) +
+  facet_grid(vak ~ class, scales = "free") +
+  xlab("area in km2") + ylab("diepte") +
+  theme(legend.position = "bottom")
 
 ```
 
