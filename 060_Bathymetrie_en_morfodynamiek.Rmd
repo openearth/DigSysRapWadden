@@ -109,20 +109,63 @@ Eventueel in 2e slag ook hypsometrieen van deelgebieden opnemen.
 Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
 
 
-## Bruto erosie en sedimentatie en netto verandering
+##	Plaathoogte
 
-Bruto erosie/sedimentatie per kombergingsgebied of kleinere morfologische eenheid, zoals Ana Colina heeft gedaan voor KRW slib, maar dan niet uitgesplitst naar zand en slib
+De plaathoogte is afhankelijk van de hoogwaterstanden. Trendmatige veranderingen hierin beïnvloeden de ontwikkeling van de platen. De berekening van de plaathoogte is erg gevoelig voor de gekozen begrenzing, daarom wordt voorgesteld deze indicator per kombergingsgebied te berekenen en vaste grenzen te hanteren.
 
 Analyse(s)/figuren:
-1.	Tijdreeks van bruto erosie/sedimentatie per kombergingsgebied, met vaste positie van de wantijen en andere grenzen. 
-2.	Tijdreeks van netto erosie/sedimentatie per kombergingsgebied, met vaste positie van de wantijen en andere grenzen. 
 
-Eventueel in 2e slag ook deelgebieden opnemen.
+3.	Tijdreeks van gemiddelde plaathoogte boven de -1 m NAP contour per kombergingsgebied. Dit bevat ook eventuele supragetijgebieden. 
 
 Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
 
 
-##	Ecoptopenkaart
+##	Geuldiepte
+
+De geuldiepte geeft trendmatige veranderingen weer.
+
+Analyse(s)/figuren:
+
+1.	Tijdreeks van gemiddelde geuldiepte gedefinieerd als het geulvolume onder de -5 m NAP contour per kombergingsgebied gedeeld door het geulareaal onder de -5 m NAP contour. 
+
+Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
+
+
+##	Plaatvolume
+
+De plaatvolume hangt samen met het plaatareaal en de plaathoogte en kan gekoppeld worden aan de volumeveranderingen per bekken. 
+
+Analyse(s)/figuren:
+
+1.	Tijdreeks van gemiddeld plaatvolume boven de -1 m NAP contour per kombergingsgebied. Dit bevat ook eventuele supragetijgebieden. 
+
+Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
+
+##	Geulvolume 
+
+Het geulvolume hangt samen met het geulareaal en de geuldiepte en kan gekoppeld worden aan de volumeveranderingen per bekken en de veranderingen in de getijslag/getijvoortplanting. 
+
+Analyse(s)/figuren:
+
+1.	Tijdreeks van gemiddeld geulvolume onder de -5 m NAP contour per kombergingsgebied. 
+
+Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
+
+
+##	Lengte laagwaterlijn/plaatrand
+
+Om dit netjes te kunnen doen zou per jaar het laagwaterniveau moeten worden bepaald (middels Intertides interpolatie). Ook kan met een vast referentieniveau van -1 m NAP worden gewerkt. Voorstel is om hier bij de 2e slag een besluit over te nemen. Vast referentieniveau hanteren kan eventueel gemakkelijk worden meegenomen, maar varierende laagwaterniveau vergen een extra extercitie.
+
+Analyse(s)/figuren:
+
+1.	Tijdreeks van lengte van de -1 m NAP contour per kombergingsgebied. 
+2.	Kaart met -1 m NAP contouren per bodemjaar per bekken of kleiner gebied (check zoomniveau voor leesbaarheid).
+3.	Kaart met -2 m NAP contouren per bodemjaar per bekken of kleiner gebied (check zoomniveau voor leesbaarheid). Deze was opgenomen in de kombergingsrapportage. Bij visualisatie beoordelen of opnemen van beide niveaus (-1 m en -2 m) toegevoegde waarde heeft.
+
+Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
+
+
+##	Ecotopenkaart
 
 Bij de ecotopenkaart worden de waterstanden nauwkeurig bepaald middels driehoeksinterpolatie met getijcorrectie (Intertides tool). Om dit ook voor de oudere bodemliggingen te doen, vergt een extra inspanning. Daarom wordt dit nu niet uitgewerkt, maar (voorlopig) worden voor de arealen vaste niveaus aangehouden (zie hypsometrie en arealen). 
 
@@ -220,73 +263,3 @@ leaflet() %>%
     options = layersControlOptions(collapsed = FALSE)
   )
 ```
-
-
-
-##	Plaathoogte
-
-De plaathoogte is afhankelijk van de hoogwaterstanden. Trendmatige veranderingen hierin beïnvloeden de ontwikkeling van de platen. De berekening van de plaathoogte is erg gevoelig voor de gekozen begrenzing, daarom wordt voorgesteld deze indicator per kombergingsgebied te berekenen en vaste grenzen te hanteren.
-
-Analyse(s)/figuren:
-
-3.	Tijdreeks van gemiddelde plaathoogte boven de -1 m NAP contour per kombergingsgebied. Dit bevat ook eventuele supragetijgebieden. 
-
-Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
-
- 
-##	Plaatvolume
-
-De plaatvolume hangt samen met het plaatareaal en de plaathoogte en kan gekoppeld worden aan de volumeveranderingen per bekken. 
-
-Analyse(s)/figuren:
-
-1.	Tijdreeks van gemiddeld plaatvolume boven de -1 m NAP contour per kombergingsgebied. Dit bevat ook eventuele supragetijgebieden. 
-
-Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
-
-##	Steilheid/plaathelling
-
-Meer voor 2elijns analyse (i.e. kombergingsrapportage)
-
-##	Lengte laagwaterlijn/plaatrand
-
-Om dit netjes te kunnen doen zou per jaar het laagwaterniveau moeten worden bepaald (middels Intertides interpolatie). Ook kan met een vast referentieniveau van -1 m NAP worden gewerkt. Voorstel is om hier bij de 2e slag een besluit over te nemen. Vast referentieniveau hanteren kan eventueel gemakkelijk worden meegenomen, maar varierende laagwaterniveau vergen een extra extercitie.
-
-Analyse(s)/figuren:
-
-1.	Tijdreeks van lengte van de -1 m NAP contour per kombergingsgebied. 
-2.	Kaart met -1 m NAP contouren per bodemjaar per bekken of kleiner gebied (check zoomniveau voor leesbaarheid).
-3.	Kaart met -2 m NAP contouren per bodemjaar per bekken of kleiner gebied (check zoomniveau voor leesbaarheid). Deze was opgenomen in de kombergingsrapportage. Bij visualisatie beoordelen of opnemen van beide niveaus (-1 m en -2 m) toegevoegde waarde heeft.
-
-Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
-
-##	Geulvolume 
-
-Het geulvolume hangt samen met het geulareaal en de geuldiepte en kan gekoppeld worden aan de volumeveranderingen per bekken en de veranderingen in de getijslag/getijvoortplanting. 
-
-Analyse(s)/figuren:
-
-1.	Tijdreeks van gemiddeld geulvolume onder de -5 m NAP contour per kombergingsgebied. 
-
-Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
-
-##	Geuldiepte
-
-De geuldiepte geeft trendmatige veranderingen weer.
-
-Analyse(s)/figuren:
-
-1.	Tijdreeks van gemiddelde geuldiepte gedefinieerd als het geulvolume onder de -5 m NAP contour per kombergingsgebied gedeeld door het geulareaal onder de -5 m NAP contour. 
-
-Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
-
-##	Geulmigratiesnelheid
-
-Meer voor 2elijns analyse (i.e. kombergingsrapportage)
-
-
-##	Geulprofieloppervlakte
-
-Dit zou eventueel kunnen worden opgenomen, indien er voor de Waddenzee een aantal relevante transsecties zijn vastgesteld. Voor deze transsecties kan dan de bodemligging worden gevisualiseerd en de doorstroomoppervlakte onder de NAP -2 m worden berekend (zoals in de kombergingsrapporten).
-
-
