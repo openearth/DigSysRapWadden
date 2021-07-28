@@ -1,0 +1,32 @@
+
+# Informatiebehoefte 
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+
+## Nieuwe metingen
+
+- saliniteit
+- SPM
+
+link naar memo meetadvies voor KRW slib.
+
+## Data-ontsluiting
+
+- zwevende stof zit niet in DDL (waterinfo).
+- oude waterstanden (voor 1986) en de gerapporteerd HW en LW zitten niet in DDL.
+- de getijcomponenten zijn niet beschikbaar. Binnen project xx (Deltares referentie 11205235) is een Python toolbox ontwikkeld om deze componenten uit te rekenen voor ondiepe gebieden als de Waddenzee. Deze berekeningen zijn gekoppeld aan deze digitale rapportage, waarmee het afleiden van de getijcomponenten reproduceerbaar is geworden. Ook worden daarmee dezelfde componenten in de verschillende studies gebruikt. Wij bevelen aan deze werkwijze/Python toolbox verder te formaliseren.
+- zoetwaterafvoeren
+
+- betere ontsluiting projectmetingen?
+
+misschien wel leuk, we hebben vorig jaar met DCSM ook naar een proxy voor sedimenttransport gekeken (als extraatje in de studie, dus verwacht daarover niet al te veel diepgang):
+n:\Projects\11205000\11205235\F. Other information\014-getijde-energie\Effect van SLR op getij Nederlandse kust definitief.pdf
+
