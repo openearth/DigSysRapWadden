@@ -79,12 +79,11 @@ rbindlist(gaps, idcol = "locatie.naam") %>%
   theme_hy
 ```
 
-```{r wateropzet, fig.cap="Waterstand opzet en afzet berekend als gemeten waterstand - astronomische waterstand (nog niet alle data)."}
-filename <- file.path(datadir, "ddl\\standard\\fysisch_trendstations_allyears.csv")
-df.h <- fread(filename)[, list(locatie.naam, tijdstip, grootheid.code, eenheid.code, hoedanigheid.code, numeriekewaarde)]
+```{r berekeningExtrema,"}
+
 
 h <- lapply(df_all_WATHTE2, function(x) 
-  x %>% select(time = tijdstip, h = numeriekewaarde) %>% filter(year(time) > 1984)
+  x %>% dplyr::select(time = tijdstip, h = numeriekewaarde) %>% filter(year(time) > 1984)
   )
 
 extrema = lapply(h, function(x) Tides::extrema(x, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3))
@@ -219,7 +218,7 @@ De stormvloedhoogte, berekend als het maximum van de gemeten waterstand en hier 
 + heb je hier wel de opzet/afzet (dus waterstand-astronomische waterstand) berekend? Nu je de getijanalyse gedaan hebt kan je het getijsignaal reconstrueren en dit aftrekken van de gemeten waterstand.
 + ik wil het 99,5-percentiel per jaar en de jaarmaxima. En hetzelfde voor de minima bij de afzet (niet bij de stormvloedhoogte).
 
-```{r wateropzet, fig.cap= "Maandelijks 95-percentiel voor opzet/afzet = gemeten waterstand - astronomische waterstand (rode punten) en het jaarlijks gemiddelde van dit maandelijks 95 percentiel.", fig.height=30, fig.width=10}
+```{r wateropzet, fig.cap= "Maandelijks 99,5-percentiel voor opzet/afzet = gemeten waterstand - astronomische waterstand (rode punten) en het jaarlijks maximum van de opzet.", fig.height=30, fig.width=10}
 
 monthlyStat  <- read_delim(file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", "2021-07-28", ".csv")), delim = ";")
 
@@ -231,8 +230,9 @@ monthlyStat %>%
   filter(n > 11, ) %>%  # filter incomplete jaren
   complete(station, datum, fill = list(max = NA, p95 = NA)) %>% # stop weer NA's tussen de ontbrekende regels om lijnen af te breken bij ontbrekende data
   ggplot(aes(x = datum)) +
-  geom_line(aes(y = p995, color = "p995 per maand"), size = 0.5) +
-  geom_point(aes(y = jaarmaximum,  color = "maximum per maand"), shape = "-") +
+  geom_line(aes(y = p995, color = "p99,5 per maand"), size = 0.5) +
+  # geom_line(aes(y = p005, color = "p0,005 per maand"), size = 0.5) +
+  geom_point(aes(y = jaarmaximum,  color = "maximum per jaar"), shape = "-", size = 1) +
   # geom_smooth(method = "lm", formula = y ~ 1, aes(group = jaar, color = "jaargemiddelde p99,5 per maand")) +
   # coord_cartesian(ylim = c(0, 450)) +
   scale_x_date(breaks = seq(as.Date("1970-01-01"), as.Date("2021-12-31"), by = "5 year"), 
@@ -245,15 +245,20 @@ monthlyStat %>%
   ylab("waterhoogte in cm") +
   coord_cartesian(ylim = c(-20, NA)) +
       scale_colour_manual(name = "",
-                        values = c("p99,5 per jaar" = "red", 
-                                   "maximum per jaar" = "black"))
+                        values = c("p99,5 per maand" = "red", 
+                                   "maximum per maand" = "black"))
 
 ```
 
 
+
+
+
+
+
 ```{r stormhoogte, fig.cap="Tijdserie van stormhoogte, berekend als 99,5-percentiel van de gemeten waterhoogte per jaar. ", fig.width=10, fig.height=5}
 
-yearlyStat <-  read_delim(file.path(datadir, "ddl", "standard", paste0("yearlyStatWaterhoogte", "2021-07-12", ".csv")), delim = ";")
+yearlyStat <-  read_delim(file.path(datadir, "ddl", "standard", paste0("yearlyStatWaterhoogte", "2021-07-28", ".csv")), delim = ";")
 
 labelpositions <-
   yearlyStat %>% group_by(station) %>% 
@@ -378,9 +383,11 @@ df_all %>% sample_n(100000) %>%            #group_by(locatie.naam) %>% summarize
                       values = c("p95 per jaar" = "red", 
                                  "metingen" = "blue"))
 
+```
 
-# rm(df_all)
 
+```{r cleanupgolfdata}
+rm(df_all)
 ```
 
 
@@ -420,7 +427,7 @@ afvoer.df <- rbindlist(afvoer.lst, idcol = "locatie.naam") %>%
 ```
 
 
-```{r histogramAfvoer, include=F, fig.width=8, fig.height=4, fig.cap = ""}
+```{r histogramAfvoer, include=F, evaluate = F, fig.width=8, fig.height=4, fig.cap = ""}
 afvoer.df %>% mutate(jaar = year(datum)) %>%
   select(locatie, datum, tijd, waarde, tydstp, jaar) %>% 
   filter(waarde != 0) %>%

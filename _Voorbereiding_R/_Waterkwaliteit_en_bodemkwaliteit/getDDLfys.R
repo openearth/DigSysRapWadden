@@ -352,11 +352,12 @@ monthlyStat <- df.h.d[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterdams Pe
   station = station,
   max = max(opzet, na.rm = T),
   p005 = quantile(opzet, 0.005, na.rm = T),
+  p50 = quantile(opzet, 0.50, na.rm = T),
   p95 = quantile(opzet, 0.95, na.rm = T),
   p995 = quantile(opzet, 0.995, na.rm = T)
   ), 
   by = list(year, month, station)][,.(
-  station, max, p95, datum = as.Date(paste(year, month, "15", sep = "-"))),
+  station, max, p95, p005, p50, p995, datum = as.Date(paste(year, month, "15", sep = "-"))),
 ]
 
 write_delim(monthlyStat, file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", today(), ".csv")), delim = ";")
@@ -371,12 +372,13 @@ yearlyStat <- df_all_WATHTE[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterd
   station = station,
   max = max(numeriekewaarde, na.rm = T),
   p005 = quantile(numeriekewaarde, 0.005, na.rm = T),
+  p50 = quantile(numeriekewaarde, 0.5, na.rm = T),
   p95 = quantile(numeriekewaarde, 0.95, na.rm = T),
   p995 = quantile(numeriekewaarde, 0.995, na.rm = T)
 ), 
 by = list(year, station,  parameter.wat.omschrijving, eenheid.code
 )][,.(
-  station,  parameter.wat.omschrijving, eenheid.code, year, max, p95),
+  station,  parameter.wat.omschrijving, eenheid.code, year, max, p005, p50, p95, p995),
 ]
 
 write_delim(yearlyStat, file.path(datadir, "ddl", "standard", paste0("yearlyStatWaterhoogte", today(), ".csv")), delim = ";")
