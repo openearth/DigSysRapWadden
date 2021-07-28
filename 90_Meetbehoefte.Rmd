@@ -13,20 +13,25 @@ knitr::opts_chunk$set(
 
 ## Nieuwe metingen
 
-- saliniteit
-- SPM
+Er zijn metingen van saliniteit in de Waddenzee (in het meetnet van de MWTL), maar deze hebben een hele grove temporele resolutie. Ook de de ruimte is de dekking beperkt. Toch is het waardevol om goed inzicht te krijgen in de saliniteitsverdeling in de Waddenzee. Voor de ecologie is het direct van belang, omdat soorten alleen kunnen overleven binnen een bepaalde saliniteitsrange. Bij over- of onderschrijding daarvan, hangt het van de duur daarvan af of wat de impact is. De saliniteitsverdeling heeft ook invloed op de slibdynamiek, omdat de gravitatiecirculatie ervoor zorgt dat slib effectief in de Waddenzee naar binnen wordt getransporteerd. Ook geven metingen van de saliniteit inzicht in de uitwisseling van water over de wantijen. De enorme zoetwaterbel die voor de Afsluitdijk ligt, kan onder bepaalde windcondities ver verplaatsen, zo laten projectmetingen in het Amelander Zeegat bijvoorbeeld zien (binnen het SEAWAD project). 
 
-link naar memo meetadvies voor KRW slib.
+Zwevende stof wordt alleen structureel binnen het MWTL bemeten, waardoor de temporele resolutie beperkt is. De consistente inwinning van de data sinds 1989 laten een trendanalyse toe, maar er is weinig inzicht in de variatie binnen het getij en het effect van stormen. Binnen het project KRW slib is er advies gegeven over het additioneel inwinnen van zwevende stof data. Het betreffende advies bestaat uit twee memo's die elk kunnen worden gedownload van de publicwiki van Deltares: [Voorstel nieuwe metingen slibhuishouding Waddenzee](https://publicwiki.deltares.nl/download/attachments/137135283/BG2802-RHD-ZZ-XX-NT-Z-0001_voorstel%20nieuwe%20metingen_versie%203a.pdf?version=1&modificationDate=1580229139728&api=v2) en [Voorstel nieuwe meting zwevendstof Dantziggat](https://publicwiki.deltares.nl/download/attachments/137135283/Voorstel_nieuwe_meting_zwevend_stof_Dantziggat_9maart2020.pdf?version=1&modificationDate=1607942275465&api=v2).
+
+Ook de samenstelling van sediment in de waterkolom is een inzichtelijke parameter voor de slibdynamiek. In de [Wadden In Beeld rapportage](https://www.waddenzee.nl/fileadmin/content/Dossiers/Overheid/waddenzeebeheer/WIB-2019-webversie-met_hyperlinks_7.pdf) staat deze dan ook opgenomen onder de meetbehoefte. 
+
+Gegevens van de middelgrote en kleinere zoetwatervoeren in de Waddenzee zijn niet ontsloten en vaak ook niet beschikbaar. Ze kunnen afgeleid worden op basis van het verval over het betreffende spuimiddel. De gegevens van de spuisluizen bij Den Oever en Kornwerderzand zijn beschikbaar, maar zelfs de afvoergegevens van de sluizen bij het Lauwersmeer zijn niet goed ontsloten. Duran-Matute (2014) geeft een (incompleet) overzicht van de ordegrootte van de zoetwaterafvoeren in de westelijke Waddenzee met de gemiddelde afvoerhoeveelheden.
+
 
 ## Data-ontsluiting
 
-- zwevende stof zit niet in DDL (waterinfo).
-- oude waterstanden (voor 1986) en de gerapporteerd HW en LW zitten niet in DDL.
-- de getijcomponenten zijn niet beschikbaar. Binnen project xx (Deltares referentie 11205235) is een Python toolbox ontwikkeld om deze componenten uit te rekenen voor ondiepe gebieden als de Waddenzee. Deze berekeningen zijn gekoppeld aan deze digitale rapportage, waarmee het afleiden van de getijcomponenten reproduceerbaar is geworden. Ook worden daarmee dezelfde componenten in de verschillende studies gebruikt. Wij bevelen aan deze werkwijze/Python toolbox verder te formaliseren.
-- zoetwaterafvoeren
+Ook wat betreft de data-ontsluiting zijn er verbeterpunten. Zeker bij het werken met digitale systeemrapportages loont het om de data-ontsluiting goed op orde te hebben, zodat de rapportage gemakkelijker kan worden geupdate als nieuwe data beschikbaar komen. De scripting achter de rapportage is in elk geval zo opgesteld, dat dit mogelijk is. Desalniettemin heeft het verzamelen van de data meer tijd gekost omdat niet alles goed ontsloten is.
 
-- betere ontsluiting projectmetingen?
+- Parameter zwevende stof zit niet in Data Distributie Laag van waterinfo (en dus ook niet in waterinfo). Deze data zijn los opgevraagd bij de Servicedesk.
+- Oude waterstandsgegevens (voor 1986) en de gerapporteerd HW en LW zitten niet in Data Distributie Laag en zijn los opgevraagd. Voor de getij-analyse zijn deze inlezen van de Open Earth DataServer.
+- De getijcomponenten zijn niet beschikbaar. Binnen project xx (Deltares referentie 11205235) is een Python toolbox ontwikkeld om deze componenten uit te rekenen voor ondiepe gebieden als de Waddenzee. Deze berekeningen zijn gekoppeld aan deze digitale rapportage, waarmee het afleiden van de getijcomponenten reproduceerbaar is geworden. Ook worden daarmee dezelfde componenten in de verschillende studies gebruikt. Wij bevelen aan deze werkwijze/Python toolbox verder te formaliseren.
 
-misschien wel leuk, we hebben vorig jaar met DCSM ook naar een proxy voor sedimenttransport gekeken (als extraatje in de studie, dus verwacht daarover niet al te veel diepgang):
-n:\Projects\11205000\11205235\F. Other information\014-getijde-energie\Effect van SLR op getij Nederlandse kust definitief.pdf
+Er zijn verschillende projectmetingen beschikbaar, die waardevol zouden zijn om goed te ontsluiten. Het memo [Voorstel nieuwe metingen slibhuishouding Waddenzee](https://publicwiki.deltares.nl/download/attachments/137135283/BG2802-RHD-ZZ-XX-NT-Z-0001_voorstel%20nieuwe%20metingen_versie%203a.pdf?version=1&modificationDate=1580229139728&api=v2) geeft hiervan een overzicht.
+
+<!--  misschien wel leuk, we hebben vorig jaar met DCSM ook naar een proxy voor sedimenttransport gekeken (als extraatje in de studie, dus verwacht daarover niet al te veel diepgang):
+n:\Projects\11205000\11205235\F. Other information\014-getijde-energie\Effect van SLR op getij Nederlandse kust definitief.pdf -->
 
