@@ -98,15 +98,23 @@ leaflet(poly_wgs) %>%
 
 ## Hypsometrie en arealen
 
-De hypsometrische curve geeft de verdeling van de hoogteligging in een bepaald gebied weer. 
+De hypsometrische curve geeft de verdeling van de hoogteligging in een bepaald gebied weer, in dit geval van het Friesche Zeegat. Op de verticale as wordt de bodemhoogte uitgezet, en daarbij op de horizontale as het totale areaal wat een bodemligging heeft die lager of gelijk is aan die waarde. Voor kombergingsgebieden in de Waddenzee hebben hypsometrische curves een vergelijkbare vorm, omdat er relatief weinig diepe geulen zijn en relatief veel intergetijdengebied. Indien een bepaalde hoogteligging weinig aanwezig is, zal de hypsometrische curve hier een steil verloop laten zien, en indien een bepaalde hoogteligging veel voorkomt wordt de curve bijna vlak. Door in eenzelfde figuur de hypsometrische curve voor verschillende jaren (bodemopnames) te tonen, kan in één oogslag worden bekeken welk areaal (bijvoorbeeld geulareaal) er door de tijd is bijgekomen of verdwenen. In de Appendix (#Appmorfologie) staan de brondata en berekeningswijze beschreven.
 
-Analyse(s)/figuren:
-1.	Hypsometrische curve per kombergingsgebied, met vaste positie van de wantijen en andere grenzen. Per bodemjaar een lijntje.
-2.	Arealen per diepteklasse: geul (z < 5 m), subgetijdengebied (-5 m < z <-1 m) en intergetijdengebied (-1 < z <1 m) en supragetijdengebied (z > 1 m). 
+Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in 4 verschillende hoogteklassen:
 
-Eventueel in 2e slag ook hypsometrieen van deelgebieden opnemen.
+1. Geul (z < 5 m)
+2. Proxy subgetijdengebied (-5 m < z <-1 m) 
+3. Proxy intergetijdengebied (-1 < z <1 m) 
+4. Proxy supragetijdengebied (z > 1 m)
 
-Brondata: vaklodingenkaarten, eens per 6 jaar per bekken beschikbaar.
+Het intergetijdengebied betreft het areaal wat een deel van de tijd droogvalt. De begrenzing van het intergetijdengebied wordt enerzijds gevormd door de bodemligging en anderszijds door de waterstandvariatie. De waterstand varieert niet alleen door de tijd, maar ook in de ruimte. Achterin de bekkens is de getijslag meestal groter dan nabij de zeegaten. Daarnaast neemt de getijslag toe van west naar oost, dus tussen Den Helder en Delfzijl. De kaart met de getijslag laat dit goed zien (\@ref(fig:ntb)). 
+
+De waterstand wordt echter alleen gemeten op een aantal stations. Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, dient rekening te worden gehouden met de getijvoortplanting en getijpropagatie. Numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden, en daarmee de kleinere geultjes en prielen, die een belangrijke functie hebben in het efficient draineren van de intergetijdengebieden, niet in het rekenrooster zijn opgenomen. Voor de ecotopenkaart wordt de waterspiegel berekend als invoer voor het berekenen van de droogvalduur.
+
+Er is er voor deze rapportage voor gekozen om in eerste instantie uit te gaan van vaste begrenzingen van de hoogteklasses en daarmee niet de veranderingen in getijslag door de tijd of over het gebied mee te nemen. Dit betekent dat verandering in arealen alleen worden veroorzaakt door veranderingen in de bodemligging en niet door een verandering in getijvoortplanting. Daarom spreken we van een 'proxy', bijvoorbeeld voor het intergetijdengebied.
+
+Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan de ontwikkeling per hoogteklasse beter worden gevolgd. 
+
 
 
 ##	Plaathoogte
