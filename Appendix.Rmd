@@ -132,4 +132,13 @@ Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebb
 
 Voor de watertemperatuur worden zomer- en wintergemiddelden berekend om te zien of er trends in de seizoenen zitten die bij jaargemiddelden weg worden gemiddeld. 
 
-Berekeningswijze anomalien nog toevoegen
+Berekeningswijze anomalien:
+
+De afwijking is berekend in de volgende stappen:
+
+1)  incomplete jaren verwijderen
+1)  langjarig gemiddelde voor elk station als gemiddelde van alle maandgemiddelden
+1)  de afwijking wordt berekend per station en maand als het verschil tussen maandgemiddelde en langjarig gemiddelde
+1)  De afwijking wordt dan uitgezet tegen de maand in het jaar voor alle jaren in een plot. De kleurenschaal geeft het jaar aan waarin de afwijking is opgetreden. 
+
+Bij zwevende stof wordt de data eerst gelogtransformeerd, alvorens bovenstaande berekening uit te voeren.
