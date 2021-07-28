@@ -95,7 +95,7 @@ writeRaster(m, paste0("../mosaic_", yearsvak[yy]), format = "GTiff")
 # writeRaster(m, paste0("../filled_", years_in_raster[2]), format = "GTiff")
 
 
-# Friesche Gat polygonen
+## Friesche Gat polygonen
 opendapdatapath <- "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/vaklodingen_new/"
 vakTiles <- fread("..//FriescheGatVaklodingen.csv")
 vakTiles$tiles <- paste0(opendapdatapath, vakTiles$tiles)
@@ -131,4 +131,20 @@ for (ii in 1:length(vakTiles$tiles)){
     writeRaster(m, filenameRaster, format = "GTiff", overwrite=TRUE)
   }
 }
+
+# merge files per year
+yearsvak <- c(2005, 2010, 2016)
+for (yy in 1:length(yearsvak)){
+  rsmerging <- list(raster::brick(paste0("../FG_processing_tiles/vaklodingenKB129_1312_X",yearsvak[yy],".tif")), 
+                  raster::brick(paste0("../FG_processing_tiles/vaklodingenKB129_1514_X",yearsvak[yy],".tif")),
+                  raster::brick(paste0("../FG_processing_tiles/vaklodingenKB130_1312_X",yearsvak[yy],".tif")), 
+                  raster::brick(paste0("../FG_processing_tiles/vaklodingenKB130_1514_X",yearsvak[yy],".tif")),
+                  raster::brick(paste0("../FG_processing_tiles/vaklodingenKB131_1312_X",yearsvak[yy],".tif")), 
+                  raster::brick(paste0("../FG_processing_tiles/vaklodingenKB132_1312_X",yearsvak[yy],".tif")),
+                  raster::brick(paste0("../FG_processing_tiles/vaklodingenKB133_1312_X",yearsvak[yy],".tif")))
+  m <- do.call(merge, rsmerging) 
+  crs(m )=CRS("+init=EPSG:28992")
+  writeRaster(m, paste0("../FG_processing_tiles/mosaic_", yearsvak[yy]), format = "GTiff")
+}
+
 
