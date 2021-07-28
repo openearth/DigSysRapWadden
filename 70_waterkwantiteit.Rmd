@@ -286,6 +286,28 @@ ggplot(aes(year, p995)) +
 ```
 
 
+
+```{r kaartjeMaximaleStormhoogte}
+
+pal <- colorNumeric(
+  palette = "viridis",
+  domain = yearlyStat$p995)
+
+metadata <- read_delim(file.path(datadir, "ddl\\metadata\\Wadden_metadata.csv"),delim = ";") %>%
+  distinct(locatie.naam, x, y)
+yearlyStat %>% group_by(station) %>%
+  summarize(`maximum p99,5 waterstand` = max(p995, na.rm = T)) %>%
+  left_join(metadata, by = c(station = "locatie.naam")) %>%
+  sf::st_as_sf(coords = c("x", "y"), crs = 25831) %>%
+  st_transform(4326) %>%
+  leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(radius = 5, label = ~station, color = ~ pal(`maximum p99,5 waterstand`))
+
+```
+
+
+
 ##	Golfhoogte
 
 De wind, de stormopzet/-afzet en stormvloedhoogte en de golfhoogtes geven allemaal inzicht in de dynamiek in de verschillende jaren. 
