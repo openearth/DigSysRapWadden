@@ -249,15 +249,9 @@ Brakwaterzones (waarom alleen deze?)
 
 <!-- van Volkerak zoommeer  -->
 
-*Ecotopen (tekst en code uit Volkerak Zoommeer rapportage. Moet aangepast*
+Hieronder is de ecotopenkaart weergegeven zoals opgenomen in het [Nationaal Georegister](https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search;jsessionid=0B4745908C502557E461385BDB69FE9F#/metadata/291d329a-a421-41f4-b219-a904756e7aa5)
 
-Van de Maas, de Rijntakken-Oost, de Rijn-Maasmonding, het Volkerak-Zoommeer en het IJsselmeergebied wordt om de 6 jaar een ecotopenkaart geleverd. 
-Voor meer gedetaileerde informatie over de ecotopenkaarten zie [Ecotopen informatie waterinfo-extra](https://waterinfo-extra.rws.nl/monitoring/biologie/ecotopen/).
-
-De 1e cyclus karteringen zijn uitgevoerd in de periode van 1997 tot en met 1998 (jaar van fotovluchten). De 2e cyclus karteringen zijn uitgevoerd in de periode van 2004 tot en met 2006 (jaar van fotovluchten). De 3e cyclus karteringen zijn uitgevoerd in de periode van 2008 tot en met 2012 (jaar van fotovluchten). De 4e cyclus karteringen zijn uitgevoerd in de periode van 2012 tot en met 2018 (jaar van fotovluchten). De vijfde cyclus kartering betreft de kartering van alle bovengenoemde watersystemen, waarvan de Rijntakken-Oost en Maas in 2017 zijn ingewonnen en de inwinning van de meren in 2021 gepland staat en de Rijnmaasmonding in 2024. Dit bestand laat op het moment van schrijven dus alleen de 5e cyclus Rijntakken-Oost en Maas van 2017 zien (23 september 2020).
-
-
-```{r Ecotopen, fig.cap="Ecotopen cyclus opgenomen in het Volkerak-Zoommeer", fig.width =8 , fig.height =8, out.width = "100%"}
+```{r Ecotopen, fig.cap="Ecotopenkaart 2017 voor de Waddenzee.", out.width = "100%"}
 #Voorbeeld hier gevonden: https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/
 library(sf)
 library(httr) 
@@ -297,30 +291,6 @@ leaflet() %>%
     options = WMSTileOptions(format = "image/png", transparent = TRUE),
     group = "ecotopenkaart_waddenzee_2017"
   ) %>%
-  # addWMSTiles(
-  #   wms_ecotopen,
-  #   layers = "ecotopen_zout:ecotopenkaart_waddenzee_2017",
-  #   options = WMSTileOptions(format = "image/png", transparent = TRUE),
-  #   group = "ecotopen_zout:ecotopenkaart_waddenzee_2017"
-  # ) %>%
-  # addWMSTiles(
-  #   wms_ecotopen,
-  #   layers = "ecotopen_zout:ezout_2001",
-  #   options = WMSTileOptions(format = "image/png", transparent = TRUE),
-  #   group = "ezout_2001"
-  # ) %>%
-  # addWMSTiles(
-  #   wms_ecotopen,
-  #   layers = "ecotopen:eco.topen_cyclus_4",
-  #   options = WMSTileOptions(format = "image/png", transparent = TRUE),
-  #   group = "ecotopen_cyclus_4"
-  # ) %>%
-  #   addWMSTiles(
-  #   wms_ecotopen,
-  #   layers = "ecotopen:ecotopen_cyclus_5",
-  #   options = WMSTileOptions(format = "image/png", transparent = TRUE),
-  #   group = "ecotopen_cyclus_5"
-  # ) %>%
   addWMSLegend(
     uri = paste0(request_ecotopen_cyclus_4)
   ) %>%
