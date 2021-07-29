@@ -29,7 +29,11 @@ getPackage("scales")
 getPackage("RColorBrewer")
 getPackage("tidyverse")
 getPackage("Tides")
+getPackage("plotly")
 
+
+select <- dplyr::select
+addLegend <- leaflet::addLegend
 
 if(!require("rwsapi", character.only = TRUE)){
   devtools::install_github("wstolte/rwsapi")

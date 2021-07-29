@@ -40,9 +40,9 @@ Voor 1984 is met een lagere frequentie gemeten (1 uur en nog eerder zelfs 3 uur)
 ![Tijdstap voor alle stations](images\ts_timestep.png)
 
     
-    ```{r loadWaterhoogteData}
+```{r loadWaterhoogteData2}
 
-load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-12", ".Rdata")))
+load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-26", ".Rdata")))
 df_all_WATHTE2 <- df_all_WATHTE %>%
 # filter(year(tijdstip) >=2000) %>% # voor testen
 arrange(tijdstip) %>%
@@ -52,7 +52,7 @@ names(df_all_WATHTE2) <- map_chr(df_all_WATHTE2, function(x) unique(x$locatie.na
 
 ```
 
-```{r berekeningGaps, include = F, eval=F}
+```{r berekeningGaps2, include = F, eval=F}
 
 gaps <- lapply(df_all_WATHTE2,
        function(x) Tides::gapsts(x$tijdstip, dtMax = 11, unit = "mins")
@@ -67,7 +67,7 @@ rbindlist(gaps, idcol = "locatie.naam") %>%
   theme_hy
 ```
 
-```{r berekeningGetij}
+```{r berekeningGetij2}
 
 h <- lapply(df_all_WATHTE2, function(x) 
   x %>% select(time = tijdstip, h = numeriekewaarde) %>% filter(year(time) > 1984))
@@ -81,7 +81,7 @@ extrema = lapply(h, function(x) Tides::extrema(x, h0 = -900, hoffset = 0, T2 = 4
 
 ```
 
-```{r hooglaagvoorbeeld, fig.width=8, fig.height=4, fig.cap= "Gemeten waterstand en hoog- (rood) en laagwater (groen) voor eind maart 2018 (inclusief overgang naar zomertijd van 24 op 25 maart), zoals berekend voor de hele tijdserie." }
+```{r hooglaagvoorbeeld2, fig.width=8, fig.height=4, fig.cap= "Gemeten waterstand en hoog- (rood) en laagwater (groen) voor eind maart 2018 (inclusief overgang naar zomertijd van 24 op 25 maart), zoals berekend voor de hele tijdserie." }
 minplottime = ymd("2018-03-23")
 maxplottime = ymd("2018-03-27")
 df_all_WATHTE2[["Eemshaven"]] %>%
@@ -104,7 +104,7 @@ De afwijking is berekend in de volgende stappen:
 1)  De afwijking wordt dan uitgezet tegen de maand in het jaar voor alle jaren in een plot. De kleurenschaal geeft het jaar aan waarin de afwijking is opgetreden. 
 
 ## Brondata wind {#Appwind}
-```{r readMeteodata, cache=T}
+```{r readMeteodata2, cache=T}
 dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 # paste(unique(dtwind$station), collapse = ", ")
 ```
@@ -141,7 +141,7 @@ Er is gewerkt met 1 polygoon van het Friesche Zeegat, dat wil zeggen dat voor al
 
 
 
-```{r dataoverzicht}
+```{r dataoverzich2t}
 # code om dataoverzicht in nette tabel weer te geven. 
 
 

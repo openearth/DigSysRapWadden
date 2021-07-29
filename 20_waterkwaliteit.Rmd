@@ -64,7 +64,7 @@ Figuur \@ref(fig:jaargemiddeldeTemp) toont de jaargemiddelde watertemperatuur in
 De zomer- en wintergemiddelden (figuur \@ref(fig:seizoensgemiddeldenWatertemperatuur)) laten ook geen duidelijke trends zien. Het zomergemiddelde (tussen 1 april en 30 september) ligt voor de meeste locaties rond de 15 graden en het wintergemiddelde (tussen 1 oktober en 31 maart) rond de 7 graden. De hogere temperaturen dieper in de bekkens lijken bij middeling naar een half jaar grotendeels weg te vallen, zowel in de zomer als de winter.
 
 
-```{r jaargemiddeldeTemp, fig.height=30, fig.width=10, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten)."}
+```{r jaargemiddeldeTemp, fig.height=15, fig.width=10, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). De figuur is interactief. "}
 
 par = "NVT"
 gro = "T"
@@ -80,7 +80,7 @@ parData <- WQ %>%
   mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
   mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties))
 
-  ggplot() +
+p =   ggplot() +
     geom_point(data = parData, aes(as.Date(tijdstip), numeriekewaarde, color = "metingen"), alpha = 1, size = 0.65) +
     geom_point(data = parData %>%
                  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
@@ -89,12 +89,12 @@ parData <- WQ %>%
     geom_line(data = parData %>%
                 group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
                 group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
-                filter(`n/jaar` > 10),
+                filter(`n/jaar` > 10) %>% complete(locatie.naam, jaar, fill = list(jaargemiddelde = NA)),
               aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
     ) +
     coord_cartesian(ylim = c(5,NA)) +
     ylab(parlabel) + xlab(xlabel) +
-    facet_wrap(~ locatie.naam, ncol = 1) +  #scales = "free",
+    facet_wrap(~ locatie.naam, ncol = 2) +  #scales = "free",
     theme_wq +
     theme(legend.position = "bottom") +
     scale_colour_manual(name = "",
@@ -103,9 +103,11 @@ parData <- WQ %>%
                                    "metingen" = "darkgrey")) +
     guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
 
+ggplotly(p)
+
 ```
 
-```{r seizoensgemiddeldenWatertemperatuur, fig.width=8, fig.height=20, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) watertemperatuur in de Waddenzee. Seizoensgemiddelden zijn alleen berekend en meegenomen in de grafiek wanneer er 5 of meer metingen per seizoen beschikbaar waren. "}
+```{r seizoensgemiddeldenWatertemperatuur, fig.width=8, fig.height=20, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) watertemperatuur in de Waddenzee, met regressielijnen. Seizoensgemiddelden zijn alleen berekend en meegenomen in de grafiek wanneer er 5 of meer metingen per seizoen beschikbaar waren. "}
 
 parData <- WQ %>% 
   filter(parameter.code == par, grootheid.code == gro, as.numeric(kwaliteitswaarde.code) == "0") %>%
@@ -131,12 +133,16 @@ parData <- WQ %>%
     geom_line(data = parData %>%
                 group_by(locatie.naam, jaar, maand, seizoen) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
                 group_by(locatie.naam, jaar, seizoen) %>% summarize(seizoensgemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
-                filter(`n/jaar` > 4),
+                filter(`n/jaar` > 4) %>% complete(locatie.naam, jaar, seizoen, fill = list(jaargemiddelde = NA)),
               aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), seizoensgemiddelde, color = seizoen), size = 1.5, alpha = 0.8
     ) +
-    coord_cartesian(ylim = c(0,NA)) +
+    geom_smooth(data = parData %>%
+                 group_by(locatie.naam, jaar, maand, seizoen) %>% 
+                  summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
+               aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = seizoen), method = "lm") +
+    coord_cartesian(ylim = c(0,20)) +
     ylab(parlabel) + xlab(xlabel) +
-    facet_wrap(~ locatie.naam, ncol = 1) +  #scales = "free",
+    facet_wrap(~ locatie.naam, ncol = 2) +  #scales = "free",
     theme_wq +
     theme(legend.position = "bottom") #+
 

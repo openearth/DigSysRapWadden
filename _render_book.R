@@ -7,7 +7,7 @@ require(bookdown)
 
 # to preview a chapter, uncomment one of the lines and run.
 # bookdown::preview_chapter("index.Rmd")
-bookdown::preview_chapter("10_meteorologieenklimaat.Rmd")
+# bookdown::preview_chapter("10_meteorologieenklimaat.Rmd")
 # bookdown::preview_chapter("060_Bathymetrie_en_morfodynamiek.Rmd")
 # bookdown::preview_chapter("20_waterkwaliteit.Rmd")
 # bookdown::preview_chapter("30_zeehonden.Rmd")
@@ -23,8 +23,8 @@ bookdown::render_book("index.Rmd", output_format = NULL,
                       new_session = F)
 # "normal" pdf
 # options(tinytex.verbose = FALSE) # change to TRUE for debugging
-# bookdown::render_book("index.Rmd", output_format = bookdown::pdf_book(latex_engine = "xelatex"),
-#                       new_session = T, clean_envir = T)
+bookdown::render_book("index.Rmd", output_format = bookdown::pdf_book(latex_engine = "xelatex"),
+                      new_session = T, clean_envir = T)
 
 # Veel gemaakte fouten
 # Figuurlabels (label in code block) mogen geen underscore (_) bevatten bij rendering naar pdf

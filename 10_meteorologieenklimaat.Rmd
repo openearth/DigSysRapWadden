@@ -14,11 +14,11 @@ source("r/runThisFirst.R")
 theme_met <- theme_bw()
 ```
 
-
 ```{r readMeteodata, cache=T}
 dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 # paste(unique(dtwind$station), collapse = ", ")
 ```
+
 ## Afbakening
 Om het abiotische systeem in het Waddengebied te beschrijven, is de wind van groot belang, omdat deze direct en in sterke mate de waterbeweging in de Waddenzee beinvloedt. De windsterkte en de windrichting bepalen samen over welke afstand (strijklengte) de wind invloed kan uitoefenen op het wateroppervlak en hoe groot de windopzet of windafzet is. Ook wordt het merendeel van de golven in de Waddenzee lokaal opgewekt door de wind. Golven worden nader beschreven in de paragraaf [Golfhoogte en Golfperiode](#golfhoogte).
 
@@ -61,8 +61,6 @@ leaflet() %>%
 De windsterkte en windrichting vormen samen de basis voor de windforcering op het Waddengebied. De langjarige windrozen over de periode 1990 tot en met 2018 (figuur \@ref(fig:windroos)) laten zien dat de wind overwegend uit het zuidwesten komt en de hogere windsnelheden overwegend uit het zuidwesten tot noordoosten komen. De verschillende rozen tonen dat er tussen de verschillende stations verschillen zitten in de windsterkte. De hoogste snelheden worden gemeten op Vlieland.
 
 ```{r windroos, fig.show="hold", out.width="50%", fig.width = 8, fig.cap="Windroos over de periode 1990 - 2018. Kleuren geven klassen van windsnelheid aan, de lengte van de spaken de windsterktefrequentie/voorkomen per windrichting."}
-
-require(RColorBrewer)
 
 # inlezen knmi data
 winddatalist <- dtwind %>% 

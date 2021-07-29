@@ -22,7 +22,11 @@ In dit hoofdstuk is de beschrijving van de hydrodynamiek beperkt tot de watersta
 
 Metingen van bijvoorbeeld stroomsnelheden zijn schaars en worden niet continu uitgevoerd. Daarom zijn deze niet opgenomen in deze rapportage. Bovendien worden de stroomsnelheden sterk beïnvloed door de lokale bodemligging. Veranderingen in stroomsnelheden op een bepaald punt zijn sterk gekoppeld aan (lokale) veranderingen in de morfologie. Debieten door de zeegaten vormen ook een interessante parameter, maar deze zijn niet consistent bemeten. Daarom zijn de debieten eveneens niet opgenomen.
 
-![Waterbeweging in de tijd (bron: Van Rijn, 1994)](images\getijVanRijn1994.png)
+```{r getijVanRijn1994, out.width="80%", fig.cap= "Waterbeweging in de tijd (bron: Van Rijn, 1994)" }
+knitr::include_graphics("images/getijVanRijn1994.png")
+```
+
+
 
 De waterstanden in de Waddenzee worden voor een groot deel bepaald door het getij. Het getij ontstaat door de aantrekkende kracht van de maan en de zon op de aarde. De variaties in het getij ontstaan door de draaiing van de aarde en de positie van de aarde t.o.v. de maan en de zon en doordat de maan en de aarde zich in een baan rond de zon bewegen. Daarnaast wordt het getij vervormd door de bodemligging van zeeën en oceanen. Wiskundig gezien kan het getij worden ontleed in groot aantal sinusvormige golven: de getijcomponenten. De M2-component ontstaat door de aantrekkingskracht van de maan en is een belangrijke getijcomponent in de Noordzee en de Waddenzee. De belangrijkste periodieke variaties in het getij zorgen voor de zogeheten dagelijkse ongelijkheid, de springtij-doodtij cyclus (interactie M2 en S2 component) en de 18,6-jarige cyclus. Vanaf de zeegaten dringt het getij als een langgerekte golf de bekkens binnen. De geringer wordende diepte en de geometrie van het bekken vervormen het getij. De waterstanden worden verder beinvloed door windforcering (zie [hoofdstuk wind](#wind)) en luchtdruk. 
 
@@ -149,7 +153,7 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
 De getijslag (figuur \@ref(fig:getijslag)), die wordt gevormd door de combinatie van de GHW en de GLW, laat zien dat er sinds 1985 fluctuaties zijn als gevolg van de 18,6 jarige cyclus, en ook dat er op sommige stations een dalende trend lijkt te zijn, terwijl op andere stations een stijgende trend in de data zit. Indien de tijdreeksen worden uitgebreid met de historische data, kunnen deze schommelingen beter in historisch perspectief worden geplaatst.
 
 
-```{r getijslag, fig.height=16, fig.width=10, fig.cap="Jaargemiddelde getijslag per stations. De lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
+```{r getijslag, fig.height=16, fig.width=10, fig.cap="Jaargemiddelde getijslag per station. De lijn is een linaire regressie door alle data rekening houdend met een cyclus van 18.6 jaar."}
 
 rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
     # filter(HL == "L") %>%
@@ -168,6 +172,49 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
 
 ```
 
+
+```{r kaartGetijslag, fig.height=6, fig.width=8, fig.cap="Gemiddelde getijslag per station."}
+
+
+metadata <- read_delim(file.path(datadir, "ddl\\metadata\\Wadden_metadata.csv"),delim = ";") %>%
+  distinct(locatie.naam, x, y)
+
+gemGetijslag <- rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
+    # filter(HL == "L") %>%
+    mutate(jaar = year(time)) %>% 
+    filter(jaar != 2021 & jaar > 1970) %>%
+  group_by(locatie.naam, jaar, HL) %>% summarise(mean = mean(h)) %>%
+  pivot_wider(id_cols = c(locatie.naam, jaar), names_from = HL, values_from = mean) %>%
+  mutate(`getijslag in cm` = H-L) %>% ungroup() %>%
+  group_by(locatie.naam, `gemiddelde getijslag in cm` = mean(`getijslag in cm`, na.rm = T)) %>%
+  ungroup() %>%
+    left_join(metadata, by = c(locatie.naam = "locatie.naam")) %>%
+  sf::st_as_sf(coords = c("x", "y"), crs = 25831) %>%
+  st_transform(4326) 
+
+pal <- colorNumeric(
+  palette = "viridis",
+  domain = gemGetijslag$`gemiddelde getijslag in cm`)
+
+
+leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(radius = 7, label = ~paste(locatie.naam, ", gemiddelde getijslag =", `gemiddelde getijslag in cm`, "cm"), color = ~ pal(`gemiddelde getijslag in cm`)) %>%
+  leaflet::addLegend(pal = pal, values = gemGetijslag$`gemiddelde getijslag in cm`)
+
+# 
+#   ggplot() +
+#   geom_point(aes(jaar, `getijslag in cm`)) +
+#   geom_smooth(aes(jaar, `getijslag in cm`), method = "lm", 
+#                 formula = y ~ x + I(cos(2 * pi * x / (18.6))) + I(sin(2 * pi * (x) / (18.6)))) +
+#   # geom_line(aes(x = jaar, y=zoo::rollmean(`getijslag in cm`, 19, na.pad=TRUE))) + # poging om rolling average toe te voegen. Ziet er lelijk uit
+#   facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
+#   theme_hy
+
+```
+
+
+
 ## GLLWS & GHHWS
 
 De GLLWS en GHHWS moet nog worden uitgewerkt.
@@ -176,12 +223,32 @@ De GLLWS en GHHWS moet nog worden uitgewerkt.
 
 De M~2~-component van het getij heeft de grootste amplitude en ontstaat door aantrekkingskracht van de maan. De S~2~-component wordt veroorzaakt door de aantrekkingskracht van de zon en vormt met de M~2~ component de springtij-doodtij cyclus. De M~4~-component is een hogere harmonische component en een ondiepwatereffect van M~2~ (i.e. harmonische boventoon / veelvoud van M~2~). Ondiepwatereffecten ontstaat doordat de getijgolf sneller voorplant in hoogwater dan in laagwater.
 
-De M~4~/M~2~ amplitudeverhouding en het relatief faseverschil $2\u03C7M~2~ - \u03C7M~4~$ kunnen worden gebruikt voor de kwantificatie van de getijasymmetrie die belangrijk is voor het netto sedimenttransport (Friedrichs en Aubrery, 1988). Het relatief faseverschil bepaalt de aard van de asymmetrie: de pieksnelheid is vloeddominant als het tussen 0 en 180 graden is en ebdominant als het tussen 180 en 360 graden is. De grootte van de amplitudeverhouding ($M~4~/M~2~$) is een indicator voor de sterkte van de asymmetrie.
+De M~4~/M~2~ amplitudeverhouding en het relatief faseverschil $2 \phi M_{2} - \phi M_{4}$ kunnen worden gebruikt voor de kwantificatie van de getijasymmetrie die belangrijk is voor het netto sedimenttransport (Friedrichs en Aubrery, 1988). Het relatief faseverschil bepaalt de aard van de asymmetrie: de pieksnelheid is vloeddominant als het tussen 0 en 180 graden is en ebdominant als het tussen 180 en 360 graden is. De grootte van de amplitudeverhouding (M~4~/M~2~) is een indicator voor de sterkte van de asymmetrie.
 
-![Amplitude en fase van de M2-component voor alle stations](images\ts_M2.png)
-![Amplitude en fase van de S2-component voor alle stations](images\ts_S2.png)
-![Amplitude en fase van de M4-component voor alle stations](images\ts_M4.png)
-![Amplitude en fase van de mate van getij-asymmetrie M4/M2 en het relatieve faseverschil 2M2-M4 voor alle stations](images\ts_M4divM2.png)
+```{r tsM2, fig.cap="Amplitude en fase van de M~2~-component voor alle stations"}
+knitr::include_graphics("images/ts_M2.png")
+```
+
+
+```{r tsS2, fig.cap="Amplitude en fase van de S~2~-component voor alle stations"}
+knitr::include_graphics("images/ts_S2.png")
+```
+
+
+
+
+
+```{r tsM4, fig.cap="Amplitude en fase van de M~4~-component voor alle stations"}
+knitr::include_graphics("images/ts_M4.png")
+```
+
+
+
+```{r M4divM2, fig.cap="Amplitude en fase van de mate van getij-asymmetrie M~4~/M~2~ en het relatieve faseverschil 2M2-M4 voor alle stations"}
+knitr::include_graphics("images/ts_M4divM2.png")
+```
+
+
 
 
 ##	Waterhoogte bij storm
@@ -262,7 +329,7 @@ ggplot(aes(year, p995)) +
 
 
 
-```{r kaartjeMaximaleStormhoogte}
+```{r kaartjeMaximaleStormhoogte, fig.cap="Kaart met de maximale waarden van het 99,5 percentiel door de jaren. "}
 
 pal <- colorNumeric(
   palette = "viridis",
@@ -277,7 +344,8 @@ yearlyStat %>% group_by(station) %>%
   st_transform(4326) %>%
   leaflet() %>%
   addTiles() %>%
-  addCircleMarkers(radius = 5, label = ~station, color = ~ pal(`maximum p99,5 waterstand`))
+  addCircleMarkers(radius = 7, label = ~paste(station, ", maximum =", `maximum p99,5 waterstand`), color = ~ pal(`maximum p99,5 waterstand`)) %>%
+  leaflet::addLegend(pal = pal, values = yearlyStat$p995)
 
 ```
 
@@ -424,6 +492,8 @@ afvoer.df <- rbindlist(afvoer.lst, idcol = "locatie.naam") %>%
 
 
 ```{r histogramAfvoer, include=F, evaluate = F, fig.width=8, fig.height=4, fig.cap = ""}
+
+
 afvoer.df %>% mutate(jaar = year(datum)) %>%
   select(locatie, datum, tijd, waarde, tydstp, jaar) %>% 
   filter(waarde != 0) %>%
