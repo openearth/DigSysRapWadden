@@ -1,7 +1,7 @@
 
 # still to be finalised
 
-runonline = F
+runonline = T
 local = F
 
 startyear <- 1990

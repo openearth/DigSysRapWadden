@@ -1,5 +1,5 @@
 
-# Informatiebehoefte 
+# Informatiebehoefte {#Informatiebehoefte}
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 
@@ -28,6 +28,7 @@ Ook wat betreft de data-ontsluiting zijn er verbeterpunten. Zeker bij het werken
 
 - Parameter zwevende stof zit niet in Data Distributie Laag van waterinfo (en dus ook niet in waterinfo). Deze data zijn los opgevraagd bij de Servicedesk.
 - Oude waterstandsgegevens (voor 1986) en de gerapporteerd HW en LW zitten niet in Data Distributie Laag en zijn los opgevraagd. Voor de getij-analyse zijn deze inlezen van de Open Earth DataServer.
+- De waterstanden op de stations AWG platform, Den Oever buiten, Kornwerderzand buiten, Nieuwe Statenzijl, Oudeschild, Termuntenzijl en Vlieland haven zitten niet in de Data Distributie Laag. De reden hiervoor is niet bekend, maar het is wel waardevol deze data alsnog te ontsluiten, zodat ze in de rapportage kunnen worden opgenomen.
 - De getijcomponenten zijn niet beschikbaar. Binnen project xx (Deltares referentie 11205235) is een Python toolbox ontwikkeld om deze componenten uit te rekenen voor ondiepe gebieden als de Waddenzee. Deze berekeningen zijn gekoppeld aan deze digitale rapportage, waarmee het afleiden van de getijcomponenten reproduceerbaar is geworden. Ook worden daarmee dezelfde componenten in de verschillende studies gebruikt. Wij bevelen aan deze werkwijze/Python toolbox verder te formaliseren.
 
 Er zijn verschillende projectmetingen beschikbaar, die waardevol zouden zijn om goed te ontsluiten. Het memo [Voorstel nieuwe metingen slibhuishouding Waddenzee](https://publicwiki.deltares.nl/download/attachments/137135283/BG2802-RHD-ZZ-XX-NT-Z-0001_voorstel%20nieuwe%20metingen_versie%203a.pdf?version=1&modificationDate=1580229139728&api=v2) geeft hiervan een overzicht.

@@ -1,6 +1,6 @@
 # (APPENDIX) Appendix {-} 
 
-# Appendix A - Werkwijze
+# Appendix A - Versies
 
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
@@ -8,30 +8,18 @@
 knitr::opts_chunk$set(echo = FALSE,	message = FALSE, warning = FALSE)
 ```
 
-## Achtergrond
-
-## Proces
-
-## Gebruikte data
-
-
-```{r dataoverzicht}
-# code om dataoverzicht in nette tabel weer te geven. 
-
-
-```
-
 
 ## Versies van het rapport
 
-In \@ref(rapportversie) wordt de versie van de eerstelijnsrapportage beschreven. Een keer per jaar wordt de rapportage ververst. Eventuele bijzonderheden over deze versie staan hier ook.
+In \@ref(rapportversie) wordt de versie van de systeemrapportage beschreven. 
+
 
 ## Versies van de data
 
 
 ## Versiebeheer van de code
 
-De code wordt bewaard op SVN onder versiebheer (adres)
+De code wordt bewaard op SVN onder versiebeheer (adres).
 
 # Appendix B: Gebruikte software en packages
 
@@ -43,11 +31,13 @@ pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
 # Appendix C
 
 ## Brondata waterstanden en berekeningswijze GHW, GLW en getijslag {#Appwaterstanden}
-Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de waterstand ingelezen van de Data Distributielaag. De berekening van GHW en GLW is gedaan door in de tijdseries met waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld) is daarvan een voorbeeld te zien. Vervolgens worden deze hoogwaters en laagwaters per jaar gemiddeld. De getijslag wordt berekend door $GHW-GLW$. 
+Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de waterstand ingelezen van de Data Distributie Laag. De berekening van GHW en GLW is gedaan door in de tijdseries met waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld) is daarvan een voorbeeld te zien. Vervolgens worden deze hoogwaters en laagwaters per jaar gemiddeld. De getijslag wordt berekend door $GHW-GLW$. 
 
 Om trends te kunnen bepalen is vervolgens een lineaire trendlijn toegevoegd die varieert met de 18,6 jarige cyclus. Doordat de frequentie van de 18,6 jarige cyclus bekend is en de tijdserie voldoende lang, kan de software zelf de amplitude en de fase van de 18,6-jarige cyclus fitten.
 
-Voor 1984 is met een lagere frequentie gemeten (1 uur en nog eerder zelfs 3 uur) en is deze methode te onnauwkeurig. Voor die periode zal de RWS dataset van hoog- en laagwaterstanden worden gebruikt en worden gemiddeld per jaar.
+Voor 1984 is met een lagere frequentie gemeten (1 uur en nog eerder zelfs 3 uur) en is deze methode te onnauwkeurig. Voor die periode zal de RWS dataset van hoog- en laagwaterstanden worden gebruikt en worden gemiddeld per jaar. Deze data zijn momenteel nog niet beschikbaar. Ook missen er nog enkele stations (zie hoofdstuk \@ref(Informatiebehoefte)).
+
+![Tijdstap voor alle stations](images\ts_timestep.png)
 
     
     ```{r loadWaterhoogteData}
@@ -151,5 +141,10 @@ Er is gewerkt met 1 polygoon van het Friesche Zeegat, dat wil zeggen dat voor al
 
 
 
+```{r dataoverzicht}
+# code om dataoverzicht in nette tabel weer te geven. 
+
+
+```
 
 
