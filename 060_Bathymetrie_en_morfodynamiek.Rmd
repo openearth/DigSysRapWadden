@@ -170,10 +170,10 @@ rbindlist(dftot,idcol = "vak") %>%
   group_by(vak, year) %>%
   mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
   ggplot() +
-  geom_line(aes(x = (20*20*ncells/nsamples)*(cum/count)/1000000, y = depth, color = as.factor(year)), size = 0.5) +
-  facet_grid(vak ~ class, scales = "free") +
-  coord_cartesian(xlim = c(0,NA)) +
-  xlab("area in km2") + ylab("diepte") +
+  geom_point(aes(x = year, y = (20*20*ncells/nsamples)*(cum/count)/1000000), size = 0.5) +
+  facet_grid(class ~ vak, scales = "free") +
+  coord_cartesian(xlim = c(2000,2020)) +
+  xlab("jaar") + ylab("area in km2") +
   theme(legend.position = "bottom")
 
 ```
