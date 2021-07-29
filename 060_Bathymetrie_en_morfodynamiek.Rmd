@@ -132,10 +132,11 @@ rbindlist(dftot,idcol = "vak") %>% sample_n(sample) %>%
 arrange(depth) %>%
 group_by(vak, year) %>%
   mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
+  mutate(oppervlakte = factor*400*(cum/count)/1000000) %>%
   ggplot() +
-  geom_line(aes(x = factor*400*(cum/count)/1000000, y = depth, color = class), size = 1.5) +
+  geom_line(aes(x = oppervlakte, y = depth, color = class), size = 1.5) +
   facet_grid(vak ~ year, scales = "free") +
-  xlab("area in km2") + ylab("diepte") +
+  xlab("oppervlakte in km2") + ylab("diepte") +
   theme(legend.position = "bottom")
 
 ```
@@ -147,11 +148,12 @@ p <- rbindlist(dftot,idcol = "vak") %>% sample_n(sample) %>%
   arrange(depth) %>%
   group_by(vak, year) %>%
   mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
+  mutate(oppervlakte = factor*400*(cum/count)/1000000) %>%
   ggplot() +
-  geom_line(aes(x = factor*400*(cum/count)/1000000, y = depth, color = as.factor(year)), size = 0.5) +
+  geom_line(aes(x = oppervlakte, y = depth, color = as.factor(year)), size = 0.5) +
   facet_grid(vak ~ class, scales = "free") +
   coord_cartesian(xlim = c(0,NA)) +
-  xlab("area in km2") + ylab("diepte") +
+  xlab("oppervlakte in km2") + ylab("diepte") +
   theme(legend.position = "bottom")
 require(plotly)
 ggplotly(p)
@@ -229,7 +231,7 @@ Brakwaterzones (waarom alleen deze?)
 
 
 
-```{r Ecotopen, eval=FALSE, fig.cap="Ecotopen cyclus opgenomen in het Volkerak-Zoommeer", fig.width =8 , fig.height =8, out.width = "100%"}
+```{r Ecotopen, fig.cap="Ecotopen cyclus opgenomen in het Volkerak-Zoommeer", fig.width =8 , fig.height =8, out.width = "100%"}
 #Voorbeeld hier gevonden: https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/
 library(sf)
 library(httr) 
