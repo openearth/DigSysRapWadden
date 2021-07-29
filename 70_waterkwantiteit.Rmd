@@ -186,7 +186,7 @@ gemGetijslag <- rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam"
   group_by(locatie.naam, jaar, HL) %>% summarise(mean = mean(h)) %>%
   pivot_wider(id_cols = c(locatie.naam, jaar), names_from = HL, values_from = mean) %>%
   mutate(`getijslag in cm` = H-L) %>% ungroup() %>%
-  group_by(locatie.naam, `gemiddelde getijslag in cm` = mean(`getijslag in cm`, na.rm = T)) %>%
+  group_by(locatie.naam) %>% summarize(`gemiddelde getijslag in cm` = mean(`getijslag in cm`, na.rm = T)) %>%
   ungroup() %>%
     left_join(metadata, by = c(locatie.naam = "locatie.naam")) %>%
   sf::st_as_sf(coords = c("x", "y"), crs = 25831) %>%
@@ -197,9 +197,9 @@ pal <- colorNumeric(
   domain = gemGetijslag$`gemiddelde getijslag in cm`)
 
 
-leaflet() %>%
+leaflet(gemGetijslag) %>%
   addTiles() %>%
-  addCircleMarkers(radius = 7, label = ~paste(locatie.naam, ", gemiddelde getijslag =", `gemiddelde getijslag in cm`, "cm"), color = ~ pal(`gemiddelde getijslag in cm`)) %>%
+  addCircleMarkers(radius = 7, label = ~paste(locatie.naam, ", gemiddelde getijslag =", trunc(`gemiddelde getijslag in cm`), "cm"), color = ~ pal(`gemiddelde getijslag in cm`)) %>%
   leaflet::addLegend(pal = pal, values = gemGetijslag$`gemiddelde getijslag in cm`)
 
 # 
