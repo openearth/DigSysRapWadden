@@ -53,52 +53,12 @@ De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in de [Appen
 De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde periode van 1985 tot heden. Ook de ruimtelijke verschillen over de Waddenzee zijn duidelijk terug te zien in de grafieken.
 
 
-```{r loadWaterhoogteData}
-
-load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-26", ".Rdata")))
-df_all_WATHTE2 <- df_all_WATHTE %>%
-# filter(year(tijdstip) >=2000) %>% # voor testen
-arrange(tijdstip) %>%
-  group_split(locatie.naam)
-
-names(df_all_WATHTE2) <- map_chr(df_all_WATHTE2, function(x) unique(x$locatie.naam))
-
-```
-
-```{r berekeningGaps, include = F, eval=F}
-
-gaps <- lapply(df_all_WATHTE2,
-       function(x) Tides::gapsts(x$tijdstip, dtMax = 11, unit = "mins")
-)
-# gaps <- Tides::gapsts(df_all_WATHTE2[[3]]$tijdstip, dtMax = 61, unit = "mins")
-
-rbindlist(gaps, idcol = "locatie.naam") %>%
-  ggplot() +
-  geom_point(aes(x = t1, y = dt/(60*60)), color = "red", size = 1) +
-  facet_wrap(~locatie.naam) +
-  # coord_cartesian(ylim = c(0,10)) +
-  theme_hy
-```
-
-```{r berekeningExtrema,"}
-
-
-h <- lapply(df_all_WATHTE2, function(x) 
-  x %>% dplyr::select(time = tijdstip, h = numeriekewaarde) %>% filter(year(time) > 1984)
-  )
-
-extrema = lapply(h, function(x) Tides::extrema(x, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3))
-
-# h <- df_all_WATHTE2[[3]] %>%
-#   select(time = tijdstip, h = numeriekewaarde)
-# 
-# extrema <- Tides::extrema(h, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3)
-
-```
 
 ```{r Hoogwaters, fig.height=20, fig.width=10, fig.cap="Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
 
-rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
+df.extrema <- read_delim(file.path(datadir, "ddl", "standard", paste0("extremaHLLL", today(), ".csv")), delim = ";")
+
+df.extrema %>%
   filter(HL == "H") %>%
   mutate(
     jaar = year(time)
@@ -130,7 +90,7 @@ De GLW (figuur \@ref(fig:Laagwaters)) laten voor de meeste stations ook een stij
 
 ```{r Laagwaters, fig.height=20, fig.width=10, fig.cap="Jaargemiddeld laagwater (GLW) per stations. De lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
 
-rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
+df.extrema %>%
   filter(HL == "L") %>%
     mutate(
       jaar = year(time)
@@ -161,7 +121,7 @@ Figuur \@ref(fig:kaartGetijslag) geeft de gemiddelde getijslag over de in figuur
 
 ```{r getijslag, fig.height=16, fig.width=10, fig.cap="Jaargemiddelde getijslag per station. De lijn is een linaire regressie door alle data rekening houdend met een cyclus van 18.6 jaar."}
 
-rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
+df.extrema %>%
     # filter(HL == "L") %>%
     mutate(jaar = year(time)) %>% 
     filter(jaar != 2021 & jaar > 1970) %>%
@@ -185,7 +145,7 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
 metadata <- read_delim(file.path(datadir, "ddl\\metadata\\Wadden_metadata.csv"),delim = ";") %>%
   distinct(locatie.naam, x, y)
 
-gemGetijslag <- rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
+gemGetijslag <- df.extrema %>%
     # filter(HL == "L") %>%
     mutate(jaar = year(time)) %>% 
     filter(jaar != 2021 & jaar > 1970) %>%
@@ -207,15 +167,6 @@ leaflet(gemGetijslag) %>%
   addTiles() %>%
   addCircleMarkers(radius = 7, label = ~paste(locatie.naam, ", gemiddelde getijslag =", trunc(`gemiddelde getijslag in cm`), "cm"), color = ~ pal(`gemiddelde getijslag in cm`)) %>%
   leaflet::addLegend(pal = pal, values = gemGetijslag$`gemiddelde getijslag in cm`)
-
-# 
-#   ggplot() +
-#   geom_point(aes(jaar, `getijslag in cm`)) +
-#   geom_smooth(aes(jaar, `getijslag in cm`), method = "lm", 
-#                 formula = y ~ x + I(cos(2 * pi * x / (18.6))) + I(sin(2 * pi * (x) / (18.6)))) +
-#   # geom_line(aes(x = jaar, y=zoo::rollmean(`getijslag in cm`, 19, na.pad=TRUE))) + # poging om rolling average toe te voegen. Ziet er lelijk uit
-#   facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
-#   theme_hy
 
 ```
 

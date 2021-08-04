@@ -295,6 +295,8 @@ monthlyStat <- df.h.d[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterdams Pe
 
 write_delim(monthlyStat, file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", today(), ".csv")), delim = ";")
 
+#==== jaarlijkse statistiek ============
+#
 yearlyStat <- df_all[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterdams Peil" & grootheid.code == "WATHTE", .(
   year = lubridate::year(tijdstip),
   station = locatie.naam,
@@ -315,6 +317,42 @@ rm(df_all, df_all_WATHTBRKD, df_all_WATHTE)
 
 # df_all %>% group_by(locatie.naam, grootheid.code) %>% summarise(n = n()) %>% View()
 # waterhoogteLocaties <- df_all %>% distinct(locatie.naam) %>% unlist %>% unname
+# 
+
+#===== berekening extrema ===========
+
+
+load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-26", ".Rdata")))
+
+df_all_WATHTE2 <- df_all_WATHTE %>%
+  # filter(year(tijdstip) >=2000) %>% # voor testen
+  arrange(tijdstip) %>%
+  group_split(locatie.naam)
+
+names(df_all_WATHTE2) <- map_chr(df_all_WATHTE2, function(x) unique(x$locatie.naam))
+
+
+# gaps <- lapply(df_all_WATHTE2,
+#                function(x) Tides::gapsts(x$tijdstip, dtMax = 11, unit = "mins")
+# )
+# 
+# rbindlist(gaps, idcol = "locatie.naam") %>%
+#   ggplot() +
+#   geom_point(aes(x = t1, y = dt/(60*60)), color = "red", size = 1) +
+#   facet_wrap(~locatie.naam) +
+#   # coord_cartesian(ylim = c(0,10)) +
+#   theme_hy
+
+
+h <- lapply(df_all_WATHTE2, function(x) 
+  x %>% dplyr::select(time = tijdstip, h = numeriekewaarde) %>% filter(year(time) > 1984)
+  )
+
+extrema = lapply(h, function(x) Tides::extrema(x, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3))
+
+df.extrema = rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam")
+
+write_delim(df.extrema, file.path(datadir, "ddl", "standard", paste0("extremaHLLL", today(), ".csv")), delim = ";")
 
 #================================================================
 
