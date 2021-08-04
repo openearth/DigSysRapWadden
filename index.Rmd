@@ -1,6 +1,6 @@
 ---
 title: "Digitale systeemrapportage Wadden, concept 0.1"
-author: "Deltares, Willem Stolte, Julia Vroom, Giorgio Santinelli"
+author: "Deltares, Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra"
 date: '`r Sys.Date()`'
 link-citations: yes
 subtitle: "Natuurmonitoring, onderdeel morfologie"
@@ -52,7 +52,7 @@ Om deze doelen te bereiken werken we voor Natuurmonitoring, onderdeel morfologie
 
 Het ontsluiten van de juiste data en het werken naar een consistente dataverzameling en verwerking en de kwaliteitsborging valt onder 'Data op orde'. Het [Datahuis Wadden](https://basismonitoringwadden.waddenzee.nl/datahuis/datahuis-wadden) werkt hieraan. 
 
-Deze systeemrapportage draagt bij aan de pijler 'Informatie op orde'. We stellen een aantal abiotische indicatoren op, waarmee we de toestand en trends van het (abiotische) systeem kunnen beschrijven. Veel indicatoren zijn in verschillende studies en projecten al eens afgeleid, maar binnen het huidige project gebeurd dit op een consistente manier. De digitale rapportage maakt het bovendien mogelijk de rapportage gemakkelijker te updaten indien nieuwe monitoringsdata beschikbaar komen. Het analyseren van de ontwikkelingen, het verklaren van geobserveerde trends en het toetsen van indicatoren is geen onderdeel van de systeemrapportage. Die werkzaamheden vallen onder de pijler 'Kennis op orde'.
+Deze systeemrapportage draagt bij aan de pijler 'Informatie op orde'. We stellen een aantal abiotische indicatoren op, waarmee we de toestand en trends van het (abiotische) systeem kunnen beschrijven. Veel indicatoren zijn in verschillende studies en projecten al eens afgeleid, maar binnen het huidige project gebeurt dit op een consistente manier. De digitale rapportage maakt het bovendien mogelijk de rapportage gemakkelijker te updaten indien nieuwe monitoringsdata beschikbaar komen. Het analyseren van de ontwikkelingen, het verklaren van geobserveerde trends en het toetsen van indicatoren is geen onderdeel van de systeemrapportage. Die werkzaamheden vallen onder de pijler 'Kennis op orde'.
 
 Een kombergingsrapportage is een voorbeeld van een product onder de pijler 'Kennis op orde'. 
 
