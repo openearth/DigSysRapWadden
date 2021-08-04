@@ -124,7 +124,7 @@ De berekeningswijze van de Gemiddelde LoogWaterstanden vergelijkbaar met de GHW 
 De GLW (figuur \@ref(fig:Laagwaters)) laten voor de meeste stations ook een stijging zien. Ook is wederom te zien dat de laagwaterniveaus verschillen over de Waddenzee.
 
 
-```{r Laagwaters, fig.height=20, fig.width=10, fig.cap="Jaargemiddeld laagwater (GHW) per stations. De lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
+```{r Laagwaters, fig.height=20, fig.width=10, fig.cap="Jaargemiddeld laagwater (GLW) per stations. De lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
 
 rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
   filter(HL == "L") %>%
@@ -151,6 +151,8 @@ rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam") %>%
 ## Getijslag 
 
 De getijslag (figuur \@ref(fig:getijslag)), die wordt gevormd door de combinatie van de GHW en de GLW, laat zien dat er sinds 1985 fluctuaties zijn als gevolg van de 18,6 jarige cyclus, en ook dat er op sommige stations een dalende trend lijkt te zijn, terwijl op andere stations een stijgende trend in de data zit. Indien de tijdreeksen worden uitgebreid met de historische data, kunnen deze schommelingen beter in historisch perspectief worden geplaatst.
+
+Figuur \@ref(fig:kaartGetijslag) geeft de gemiddelde getijslag over de in figuur \@ref(fig:getijslag) getoonde periode weer op de kaart in de Waddenzee. De figuur toont dat de getijslag toeneemt van west naar oost, en dat bij Delfzijl de getijslag het grootste is, door opslingering van het getij in het Eems estuarium. De meeste waterstandstations liggen in geulen, behalve Wierumerwad1 en Uithuizerwad 1. Deze twee stations tonen een kleinere getijslag omdat ze een gedeelte van de tijd droogvallen.
 
 
 ```{r getijslag, fig.height=16, fig.width=10, fig.cap="Jaargemiddelde getijslag per station. De lijn is een linaire regressie door alle data rekening houdend met een cyclus van 18.6 jaar."}
