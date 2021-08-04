@@ -44,7 +44,7 @@ Basismonitoring Wadden heeft tot doelen:
 * effectieve en efficiente systeemgerichte monitoring uit te (laten) voeren
 * het ontsluiten van de beschikbare informatie en monitoringgegevens.
 
-Om deze doelen te bereiken werken we voor Natuurmonitoring, onderdeel morfologie met drie pijlers:
+Om deze doelen te bereiken werken we voor Natuurmonitoring, onderdeel morfologie met drie pijlers (figuur \@ref(fig:driepijlers)):
 
 * data op orde
 * informatie op orde
@@ -56,7 +56,11 @@ Deze systeemrapportage draagt bij aan de pijler 'Informatie op orde'. We stellen
 
 Een kombergingsrapportage is een voorbeeld van een product onder de pijler 'Kennis op orde'. 
 
-![De drie pijlers binnen Natuurmonitoring met de positie van deze digitale systeemrapportage rood omcirkeld.](images/driepijlers.jpg)
+
+```{r driepijlers, out.width="80%", fig.cap= "De drie pijlers binnen Natuurmonitoring met de positie van deze digitale systeemrapportage rood omcirkeld." }
+knitr::include_graphics("images/driepijlers.jpg")
+```
+
 
 ## Afbakening
 

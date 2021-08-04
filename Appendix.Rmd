@@ -31,13 +31,16 @@ pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
 # Appendix C: Brondata en post-processing
 
 ## Brondata waterstanden en berekeningswijze GHW, GLW en getijslag {#Appwaterstanden}
-Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de waterstand ingelezen van de Data Distributie Laag. De berekening van GHW en GLW is gedaan door in de tijdseries met waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld) is daarvan een voorbeeld te zien. Vervolgens worden deze hoogwaters en laagwaters per jaar gemiddeld. De getijslag wordt berekend door $GHW-GLW$. 
+Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de waterstand ingelezen van de Data Distributie Laag. De berekening van GHW en GLW is gedaan door in de tijdseries met waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld2) is daarvan een voorbeeld te zien. Vervolgens worden deze hoogwaters en laagwaters per jaar gemiddeld. De getijslag wordt berekend door $GHW-GLW$. 
 
 Om trends te kunnen bepalen is vervolgens een lineaire trendlijn toegevoegd die varieert met de 18,6 jarige cyclus. Doordat de frequentie van de 18,6 jarige cyclus bekend is en de tijdserie voldoende lang, kan de software zelf de amplitude en de fase van de 18,6-jarige cyclus fitten.
 
-Voor 1984 is met een lagere frequentie gemeten (1 uur en nog eerder zelfs 3 uur) en is deze methode te onnauwkeurig. Voor die periode zal de RWS dataset van hoog- en laagwaterstanden worden gebruikt en worden gemiddeld per jaar. Deze data zijn momenteel nog niet beschikbaar. Ook missen er nog enkele stations (zie hoofdstuk \@ref(Informatiebehoefte)).
+Voor 1984 is met een lagere frequentie gemeten (1 uur en nog eerder zelfs 3 uur, zie figuur \@ref(fig:tijdstap)) en is deze methode te onnauwkeurig. Voor die periode zal de RWS dataset van hoog- en laagwaterstanden worden gebruikt en worden gemiddeld per jaar. Deze data zijn momenteel nog niet beschikbaar. Ook missen er nog enkele stations (zie hoofdstuk \@ref(Informatiebehoefte)).
 
-![Tijdstap voor alle stations](images\ts_timestep.png)
+```{r tijdstap, out.width="80%", fig.cap= "Tijdstap voor alle stations" }
+knitr::include_graphics("images\ts_timestep.png")
+```
+
 
     
 ```{r loadWaterhoogteData2}
