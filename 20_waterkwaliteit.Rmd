@@ -61,7 +61,7 @@ De watertemperatuur wordt opgenomen als indicator omdat deze direct van invloed 
 
 Figuur \@ref(fig:jaargemiddeldeTemp) toont de jaargemiddelde watertemperatuur in rood, de maandgemiddelden als zwarte punten en de individuele metingen als grijze punten. De punten laten de seizoensdynamiek zien met hogere waarden in de zomer (tot 20-25 graden Celcius). De locaties die dieper in de bekkens liggen tonen daarbij iets hogere piektemperaturen dan de meetpunten in dieper water, nabij de zeegaten en in de Noordzee.
 
-De zomer- en wintergemiddelden (figuur \@ref(fig:seizoensgemiddeldenWatertemperatuur)) laten ook geen duidelijke trends zien. Het zomergemiddelde (tussen 1 april en 30 september) ligt voor de meeste locaties rond de 15 graden en het wintergemiddelde (tussen 1 oktober en 31 maart) rond de 7 graden. De hogere temperaturen dieper in de bekkens lijken bij middeling naar een half jaar grotendeels weg te vallen, zowel in de zomer als de winter.
+De zomer- en wintergemiddelden (figuur \@ref(fig:seizoensgemiddeldenWatertemperatuur)) laten een stijging in de watertemperatuur zien, waarbij vooral de watertemperatuur in de zomer toeneemt. Het zomergemiddelde (tussen 1 april en 30 september) ligt voor de meeste locaties rond de 15 graden en het wintergemiddelde (tussen 1 oktober en 31 maart) rond de 7 graden. In de winter tonen de Noordzeestations hogere temperaturen, en in de zomer juist lagere temperaturen dan de stations die dieper in de bekkens liggen.
 
 
 ```{r jaargemiddeldeTemp, fig.height=15, fig.width=10, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). De figuur is interactief. "}

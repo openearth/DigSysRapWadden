@@ -1,6 +1,6 @@
 # (APPENDIX) Appendix {-} 
 
-# Appendix A - Versies
+# Appendix A: Versies
 
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
@@ -28,7 +28,7 @@ pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
 ```
 
 
-# Appendix C
+# Appendix C: Brondata en post-processing
 
 ## Brondata waterstanden en berekeningswijze GHW, GLW en getijslag {#Appwaterstanden}
 Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de waterstand ingelezen van de Data Distributie Laag. De berekening van GHW en GLW is gedaan door in de tijdseries met waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld) is daarvan een voorbeeld te zien. Vervolgens worden deze hoogwaters en laagwaters per jaar gemiddeld. De getijslag wordt berekend door $GHW-GLW$. 
