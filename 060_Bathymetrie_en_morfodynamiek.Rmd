@@ -267,7 +267,8 @@ leaflet() %>%
   #   group = "ecotopen_cyclus_5"
   # ) %>%
   addWMSLegend(
-    uri = paste0(request_ecotopen_cyclus_4)
+    uri = paste0(request_ecotopen_cyclus_4),
+    position = "bottomright"
   ) %>%
   addLayersControl(
     baseGroups = c("OSM", "Esri.WorldImagery"),
