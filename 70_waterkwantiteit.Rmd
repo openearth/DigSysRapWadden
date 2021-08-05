@@ -28,13 +28,13 @@ knitr::include_graphics("images/getijVanRijn1994.png")
 
 
 
-De waterstanden in de Waddenzee worden voor een groot deel bepaald door het getij. Het getij ontstaat door de aantrekkende kracht van de maan en de zon op de aarde. De variaties in het getij ontstaan door de draaiing van de aarde en de positie van de aarde t.o.v. de maan en de zon en doordat de maan en de aarde zich in een baan rond de zon bewegen. Daarnaast wordt het getij vervormd door de bodemligging van zeeën en oceanen. Wiskundig gezien kan het getij worden ontleed in groot aantal sinusvormige golven: de getijcomponenten. De M~2~-component ontstaat door de aantrekkingskracht van de maan en is een belangrijke getijcomponent in de Noordzee en de Waddenzee. De belangrijkste periodieke variaties in het getij zorgen voor de zogeheten dagelijkse ongelijkheid, de springtij-doodtij cyclus (interactie M~2~ en S~2~-component) en de 18,6-jarige cyclus. Vanaf de zeegaten dringt het getij als een langgerekte golf de bekkens binnen. De geringer wordende diepte en de geometrie van het bekken vervormen het getij. De waterstanden worden verder beinvloed door windforcering (zie [hoofdstuk wind](#wind)) en luchtdruk. 
+De waterstanden in de Waddenzee worden voor een groot deel bepaald door het getij. Het getij ontstaat door de aantrekkende kracht van de maan en de zon op de aarde. De variaties in het getij ontstaan door de draaiing van de aarde en de positie van de aarde t.o.v. de maan en de zon en doordat de maan en de aarde zich in een baan rond de zon bewegen. Daarnaast wordt het getij vervormd door de bodemligging van zeeën en oceanen. Wiskundig gezien kan het getij worden ontleed in groot aantal sinusvormige golven: de getijcomponenten. De M~2~-component ontstaat door de aantrekkingskracht van de maan en is een belangrijke getijcomponent in de Noordzee en de Waddenzee. De belangrijkste periodieke variaties in het getij zorgen voor de zogeheten dagelijkse ongelijkheid, de springtij-doodtij cyclus (interactie M~2~ en S~2~-component) en de 18,6-jarige cyclus. Vanaf de zeegaten dringt het getij als een langgerekte golf de bekkens binnen. De geringer wordende diepte en de geometrie van het bekken vervormen het getij. De waterstanden worden verder beinvloed door windforcering (zie hoofdstuk \@ref(wind)) en luchtdruk. 
 
 De Gemiddelde Hoog Water (GHW), Gemiddeld Hoog Hoogwater Spring (GHHWS), Gemiddelde Laag Water (GLW), Gemiddeld Laag Laagwater Spring (GLLWS) en de getijslag (GHW-GLW) zijn relevant voor de ecologie en de morfologische ontwikkeling en daarom opgenomen in deze rapportage. De hoogteligging van wadplaten en de vegetatiegroei is gekoppeld aan het niveau van hoogwater. De getijslag laat zien hoe het getij zich voortplant in het bekken. Veranderingen in de getijslag door de tijd leiden tot veranderingen in de stroomsnelheden en de droogvalduur van het intergetijdengebied en hebben daarmee invloed op de morfologie. 
 
 Ook de zeespiegelstijging is opgenomen. Evenals golven, die invloed hebben op de morfologie, de concentraties van zwevende stof in de waterkolom en de ecologie.
 
-In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterspui ontstaan, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in [paragraaf saliniteit](#saliniteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. De drie grootsten afvoerpunten zitten in de Afsluitdijk (Den Oever en Kornwerderzand) en bij het Lauwersmeer. De data van kleinere afvoeren is minder goed bijgehouden en/of ontsloten, en worden daarom in deze rapportage buiten beschouwing gelaten. 
+In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterspui ontstaan, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in paragraaf \@ref(saliniteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. De drie grootsten afvoerpunten zitten in de Afsluitdijk (Den Oever en Kornwerderzand) en bij het Lauwersmeer. De data van kleinere afvoeren is minder goed bijgehouden en/of ontsloten, en worden daarom in deze rapportage buiten beschouwing gelaten. 
 
 ##	Zeespiegelstijging
 
@@ -48,7 +48,7 @@ In deze rapportage is de jaargemiddelde waterstand voor de zes hoofdstations lan
 
 ## Gemiddeld Hoogwater (GHW)
 
-De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in de [Appendix Waterstanden](#Appwaterstanden). 
+De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix \@ref(Appwaterstanden). 
 
 De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde periode van 1985 tot heden. Ook de ruimtelijke verschillen over de Waddenzee zijn duidelijk terug te zien in de grafieken.
 
@@ -83,7 +83,7 @@ df.extrema %>%
 
 ## Gemiddeld Laagwater (GLW)
 
-De berekeningswijze van de Gemiddelde LoogWaterstanden vergelijkbaar met de GHW en opgenomen in [Appendix Waterstanden](#Appwaterstanden). 
+De berekeningswijze van de Gemiddelde LoogWaterstanden vergelijkbaar met de GHW en opgenomen in Appendix \@ref(Appwaterstanden). 
 
 De GLW (figuur \@ref(fig:Laagwaters)) laten voor de meeste stations ook een stijging zien. Ook is wederom te zien dat de laagwaterniveaus verschillen over de Waddenzee.
 
@@ -348,7 +348,7 @@ gdf %>%
   theme_hy
 ```
 
-De afwijking van maandgemiddelde golfhoogte ten opzichte van het langjarig gemiddelde is een maat voor de seizoensdynamiek (zie berekeningswijze in de [Appendix](#Appgolfhoogte)). In figuur \@ref(fig:golfanomalie) is dit uitgezet voor alle stations. Te zien is dat er in de winter over het algemeen hogere golven zijn dan in de zomer. In Uithuizerwad en Wieringerwad is dit niet zichtbaar. Dit zijn zeer beschutte locaties zonder hoge golven. Uit de langjarige series bij Schiermonnikoog Noord en Eierlandse Gat is ook de variatie van de seizoensdynamiek in de tijd te zien, maar er lijkt geen duidelijke trend te zijn. Tussen de maanden en jaren zitten flink fluctuaties.
+De afwijking van maandgemiddelde golfhoogte ten opzichte van het langjarig gemiddelde is een maat voor de seizoensdynamiek (zie berekeningswijze in Appendix \@ref(Appgolfhoogte)). In figuur \@ref(fig:golfanomalie) is dit uitgezet voor alle stations. Te zien is dat er in de winter over het algemeen hogere golven zijn dan in de zomer. In Uithuizerwad en Wieringerwad is dit niet zichtbaar. Dit zijn zeer beschutte locaties zonder hoge golven. Uit de langjarige series bij Schiermonnikoog Noord en Eierlandse Gat is ook de variatie van de seizoensdynamiek in de tijd te zien, maar er lijkt geen duidelijke trend te zijn. Tussen de maanden en jaren zitten flink fluctuaties.
 
 
 ```{r golfanomalie, fig.height=20, fig.width = 8, fig.cap="Afwijking maandgemiddeld t.o.v. langjarig gemiddelde, als maat voor seizoensdynamiek. Verschillende jaren weergeven als stippen met kleurverloop (oude jaren blauw en naar heden toe verkleurend naar rood). De blauwe doorgetrokken lijn geeft het gemiddelde voor alle beschikbare jaren. "}
@@ -415,7 +415,7 @@ rm(df_all)
 
 ##	Zoetwaterafvoeren
 
-De zoetwaterafvoer leidt tot saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterbel, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in hoofdstuk [Waterkwaliteit](#Waterkwaliteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. De data van de grootste afvoeren (Den Oever, Kornwerderzand, Lauwersoog) zijn ontsloten en worden hier getoond. Andere/kleinere afvoeren zijn zeer nuttig om te ontsluiten, maar deze gegevens zijn via de waterschappen zeer moeilijk te verkrijgen. Bovendien is de verwachting dat de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval) zullen volgen, en daarmee voor het volgen van de trends voor eerst met deze grotere afvoeren kan worden volstaan. De afvoeren bij Den Oever en Kornwerderzand worden beïnvloed door het peilbeheer in het IJsselmeer. Daarom worden ook zomer- en wintergemiddelde afvoeren gevizualiseerd.
+De zoetwaterafvoer leidt tot saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterbel, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in hoofdstuk \@ref(Waterkwaliteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. De data van de grootste afvoeren (Den Oever, Kornwerderzand, Lauwersoog) zijn ontsloten en worden hier getoond. Andere/kleinere afvoeren zijn zeer nuttig om te ontsluiten, maar deze gegevens zijn via de waterschappen zeer moeilijk te verkrijgen. Bovendien is de verwachting dat de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval) zullen volgen, en daarmee voor het volgen van de trends voor eerst met deze grotere afvoeren kan worden volstaan. De afvoeren bij Den Oever en Kornwerderzand worden beïnvloed door het peilbeheer in het IJsselmeer. Daarom worden ook zomer- en wintergemiddelde afvoeren gevizualiseerd.
 
 De daggemiddelde waarden van de afvoeren (grijze punten in figuur \@ref(fig:jaargemiddeldeAfvoer)) laten de sterke fluctuaties in afvoeren zien. Er treden pieken op tot boven de 2000 m^3^/s bij Den Oever en 1500 m^3^/s bij Kornwerderzand. Ook laten de grijze punten en de zwarte punten die de maandgemiddelden voorstellen, een duidelijk seizoenssignaal zien, waarbij in de zomer minder wordt gespuid dan in de winter. In de jaargemiddelden is het lastig trends te herkennen. 
 
