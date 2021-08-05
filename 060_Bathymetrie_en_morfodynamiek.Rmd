@@ -165,6 +165,22 @@ ggplotly(p)
 ```
 
 
+```{r hypsometriearealen3, out.width="100%", fig.width=8, fig.height=8, fig.cap = "Tijdseries met gemeten areaal"}
+rbindlist(dftot,idcol = "vak") %>% 
+  mutate(ncells = n(), nsamples=100000) %>% 
+  sample_n(nsamples) %>%
+  mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
+  arrange(depth) %>%
+  group_by(vak, year) %>%
+  mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
+  ggplot() +
+  geom_point(aes(x = year, y = (20*20*ncells/nsamples)*(cum/count)/1000000), size = 0.5) +
+  facet_grid(class ~ vak, scales = "free") +
+  coord_cartesian(xlim = c(2000,2020)) +
+  xlab("Jaar") + ylab("Areaal in km2") +
+  theme(legend.position = "bottom")
+
+```
 ##	Plaathoogte
 
 De hoogte van het intergetijdengebied (plaathoogte) is afhankelijk van de hydrodynamiek en het aanbod van sediment. Het getij voert sediment aan, dat kan worden afgezet op de platen. Golfwerking leidt tot erosie van de platen. De balans tussen erosie en sedimentatie resulteert in een bepaalde plaathoogte. Indien er veranderingen optreden in het getij, kan dit leiden tot veranderingen in de stroomsnelheden, met andere sedimentbeschikbaarheid tot gevolg. Veranderingen in GHW (bijvoorbeeld door zeespiegelstijging) kunnen leiden tot veranderende invloed van de golven. Voor platen die in evenwicht zijn, zijn er evenwichtsrelaties afgeleid door Eysink (1992). 
