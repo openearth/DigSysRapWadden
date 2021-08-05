@@ -30,7 +30,7 @@ getPackage("RColorBrewer")
 getPackage("tidyverse")
 getPackage("Tides")
 getPackage("plotly")
-
+getPackage("readxl")
 
 select <- dplyr::select
 addLegend <- leaflet::addLegend

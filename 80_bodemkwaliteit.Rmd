@@ -15,35 +15,89 @@ source("r/runThisFirst.R")
 ```
 
 ## Bodemslibgehalte
-Er zijn verschillende historische kaarten met het bodemslibgehalte beschikbaar (Lely ~1890, De Glopper ~1960, Sedimentatlas ~1989, SIBES/SUBES sinds 2008/2019). De sedimentatlas is digitaal beschikbaar en geeft een volledig dekkende kaart van de bodemsamenstelling in de Waddenzee inclusief het Eems estuarium. Het bodemslibgehalte op basis van deze sedimentatlas is getoond in figuur x.x.
+Er zijn verschillende historische kaarten met het bodemslibgehalte beschikbaar (Lely ~1890, De Glopper ~1960, Sedimentatlas ~1989, SIBES/SUBES sinds 2008/2019). De sedimentatlas is digitaal beschikbaar en geeft een volledig dekkende kaart van de bodemsamenstelling in de Waddenzee inclusief het Eems estuarium. Het bodemslibgehalte op basis van deze sedimentatlas is getoond in figuur \@ref(fig:sedimentatlasSlib).
 
 Sinds 2008 zijn door het NIOZ monsters gestoken van het intergetijdengebied en is ook de korrelgrootteverdeling bepaald. Deze data wordt aangeduid met SIBES. De data is niet vrij beschikbaar en daarom vooralsnog niet opgenomen in deze rapportage. In ongeveer 2019 is de SIBES dataset gecomplementeerd met data van monsters die zijn genomen in de diepe delen van de Waddenzee, waarmee een ruimtelijk volledig dekkende kaart van de Waddenzee kan worden gemaakt. De data uit de diepe delen worden aangeduid met SUBES. Ook deze data is (nog) niet vrij beschikbaar.
 
-*   JV 21/7 Willem, hierbij graag de sedimentatlas gebruiken. Of doet Giorgio die?
-    + Dit zijn alleen DDL gegevens. er moet nog meer bij. Ik weet nog van data die is ingewonnen bij macrobenthosbemonstering (beschikbaar, maar misschien niet zelfde format) en extra metingen in Eems-Dollard in 2013 (beschikbaar). Die kan ik nog toevoegen. 
+<!-- *   JV 21/7 Willem, hierbij graag de sedimentatlas gebruiken. Of doet Giorgio die? -->
+<!--     + Dit zijn alleen DDL gegevens. er moet nog meer bij. Ik weet nog van data die is ingewonnen bij macrobenthosbemonstering (beschikbaar, maar misschien niet zelfde format) en extra metingen in Eems-Dollard in 2013 (beschikbaar). Die kan ik nog toevoegen.  -->
 
 ```{r readKorrelgrootteData}
-korrel.df <- read_delim(file.path(datadir, "ddl", "standard", paste0("korrelgrootte", "2021-07-16", ".csv")), delim = ";")
-gemeentegrenzen <- sf::read_sf(file.path(datadir, "../administratief/NL_gemeentegrenzen\\Gemeentegrenzen_2017_zonder_water_gen.geojson"))
-gemeentegrenzen <- gemeentegrenzen %>% sf::st_transform(crs = 4326)
+# korrel.df <- read_delim(file.path(datadir, "ddl", "standard", paste0("korrelgrootte", "2021-07-16", ".csv")), delim = ";")
+# 
+# Er zijn meer data beschikbaar, van macrobenthos, en chemische metingen. Ook is er nog extra gemeten in de Eems-Dollard in 2013. 
+# 
+
+# gemeentegrenzen <- sf::read_sf(file.path(datadir, "../administratief/NL_gemeentegrenzen\\Gemeentegrenzen_2017_zonder_water_gen.geojson"))
+# gemeentegrenzen <- gemeentegrenzen %>% sf::st_transform(crs = 4326)
 
 ```
 
 
-```{r kaartSlibgehalte, fig.cap = "Korrelgroottefractie Bodem/Sediment diameter kleiner dan 63 um / drooggewicht in %"}
-par <- "Korrelgroottefractie Bodem/Sediment diameter kleiner dan 63 um / drooggewicht in %"
+```{r sedimentatlasSlib, fig.cap="Slibgehalte in de Waddenzee zoals opgenomen in de sedimentatlas."}
 
-korrel.df %>% filter(parameter.wat.omschrijving == par) %>%
-  mutate(jaar = as.factor(year(tijdstip))) %>%
-  st_as_sf(coords = c("geometriepunt.x", "geometriepunt.y"), crs = 25831) %>%
-  select(-coordinatenstelsel) %>% 
-  st_transform(4326) %>%
-  ggplot(aes()) +
-  geom_sf(data = gemeentegrenzen, fill = "lightyellow") +
-  geom_sf(aes(color = numeriekewaarde, shape = jaar), size = 4) +
-  coord_sf(ylim = c(52.8, NA), xlim = c(4.5, NA)) +
-  scale_color_gradientn(colours = jet.colors(7), name = "slibgehalte") +
-  theme_light() +
-  theme(legend.position = "bottom")
+require(RNetCDF)
+url = "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/sedimentatlas_waddenzee/korrel.nc"
+con = RNetCDF::open.nc(url)
+RNetCDF::print.nc(con)
+
+lats <- RNetCDF::var.get.nc(con, "lat")
+lons <- RNetCDF::var.get.nc(con, "lon")
+diameters <- RNetCDF::var.get.nc(con, "diameter")
+RNetCDF::close.nc(con)
+
+require(tidync)
+nc <- tidync::tidync(url)
+tidync::hyper_dims(nc)
+tidync::hyper_vars(nc)
+tidync::hyper_dims(nc)
+
+# diameters <- c( 4000.0, 2828.0, 2000.0, 1414.0, 1000.0, 707.0, 500.0, 354.0, 250.0, 177.0, 125.0, 88.0, 63.0, 44.0, 32.0, 22.0, 16.0, 11.0, 8.0, 5.5, 4.0, 2.7, 2.0, 1.4, 1.0, 0.7)
+# names(diameters) <- c(1:length(diameters)) 
+
+sedimentatlas <- tidync::hyper_tibble(nc) %>%
+  mutate(diam = recode(particle_diameter, !!!diameters)) %>%
+  mutate(lng = recode(locations, !!!lons)) %>%
+  mutate(lat = recode(locations, !!!lats))
+
+slib <- sedimentatlas %>% 
+  group_by(lng, lat) %>%
+  summarize(
+    slibgehalte = sum(phi[diam < 63.0]),
+    rest = sum(phi[diam >= 63.0])
+    ) %>% 
+  filter(slibgehalte < 100)
+
+# slib %>%
+#   ggplot(aes(lng, lat)) +
+#   geom_point(aes(color = slibgehalte)) 
+
+pal = leaflet::colorNumeric(jet.colors(n = 7), slib$slibgehalte)
+
+leaflet(slib) %>%
+  leaflet::addTiles() %>%
+  # addCircleMarkers(stroke = F, fillColor = ~pal(slibgehalte), fillOpacity = 1)
+  addCircles(color = ~pal(slibgehalte), fillOpacity = 1, weight = 10) %>%
+  leaflet::addLegend(position = "bottomright", pal = pal, values = slib$slibgehalte)
+
 ```
+
+
+
+<!-- ```{r kaartSlibgehalte, out.width="100%", fig.width=8, fig.cap = "Korrelgroottefractie Bodem/Sediment diameter kleiner dan 63 um / drooggewicht in %"} -->
+<!-- par <- "Korrelgroottefractie Bodem/Sediment diameter kleiner dan 63 um / drooggewicht in %" -->
+
+<!-- korrel.df %>% filter(parameter.wat.omschrijving == par) %>% -->
+<!--   mutate(jaar = as.factor(year(tijdstip))) %>% -->
+<!--   st_as_sf(coords = c("geometriepunt.x", "geometriepunt.y"), crs = 25831) %>% -->
+<!--   select(-coordinatenstelsel) %>%  -->
+<!--   st_transform(4326) %>% -->
+<!--   ggplot(aes()) + -->
+<!--   geom_sf(data = gemeentegrenzen, fill = "lightyellow") + -->
+<!--   geom_sf(aes(color = numeriekewaarde, shape = jaar), size = 4) + -->
+<!--   coord_sf(ylim = c(52.8, NA), xlim = c(4.5, NA)) + -->
+<!--   scale_color_gradientn(colours = jet.colors(7), name = "slibgehalte") + -->
+<!--   theme_light() + -->
+<!--   theme(legend.position = "bottom") -->
+<!-- ``` -->
 

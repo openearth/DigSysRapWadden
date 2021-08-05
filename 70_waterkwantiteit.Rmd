@@ -39,7 +39,7 @@ In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheids
 ##	Zeespiegelstijging
 
 ```{r zeespiegelstijging, out.width="80%", fig.cap= "Huidige zeespiegelstijging volgens het lineaire model zonder wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP" }
-knitr::include_graphics("images\zeespiegelmonitor.png")
+knitr::include_graphics("images/zeespiegelmonitor.png")
 ```
 
 
@@ -141,8 +141,7 @@ df.extrema %>%
 
 ```{r kaartGetijslag, fig.height=6, fig.width=8, fig.cap="Gemiddelde getijslag per station."}
 
-
-metadata <- read_delim(file.path(datadir, "ddl\\metadata\\Wadden_metadata.csv"),delim = ";") %>%
+metadata <- read_delim(file.path(datadir, "ddl/metadata/Wadden_metadata.csv"),delim = ";") %>%
   distinct(locatie.naam, x, y)
 
 gemGetijslag <- df.extrema %>%
@@ -292,7 +291,7 @@ pal <- colorNumeric(
   palette = "viridis",
   domain = yearlyStat$p995)
 
-metadata <- read_delim(file.path(datadir, "ddl\\metadata\\Wadden_metadata.csv"),delim = ";") %>%
+metadata <- read_delim(file.path(datadir, "ddl/metadata/Wadden_metadata.csv"),delim = ";") %>%
   distinct(locatie.naam, x, y)
 yearlyStat %>% group_by(station) %>%
   summarize(`maximum p99,5 waterstand` = max(p995, na.rm = T)) %>%

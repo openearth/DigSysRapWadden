@@ -81,7 +81,7 @@ Er is er voor deze rapportage voor gekozen om in eerste instantie uit te gaan va
 
 Figuur \@ref(fig:hypsometriearealen) toont de hypsometrische curves voor het gehele Friesche Zeegat en de bekkens van het Pinkegat en de Zouutkamperlaag afzonderlijk. De verschillende klassen zijn met kleur aangegeven op de kaart. De veranderingen tussen de jaren (kolommen) zijn klein. In figuur \@ref(fig:hypsometriearealen2) zijn de verschillende jaren over elkaar geplot en is tevens de mogelijkheid verder in te zoomen.
 
-Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan de ontwikkeling per hoogteklasse beter worden gevolgd (figuur \@ref(fig:hypsometriearealen3)). 
+Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan de ontwikkeling per hoogteklasse beter worden gevolgd (figuur \@ref(fig:hypsometriearealen2)). 
 
 ```{r hypsometriearealen, out.width="100%", fig.width=8, fig.height=8, fig.cap = "Hypsometrische curve van de Waddenzee"}
 # create 12 plots
