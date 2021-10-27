@@ -4,7 +4,8 @@
 knitr::opts_chunk$set(
 	message = FALSE,
 	warning = FALSE,
-	echo = FALSE
+	echo = FALSE,
+	out.width = "100%"
 )
 require(sf)
 require(leaflet)
@@ -22,7 +23,7 @@ In dit hoofdstuk is de beschrijving van de hydrodynamiek beperkt tot de watersta
 
 Metingen van bijvoorbeeld stroomsnelheden zijn schaars en worden niet continu uitgevoerd. Daarom zijn deze niet opgenomen in deze rapportage. Bovendien worden de stroomsnelheden sterk beïnvloed door de lokale bodemligging. Veranderingen in stroomsnelheden op een bepaald punt zijn sterk gekoppeld aan (lokale) veranderingen in de morfologie. Debieten door de zeegaten vormen ook een interessante parameter, maar deze zijn niet consistent bemeten. Daarom zijn de debieten eveneens niet opgenomen.
 
-```{r getijVanRijn1994, out.width="80%", fig.cap= "Waterbeweging in de tijd (bron: Van Rijn, 1994)" }
+```{r getijVanRijn1994, fig.cap= "Waterbeweging in de tijd (bron: Van Rijn, 1994)" }
 knitr::include_graphics("images/getijVanRijn1994.png")
 ```
 
@@ -38,7 +39,7 @@ In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheids
 
 ##	Zeespiegelstijging
 
-```{r zeespiegelstijging, out.width="80%", fig.cap= "Huidige zeespiegelstijging volgens het lineaire model zonder wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP" }
+```{r zeespiegelstijging, fig.cap= "Huidige zeespiegelstijging volgens het lineaire model zonder wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP" }
 knitr::include_graphics("images/zeespiegelmonitor.png")
 ```
 
@@ -56,7 +57,7 @@ De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde p
 
 ```{r Hoogwaters, fig.height=20, fig.width=10, fig.cap="Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
 
-df.extrema <- read_delim(file.path(datadir, "ddl", "standard", paste0("extremaHLLL", today(), ".csv")), delim = ";")
+df.extrema <- read_delim(file.path(datadir, "ddl", "standard", paste0("extremaHLLL", "2021-08-04", ".csv")), delim = ";")
 
 df.extrema %>%
   filter(HL == "H") %>%
@@ -191,20 +192,14 @@ knitr::include_graphics("images/ts_S2.png")
 ```
 
 
-
-
-
 ```{r tsM4, fig.cap="Amplitude en fase van de M~4~-component voor alle stations"}
 knitr::include_graphics("images/ts_M4.png")
 ```
 
 
-
 ```{r M4divM2, fig.cap="Amplitude en fase van de mate van getij-asymmetrie M~4~/M~2~ en het relatieve faseverschil 2M2-M4 voor alle stations"}
 knitr::include_graphics("images/ts_M4divM2.png")
 ```
-
-
 
 
 ##	Waterhoogte bij storm
@@ -219,7 +214,7 @@ De stormvloedhoogte, berekend als het 99,5-percentiel per jaar, laat de variatie
 
 Het maximum van alle 99,5-percentielen voor de verschillende jaren in de tijdreeks is ook op de kaart ingetekend (figuur \@ref(fig:kaartjeMaximaleStormhoogte)). Bij Harlingen en Delfzijl zijn de grootste waarden gemeten, dat zijn de pieken rond 1960 uit figuur \@ref(fig:stormhoogte). Maar ook in recentere jaren treden de maximale stormhoogtes op bij Harlingen en Delfzijl, vanwege hun ligging achterin de bekkens.
 
-```{r wateropzet, fig.cap= "Maandelijks 99,5-percentiel voor opzet = gemeten waterstand - astronomische waterstand (rode lijn) en het jaarlijks maximum van de opzet (grijs streepje).", fig.height=30, fig.width=10}
+```{r wateropzet, out.width = "100%", fig.cap= "Maandelijks 99,5-percentiel voor opzet = gemeten waterstand - astronomische waterstand (rode lijn) en het jaarlijks maximum van de opzet (grijs streepje).", fig.height=30, fig.width=8}
 
 monthlyStat  <- read_delim(file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", "2021-07-28", ".csv")), delim = ";")
 
@@ -279,8 +274,6 @@ ggplot(aes(year, p995)) +
   theme(
     strip.text.y = element_text(angle = 0)) +
   xlab("Jaar") + ylab("95-percentiel van gemeten waterhoogte (cm) per jaar")
-
-
 ```
 
 
@@ -403,7 +396,6 @@ df_all %>% sample_n(100000) %>%            #group_by(locatie.naam) %>% summarize
   scale_colour_manual(name = "",
                       values = c("p95 per jaar" = "red", 
                                  "metingen" = "blue"))
-
 ```
 
 
@@ -419,8 +411,6 @@ De zoetwaterafvoer leidt tot saliniteits- en dichtheidsverschillen tussen het zo
 De daggemiddelde waarden van de afvoeren (grijze punten in figuur \@ref(fig:jaargemiddeldeAfvoer)) laten de sterke fluctuaties in afvoeren zien. Er treden pieken op tot boven de 2000 m^3^/s bij Den Oever en 1500 m^3^/s bij Kornwerderzand. Ook laten de grijze punten en de zwarte punten die de maandgemiddelden voorstellen, een duidelijk seizoenssignaal zien, waarbij in de zomer minder wordt gespuid dan in de winter. In de jaargemiddelden is het lastig trends te herkennen. 
 
 Doordat er wordt gespuid onder vrij verval, kan er een deel van de tijd (tijdens hoogwater) niet gespuid kan worden. Indien de 10-minuutwaarden zouden worden gevizualiseerd, kunnen de pulsen in afvoer nog hogere debieten laten zien. Deze 10-minuutwaarden zijn alleen voor recente jaren beschikbaar, en bevatten vrij veel gaten. Daarom is ervoor gekozen hier de daggemiddelden te tonen.
-
-In figuur \@ref(fig:seizoensgemiddeldenAfvoer) is de afvoer gemiddeld per zomerperiode (1 april - 30 september) en winterperiode (1 oktober - 31 maart). Hieruit is duidelijk te zien dat de zomerafvoer 2 tot 3 keer zo laag is als de winterafvoer. Ook de droge zomers van 2018, 2019 en 2020 zijn terug te zien in de figuur. Bij Den Oever lijkt zowel de zomergemiddelde als de wintergemiddelde afvoer de laatste twee decennia langzaam af te nemen.
 
 
 ```{r leesAfvoerData}
@@ -449,7 +439,6 @@ afvoer.df <- rbindlist(afvoer.lst, idcol = "locatie.naam") %>%
 
 ```{r histogramAfvoer, include=F, evaluate = F, fig.width=8, fig.height=4, fig.cap = ""}
 
-
 afvoer.df %>% mutate(jaar = year(datum)) %>%
   select(locatie, datum, tijd, waarde, tydstp, jaar) %>% 
   filter(waarde != 0) %>%
@@ -461,7 +450,6 @@ ggplot() +
   theme_hy +
   theme(legend.position = "bottom") +
   facet_grid(tydstp ~ locatie)
-
 ```
 
 
@@ -501,6 +489,12 @@ parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>% #dist
     guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
 
 ```
+
+
+In figuur \@ref(fig:seizoensgemiddeldenAfvoer) is de afvoer gemiddeld per zomerperiode (1 april - 30 september) en winterperiode (1 oktober - 31 maart). Hieruit is duidelijk te zien dat de zomerafvoer 2 tot 3 keer zo laag is als de winterafvoer. Ook de droge zomers van 2018, 2019 en 2020 zijn terug te zien in de figuur. Bij Den Oever lijkt zowel de zomergemiddelde als de wintergemiddelde afvoer de laatste twee decennia langzaam af te nemen.
+
+
+
 
 ```{r seizoensgemiddeldenAfvoer, fig.width=10, fig.height=8, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) waterafvoer naar de Waddenzee. "}
 
