@@ -263,8 +263,14 @@ allFiles <- lapply(filenamesRaw, function(x)
 # conversion should not be necessary, when reading is done as above
 # allFiles <- map(allFiles, function(x) x %>% mutate(kwaliteitswaarde.code = as.character(kwaliteitswaarde.code)))
 df_all_WATHTE <- bind_rows(allFiles)
+
 save(df_all_WATHTE, file = file.path(datadir, "ddl", "standard", paste0("waterhoogte", today(), ".Rdata")))
 # write_delim(df_all, file.path(datadir, "ddl", "standard", paste0("waterhoogte", today(), ".csv")), delim = ";")
+
+
+df_all_WATHTE %>% group_split(locatie.naam) %>%
+  lapply(save())
+
 
 #==== maandelijkse waterhoogte  =======
 
@@ -331,6 +337,13 @@ df_all_WATHTE2 <- df_all_WATHTE %>%
 
 names(df_all_WATHTE2) <- map_chr(df_all_WATHTE2, function(x) unique(x$locatie.naam))
 
+
+# save waterhoogte data per station
+map(names(df_all_WATHTE2), function(x){ 
+  x1 <- df_all_WATHTE2[["Delfzijl"]]
+  assign("Delfzijl", x1)
+  save(x = x1, file = file.path(datadir, "ddl", "standard", paste0("waterhoogte", x, today(), ".Rdata")))
+})
 
 # gaps <- lapply(df_all_WATHTE2,
 #                function(x) Tides::gapsts(x$tijdstip, dtMax = 11, unit = "mins")
