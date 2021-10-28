@@ -56,7 +56,7 @@ leaflet::leaflet(WQlocations) %>%
 
 
 
-## Watertemperatuur
+## Watertemperatuur {#watertemperatuur}
 
 De watertemperatuur wordt opgenomen als indicator omdat deze direct van invloed is op veel ecologische processen en indirect op de waterbeweging (viscositeit). De zoninstraling, luchttemperatuur en bewolkingsgraad hebben invloed op de watertemperatuur en zijn niet afzonderlijk opgenomen in de systeemrapportage, maar de watertemperatuur als resultante wel.
 
@@ -243,7 +243,7 @@ ggsave(file.path(datadir, "RWS", "producten", "SaliniteitAnomalie.pdf"))
   
 ```
 
-## Zwevend stof
+## Zwevend stof  {#zwevendstof}
 
 Zwevende stof is direct van belang voor de ecologie omdat deze de lichtdoordringing in de waterkolom bepaald. Slib in de bodem is ook van belang voor de ecologie, omdat algen en bodemdieren voedingsstoffen opnemen die aan het slib zijn gehecht. Door golven en stroming wordt slib vanaf de bodem in suspensie gebracht en getransporteerd om elders weer afgezet te worden. Als het slib zich afzet in vaargeulen en daarmee de toegankelijkheid wordt beknot, moet dit worden gebaggerd. De concentraties van zwevende stof laten zien of er veranderingen optreden in de slibdynamiek, die kunnen leiden tot negatieve effecten voor de ecologie (te weinig lichtdoordringing in de waterkolom) en/of morfologische veranderingen. Slib vormt eveneens een belangrijk aandeel in de netto sedimentatie in de Waddenzee, wat op de langere termijn ook van belang is voor het meegroeien met versnelde zeespiegelstijging. 
 

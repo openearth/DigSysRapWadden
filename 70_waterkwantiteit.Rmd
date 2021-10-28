@@ -37,7 +37,7 @@ Ook de zeespiegelstijging is opgenomen. Evenals golven, die invloed hebben op de
 
 In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterspui ontstaan, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in paragraaf \@ref(saliniteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. De drie grootsten afvoerpunten zitten in de Afsluitdijk (Den Oever en Kornwerderzand) en bij het Lauwersmeer. De data van kleinere afvoeren is minder goed bijgehouden en/of ontsloten, en worden daarom in deze rapportage buiten beschouwing gelaten. 
 
-##	Zeespiegelstijging
+##	Zeespiegelstijging  {#zeespiegelstijging}
 
 ```{r zeespiegelstijging, fig.cap= "Huidige zeespiegelstijging volgens het lineaire model zonder wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP" }
 knitr::include_graphics("images/zeespiegelmonitor.png")
@@ -47,7 +47,7 @@ knitr::include_graphics("images/zeespiegelmonitor.png")
 In deze rapportage is de jaargemiddelde waterstand voor de zes hoofdstations langs de Nederlandse kust overgenomen uit de Zeespiegelmonitor (figuur \@ref(fig:zeespiegelstijging)). In deze studie is de stijging van de zeespiegel nauwkeurig onderzocht en berekend. De berekening en aanvullende én interactieve figuren kunnen worden ingezien via de [Jupyter Notebook Zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb). 
 
 
-## Gemiddeld Hoogwater (GHW)
+## Gemiddeld Hoogwater (GHW)   {#gemiddeld-hoogwater-ghw}
 
 De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix \@ref(Appwaterstanden). 
 
@@ -82,7 +82,7 @@ df.extrema %>%
 
 ```
 
-## Gemiddeld Laagwater (GLW)
+## Gemiddeld Laagwater (GLW)   {#gemiddeld-laagwater-glw}
 
 De berekeningswijze van de Gemiddelde LoogWaterstanden vergelijkbaar met de GHW en opgenomen in Appendix \@ref(Appwaterstanden). 
 
@@ -113,7 +113,7 @@ df.extrema %>%
 
 ```
 
-## Getijslag 
+## Getijslag     {#getijslag}
 
 De getijslag (figuur \@ref(fig:getijslag)), die wordt gevormd door de combinatie van de GHW en de GLW, laat zien dat er sinds 1985 fluctuaties zijn als gevolg van de 18,6 jarige cyclus, en ook dat er op sommige stations een dalende trend lijkt te zijn, terwijl op andere stations een stijgende trend in de data zit. Indien de tijdreeksen worden uitgebreid met de historische data, kunnen deze schommelingen beter in historisch perspectief worden geplaatst.
 
@@ -172,7 +172,7 @@ leaflet(gemGetijslag) %>%
 
 
 
-## GLLWS & GHHWS
+## GLLWS & GHHWS  {#gllws-ghhws}
 
 De GLLWS en GHHWS moet nog worden uitgewerkt.
 
@@ -202,7 +202,7 @@ knitr::include_graphics("images/ts_M4divM2.png")
 ```
 
 
-##	Waterhoogte bij storm
+##	Waterhoogte bij storm {#waterhoogte-bij-storm}
 
 Waterstanden tijdens events geven inzicht hoeveel en hoe krachtige stormen er zijn opgetreden per jaar. Er worden twee parameters opgenomen als indicator: de stormopzet of -afzet (excl. getij) en de stormvloedhoogte (incl. getij). De laatste geeft ook de afhankelijkheid weer van het moment in de getijfase dat een storm optreedt.
 
@@ -368,7 +368,7 @@ gdf %>%
   theme(legend.position = "bottom")
 ```
 
-##	Golfperiode 
+##	Golfperiode   {#golfperiode}
 
 De golfperiode is samen met de golfhoogte van belang voor de orbitaalsnelheden, die op hun beurt bijdragen aan de bodemschuifspanningen. 
 
@@ -404,7 +404,7 @@ rm(df_all)
 ```
 
 
-##	Zoetwaterafvoeren
+##	Zoetwaterafvoeren  {zoetwaterafvoeren}
 
 De zoetwaterafvoer leidt tot saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterbel, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in hoofdstuk \@ref(Waterkwaliteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. De data van de grootste afvoeren (Den Oever, Kornwerderzand, Lauwersoog) zijn ontsloten en worden hier getoond. Andere/kleinere afvoeren zijn zeer nuttig om te ontsluiten, maar deze gegevens zijn via de waterschappen zeer moeilijk te verkrijgen. Bovendien is de verwachting dat de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval) zullen volgen, en daarmee voor het volgen van de trends voor eerst met deze grotere afvoeren kan worden volstaan. De afvoeren bij Den Oever en Kornwerderzand worden beïnvloed door het peilbeheer in het IJsselmeer. Daarom worden ook zomer- en wintergemiddelde afvoeren gevizualiseerd.
 
