@@ -18,7 +18,7 @@ source("r/runThisFirst.R")
 
 # Disclaimer {-}
 
-De informatie op deze website is op dit moment onder constructie en bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden.
+De informatie op deze website is nog volop in ontwikkeling en is bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden.
 
 This website is a test version. Nothing from this website may be used.
 
@@ -34,37 +34,47 @@ Deze watersysteemrapportage is een initiatief van:
 
 # Introductie
 
-Deze digitale systeemrapportage van het Waddengebied wordt gemaakt als onderdeel van het project Natuurmonitoring Wadden, onderdeel morfologie. Het project Natuurmonitoring is onderdeel van de [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/).
+## Basismonitoring Wadden
+
+Deze digitale systeemrapportage van het Waddengebied wordt gemaakt als onderdeel van het project Natuurmonitoring Wadden - Morfologie. Dit valt vervolgens weer onder de [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/).
+
+Basismonitoring Wadden houdt de ontwikkelingen in het Waddengebied in de gaten. Doordat beheerders van het Waddengebied verzamelde gegevens en kennis met elkaar delen, kan er effectiever en efficiënter worden gemonitord.
+
+Basismonitoring Wadden richt zich daarbij op bepaalde kernwaarden, te weten: Landschappelijke kwaliteiten; Natuurlijke Waddenzee Abiotisch (niet-levende natuur); Natuurlijke Waddenzee Biotisch (levende natuur); en Menselijk Medegebruik. Aan elk van deze kernwaarden, of thema’s, zijn beleid- en beheerdoelen gekoppeld. Voor meer informatie hierover verwijzen we naar de [Ambitie van Basismonitoring Wadden]( https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf) 
+
+De hoofddoelen van Basismonitoring Wadden zijn:
+
+* inzicht te geven in de toestand en trends in het Waddengebied voor de beheerder;
+* het komen tot een effectieve en efficiënte systeemgerichte monitoring;
+* het toegankelijk maken van alle beschikbare informatie en monitoringgegevens over het Waddengebied, waardoor de gebruiker zicht heeft op het volledige Waddensysteem.
 
 ## Doel
 
-Basismonitoring Wadden heeft tot doelen:
+Om bij te dragen aan de hierboven genoemde hoofddoelen van Basismonitoring Wadden, werken we voor het onderdeel Natuurmonitoring - Morfologie met drie pijlers (figuur \@ref(fig:driepijlers)):
 
-* inzicht te geven in de toestand en trends in het Waddengebied
-* effectieve en efficiente systeemgerichte monitoring uit te (laten) voeren
-* het ontsluiten van de beschikbare informatie en monitoringgegevens.
+* Data op orde
+* Informatie op orde
+* Kennis op orde
 
-Om deze doelen te bereiken werken we voor Natuurmonitoring, onderdeel morfologie met drie pijlers (figuur \@ref(fig:driepijlers)):
+Deze systeemrapportage draagt bij aan de pijler *Informatie op orde*. Hierin is een aantal abiotische indicatoren opgenomen, die de toestand en trends van het natuurlijke abiotische systeem beschrijven, en die relevant zijn voor de kernwaarden van Basismonitoring.
 
-* data op orde
-* informatie op orde
-* kennis op orde
+Het doel is om te komen tot actuele en consistente reeksen van deze indicatoren, en om deze op een toegankelijke manier te ontsluiten. De digitale rapportage maakt het bovendien mogelijk de om de informatie gemakkelijker te actualiseren en bij te houden.
 
-Het ontsluiten van de juiste data en het werken naar een consistente dataverzameling en verwerking en de kwaliteitsborging valt onder 'Data op orde'. Het [Datahuis Wadden](https://basismonitoringwadden.waddenzee.nl/datahuis/datahuis-wadden) werkt hieraan. 
+De huidige systeemrapportage richt zich nog uitsluitend op het abiotische systeem. Maar het is ook mogelijk om in de toekomst de rapportage uit te breiden naar de andere thema’s van Basismonitoring, voor een optimale bundeling van alle relevante informatie van het Waddengebied.
 
-Deze systeemrapportage draagt bij aan de pijler 'Informatie op orde'. We stellen een aantal abiotische indicatoren op, waarmee we de toestand en trends van het (abiotische) systeem kunnen beschrijven. Veel indicatoren zijn in verschillende studies en projecten al eens afgeleid, maar binnen het huidige project gebeurt dit op een consistente manier. De digitale rapportage maakt het bovendien mogelijk de rapportage gemakkelijker te updaten indien nieuwe monitoringsdata beschikbaar komen. Het analyseren van de ontwikkelingen, het verklaren van geobserveerde trends en het toetsen van indicatoren is geen onderdeel van de systeemrapportage. Die werkzaamheden vallen onder de pijler 'Kennis op orde'.
+Door het toegankelijk maken van de relevante informatie, kunnen trends en ontwikkelingen sneller worden opgespoord, en verder worden geanalyseerd. Dit kan ook bijdragen aan een efficiëntere en effectievere uitvoering van het beheer, bijvoorbeeld bij het verklaren van bepaalde waargenomen ontwikkelingen in de natuurdoelen, of wanneer men de invloed van bepaalde menselijke activiteiten in beeld wil brengen.
 
-Een kombergingsrapportage is een voorbeeld van een product onder de pijler 'Kennis op orde'. 
+Deze laatste analyses horen bij de pijler *Kennis op orde*. In 2022 zullen hiervoor enkele ‘Beheerrapportages’ worden opgesteld. Deze bevatten, voor enkele beheerdoelen, analyses van de relevante (abiotische) ontwikkelingen, verklaringen van trends en de toetsing van bepaalde indicatoren.
 
+De pijler **Data op Orde**, ten slotte, gaat over het op een consistente manier verzamelen, verwerken en ontsluiten van de benodigde data, en de kwaliteitsborging ervan. Het [Datahuis Wadden](https://basismonitoringwadden.waddenzee.nl/datahuis/datahuis-wadden) werkt hieraan. 
 
 ```{r driepijlers, out.width="80%", fig.cap= "De drie pijlers binnen Natuurmonitoring met de positie van deze digitale systeemrapportage rood omcirkeld." }
 knitr::include_graphics("images/driepijlers.jpg")
 ```
 
-
 ## Afbakening
 
-Omdat de ecologische toestand van de Waddenzee sterk aan de hydromorfologische ontwikkeling is gerelateerd (o.a. waterbeweging, geul- en plaatontwikkeling, sedimentsamenstelling, zoet/zoutgradiënten, troebelheid),  is ‘morfologie’ één van de onderdelen van Natuurmonitoring Waddenzee. Deze digitale systeemrapportage richt zich op de morfologie ofwel de abiotiek. Morfologie mag in deze context breder worden opgevat dan enkel bodemveranderingen. Het gaat om alle abiotische veranderingen die invloed hebben op de natuur van het Waddensysteem, zoals ook sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc.
+De ecologische toestand van de Waddenzee is sterk gerelateerd aan de hydro-morfologische ontwikkelingen (zoals waterbeweging, geul- en plaatontwikkeling, sedimentsamenstelling, zoet/zoutgradiënten, troebelheid). Daarom is ‘morfologie’ één van de onderdelen binnen Natuurmonitoring Waddenzee. Morfologie mag in deze context breder worden opgevat dan alleen bodemveranderingen. Het gaat om alle abiotische veranderingen die invloed hebben op de natuurlijkheid van het Waddensysteem, zoals ook sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc. De digitale systeemrapportage richt zich daarom ook op deze abiotische kenmerken van de Waddenzee.
 
 ## Proces
 
@@ -74,15 +84,9 @@ Voor het opstellen van deze systeemrapportage wordt dankbaar gebruik gemaakt van
 
 ## Leeswijzer
 
-De inhoudsopgave van deze digitale systeemrapportage vindt u links in uw scherm. Door met de pijlen naar links "<" of naar rechts ">" te gaan, bladert u naar het volgende hoofdstuk. Door op het hoofdstuk te klikken worden de paragrafen uitgeklapt en kunt u direct naar de indicator van interesse gaan. Figuren kunnen worden vergroot door erop te klikken.
+De systeemrapportage is bedoeld als een naslagwerk, waarin gericht snel bepaalde informatie kan worden opgezocht. De nadruk ligt daarbij in eerste instantie op de gegevens (figuren) zelf, en hoe deze geïnterpreteerd moeten worden. Voor meer uitleg over de indicatoren kunt u eenvoudig doorklikken naar de bijlagen.
 
-De abiotische indicatoren zijn onderverdeeld in:
+Een overzicht van de volledige inhoud is te vinden in de inhoudsopgave links in uw scherm. De rapportage is nog volop in ontwikkeling. Daarom zijn nog niet alle indicatoren opgenomen in deze versie. 
 
-1. Hydrodynamiek
-2. Meteorologie
-3. Waterkwaliteit
-4. Morfologie
-5. Sedimentsamenstelling (nog niet opgenomen in deze versie van de rapportage)
-5. Menselijke ingrepen (nog niet opgenomen in deze versie van de rapportage)
-
+Sommige indicatoren zijn gekoppeld aan (al dan niet wettelijke) doelstellingen, vanuit verschillende kaders. Via de koppelingen in de tabel hieronder, is het mogelijk om snel de juiste selectie indicatoren te vinden, behorend bij een bepaald kader.
 
