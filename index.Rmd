@@ -88,12 +88,18 @@ De systeemrapportage is bedoeld als een naslagwerk, waarin gericht snel bepaalde
 
 Een overzicht van de volledige inhoud is te vinden in de inhoudsopgave links in uw scherm. De rapportage is nog volop in ontwikkeling. Daarom zijn nog niet alle indicatoren opgenomen in deze versie. 
 
-Sommige indicatoren zijn gekoppeld aan (al dan niet wettelijke) doelstellingen, vanuit verschillende kaders. Via de koppelingen in de tabel hieronder, is het mogelijk om snel de juiste selectie indicatoren te vinden, behorend bij een bepaald kader.
+# Wettelijke kaders
+
+Sommige indicatoren zijn gekoppeld aan (al dan niet wettelijke) doelstellingen, vanuit verschillende kaders. Via de koppelingen in tabel \@ref(tab:kadertabel), is het mogelijk om snel de juiste selectie indicatoren te vinden, behorend bij een bepaald kader.
 
 ```{r kadertabel}
 
 kadertabel <- readxl::read_excel(file.path(datadir, "RWS/Indicatoren behorend bij kaders_v0.1.xlsx"), skip = 3) %>% replace_na(list(Kader = "", Indicator = "", Snelkoppeling = "")) %>%
-  mutate(Snelkoppeling = paste0("[", Indicator, "]", "(", Snelkoppeling, ")"))
+  mutate(Snelkoppeling = case_when(
+    Snelkoppeling != "<nog niet beschikbaar>" ~ paste0("[", Indicator, "]", "(", Snelkoppeling, ")"),
+    Snelkoppeling == "<nog niet beschikbaar>" ~ "nog niet beschikbaar"
+  )
+  )
 
 # \@ref(sec:FirstSection)
 

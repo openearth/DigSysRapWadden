@@ -1,6 +1,6 @@
 ## rendering naar een of meerdere van de onderstaande formats
 
-# rm(list = ls())
+rm(list = ls())
 
 require(rmarkdown)
 require(bookdown)
