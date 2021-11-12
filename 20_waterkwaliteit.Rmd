@@ -104,7 +104,12 @@ p =   ggplot() +
                                    "metingen" = "darkgrey")) +
     guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
 
-ggplotly(p)
+ggplotly(p) %>% 
+  layout(
+    legend = list(orientation = "h",   # show entries horizontally
+                  xanchor = "center",  # use center of legend as anchor
+                  x = 0.5, y = -0.05)             # put legend in center of x-axis
+)
 
 ```
 
