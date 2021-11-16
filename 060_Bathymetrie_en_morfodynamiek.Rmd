@@ -25,7 +25,7 @@ source("r/runThisFirst.R")
 
 In figuur \@ref(fig:WaddenBathymetrieLeaflet) zijn de bathymetrieën van de drie meest recente vaklodingen kaarten opgenomen. Door via de legends de verschillende bodems in de jaren aan of uit te zetten, kunnen verschillen inzichtelijk worden gemaakt.
 
-```{r WaddenBathymetrieLeaflet, eval=FALSE, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"}
+```{r WaddenBathymetrieLeaflet, include=T, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"}
 
 
 epsg28992 <- "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs"
@@ -60,30 +60,16 @@ leaflet(polywgs) %>%
     baseGroups = c("OSM"),
     overlayGroups = c("vakken", "2005", "2010", "2016"),
     options = layersControlOptions(collapsed = FALSE)
-  ) %>% hideGroup("vakken")
+) %>% hideGroup("vakken")
 ```
 
 
+De nieuwste bathymetrie voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). Deze kaart bevat gestapelde zgn. "tiles" van vaklodingen tussen 2008 en 2021
 
-```{r WaddenBathymetrieLeaflet2, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"}
+```{r WaddenBathymetrieLeaflet2, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2008 en 2021."}
 
-# gives a composite [1 per year] of vaklodingen bathymetries within a time interval. Latest surveys on top.
-# Since composites are done yearly, this is valid for a single year. Also, that's dynamic, so it might take a while.
+knitr::include_url("http://c-services0049/deltares/bathymetrywadden/", height = "600px")
 
-# write input json for request. Here the interval is 10 years, but latest surveys are on top.
-
-jsonInput2012 <- '{"dataset":"vaklodingen","begin_date":"2010-08-31T22:00:00.000Z","end_date":"2021-08-31T22:00:00.000Z","min":-3000,"max":1000,"hillshade":true}'
-
-# run request
-res <- POST("https://hydro-engine.ey.r.appspot.com//get_bathymetry", body = jsonInput2012, encode = "form", verbose(), content_type("application/json"))
-
-# get url from response, which is a wmts service
-# content(res)$url
-
-# form map on a background
-leaflet() %>%
-addTiles("http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png") %>%
-addTiles(content(res)$url) %>% setView(5.0, 53.0, zoom = 11)
 ```
 
 

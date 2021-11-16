@@ -1,11 +1,6 @@
 #
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+# App written by willem.stolte@deltares.nl and giorgio.santinelli@deltares.nl
+# 
 
 library(shiny)
 library(leaflet)
@@ -16,13 +11,12 @@ ui <- fluidPage(title = "Wadden Sea Bathymetry",
                      fluidRow(
                          column(width = 12,
                              sliderInput("endyear", "Jaar", 1990, 2020, 2020, sep = ""),
+                             # to fill full height of page
                              tags$style(type = "text/css", "#map {height: calc(100vh - 80px) !important;}"),
                              leafletOutput("map")
                          )
     )
 )
-
-
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
@@ -46,9 +40,9 @@ server <- function(input, output) {
         
         # form map on a background
         leaflet() %>%
-            addTiles("http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png") %>%
+            # addTiles("http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png") %>%
+            addTiles("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png") %>%
             addTiles(content(res)$url) %>% setView(5.0, 53.0, zoom = 11)    
-        
         })
 }
 
