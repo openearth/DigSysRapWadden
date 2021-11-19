@@ -36,7 +36,7 @@ pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
 
 ## Brondata waterstanden en berekeningswijze GHW, GLW en getijslag {#Appwaterstanden}
 
-Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de waterstand ingelezen van de Data Distributie Laag. De berekening van GHW en GLW is gedaan door in de tijdseries met waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld2) is daarvan een voorbeeld te zien. Vervolgens worden deze hoogwaters en laagwaters per jaar gemiddeld. De gemiddelde getijslag wordt berekend door $GHW-GLW$ over de te middelen periode. 
+Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de waterstand ingelezen via de [webservice van de Data Distributie Laag](https://rijkswaterstaat.github.io/wm-ws-dl/#introduction) van Rijkswaterstaat. De berekening van GHW en GLW is gedaan door in de tijdseries met waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld2) is daarvan een voorbeeld te zien. Vervolgens worden deze hoogwaters en laagwaters per jaar gemiddeld. De gemiddelde getijslag wordt berekend door $GHW-GLW$ over de te middelen periode. 
 
 Om trends te kunnen bepalen is vervolgens een lineaire trendlijn toegevoegd die varieert met de 18,6 jarige cyclus. Doordat de frequentie van de 18,6 jarige cyclus bekend is en de tijdserie voldoende lang, kan de software zelf de amplitude en de fase van de 18,6-jarige cyclus fitten.
 
@@ -68,14 +68,20 @@ Delfzijl %>%
 ```
 
 ## Brondata golven en berekeningswijze seizoensfluctuatie van golfhoogte {#Appgolfhoogte}
-Brondata golven....?
 
-De afwijking is berekend in de volgende stappen:
 
-1)  incomplete jaren verwijderen
-1)  langjarig gemiddelde voor elk station als gemiddelde van alle maandgemiddelden
+Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de golfhoogte ingelezen via de [webservice van de Data Distributie Laag](https://rijkswaterstaat.github.io/wm-ws-dl/#introduction) van Rijkswaterstaat. 
+
+De golfanomalie is berekend in de volgende stappen:
+
+1)  incomplete jaren verwijderen, door jaren met minder dan 12 maanden metingen weg te laten. 
+
+1)  langjarig gemiddelde voor elk station als gemiddelde van alle maandgemiddelden berekenen
+
 1)  de afwijking wordt berekend per station en maand als het verschil tussen maandgemiddelde en langjarig gemiddelde
-1)  De afwijking wordt dan uitgezet tegen de maand in het jaar voor alle jaren in een plot. De kleurenschaal geeft het jaar aan waarin de afwijking is opgetreden. 
+
+1)  De afwijking wordt dan uitgezet tegen de maand in het jaar voor alle jaren in een plot. De kleurenschaal geeft het jaar aan waarin de afwijking is opgetreden.
+
 
 ## Brondata wind {#Appwind}
 
@@ -103,25 +109,36 @@ Berekeningswijze anomalieën:
 De afwijking voor saliniteit is berekend in de volgende stappen:
 
 1)  incomplete jaren verwijderen
+
 1)  langjarig gemiddelde berekenen voor elk station als gemiddelde van alle maandgemiddelden
+
 1)  de afwijking wordt berekend per station en maand (dus voor alle jaren per maand) als het verschil tussen maandgemiddelde en langjarig gemiddelde
+
 1)  De afwijking wordt dan uitgezet tegen de maand in het jaar voor alle jaren in een plot. De kleurenschaal geeft het jaar aan waarin de afwijking is opgetreden. 
 
 
 Voor zwevend stof is de afwijking van het langjarig gemiddelde berekend voor alle jaren en maanden. Bovendien is deze data loggetransformeerd. De stappen zijn hier:
 
 1)  incomplete jaren verwijderen
+
 1)  Alle meetwaarden log (e-basis) transformeren.
+
 1)  langjarig gemiddelde berekenen voor elk station als gemiddelde van alle maandgemiddelden
+
 1)  de afwijking wordt berekend per station, jaar en maand als het verschil tussen maandgemiddelde en langjarig gemiddelde
+
 1)  De exponent van de afwijking wordt dan als punten uitgezet tegen de jaar en maand. De kleurenschaal geeft de absolute waarde van de zwevend stofconcentratie aan. Bovendien wordt een lijn toegevoegd op basis van het 13-maanden (dus minstens 1 jaar) lopend gemiddelde. 
 
 
 ## Brondata en berekeningswijze morfologie {#Appmorfologie}
 
-De bodemligging van het Friesche Zeegat is opgehaald van de [Open Earth Dataserver](https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html). De database bevat de vaklodingen data in 20x20 m resolutie. De vaklodingen zijn een combinatie van lodingen van de diepe delen aangevuld met LiDAR opnames van de hoge delen.
+<!-- De bodemligging van het Friesche Zeegat is opgehaald van de [Open Earth Dataserver](https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html). De database bevat de vaklodingen data in 20x20 m resolutie. De vaklodingen zijn een combinatie van lodingen van de diepe delen aangevuld met LiDAR opnames van de hoge delen. -->
 
-Er is gewerkt met 1 polygoon van het Friesche Zeegat, dat wil zeggen dat voor alle jaren met hetzelfde polygoon is gerekend om de begrenzing van het bekken te bepalen. Daarnaast is er alleen data gebruikt van de cellen (20x20m tegels) die in alle opnamejaren data bevatten. Dit voorkomt dat afwijkingen ontstaan die het gevolg zijn van verschillende ruimtelijke dekking van de data. De getoonde veranderingen zijn daarmee puur het gevolg van veranderingen van de morfologie voor het geanalyseerde gebied.
+<!-- Er is gewerkt met 1 polygoon van het Friesche Zeegat, dat wil zeggen dat voor alle jaren met hetzelfde polygoon is gerekend om de begrenzing van het bekken te bepalen. Daarnaast is er alleen data gebruikt van de cellen (20x20m tegels) die in alle opnamejaren data bevatten. Dit voorkomt dat afwijkingen ontstaan die het gevolg zijn van verschillende ruimtelijke dekking van de data. De getoonde veranderingen zijn daarmee puur het gevolg van veranderingen van de morfologie voor het geanalyseerde gebied. -->
+
+De bodemligging van de Waddenzee is interactief beschikbaar gemaakt voor deze rapportage. De interactiveit wordt beschikbaar gemaakt met behulp van een r shiny app (webadres), die in de rapportage getoond wordt. De bathymetrie wordt hier gepresenteerd als een laag bovenop een Openstreetmap achtergrondkaart. De bathymetrielaag bevat gestapelde zgn. "tiles" van vaklodingen tussen de jaren die gekozen zijn met de slider. De bodemligging kan met en zonder "Hillshading" worden bekeken.  
+
+Oorspronkelijke data is gemeten en opgeleverd door RWS voor elk jaar ^[https://waterinfo-extra.rws.nl/monitoring/morfologie/#h53b817e6-e5cd-49d1-873c-9a0f85d8e416], en opgeslagen op een thredds server van Deltares als netcdf ^[https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html]. Van elke netcdf is één tiff file per jaar gemaakt door een script ^[https://github.com/openearth/eo-bathymetry/blob/master/notebooks/Vaklodingen2EE.ipynb] en in een Google Cloud storage (gs) map gevat. Hierna is van gs een Google Earth Engine (gee) Image Collection van vaklodingen data gemaakt. De r shiny app gebruikt een API service ^[https://github.com/openearth/hydro-engine-service/blob/master/hydroengine_service/main.py] die de Image Collection leest, op basis van de gegeven input data.
 
 
 

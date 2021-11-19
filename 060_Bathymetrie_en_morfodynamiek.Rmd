@@ -14,59 +14,55 @@ require(leaflet)
 source("r/runThisFirst.R")
 ```
 
-```{r}
-# zou goed om op een later moment meerder R files maken, per onderwerp.
-# een apart R maken en dan dat met "include" toe te voegen.
 
-# Ref: p:\1204421-kpp-benokust\1204421-kpp-benokust-2018\3. Zeegaten\westelijke_waddenzee\
-```
 
 ## Bodemligging {#bodemligging}
 
-In figuur \@ref(fig:WaddenBathymetrieLeaflet) zijn de bathymetrieën van de drie meest recente vaklodingen kaarten opgenomen. Door via de legends de verschillende bodems in de jaren aan of uit te zetten, kunnen verschillen inzichtelijk worden gemaakt.
+<!-- In figuur \@ref(fig:WaddenBathymetrieLeaflet) zijn de bathymetrieën van de drie meest recente vaklodingen kaarten opgenomen. Door via de legends de verschillende bodems in de jaren aan of uit te zetten, kunnen verschillen inzichtelijk worden gemaakt. -->
 
-```{r WaddenBathymetrieLeaflet, include=T, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"}
-
-
-epsg28992 <- "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs"
-proj4wgs <- CRS('+init=EPSG:4326')
-# change !!!! Start with the correct bathymetrie in netcdf
-bathymetry_2005 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2005.tif"))
-bathymetry_2010 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2010.tif"))
-bathymetry_2016 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2016.tif"))
-#bathymetry_wgs <- brick(filename, varname="z")
-
-bathymetrywgs_2005 <- projectRaster(bathymetry_2005, crs = proj4wgs)
-bathymetrywgs_2010 <- projectRaster(bathymetry_2010, crs = proj4wgs)
-bathymetrywgs_2016 <- projectRaster(bathymetry_2016, crs = proj4wgs)
-
-# get polygon shapefile  and its boundingbox 
-poly <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)
-polywgs <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)  %>% sf::st_transform(4326)
-bbox <- sf::st_bbox(polywgs)
-
-# using tiffs generated with createVakRasters.R
-pal = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = T)
-palrev = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = F)
-
-leaflet(polywgs) %>%
-  leaflet::addTiles(group = "OSM") %>%
-  addPolygons(label = ~htmltools::htmlEscape(layer), group = "vakken", color = "white", fillColor = "transparent", labelOptions = labelOptions(noHide = T, textOnly = TRUE, textsize = 14, style = list('color' = "white")), weight = 2) %>%
-  addRasterImage(bathymetrywgs_2005, colors = pal, group = "2005", opacity = 80) %>%
-  addRasterImage(bathymetrywgs_2010, colors = pal, group = "2010", opacity = 80) %>%
-  addRasterImage(bathymetrywgs_2016, colors = pal, group = "2016", opacity = 80) %>%
-  leaflet::addLegend(position = "bottomleft", pal = palrev, values = values(bathymetrywgs_2016), labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
-  addLayersControl(
-    baseGroups = c("OSM"),
-    overlayGroups = c("vakken", "2005", "2010", "2016"),
-    options = layersControlOptions(collapsed = FALSE)
-) %>% hideGroup("vakken")
-```
+<!-- ```{r WaddenBathymetrieLeaflet, include=T, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"} -->
 
 
-De nieuwste bathymetrie voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). Deze kaart bevat gestapelde zgn. "tiles" van vaklodingen tussen 2008 en 2021
+<!-- epsg28992 <- "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs" -->
+<!-- proj4wgs <- CRS('+init=EPSG:4326') -->
+<!-- # change !!!! Start with the correct bathymetrie in netcdf -->
+<!-- bathymetry_2005 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2005.tif")) -->
+<!-- bathymetry_2010 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2010.tif")) -->
+<!-- bathymetry_2016 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2016.tif")) -->
+<!-- #bathymetry_wgs <- brick(filename, varname="z") -->
 
-```{r WaddenBathymetrieLeaflet2, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2008 en 2021."}
+<!-- bathymetrywgs_2005 <- projectRaster(bathymetry_2005, crs = proj4wgs) -->
+<!-- bathymetrywgs_2010 <- projectRaster(bathymetry_2010, crs = proj4wgs) -->
+<!-- bathymetrywgs_2016 <- projectRaster(bathymetry_2016, crs = proj4wgs) -->
+
+<!-- # get polygon shapefile  and its boundingbox  -->
+<!-- poly <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T) -->
+<!-- polywgs <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)  %>% sf::st_transform(4326) -->
+<!-- bbox <- sf::st_bbox(polywgs) -->
+
+<!-- # using tiffs generated with createVakRasters.R -->
+<!-- pal = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = T) -->
+<!-- palrev = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = F) -->
+
+<!-- leaflet(polywgs) %>% -->
+<!--   leaflet::addTiles(group = "OSM") %>% -->
+<!--   addPolygons(label = ~htmltools::htmlEscape(layer), group = "vakken", color = "white", fillColor = "transparent", labelOptions = labelOptions(noHide = T, textOnly = TRUE, textsize = 14, style = list('color' = "white")), weight = 2) %>% -->
+<!--   addRasterImage(bathymetrywgs_2005, colors = pal, group = "2005", opacity = 80) %>% -->
+<!--   addRasterImage(bathymetrywgs_2010, colors = pal, group = "2010", opacity = 80) %>% -->
+<!--   addRasterImage(bathymetrywgs_2016, colors = pal, group = "2016", opacity = 80) %>% -->
+<!--   leaflet::addLegend(position = "bottomleft", pal = palrev, values = values(bathymetrywgs_2016), labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>% -->
+<!--   addLayersControl( -->
+<!--     baseGroups = c("OSM"), -->
+<!--     overlayGroups = c("vakken", "2005", "2010", "2016"), -->
+<!--     options = layersControlOptions(collapsed = FALSE) -->
+<!-- ) %>% hideGroup("vakken") -->
+<!-- ``` -->
+
+
+De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). De bathymetrie wordt hier gepresenteerd als een laag bovenop een Openstreetmap achtergrondkaart. De bathymetrielaag bevat gestapelde zgn. "tiles" van vaklodingen tussen de jaren die gekozen zijn met de slider. De achterliggende data worden uit de vaklodingen gehaald die op de [Deltares THREDDS server](https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html) worden uitgeserveerd. De bodemligging kan met en zonder "Hillshading" worden bekeken. 
+
+
+```{r WaddenBathymetrieLeaflet2, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2026 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
 
 knitr::include_url("http://c-services0049/deltares/bathymetrywadden/", height = "600px")
 
