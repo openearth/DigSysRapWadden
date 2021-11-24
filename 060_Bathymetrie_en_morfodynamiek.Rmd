@@ -59,7 +59,7 @@ source("r/runThisFirst.R")
 <!-- ``` -->
 
 
-De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). De bathymetrie wordt hier gepresenteerd als een laag bovenop een Openstreetmap achtergrondkaart. De bathymetrielaag bevat gestapelde zgn. "tiles" van vaklodingen tussen de jaren die gekozen zijn met de slider. De achterliggende data worden uit de vaklodingen gehaald die op de [Deltares THREDDS server](https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html) worden uitgeserveerd. De bodemligging kan met en zonder "Hillshading" worden bekeken. 
+De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). 
 
 
 ```{r WaddenBathymetrieLeaflet2, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2026 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}

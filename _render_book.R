@@ -18,6 +18,7 @@ bookdown::preview_chapter("060_Bathymetrie_en_morfodynamiek.Rmd")
 # bookdown::preview_chapter("30_zeehonden.Rmd")
 # bookdown::preview_chapter("40_vogels.Rmd")
 # bookdown::preview_chapter("70_waterkwantiteit.Rmd")
+bookdown::preview_chapter("Appendix.Rmd")
 
 # knitr::clean_cache() # kan soms handig zijn
 
