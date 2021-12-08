@@ -1,11 +1,11 @@
 
 
-csvfile <- "_Voorbereiding_R/bathymetrie/testVaklodingen.csv"
-processingpath <- "_Voorbereiding_R/bathymetrie/test_processing_tiles/"
+csvfile <- "_Voorbereiding_R/_Bathymetrie/WaddenZeeVaklodingen.csv"
+processingpath <- "_Voorbereiding_R/_Bathymetrie/processing_tiles/"
 
 install.packages("gdalUtils")
 library("gdalUtils")
-library("raster")
+require("raster")
 
 ## define function for mosaicking
 setMethod('mosaic', signature(x='list', y='missing'), 
@@ -54,12 +54,7 @@ for (ii in 1:length(vakTiles$tiles)){
         crs(m) <- CRS("+init=EPSG:28992")
       }
     filenameRaster <- paste0(processingpath, "tiles/", str_sub(basename(vakTiles$tiles[ii]),1,-4),'_',str_sub(alltimes[jj],1,5))
-    if (ccount == 1) { # that''s for the first timelayer of a raster
-      writeRaster(m, filenameRaster, format = "GTiff", overwrite=TRUE)
-      m <- NULL
-      filenameRaster_previous <- filenameRaster
-      next
-    } else if (length(m) == 0) {
+    if (length(m) == 0) {
       if (file.exists(paste0(filenameRaster_previous,'.tif'))) { # that's when timelayer is not there
         if (filenameRaster_previous == filenameRaster){ # that's when more timelayers exist for a single year
           next
@@ -69,6 +64,11 @@ for (ii in 1:length(vakTiles$tiles)){
         m <- NULL
         filenameRaster_previous <- filenameRaster
       }
+      next
+    } else if (ccount == 1) { # that's for the first timelayer of a raster
+      writeRaster(m, filenameRaster, format = "GTiff", overwrite=TRUE)
+      m <- NULL
+      filenameRaster_previous <- filenameRaster
       next
     } else { # here the merge with previous file is done
       rs_file <- raster::brick(paste0(filenameRaster_previous,'.tif'))
