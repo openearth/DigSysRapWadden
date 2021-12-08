@@ -8,6 +8,7 @@ require(rvest)
 require(xml2)
 require(magrittr)
 
+
 url <- "https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html"
 catalogue <- read_html(url)
 
