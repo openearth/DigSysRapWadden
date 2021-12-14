@@ -18,45 +18,45 @@ source("r/runThisFirst.R")
 
 ## Bodemligging {#bodemligging}
 
-<!-- In figuur \@ref(fig:WaddenBathymetrieLeaflet) zijn de bathymetrieën van de drie meest recente vaklodingen kaarten opgenomen. Door via de legends de verschillende bodems in de jaren aan of uit te zetten, kunnen verschillen inzichtelijk worden gemaakt. -->
+In figuur \@ref(fig:WaddenBathymetrieLeaflet) zijn de bathymetrieën van de drie meest recente vaklodingen kaarten opgenomen. Door via de legends de verschillende bodems in de jaren aan of uit te zetten, kunnen verschillen inzichtelijk worden gemaakt.
 
-<!-- ```{r WaddenBathymetrieLeaflet, include=T, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"} -->
+```{r WaddenBathymetrieLeaflet, eval=F, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"}
 
 
-<!-- epsg28992 <- "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs" -->
-<!-- proj4wgs <- CRS('+init=EPSG:4326') -->
-<!-- # change !!!! Start with the correct bathymetrie in netcdf -->
-<!-- bathymetry_2005 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2005.tif")) -->
-<!-- bathymetry_2010 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2010.tif")) -->
-<!-- bathymetry_2016 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2016.tif")) -->
-<!-- #bathymetry_wgs <- brick(filename, varname="z") -->
+epsg28992 <- "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs"
+proj4wgs <- CRS('+init=EPSG:4326')
+# change !!!! Start with the correct bathymetrie in netcdf
+bathymetry_2005 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2005.tif"))
+bathymetry_2010 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2010.tif"))
+bathymetry_2016 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2016.tif"))
+#bathymetry_wgs <- brick(filename, varname="z")
 
-<!-- bathymetrywgs_2005 <- projectRaster(bathymetry_2005, crs = proj4wgs) -->
-<!-- bathymetrywgs_2010 <- projectRaster(bathymetry_2010, crs = proj4wgs) -->
-<!-- bathymetrywgs_2016 <- projectRaster(bathymetry_2016, crs = proj4wgs) -->
+bathymetrywgs_2005 <- projectRaster(bathymetry_2005, crs = proj4wgs)
+bathymetrywgs_2010 <- projectRaster(bathymetry_2010, crs = proj4wgs)
+bathymetrywgs_2016 <- projectRaster(bathymetry_2016, crs = proj4wgs)
 
-<!-- # get polygon shapefile  and its boundingbox  -->
-<!-- poly <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T) -->
-<!-- polywgs <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)  %>% sf::st_transform(4326) -->
-<!-- bbox <- sf::st_bbox(polywgs) -->
+# get polygon shapefile  and its boundingbox
+poly <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)
+polywgs <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)  %>% sf::st_transform(4326)
+bbox <- sf::st_bbox(polywgs)
 
-<!-- # using tiffs generated with createVakRasters.R -->
-<!-- pal = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = T) -->
-<!-- palrev = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = F) -->
+# using tiffs generated with createVakRasters.R
+pal = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = T)
+palrev = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = F)
 
-<!-- leaflet(polywgs) %>% -->
-<!--   leaflet::addTiles(group = "OSM") %>% -->
-<!--   addPolygons(label = ~htmltools::htmlEscape(layer), group = "vakken", color = "white", fillColor = "transparent", labelOptions = labelOptions(noHide = T, textOnly = TRUE, textsize = 14, style = list('color' = "white")), weight = 2) %>% -->
-<!--   addRasterImage(bathymetrywgs_2005, colors = pal, group = "2005", opacity = 80) %>% -->
-<!--   addRasterImage(bathymetrywgs_2010, colors = pal, group = "2010", opacity = 80) %>% -->
-<!--   addRasterImage(bathymetrywgs_2016, colors = pal, group = "2016", opacity = 80) %>% -->
-<!--   leaflet::addLegend(position = "bottomleft", pal = palrev, values = values(bathymetrywgs_2016), labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>% -->
-<!--   addLayersControl( -->
-<!--     baseGroups = c("OSM"), -->
-<!--     overlayGroups = c("vakken", "2005", "2010", "2016"), -->
-<!--     options = layersControlOptions(collapsed = FALSE) -->
-<!-- ) %>% hideGroup("vakken") -->
-<!-- ``` -->
+# leaflet(polywgs) %>%
+#   leaflet::addTiles(group = "OSM") %>%
+#   addPolygons(label = ~htmltools::htmlEscape(layer), group = "vakken", color = "white", fillColor = "transparent", labelOptions = labelOptions(noHide = T, textOnly = TRUE, textsize = 14, style = list('color' = "white")), weight = 2) %>%
+#   addRasterImage(bathymetrywgs_2005, colors = pal, group = "2005", opacity = 80) %>%
+#   addRasterImage(bathymetrywgs_2010, colors = pal, group = "2010", opacity = 80) %>%
+#   addRasterImage(bathymetrywgs_2016, colors = pal, group = "2016", opacity = 80) %>%
+#   leaflet::addLegend(position = "bottomleft", pal = palrev, values = values(bathymetrywgs_2016), labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
+#   addLayersControl(
+#     baseGroups = c("OSM"),
+#     overlayGroups = c("vakken", "2005", "2010", "2016"),
+#     options = layersControlOptions(collapsed = FALSE)
+# ) %>% hideGroup("vakken")
+```
 
 
 De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). 
@@ -64,10 +64,9 @@ De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBa
 
 ```{r WaddenBathymetrieLeaflet2, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2026 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
 
-knitr::include_url("http://c-services0049/deltares/bathymetrywadden/", height = "600px")
+knitr::include_url("https://deltares.shinyapps.io/bathymetrywadden/", height = "600px")
 
 ```
-
 
 ## Hypsometrie en arealen
 
@@ -91,64 +90,66 @@ Figuur \@ref(fig:hypsometriearealen) toont de hypsometrische curves voor het geh
 Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan de ontwikkeling per hoogteklasse beter worden gevolgd (figuur \@ref(fig:hypsometriearealen2)). 
 
 ```{r hypsometriearealen, out.width="100%", fig.width=8, fig.height=8, fig.cap = "Hypsometrische curve van de Waddenzee"}
-# create 12 plots
-# make first dataframe with columns as polygon, interval-classes, depths in it, and then produce the cumsum 
-dftot = list()
-rename = dplyr::rename
-for(ii in 1:dim(poly)[1]){
-  ii
-  deelraster2016 <- raster::mask(bathymetry_2016, poly[ii,])
-  deelraster2010 <- raster::mask(bathymetry_2010, poly[ii,])
-  deelraster2005 <- raster::mask(bathymetry_2005, poly[ii,])
-  
-  df2016 <- as.data.frame(deelraster2016) %>% drop_na() %>%
-    mutate(year=2016) %>%
-    mutate(class=case_when(
-      mosaic_2016 < -5 ~ "geul",
-      mosaic_2016 >= -5 & mosaic_2016 < -1 ~ "subgetijdengebied",
-      mosaic_2016 >= -1 & mosaic_2016 < 1 ~ "intergetijdengebied",
-      mosaic_2016 >= 1 ~ "supragetijdengebied"
-    )) %>%
-    rename(depth=mosaic_2016)
 
-    df2010 <- as.data.frame(deelraster2010) %>% drop_na() %>%
-    mutate(year=2010) %>%
-    mutate(class=case_when(
-      mosaic_2010 < -5 ~ "geul",
-      mosaic_2010 >= -5 & mosaic_2010 < -1 ~ "subgetijdengebied",
-      mosaic_2010 >= -1 & mosaic_2010 < 1 ~ "intergetijdengebied",
-      mosaic_2010 >= 1 ~ "supragetijdengebied"
-    )) %>%
-    rename(depth=mosaic_2010)
-  df2005 <- as.data.frame(deelraster2005) %>% drop_na() %>%
-    mutate(year=2005) %>%
-    mutate(class=case_when(
-      mosaic_2005 < -5 ~ "geul",
-      mosaic_2005 >= -5 & mosaic_2005 < -1 ~ "subgetijdengebied",
-      mosaic_2005 >= -1 & mosaic_2005 < 1 ~ "intergetijdengebied",
-      mosaic_2005 >= 1 ~ "supragetijdengebied"
-    )) %>%
-    rename(depth=mosaic_2005)
-  
-  df <- bind_rows(df2016, df2010, df2005)
-  dftot[[ii]] <- df
-  names(dftot)[ii] <- poly[,]$layer[ii]
-}
+epsg28992 <- "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs"
+proj4wgs <- CRS('+init=EPSG:4326')
+# change !!!! Start with the correct bathymetrie in netcdf
 
-sample = 100000
+# get polygon shapefile  and its boundingbox
+poly <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)
+polywgs <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)  %>% sf::st_transform(4326)
+bbox <- sf::st_bbox(polywgs)
+
+mosaicdir <- file.path(datadir, "RWS", "bathymetrie", "processing_tiles", "mosaic")
+filelist <- list.files(mosaicdir)
+
+# for(ii in 1:length(filelist)){
+for(ii in 1:1){  # for testing only
+  filelist[ii]
+  bathymetry <- raster::raster(file.path(mosaicdir, filelist[ii]))
+  bathymetrywgs <- projectRaster(bathymetry, crs = proj4wgs)
+  
+  dftot = list()
+  rename = dplyr::rename
+  
+  
+  # I have a feeling that the next part can be done more efficiently using 
+  for(jj in 1:dim(poly)[1]){
+    jj
+    deelraster <- raster::mask(bathymetry, poly[jj,])
+
+    df <- as.data.frame(deelraster) %>% drop_na() %>%
+      rename(setNames(names(.), "mosaic")) %>%
+      mutate(year=ii) %>%    # nog even jaar uit plukken
+      mutate(class=case_when(
+        mosaic < -5 ~ "geul",
+        mosaic >= -5 & mosaic < -1 ~ "subgetijdengebied",
+        mosaic >= -1 & mosaic < 1 ~ "intergetijdengebied",
+        mosaic >= 1 ~ "supragetijdengebied"
+      )) %>%
+      rename(depth=mosaic)
+    
+    df <- bind_rows(df)
+    dftot[[ii]] <- df
+    names(dftot)[jj] <- poly[,]$layer[jj]
+  }
+  
+  sample = 100000
 factor = dim(rbindlist(dftot))[1]/sample
 
 rbindlist(dftot,idcol = "vak") %>% sample_n(sample) %>%
   mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
 arrange(depth) %>%
-group_by(vak, year) %>%
+group_by(vak) %>%
   mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
   mutate(oppervlakte = factor*400*(cum/count)/1000000) %>%
   ggplot() +
   geom_line(aes(x = oppervlakte, y = depth, color = class), size = 1.5) +
-  facet_grid(vak ~ year, scales = "free") +
+  facet_grid(vak ~ ., scales = "free") +
   xlab("oppervlakte in km2") + ylab("diepte") +
   theme(legend.position = "bottom")
+  
+}
 
 ```
 
@@ -200,9 +201,41 @@ De plaathoogte moet nog worden uitgewerkt.
 
 ##	Geuldiepte
 
+
+```{r}
+
+# mask cells deeper than 10 m --> channels
+# find deepest point
+# plot time series ?
+# 
+
+df2016 %>% 
+  group_by(class) %>% summarise(volume = sum(depth))
+
+ggplot()
+```
+
+
 De geuldiepte moet nog worden uitgewerkt.
 
 ##	Plaatvolume
+
+```{r}
+# define plaat 
+# 
+# calculate volume
+# this can be done for geul and plaat at the same time, or for different depth classes as defined above 
+# Basically, it will take the form of:
+
+# dataframe %>% 
+  # group_by(year, class, polygon) %>% summarise(volume = 400 * sum(depth)) %>%  # check units!!!!!!
+  # ggplot(aes(year, volume)) +
+  # geom_col() %>%
+  # facet_grid(polygon ~ class)
+
+
+```
+
 
 Het plaatvolume moet nog worden uitgewerkt.
 
@@ -210,12 +243,22 @@ Het plaatvolume moet nog worden uitgewerkt.
 
 Het geulvolume moet nog worden uitgewerkt.
 
+```{r}
+# define geul 
+# 
+# calculate volume
+# 
 
+```
 
 
 ##	Lengte laagwaterlijn/plaatrand
 
 De lengte van de laagwaterlijn moet nog worden uitgewerkt.
+
+```{r}
+
+```
 
 
 ##	Ecotopenkaart
