@@ -32,6 +32,7 @@ getPackage("Tides")
 getPackage("plotly")
 getPackage("readxl")
 getPackage("tidync")
+getPackage("ggthemes")
 
 select <- dplyr::select
 addLegend <- leaflet::addLegend

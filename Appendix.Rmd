@@ -132,15 +132,65 @@ Voor zwevend stof is de afwijking van het langjarig gemiddelde berekend voor all
 
 ## Brondata en berekeningswijze morfologie {#Appmorfologie}
 
-<!-- De bodemligging van het Friesche Zeegat is opgehaald van de [Open Earth Dataserver](https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html). De database bevat de vaklodingen data in 20x20 m resolutie. De vaklodingen zijn een combinatie van lodingen van de diepe delen aangevuld met LiDAR opnames van de hoge delen. -->
+De bodemligging van de Waddenzee is opgehaald van de [Open Earth Dataserver](https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html). De database bevat de vaklodingen data in 20x20 m resolutie. De vaklodingen zijn een combinatie van lodingen van de diepe delen aangevuld met LiDAR opnames van de hoge delen. Voor meer informatie over deze metingen verwijzen we naar de desbetreffende webpaginan van [Rijkswaterstaat](https://waterinfo-extra.rws.nl/monitoring/morfologie/)
 
 <!-- Er is gewerkt met 1 polygoon van het Friesche Zeegat, dat wil zeggen dat voor alle jaren met hetzelfde polygoon is gerekend om de begrenzing van het bekken te bepalen. Daarnaast is er alleen data gebruikt van de cellen (20x20m tegels) die in alle opnamejaren data bevatten. Dit voorkomt dat afwijkingen ontstaan die het gevolg zijn van verschillende ruimtelijke dekking van de data. De getoonde veranderingen zijn daarmee puur het gevolg van veranderingen van de morfologie voor het geanalyseerde gebied. -->
 
-De visualisatie van de bodemligging van de Waddenzee is interactief beschikbaar gemaakt voor deze rapportage. De interactiveit wordt beschikbaar gemaakt met behulp van een r shiny app, die in de rapportage getoond wordt. De bathymetrie wordt hier gepresenteerd als een laag bovenop een Openstreetmap achtergrondkaart. De bathymetrielaag bevat gestapelde zgn. "tiles" van vaklodingen tussen de jaren die gekozen zijn met de slider. De bodemligging kan met en zonder "Hillshading" worden bekeken.  
+De visualisatie van de bodemligging van de Waddenzee is interactief beschikbaar gemaakt voor deze rapportage. De interactiveit wordt beschikbaar gemaakt met behulp van een r shiny app, die in de rapportage getoond wordt. De bathymetrie wordt hier gepresenteerd als een laag bovenop een Openstreetmap achtergrondkaart. De bathymetrielaag bevat gestapelde zgn. "tiles" van vaklodingen tussen de jaren die gekozen zijn met de slider. De bodemligging kan met en zonder "Hillshading" worden bekeken.
 
-Oorspronkelijke data is gemeten en opgeleverd door RWS voor elk jaar ^[https://waterinfo-extra.rws.nl/monitoring/morfologie/#h53b817e6-e5cd-49d1-873c-9a0f85d8e416], en opgeslagen op een thredds server van Deltares als netcdf ^[https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html]. Van elke netcdf is één tiff file per jaar gemaakt door een script ^[https://github.com/openearth/eo-bathymetry/blob/master/notebooks/Vaklodingen2EE.ipynb] en in een Google Cloud storage (gs) map gevat. Hierna is van gs een Google Earth Engine (gee) Image Collection van vaklodingen data gemaakt. De r shiny app gebruikt een API service ^[https://github.com/openearth/hydro-engine-service/blob/master/hydroengine_service/main.py] die de Image Collection leest, op basis van de gegeven input data.
+Oorspronkelijke data is gemeten en opgeleverd door RWS voor elk jaar^[https://waterinfo-extra.rws.nl/monitoring/morfologie/#h53b817e6-e5cd-49d1-873c-9a0f85d8e416], en opgeslagen op een thredds server van Deltares als netcdf^[https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html]. Van elke netcdf is één tiff file per jaar gemaakt door een script^[https://github.com/openearth/eo-bathymetry/blob/master/notebooks/Vaklodingen2EE.ipynb] en in een Google Cloud storage (gs) map gevat. Hierna is van gs een Google Earth Engine (gee) Image Collection van vaklodingen data gemaakt. De r shiny app gebruikt een API service^[https://github.com/openearth/hydro-engine-service/blob/master/hydroengine_service/main.py] die de Image Collection leest, op basis van de gegeven input data.
+
+Voor het berekenen van morfologische indicatoren zijn de vaklodingen als rasters (tiff) samengesteld voor elk jaar voor de hele Waddenzee. De rasters bestaan uit data van het betreffende jaar, gecombineerd met data van alle voorgaande jaren, waarbij alleen de meest recente waarde per pixel gebruikt wordt. Nadeel is dat sommige delen van een raster oudere waarden kunnen bevatten. Het voordeel is dat er voor elk jaar een gebiedsdekkend raster voorhanden is. 
+
+Hypsometrische curves worden bepaals voor subgebieden (kombergingsgebieden) door de oppervlakte per diepte voor elk subgebied uit te zetten tegen de diepte. Deze hypsometrische curves zijn ingedeeld in de verschillende diepteklasses :
+
+1. Geul ($z < -5 m$)
+2. Proxy subgetijdengebied ( $-5 m < z < -1 m$) 
+3. Proxy intergetijdengebied ( $-1 < z < 1 m$) 
+4. Proxy supragetijdengebied ($z > 1 m$)
 
 
+Verder zijn er de volgende indicatoren worden berekend voor elk subgebied:
+
+Plaathoogte: Hiervoor wordt het volume boven de NAP -1 m grens berekend, en gedeeld door de oppervlakte (equation \@ref(eq:plaathoogte)).
+
+\begin{equation} 
+  \text{Plaathoogte} = \frac{\sum_i(h_i \cdot A_i)}{\sum_i A_i} \text{  if } h\geq -1
+  (\#eq:plaathoogte)
+\end{equation} 
+
+waarin:
+
+*   A = oppervlakte van 1 rasterpixel (400 $m^2$)
+*   h = hoogtewaarde van een pixel
+*   i = de index van de pixels in het raster
+
+Geuldiepte: Hiervoor wordt het volume onder de NAP -1 m grens berekend, en gedeeld door de oppervlakte.
+
+\begin{equation} 
+  \text{Geuldiepte} = \frac{\sum_i(h_i \cdot A_i)}{\sum_i A_i} \text{  if } h\leq -1
+  (\#eq:geuldiepte)
+\end{equation} 
+
+Plaatvolume: Hiervoor wordt het volume boven de NAP -1 m grens berekend.
+
+\begin{equation} 
+  \text{Plaatvolume} = \sum_i(h_i \cdot A_i) \text{  if } h\geq -1
+  (\#eq:plaatvolume)
+\end{equation} 
+
+
+Geulvolume: Hiervoor wordt het volume onder de NAP -1 m grens berekend.
+
+\begin{equation} 
+  \text{Geulvolume} = \sum_i(h_i \cdot A_i) \text{  if } h\leq -1
+  (\#eq:geulvolume)
+\end{equation} 
+
+
+
+
+## Dataoverzicht alle data
 
 ```{r dataoverzich2t}
 # code om dataoverzicht in nette tabel weer te geven. 
@@ -148,5 +198,8 @@ Oorspronkelijke data is gemeten en opgeleverd door RWS voor elk jaar ^[https://w
 read_excel(file.path(datadir, "dataoverzicht.xlsx")) %>% 
   knitr::kable(caption = "Overzicht van alle gebruikte data")
 ```
+
+
+
 
 

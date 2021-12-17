@@ -101,26 +101,29 @@ polywgs <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-
 bbox <- sf::st_bbox(polywgs)
 
 mosaicdir <- file.path(datadir, "RWS", "bathymetrie", "processing_tiles", "mosaic")
-filelist <- list.files(mosaicdir)
+mosaiclist <- list.files(mosaicdir)
 
-# for(ii in 1:length(filelist)){
-for(ii in 1:1){  # for testing only
-  filelist[ii]
-  bathymetry <- raster::raster(file.path(mosaicdir, filelist[ii]))
-  bathymetrywgs <- projectRaster(bathymetry, crs = proj4wgs)
-  
-  dftot = list()
-  rename = dplyr::rename
-  
-  
-  # I have a feeling that the next part can be done more efficiently using 
-  for(jj in 1:dim(poly)[1]){
-    jj
-    deelraster <- raster::mask(bathymetry, poly[jj,])
+year <- mosaiclist[grepl("_", mosaiclist)]%>%
+lapply(., function(x) substring(x,8,11)) %>%
+unlist(.) %>%
+sort(.)
 
+dftot = list()
+na.df = tibble()
+rename = dplyr::rename
+
+for(ii in seq(1,length(mosaiclist), 10)){
+  print(year[ii])
+  bathymetry <- raster::raster(file.path(mosaicdir, mosaiclist[ii])) 
+  #bathymetrywgs <- projectRaster(bathymetry, crs = proj4wgs) # ~ this is probably not needed
+  dfyear <- list()
+  for(jj in 1:dim(poly)[1]){ 
+    deelraster <- raster::mask(crop(bathymetry, extent(poly[jj,])), poly[jj,])
+    nas <- length(which(is.na(values(deelraster))))
+    na.df.temp <- tibble(year = year[ii], area = poly[,]$layer[jj], nas = nas)
     df <- as.data.frame(deelraster) %>% drop_na() %>%
       rename(setNames(names(.), "mosaic")) %>%
-      mutate(year=ii) %>%    # nog even jaar uit plukken
+      mutate(year=year[ii]) %>% # nog even jaar uit plukken
       mutate(class=case_when(
         mosaic < -5 ~ "geul",
         mosaic >= -5 & mosaic < -1 ~ "subgetijdengebied",
@@ -128,42 +131,74 @@ for(ii in 1:1){  # for testing only
         mosaic >= 1 ~ "supragetijdengebied"
       )) %>%
       rename(depth=mosaic)
-    
-    df <- bind_rows(df)
-    dftot[[ii]] <- df
-    names(dftot)[jj] <- poly[,]$layer[jj]
+    dfyear[[jj]] <- df
+    names(dfyear)[jj] <- poly[,]$layer[jj]
+    na.df <- na.df %>% bind_rows(na.df.temp)
   }
-  
-  sample = 100000
-factor = dim(rbindlist(dftot))[1]/sample
+  dftot[[ii]] <-dfyear
+  names(dftot)[ii] <- year[ii]
+}
 
-rbindlist(dftot,idcol = "vak") %>% sample_n(sample) %>%
+  # rp <- lapply(poly}, function(x){
+  #   as.data.frame(raster::mask(crop(bathymetry, extent(x)), x)) %>%
+  #     drop_na() %>%
+  #     rename(setNames(names(.), "mosaic")) %>%
+  #     mutate(year=ii) %>%    
+  #     mutate(class=case_when(
+  #       mosaic < -5 ~ "geul",
+  #       mosaic >= -5 & mosaic < -1 ~ "subgetijdengebied",
+  #       mosaic >= -1 & mosaic < 1 ~ "intergetijdengebied",
+  #       mosaic >= 1 ~ "supragetijdengebied"
+  #     )) %>%
+  #     rename(depth=mosaic)
+  # }) %>% rbindlist(idcol = "vak")
+  
+# If you subset (crop) to the common polygon extent you create a stack.
+
+#creates a raster stack with all masked and cropped parts of the raster
+# rp <- do.call(stack,lapply(1:nrow(poly), function(x) 
+#   raster::mask(crop(bathymetry, extent(poly)), poly[x,]) )) 
+
+sample = 100000
+nrobs =
+  dftot %>% 
+  map(data.table::rbindlist, idcol = "area") %>% 
+  bind_rows() %>% dim()  %>% first()
+factor = nrobs/sample
+# factor = dim(rbindlist(dftot))[1]/sample
+
+p <- dftot %>% 
+  map(data.table::rbindlist, idcol = "area") %>% 
+  bind_rows() %>% 
+  sample_n(sample) %>%
   mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
 arrange(depth) %>%
-group_by(vak) %>%
+group_by(area, year) %>%
   mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
   mutate(oppervlakte = factor*400*(cum/count)/1000000) %>%
   ggplot() +
-  geom_line(aes(x = oppervlakte, y = depth, color = class), size = 1.5) +
-  facet_grid(vak ~ ., scales = "free") +
+  geom_line(aes(x = oppervlakte, y = depth, color = year)) +
+  facet_grid(. ~ area, scales = "free") +
   xlab("oppervlakte in km2") + ylab("diepte") +
   theme(legend.position = "bottom")
-  
-}
 
+ggplotly(p)
 ```
 
 
 ```{r hypsometriearealen2, out.width="100%", fig.width=8, fig.height=10, fig.cap = "Hypsometrische curve van de Waddenzee, 2e versie"}
-p <- rbindlist(dftot,idcol = "vak") %>% sample_n(sample) %>%
+p <- dftot %>% 
+  map(data.table::rbindlist, idcol = "area") %>% 
+  bind_rows() %>% 
+  sample_n(sample) %>%
   mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
   arrange(depth) %>%
-  group_by(vak, year) %>%
+  group_by(area, year) %>%
   mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
   mutate(oppervlakte = factor*400*(cum/count)/1000000) %>%
   ggplot() +
   geom_line(aes(x = oppervlakte, y = depth, color = as.factor(year)), size = 0.5) +
-  facet_grid(vak ~ class, scales = "free") +
+  facet_grid(area ~ class, scales = "free") +
   coord_cartesian(xlim = c(0,NA)) +
   xlab("oppervlakte in km2") + ylab("diepte") +
   theme(legend.position = "bottom")
