@@ -6,6 +6,14 @@ library(shiny)
 library(leaflet)
 library(httr)
 library(jsonlite)
+library(sf)
+
+
+
+
+poly <- sf::st_read(file.path("https://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/RWS/bathymetrie/FriescheZeegat-P-Z.geojson"), quiet = T) %>%
+    st_transform(4326)
+
 
 ui <- fluidPage(title = "Wadden Sea Bathymetry",
                 tags$style("
@@ -58,11 +66,16 @@ server <- function(input, output) {
         # form map on a background
         leaflet() %>%
             addTiles(group = "OSM") %>%
-            # addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
+            addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
             addTiles("http://{s}.{z}/{x}/{y}.png", group = "bathymetrie") %>%
             # addTiles("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png") %>%
             addTiles(content(res)$url) %>% setView(5.0, 53.0, zoom = 12) %>%
-            # leaflet::addLayersControl(baseGroups = c("OSM", "ESRI worldimagery")) %>%
+            addPolygons(data = poly, group = "polygons") %>%
+            leaflet::addLayersControl(
+                baseGroups = c("OSM", "ESRI worldimagery"), 
+                overlayGroups = c("polygons"),
+                options = layersControlOptions(noHide = T, collapsed = FALSE),
+                ) %>%
             leaflet::addLegend(
                 colors = unlist(strsplit(content(res)$palette, ",")), 
                 labels = round(seq(request$min/100, request$max/100, length.out = 20), 0), opacity = 1
