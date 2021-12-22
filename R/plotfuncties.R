@@ -17,6 +17,19 @@ legendbottomstyle <- list(theme_bw(),
 
 
 
+remove_outliers <- function(x, na.rm = TRUE, ...) {
+  qnt <- quantile(x, probs=c(.25, .75), na.rm = na.rm, ...)
+  H <- 1.5 * IQR(x, na.rm = na.rm)
+  y <- x
+  y[x < (qnt[1] - H)] <- NA
+  y[x > (qnt[2] + H)] <- NA
+  y
+}
+
+
+
+
+
 # hoeft geen maandgemiddelde te zijn, kan ook 
 plotWQseason <- function(data, maxPlotwaarde = 100000, loc, param, mystyle, beginjaar, eindjaar = 2020, pointsplot = F, lineplot = F, boxplotting = F, smoothing = F, logscale = F){
   plotTitel = paste(loc, collapse = ', ')

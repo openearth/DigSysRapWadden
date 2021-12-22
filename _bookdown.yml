@@ -1,4 +1,11 @@
-rmd_files: ["index.Rmd","70_waterkwantiteit.Rmd","10_meteorologieenklimaat.Rmd", "20_waterkwaliteit.Rmd", "060_Bathymetrie_en_morfodynamiek.Rmd", "90_Meetbehoefte.Rmd", "Appendix.Rmd"] 
+rmd_files: [
+  "index.Rmd",
+  "70_waterkwantiteit.Rmd",
+  "10_meteorologieenklimaat.Rmd",
+  "20_waterkwaliteit.Rmd",
+  "060_Bathymetrie_en_morfodynamiek.Rmd",
+  "90_Meetbehoefte.Rmd",
+  "Appendix.Rmd"] 
 bibliography: ["references/wadden.bib"]
 biblio-style: "apalike"
 link-citations: yes
