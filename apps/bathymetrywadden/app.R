@@ -8,8 +8,12 @@ library(httr)
 library(jsonlite)
 library(sf)
 
-poly <- sf::st_read(file.path("https://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/RWS/bathymetrie/FriescheZeegat-P-Z.geojson"), quiet = T) %>%
+waddenzeeURL <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
+# friesezeegatURL <- "https://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/RWS/bathymetrie/FriescheZeegat-P-Z.geojson"
+poly <- sf::st_read(file.path(waddenzeeURL), quiet = T) %>%
     st_transform(4326)
+
+
 
 ui <- fluidPage(title = "Wadden Sea Bathymetry",
                 tags$style("
