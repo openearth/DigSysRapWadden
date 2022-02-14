@@ -2,7 +2,7 @@
 # still to be finalised
 
 runonline = F
-local = F
+local = T
 
 startyear <- 1990
 endyear <- 2020

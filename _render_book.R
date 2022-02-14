@@ -11,14 +11,14 @@ file.remove("_main.Rmd")
 # to preview a chapter, uncomment one of the lines and run.
 # bookdown::preview_chapter("index.Rmd")
 # bookdown::preview_chapter("10_meteorologieenklimaat.Rmd")
-bookdown::preview_chapter("060_Bathymetrie_en_morfodynamiek.Rmd")
+# bookdown::preview_chapter("060_Bathymetrie_en_morfodynamiek.Rmd")
 # bookdown::preview_chapter("10_meteorologieenklimaat.Rmd")
 # bookdown::preview_chapter("060_Bathymetrie_en_morfodynamiek.Rmd")
 # bookdown::preview_chapter("20_waterkwaliteit.Rmd")
 # bookdown::preview_chapter("30_zeehonden.Rmd")
 # bookdown::preview_chapter("40_vogels.Rmd")
 # bookdown::preview_chapter("70_waterkwantiteit.Rmd")
-bookdown::preview_chapter("Appendix.Rmd")
+# bookdown::preview_chapter("Appendix.Rmd")
 
 # knitr::clean_cache() # kan soms handig zijn
 

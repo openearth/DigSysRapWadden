@@ -36,7 +36,7 @@ pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
 
 ## Zeespiegelstijging {#Appzeespiegelstijging}
 
-In de DSR Wadden is de jaargemiddelde waterstand voor de zes hoofdstations langs de Nederlandse kust overgenomen uit de Zeespiegelmonitor. In deze studie is de stijging van de zeespiegel nauwkeurig onderzocht en berekend. De berekening en aanvullende én interactieve figuren kunnen worden ingezien via de [Jupyter Notebook Zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb).
+In de DSR Wadden is de jaargemiddelde waterstand voor de zes hoofdstations langs de Nederlandse kust overgenomen uit de Zeespiegelmonitor. In deze studie is de stijging van de zeespiegel nauwkeurig onderzocht en berekend. De berekening en aanvullende ?n interactieve figuren kunnen worden ingezien via de [Jupyter Notebook Zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb).
 
 
 
@@ -46,9 +46,9 @@ In de DSR Wadden is de jaargemiddelde waterstand voor de zes hoofdstations langs
 
 Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de waterstand ingelezen via de [webservice van de Data Distributie Laag](https://rijkswaterstaat.github.io/wm-ws-dl/#introduction) van Rijkswaterstaat. 
 
-De recente waterstandsmetingen, vanaf 1984, hebben een tijdstap van 10 minuten op alle stations. Vóór 1984 is met een lagere frequentie gemeten, met een tijdstap van 1 uur, en vóór 1966 is dit zelfs een tijdstap van 3 uur, zie figuur \@ref(fig:tijdstap)). Voor deze lagere frequenties is de hieronder beschreven methode voor het afleiden van de waterstanden te onnauwkeurig. Voor die periode beschikt RWS wel over een dataset van hoog- en laagwaterstanden, die hiervoor kunnen worden gebruikt. Daarvan kan dan het jaarlijkse gemiddelde worden bepaald. Deze data zijn momenteel nog niet openlijk beschikbaar. Ook missen er nog enkele stations (zie hoofdstuk \@ref(Informatiebehoefte)).
+De recente waterstandsmetingen, vanaf 1984, hebben een tijdstap van 10 minuten op alle stations. V??r 1984 is met een lagere frequentie gemeten, met een tijdstap van 1 uur, en v??r 1966 is dit zelfs een tijdstap van 3 uur, zie figuur \@ref(fig:tijdstap)). Voor deze lagere frequenties is de hieronder beschreven methode voor het afleiden van de waterstanden te onnauwkeurig. Voor die periode beschikt RWS wel over een dataset van hoog- en laagwaterstanden, die hiervoor kunnen worden gebruikt. Daarvan kan dan het jaarlijkse gemiddelde worden bepaald. Deze data zijn momenteel nog niet openlijk beschikbaar. Ook missen er nog enkele stations (zie hoofdstuk \@ref(Informatiebehoefte)).
 
-```{r tijdstap, out.width="80%", fig.cap= "Gebruikte tijdstap in de dataset voor alle stations. Vanaf 1984 is voor alle stations data op elke 10 minuten beschikbaar. Tussen 1966 en 1984 (variërend per station), is dit een tijdstap van een uur. Vóór 1966 is dit zelfs 3 uur." }
+```{r tijdstap, out.width="80%", fig.cap= "Gebruikte tijdstap in de dataset voor alle stations. Vanaf 1984 is voor alle stations data op elke 10 minuten beschikbaar. Tussen 1966 en 1984 (vari?rend per station), is dit een tijdstap van een uur. V??r 1966 is dit zelfs 3 uur." }
 knitr::include_graphics("images/ts_timestep.png")
 ```
 
@@ -85,7 +85,7 @@ Delfzijl %>%
 
 
 ### Getijcomponenten en -asymmetrie
-Op basis van de gemeten waterstanden wordt met het python package ‘hatyan’ de amplitude en fase van de verschillende getijcomponenten bepaald. Op basis van deze amplitudes kan de amplitudeverhouding M4/M2 en het faseverschil (2FM2 – FM4) worden berekend [https://github.com/Deltares/hatyan](https://github.com/Deltares/hatyan).  Voor uitgebreide documentatie wordt verwezen naar [de gebruikershandleiding](https://github.com/Deltares/hatyan/blob/main/docs/11205257-013-DSC-0006_v1.0-Gebruikershandleiding%20hatyan.pdf ).
+Op basis van de gemeten waterstanden wordt met het python package ?hatyan? de amplitude en fase van de verschillende getijcomponenten bepaald. Op basis van deze amplitudes kan de amplitudeverhouding M4/M2 en het faseverschil (2FM2 ? FM4) worden berekend [https://github.com/Deltares/hatyan](https://github.com/Deltares/hatyan).  Voor uitgebreide documentatie wordt verwezen naar [de gebruikershandleiding](https://github.com/Deltares/hatyan/blob/main/docs/11205257-013-DSC-0006_v1.0-Gebruikershandleiding%20hatyan.pdf ).
 
 
 
@@ -119,7 +119,7 @@ De anomalie is berekend aan de hand van de volgende stappen:
 
 1)  De afwijking per station en maand berekenen als het verschil tussen maandgemiddelde en langjarig gemiddelde
 
-1)  De afwijking uitzetten tegen de maand in het jaar, en voor alle jaren in één figuur. De kleurenschaal toont het onderscheid tussen de jaren.
+1)  De afwijking uitzetten tegen de maand in het jaar, en voor alle jaren in ??n figuur. De kleurenschaal toont het onderscheid tussen de jaren.
 
 
 ## Zoetwaterafvoeren {#Appzoetwaterafvoer}
@@ -170,7 +170,7 @@ Ook is bekend dat er continue metingen van temperatuur en saliniteit plaatsvinde
 
 ### Gemiddelde watertemperatuur (maand, jaar en zomer/winter)
 
-Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de ‘maandgemiddelden’ te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden beïnvloed door de hogere meetfrequentie in de zomer. (Het woord ‘maandgemiddelden’ staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar één meting per maand is.)
+Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de ?maandgemiddelden? te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden be?nvloed door de hogere meetfrequentie in de zomer. (Het woord ?maandgemiddelden? staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar ??n meting per maand is.)
 
 De seizoensgemiddelden zijn alleen berekend en weergegeven als er minimaal 5 metingen in het seizoen beschikbaar waren. Het zomerseizoen wordt gerekend vanaf 1 april t/m 30 september, en het winterseizoen vanaf 1 oktober t/m 31 maart.
 
@@ -179,7 +179,7 @@ Zomer- en wintergemiddelden zijn berekend om te zien of er trends in de seizoene
 
 ### Gemiddelde saliniteit (maand, jaar) en anomalie
 
-Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de ‘maandgemiddelden’ te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden beïnvloed door de hogere meetfrequentie in de zomer. (Het woord ‘maandgemiddelden’ staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar één meting per maand is.)
+Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de ?maandgemiddelden? te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden be?nvloed door de hogere meetfrequentie in de zomer. (Het woord ?maandgemiddelden? staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar ??n meting per maand is.)
 
 Het jaargemiddelde is alleen berekend bij meer dan 10 metingen per jaar. 
 
@@ -196,7 +196,7 @@ De anomalie van de saliniteit is de afwijking van de maandgemiddelde saliniteit 
 
 ### Gemiddelde zwevende stof gehalte (maand, jaar) en anomalie
 
-Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de ‘maandgemiddelden’ te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden beïnvloed door de hogere meetfrequentie in de zomer. (Het woord ‘maandgemiddelden’ staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar één meting per maand is.)
+Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de ?maandgemiddelden? te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden be?nvloed door de hogere meetfrequentie in de zomer. (Het woord ?maandgemiddelden? staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar ??n meting per maand is.)
 
 Voor zwevende stof is de anomalie, de afwijking ten opzichte van het langjarig gemiddelde, berekend voor alle jaren en maanden. Bovendien is deze data log-getransformeerd. De stappen voor de afleiding zijn:
 
@@ -242,7 +242,7 @@ Voor de (morfologische) zonering van de ondiepe gebieden is er voor gekozen om i
 
 Hypsometrische curves worden bepaald voor subgebieden (kombergingsgebieden) door de oppervlakte per diepte voor elk subgebied uit te zetten tegen de diepte. 
 
-Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, kan de hypsometrische curve worden onderverdeeld in vier verschillende diepteklassen. Omdat hierbij wordt gerekend met vaste begrenzingen van de diepteklassen, en veranderingen in getijslag door de tijd of over het gebied niet worden meegenomen, worden de (ondiepere) klassen aangeduid met ‘proxy’.
+Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, kan de hypsometrische curve worden onderverdeeld in vier verschillende diepteklassen. Omdat hierbij wordt gerekend met vaste begrenzingen van de diepteklassen, en veranderingen in getijslag door de tijd of over het gebied niet worden meegenomen, worden de (ondiepere) klassen aangeduid met ?proxy?.
 
 We onderscheiden de volgende 4 klassen:
 
@@ -254,7 +254,7 @@ We onderscheiden de volgende 4 klassen:
 
 1)  Proxy supragetijdengebied ($z > 1 m$)
 
-Waar z de verticale coördinaat t.o.v. NAP betekent.
+Waar z de verticale co?rdinaat t.o.v. NAP betekent.
 
 ### Plaathoogte en -volume
 

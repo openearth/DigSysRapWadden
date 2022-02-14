@@ -19,7 +19,7 @@ source("r/runThisFirst.R")
 baseurl = "https://wad.deontwikkelfabriek.nl/geoserver/wmr/ows?"
 wfs_request = "service=WFS&version=1.0.0&request=GetFeature&typeName=wmr:zeehondtelgebieden&outputForma=application/json"
 zeehondTelgebieden <- st_read(paste0(baseurl, wfs_request), crs = 4326)
-land <- read_sf("d:/GIS_DATA/Nederland/administratief/Gemeentegrenzen_2017_zonder_water_gen.shp") %>% st_transform(4326) %>% summarise()
+land <- read_sf(file.path(datadir, "../", "administratief/NL_gemeentegrenzen/Gemeentegrenzen_2017_zonder_water_gen.shp")) %>% st_transform(4326) %>% summarise()
 names(st_geometry(zeehondTelgebieden)) = NULL
 ```
 
