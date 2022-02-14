@@ -14,11 +14,11 @@ require(leaflet)
 source("r/runThisFirst.R")
 ```
 
-
+Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswijze van de getoonde indicatoren is terug te vinden in Appendix \@ref(Appmorfologie).
 
 ## Bodemligging {#bodemligging}
 
-In figuur \@ref(fig:WaddenBathymetrieLeaflet) zijn de bathymetrieën van de drie meest recente vaklodingen kaarten opgenomen. Door via de legends de verschillende bodems in de jaren aan of uit te zetten, kunnen verschillen inzichtelijk worden gemaakt.
+In figuur \@ref(fig:WaddenBathymetrieLeaflet) zijn de bathymetrieën van de drie meest recente vaklodingen kaarten opgenomen. Door via de legenda de verschillende bodems in de jaren aan of uit te zetten, kunnen verschillen inzichtelijk worden gemaakt.
 
 ```{r WaddenBathymetrieLeaflet, eval=F, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"}
 
@@ -232,7 +232,7 @@ Bij analyse van deelgebieden, is de ruimtelijke begrenzing zeer van belang voor 
 
 In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte voor het gehele Friesche Zeegat te berekenen. Hiervoor wordt het volume boven de NAP -1 m grens berekend, en gedeeld door de oppervlakte. 
 
-De plaathoogte moet nog worden uitgewerkt.
+*(De plaathoogte moet nog worden uitgewerkt.)*
 
 ##	Geuldiepte
 
@@ -251,7 +251,7 @@ ggplot()
 ```
 
 
-De geuldiepte moet nog worden uitgewerkt.
+*(De geuldiepte moet nog worden uitgewerkt.)*
 
 ##	Plaatvolume
 
@@ -272,11 +272,11 @@ De geuldiepte moet nog worden uitgewerkt.
 ```
 
 
-Het plaatvolume moet nog worden uitgewerkt.
+*(Het plaatvolume moet nog worden uitgewerkt.)*
 
 ##	Geulvolume 
 
-Het geulvolume moet nog worden uitgewerkt.
+*(Het geulvolume moet nog worden uitgewerkt.)*
 
 ```{r}
 # define geul 
