@@ -20,11 +20,11 @@ dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 ```
 
 ## Afbakening
-Om het abiotische systeem in het Waddengebied te beschrijven, is de wind van groot belang, omdat deze direct en in sterke mate de waterbeweging in de Waddenzee beinvloedt. De windsterkte en de windrichting bepalen samen over welke afstand (strijklengte) de wind invloed kan uitoefenen op het wateroppervlak en hoe groot de windopzet of windafzet is. Ook wordt het merendeel van de golven in de Waddenzee lokaal opgewekt door de wind. Golven worden nader beschreven in de paragraaf \@ref(golfhoogte).
+Om het abiotische systeem in het Waddengebied te beschrijven, is de wind van groot belang, omdat deze direct en in sterke mate de waterbeweging in de Waddenzee beinvloedt. De windsterkte en de windrichting bepalen samen over welke afstand (strijklengte) de wind invloed kan uitoefenen op het wateroppervlak en hoe groot de windopzet of windafzet is (zie ook Waterhoogte bij storm in paragraaf \@ref(waterhoogte-bij-storm)). Ook wordt het merendeel van de golven in de Waddenzee lokaal opgewekt door de wind. De indicatoren voor golven zijn opgenomen in paragraaf \@ref(golfhoogte) en \@ref(golfperiode).
 
 De luchttemperatuur, zoninstraling en bewolking hebben invloed op veel ecologische processen, zoals algen- en plantengroei. Indirect kunnen deze ook weer de morfologie beinvloeden. De watertemperatuur is ook een directe resultante van de luchttemperatuur, zoninstraling en bewolking, en is opgenomen in deze systeemrapportage in paragraaf \@ref(watertemperatuur). Via deze indicator is ook de toestand en trends van de luchttemperatuur, zoninstraling en bewolking te volgen. Deze worden daarom verder niet afzonderlijk gerapporteerd. 
 
-Luchtdruk en neerslag zijn eveneens buiten beschouwing gelaten. Voor variaties in het waterniveau is vooral de wind van invloed, meer dan de luchtdruk. Op schaal van de Waddenzee wordt de saliniteitsverdeling in grotere mate beïnvloed door het spuien van zoet water dan via neerslag. De afvoeren zijn opgenomen in hoofdstuk \@ref(zoetwaterafvoeren).
+Luchtdruk en neerslag zijn eveneens buiten beschouwing gelaten. Voor variaties in het waterniveau is vooral de wind van invloed, meer dan de luchtdruk. Op schaal van de Waddenzee wordt de saliniteitsverdeling in grotere mate beïnvloed door het spuien van zoet water dan via neerslag. De afvoeren zijn opgenomen in paragraaf \@ref(zoetwaterafvoeren).
 
 De wind wordt geanalyseerd en gevizualiseerd op vier KNMI stations (zie bron Appendix: \@ref(Appwind)): `r paste(unique(dtwind$station), collapse = ", ")`. Zie figuur \@ref(fig:KNMIstationsmap) voor de ligging van deze stations.
 
@@ -56,7 +56,7 @@ leaflet() %>%
 
 ##  Wind   {#wind}
 
-### Windsterkte en -richting op de langere termijn {#windroos}
+### Windsterkte en -richting over de langere termijn {#windroos}
 
 De windsterkte en windrichting vormen samen de basis voor de windforcering op het Waddengebied. De langjarige windrozen over de periode 1990 tot en met 2018 (figuur \@ref(fig:windroos)) laten zien dat de wind overwegend uit het zuidwesten komt en de hogere windsnelheden overwegend uit het zuidwesten tot noordoosten komen. De verschillende rozen tonen dat er tussen de verschillende stations verschillen zitten in de windsterkte. De hoogste snelheden worden gemeten op Vlieland.
 
@@ -119,9 +119,9 @@ ggplot(aes(year, value)) +
 
 ### Seizoensvariatie  {#windseizoen}
 
-De seizoensverdeling van windsterkte laat zien dat de hogere windsnelheden vaker voorkomen in de winter dan in de zomer. Dit is te zien in een heatmap grafiek over maandgemiddelde windsnelheden, uitgezet tegen jaren en maanden (figuur \@ref(fig:windHeatmapOosterschelde)). Hierin is zowel de lange termijn variatie te zien (horizontaal) als de seizoensvariatie (verticaal). Over het geheel gesproken bevestigd dit het beeld dat de windsnelheid in de wintermaanden hoger is dan in de zomer. Er lijkt geen structurele trend in de tijd te zijn wat betreft gemiddelde windsnelheid of de variatie per seizoen. 
+De seizoensverdeling van windsterkte laat zien dat de hogere windsnelheden vaker voorkomen in de winter dan in de zomer. Dit is te zien in een heatmap grafiek van de maandgemiddelde windsnelheden, uitgezet tegen jaren (horizontale as) en maanden (verticale as) in figuur \@ref(fig:windHeatmapWaddenzee). Hierin is zowel de lange termijn variatie te zien (horizontaal) als de seizoensvariatie (verticaal). Over het geheel gesproken bevestigt dit het beeld dat de windsnelheid in de wintermaanden hoger is dan in de zomer. Er lijkt geen structurele trend in de tijd te zijn wat betreft gemiddelde windsnelheid of de variatie per seizoen. 
 
-```{r windHeatmapOosterschelde, fig.height=6, fig.width = 8, fig.cap="Variatie van windsnelheden over de lange termijn (horizontaal) en over het jaar (verticaal) over de periode 1998 - 2018. Grijze vlakken zijn maanden zonder data. "}
+```{r windHeatmapWaddenzee, fig.height=6, fig.width = 8, fig.cap="Variatie van windsnelheden over de lange termijn (horizontaal) en over het jaar (verticaal) over de periode 1998 - 2018. Grijze vlakken zijn maanden zonder data. "}
 dtwind %>% 
   group_by(year, month, date, station) %>% summarize(`windsnelheid daggemiddeld` = mean(`Uurgemiddelde windsnelheid in 0.1 m/s`)) %>%
   group_by(year, month, station) %>% summarize(`windsnelheid in m/s` = mean(`windsnelheid daggemiddeld`)/10, na.rm = T) %>%
@@ -133,7 +133,7 @@ dtwind %>%
 
 ###	Periodes met hoge windsterkte {#windperiodes}
 
-Naast de variatie in windsnelheid in de zomer en de winter, is ook inzicht in stormen of periodes met hoge windsnelheden belangrijk. Hiermee kan inzicht worden gekregen of bepaalde jaren dynamischer zijn geweest of juist kalmer dan gemiddeld. Vanaf een windsnelheid van 20,8 m/s spreken we van storm (Windkracht 9 op de Schaal van Beaufort), maar in de Waddenzee treden al bij veel lagere windsnelheden grote transporten over de wantijen en verhoging in zwevende stof op. Daarom wordt in figuur \@ref(fig:consecHours) het totaal aantal uren dat de windsterkte > 10,8 m/s (Beaufort 6) was gesommeerd per jaar uitgezet. Figuur \@ref(fig:consecHours2) is hetzelfde, maar dan met de grens op 13,9 m/s (Beaufort 7). 
+Naast de variatie in windsnelheid in de zomer en de winter, is ook inzicht in stormen of periodes met hoge windsnelheden belangrijk. Hiermee kan inzicht worden gekregen of bepaalde jaren dynamischer zijn geweest of juist kalmer dan gemiddeld. Vanaf een windsnelheid van 20,8 m/s spreken we van storm (Windkracht 9 op de Schaal van Beaufort), maar in de Waddenzee treden al bij veel lagere windsnelheden grote transporten over de wantijen en toename van de vertroebeling op. Daarom wordt in figuur \@ref(fig:consecHours) het totaal aantal uren dat de windsterkte > 10,8 m/s (Beaufort 6) was gesommeerd per jaar uitgezet. Figuur \@ref(fig:consecHours2) is hetzelfde, maar dan met de grens op 13,9 m/s (Beaufort 7). 
 
 
 ```{r consecHours, fig.height=10, fig.width=10, fig.cap="Aantal achtereenvolgende uren dat de windsnelheid boven 10,8 m/s is geweest vanaf 2010."  }

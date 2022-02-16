@@ -28,7 +28,7 @@ WQ <- WQ %>% bind_rows(ZS)
 
 ```
 
-Voor de waterkwaliteit zijn de parameters watertemperatuur, saliniteit en concentratie van zwevende stof geselecteerd. Deze parameters worden tweewekelijks tot maandelijks bemeten vanaf een schip op 1 m onder het wateroppervlak via het meetnet Monitoring Waterstaatkundige Toestand des Lands (MWTL). 
+Voor de waterkwaliteit zijn de parameters watertemperatuur, saliniteit en concentratie van zwevende stof (van invloed op vertroebeling, lichtdoordringing in de waterkolom en het slibtransport) geselecteerd. Deze parameters worden tweewekelijks tot maandelijks bemeten vanaf een schip op 1 m onder het wateroppervlak via het meetnet Monitoring Waterstaatkundige Toestand des Lands (MWTL). 
 
 De MWTL metingen zijn beschikbaar op locaties in de Waddenzee, Noordzee en het Eems estuarium zoals aangegeven in figuur \@ref(fig:kaartDDLlocaties). Vroeger werd op veel meer locaties de waterkwaliteit bemeten. Voor deze systeemrapportage is ervoor gekozen om alleen de nog actieve meetpunten op te nemen. De locaties Bocht van Watum en Rotummerplaat 3 km uit de kust zijn in het verleden verplaatst en daarom 2x terug te vinden in de kaart.
 
@@ -61,8 +61,6 @@ leaflet::leaflet(WQlocations) %>%
 De watertemperatuur wordt opgenomen als indicator omdat deze direct van invloed is op veel ecologische processen en indirect op de waterbeweging (viscositeit). De zoninstraling, luchttemperatuur en bewolkingsgraad hebben invloed op de watertemperatuur en zijn niet afzonderlijk opgenomen in de systeemrapportage, maar de watertemperatuur als resultante wel.
 
 Figuur \@ref(fig:jaargemiddeldeTemp) toont de jaargemiddelde watertemperatuur in rood, de maandgemiddelden als zwarte punten en de individuele metingen als grijze punten. De punten laten de seizoensdynamiek zien met hogere waarden in de zomer (tot 20-25 graden Celcius). De locaties die dieper in de bekkens liggen tonen daarbij iets hogere piektemperaturen dan de meetpunten in dieper water, nabij de zeegaten en in de Noordzee.
-
-De zomer- en wintergemiddelden (figuur \@ref(fig:seizoensgemiddeldenWatertemperatuur)) laten een stijging in de watertemperatuur zien, waarbij vooral de watertemperatuur in de zomer toeneemt. Het zomergemiddelde (tussen 1 april en 30 september) ligt voor de meeste locaties rond de 15 graden en het wintergemiddelde (tussen 1 oktober en 31 maart) rond de 7 graden. In de winter tonen de Noordzeestations hogere temperaturen, en in de zomer juist lagere temperaturen dan de stations die dieper in de bekkens liggen.
 
 
 ```{r jaargemiddeldeTemp, fig.height=15, fig.width=10, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). De figuur is interactief. "}
@@ -113,6 +111,8 @@ ggplotly(p) %>%
 
 ```
 
+De zomer- en wintergemiddelden (figuur \@ref(fig:seizoensgemiddeldenWatertemperatuur)) laten een stijging in de watertemperatuur zien, waarbij vooral de watertemperatuur in de zomer toeneemt. Het zomergemiddelde (tussen 1 april en 30 september) ligt voor de meeste locaties rond de 15 graden en het wintergemiddelde (tussen 1 oktober en 31 maart) rond de 7 graden. In de winter tonen de Noordzeestations hogere temperaturen, en in de zomer juist lagere temperaturen dan de stations die dieper in de bekkens liggen.
+
 ```{r seizoensgemiddeldenWatertemperatuur, fig.width=8, fig.height=20, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) watertemperatuur in de Waddenzee, met regressielijnen. Seizoensgemiddelden zijn alleen berekend en meegenomen in de grafiek wanneer er 5 of meer metingen per seizoen beschikbaar waren. "}
 
 parData <- WQ %>% 
@@ -156,7 +156,7 @@ parData <- WQ %>%
 ```
 
 ## Saliniteit {#saliniteit}
-De saliniteit wordt opgenomen als indicator omdat deze van invloed is op de ecologie en de slibdynamiek. Er zijn gemeenschappen van bodemdieren die alleen kunnen overleven bij bepaalde saliniteit van het Waddenwater en die maar voor een beperkte duur overschrijding van deze waarden kunnen verdragen. De MWTL metingen zijn echter te laagfrequent om een analyse te maken van deze kortstondige fluctuaties in saliniteit. Trendmatige veranderingen in saliniteit met een langere periode zijn wel waar te nemen en van belang voor de ecologie. Ook voor de slibdynamiek is de saliniteitsverdeling van belang, omdat deze een gravitatiecirculatie aandrijft, waarbij de stroming aan de bodem netto landwaarts is gericht en zeewaarts bij de oppervlakte. Omdat de sedimentconcentraties (zwevende stof) hoger zijn nabij de bodem dan nabij de oppervlakte, leidt dit ertoe dat er netto slib in de Wadden kan worden geïmporteerd. Veranderingen in saliniteit duiden op veranderingen in zoetwaterafvoer, getijvoortplanting en/of windpatronen (zie hoofdstuk \@ref(hydro) en hoofdstuk \@ref(meteo)).
+De saliniteit wordt opgenomen als indicator omdat deze van invloed is op de ecologie en de slibdynamiek. Er zijn gemeenschappen van bodemdieren die alleen kunnen overleven bij bepaalde saliniteit van het Waddenwater en die maar voor een beperkte duur een overschrijding of onderschrijding van deze waarden kunnen verdragen. De MWTL metingen zijn echter te laagfrequent om een analyse te maken van deze kortstondige fluctuaties in saliniteit. Trendmatige veranderingen in saliniteit met een langere periode zijn wel waar te nemen en ook van belang voor de ecologie. Ook voor de slibdynamiek is de saliniteitsverdeling van belang, omdat deze een gravitatiecirculatie aandrijft, waarbij de stroming aan de bodem netto richting de zoetwaterbron (meestal landwaarts) is gericht en zeewaarts bij de oppervlakte. Omdat de sedimentconcentraties (zwevende stof) hoger zijn nabij de bodem dan nabij de oppervlakte, leidt dit ertoe dat er netto slib in de Wadden kan worden geïmporteerd. Veranderingen in saliniteit duiden op veranderingen in zoetwaterafvoer, getijvoortplanting en/of windpatronen (zie hoofdstuk \@ref(hydro) en hoofdstuk \@ref(meteo)).
 
 De individuele metingen (figuur \@ref(fig:jaargemiddeldeSal)) laten een seizoensfluctuatie van enkele ppt zien die gekoppeld is aan de seizoensfluctuatie in de zoetwaterafvoeren. De jaargemiddelde saliniteitswaarden laten fluctuaties zien zoals de dip rond 1995, maar het is lastig langjarige trends waar te nemen. Daartoe wordt ook de afwijking van het jaargemiddelde ten opzichte van het langjarig gemiddelde uitgezet (figuur \@ref(fig:plotSaliniteitAnomalie)). Hierin is de dip rond 1995 duidelijker terug te zien, maar lijkt de saliniteit in de Wadden sinds de jaren 2003 ook licht toe te nemen. Vooral in het Eems estuarium zijn de relatieve afwijkingen groot, tot een factor 5. In de Waddenzee zijn de afwijkingen dieper in de bekkens, op locaties dichter bij de spuilocaties, zoals te verwachten ook groter dan op de Noordzee en nabij de zeegaten. 
 
@@ -250,11 +250,9 @@ ggsave(file.path(datadir, "RWS", "producten", "SaliniteitAnomalie.pdf"))
 
 ## Zwevend stof  {#zwevendstof}
 
-Zwevende stof is direct van belang voor de ecologie omdat deze de lichtdoordringing in de waterkolom bepaald. Slib in de bodem is ook van belang voor de ecologie, omdat algen en bodemdieren voedingsstoffen opnemen die aan het slib zijn gehecht. Door golven en stroming wordt slib vanaf de bodem in suspensie gebracht en getransporteerd om elders weer afgezet te worden. Als het slib zich afzet in vaargeulen en daarmee de toegankelijkheid wordt beknot, moet dit worden gebaggerd. De concentraties van zwevende stof laten zien of er veranderingen optreden in de slibdynamiek, die kunnen leiden tot negatieve effecten voor de ecologie (te weinig lichtdoordringing in de waterkolom) en/of morfologische veranderingen. Slib vormt eveneens een belangrijk aandeel in de netto sedimentatie in de Waddenzee, wat op de langere termijn ook van belang is voor het meegroeien met versnelde zeespiegelstijging. 
+Zwevende stof is direct van belang voor de ecologie omdat deze de lichtdoordringing in de waterkolom bepaald. Slib in de bodem is ook van belang voor de ecologie, omdat algen en bodemdieren voedingsstoffen opnemen die aan het slib zijn gehecht. Door golven en stroming wordt slib vanaf de bodem in suspensie gebracht en getransporteerd om elders weer afgezet te worden. Als het slib zich afzet in vaargeulen en daarmee de toegankelijkheid wordt beperkt, moet dit worden gebaggerd. De concentraties van zwevende stof laten zien of er veranderingen optreden in de slibdynamiek, die kunnen leiden tot negatieve effecten voor de ecologie (te weinig lichtdoordringing in de waterkolom). Slib vormt eveneens een belangrijk aandeel in de netto sedimentatie in de Waddenzee, wat op de middellange termijn invloed heeft op de morfologie en daarmee de debieten en evenwichtsdieptes van de getijgeulen en op de langere termijn ook van belang is voor het meegroeien met (versnelde) zeespiegelstijging. 
 
-Trends in zwevende stof dienen tijdig te worden gesignaleerd, om de hieraan ten grondslag liggende processen te kunnen begrijpen en eventueel maatregelen te nemen.
-
-Figuur \@ref(fig:ZSdataplot) toont de individuele metingen (grijze puntjes) en de maandgemiddelden (zwarte puntjes) voor zwevende stof voor alle actieve stations. Uit deze data kan de fluctuatie in zwevende stof worden afgelezen en de ruimtelijke variatie. In de Noordzee zijn de concentraties veel lager dan dieper in de Waddenzee. De rode lijn geeft de jaargemiddelden weer, daaruit blijken ook grote fluctuaties maar geen duidelijke langjarige trends.
+Figuur \@ref(fig:ZSdataplot) toont de individuele metingen (grijze puntjes) en de maandgemiddelden (zwarte puntjes) voor zwevende stof voor alle actieve MWTL stations. Uit deze data kan zowel de fluctuatie in zwevende stof worden afgelezen als de ruimtelijke variatie. In de Noordzee zijn de concentraties veel lager dan dieper in de Waddenzee. De rode lijn geeft de jaargemiddelden weer, daaruit blijken ook grote fluctuaties maar geen duidelijke langjarige trends.
 
 ```{r ZSdataplot, fig.height=20, fig.width=10, fig.cap="Concentratie van zwevend stof in de Waddenzee en Eems estuarium. Jaargemiddeld (lijn), maandgemiddeld (zwarte punten), en individuele metingen (kleine punten). "}
 locaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep", "Terschelling 10 km uit de kust","Rottumerplaat 3 km uit de kust", "Huibertgat oost", "Bocht van Watum", "Groote Gat noord")
@@ -355,7 +353,6 @@ parData <- WQ %>%
 
 Indien het zwevende stofgehalte wordt gelogtransformeerd en het maandgemiddelde wordt uitgedrukt als relatieve afwijking ten opzichte van het langjarig gemiddelde (figuur \@ref(fig:plotZSanomalie)), dan zijn de fluctuaties veel beter zichtbaar. De tijdseries vertonen gelijke patronen, met pieken rond 2008 en 2012, maar geen langjarige trends. Hoewel de absolute concentraties van zwevende stof sterk verschillend zijn (figuur \@ref(fig:ZSdataplot)), is de relatieve afwijking van het langjarig gemiddelde vergelijkbaar. In Herman et al. (2018) zijn de karakteristieken van zwevende stof tijdseries in meer detail beschreven.
 
-Het seizoensverloop van zwevend stof (figuur \@ref(fig:plotZSseason)) laat zien dat concentraties hoger zijn in de winter, vergeleken met zomerwaarden. Dit wordt onder andere veroorzaakt door meer opwerveling in de winter door hogere golven. Vastlegging van slib door algenmatten in de zomer en toegenomen flocculatie door algen in de zomer en daarmee bezinking van slib dragen ook bij aan de seizoensdynamiek.
 
 ```{r plotZSanomalie, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Anomalie van gesuspendeerd zwevend stof voor de gehele meetperiode"}
 
@@ -395,6 +392,9 @@ WQ %>%
 # ggsave(file.path(datadir, "RWS", "producten", "ZSanomalie.pdf"))
   
 ```
+
+Het seizoensverloop van zwevend stof (figuur \@ref(fig:plotZSseason)) laat zien dat concentraties hoger zijn in de winter, vergeleken met zomerwaarden. Dit wordt onder andere veroorzaakt door meer opwerveling in de winter door hogere golven. Vastlegging van slib door algenmatten in de zomer en toegenomen flocculatie door algen in de zomer en daarmee bezinking van slib dragen ook bij aan de seizoensdynamiek.
+
 
 ```{r plotZSseason, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Seizoensvariatie van opgelost zwevend stof voor de periode 1989 - 2018"}
 

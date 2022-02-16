@@ -1,8 +1,8 @@
 
 # Ruwe data, 1 jaar
 
-f1 = file.path(datadir, "ddl/raw/waterhoogte/SCHIERMNOG_OW_WATHTBRKD_NVT_NAP_2020_ddl_wq.csv")
-f2 = file.path(datadir, "ddl/raw/waterhoogte/SCHIERMNOG_OW_WATHTE_NVT_NAP_2020_ddl_wq.csv")
+f1 = file.path(datadir, "ddl/raw/waterhoogte/SCHIERMNOG_OW_WATHTBRKD_NVT_NAP_2017_ddl_wq.csv")
+f2 = file.path(datadir, "ddl/raw/waterhoogte/SCHIERMNOG_OW_WATHTE_NVT_NAP_2017_ddl_wq.csv")
 
 d1 <- fread(f1, na.strings = c("-999999999", "999999999"))[,list(locatie.code, tijdstip, statuswaarde, grootheid.code, hoedanigheid.omschrijving, eenheid.code, numeriekewaarde)]
 d2 <- fread(f2, na.strings = c("-999999999", "999999999"))[,list(locatie.code, tijdstip, statuswaarde, grootheid.code, hoedanigheid.omschrijving, eenheid.code, numeriekewaarde)]
