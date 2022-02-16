@@ -18,48 +18,10 @@ Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswij
 
 ## Bodemligging {#bodemligging}
 
-In figuur \@ref(fig:WaddenBathymetrieLeaflet) zijn de bathymetrieën van de drie meest recente vaklodingen kaarten opgenomen. Door via de legenda de verschillende bodems in de jaren aan of uit te zetten, kunnen verschillen inzichtelijk worden gemaakt.
 
-```{r WaddenBathymetrieLeaflet, eval=F, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee"}
+De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). De bodemligging is een mosaiek van de verschillende vaklodingen^[https://puc.overheid.nl/rijkswaterstaat/doc/PUC_116617_31/] door Rijkswaterstaat. In de figuur kan het tijdsinterval van de vaklodingen worden aangepast om ook oudere bodemliggingen te bekijken. Hierdoor is bijvoorbeeld de ontwikkeling van het geulensysteem te volgen. 
 
-
-epsg28992 <- "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs"
-proj4wgs <- CRS('+init=EPSG:4326')
-# change !!!! Start with the correct bathymetrie in netcdf
-bathymetry_2005 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2005.tif"))
-bathymetry_2010 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2010.tif"))
-bathymetry_2016 <- raster::raster(file.path(datadir, "RWS", "bathymetrie", "FriescheZeeGat", "mosaic_2016.tif"))
-#bathymetry_wgs <- brick(filename, varname="z")
-
-bathymetrywgs_2005 <- projectRaster(bathymetry_2005, crs = proj4wgs)
-bathymetrywgs_2010 <- projectRaster(bathymetry_2010, crs = proj4wgs)
-bathymetrywgs_2016 <- projectRaster(bathymetry_2016, crs = proj4wgs)
-
-# get polygon shapefile  and its boundingbox
-poly <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)
-polywgs <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)  %>% sf::st_transform(4326)
-bbox <- sf::st_bbox(polywgs)
-
-# using tiffs generated with createVakRasters.R
-pal = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = T)
-palrev = colorNumeric(palette = "viridis", domain = values(bathymetry_2016), na.color = "transparent", reverse = F)
-
-# leaflet(polywgs) %>%
-#   leaflet::addTiles(group = "OSM") %>%
-#   addPolygons(label = ~htmltools::htmlEscape(layer), group = "vakken", color = "white", fillColor = "transparent", labelOptions = labelOptions(noHide = T, textOnly = TRUE, textsize = 14, style = list('color' = "white")), weight = 2) %>%
-#   addRasterImage(bathymetrywgs_2005, colors = pal, group = "2005", opacity = 80) %>%
-#   addRasterImage(bathymetrywgs_2010, colors = pal, group = "2010", opacity = 80) %>%
-#   addRasterImage(bathymetrywgs_2016, colors = pal, group = "2016", opacity = 80) %>%
-#   leaflet::addLegend(position = "bottomleft", pal = palrev, values = values(bathymetrywgs_2016), labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
-#   addLayersControl(
-#     baseGroups = c("OSM"),
-#     overlayGroups = c("vakken", "2005", "2010", "2016"),
-#     options = layersControlOptions(collapsed = FALSE)
-# ) %>% hideGroup("vakken")
-```
-
-
-De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). 
+Voor een schermvullende weergave van de bathymetrie verwijzen we naar deze [link](https://deltares.shinyapps.io/bathymetrywadden/)
 
 
 ```{r WaddenBathymetrieLeaflet2, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2026 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
@@ -68,7 +30,7 @@ knitr::include_url("https://deltares.shinyapps.io/bathymetrywadden/", height = "
 
 ```
 
-## Hypsometrie en arealen
+## Hypsometrie
 
 De hypsometrische curve geeft de verdeling van de hoogteligging in een bepaald gebied weer, in dit geval van het Friesche Zeegat. Op de verticale as wordt de bodemhoogte uitgezet, en daarbij op de horizontale as het totale areaal wat een bodemligging heeft die lager of gelijk is aan die bodemhoogte. Voor kombergingsgebieden in de Waddenzee hebben hypsometrische curves een vergelijkbare vorm, omdat er relatief weinig diepe geulen zijn en relatief veel intergetijdengebied. Indien een bepaalde hoogteligging weinig aanwezig is, zal de hypsometrische curve hier een steil verloop laten zien, en indien een bepaalde hoogteligging veel voorkomt wordt de curve bijna vlak. Door in eenzelfde figuur de hypsometrische curve voor verschillende jaren (bodemopnames) te tonen, kan in één oogslag worden bekeken welk areaal (bijvoorbeeld geulareaal) er door de tijd is bijgekomen of verdwenen. In de Appendix (#Appmorfologie) staan de brondata en berekeningswijze beschreven.
 
@@ -85,143 +47,124 @@ De waterstand wordt echter alleen gemeten op een aantal stations. Om van de geme
 
 Er is er voor deze rapportage voor gekozen om in eerste instantie uit te gaan van vaste begrenzingen van de hoogteklasses en daarmee niet de veranderingen in getijslag door de tijd of over het gebied mee te nemen. Dit betekent dat verandering in arealen alleen worden veroorzaakt door veranderingen in de bodemligging en niet door een verandering in getijvoortplanting. Daarom spreken we van een 'proxy', bijvoorbeeld voor het intergetijdengebied.
 
+```{r gebiedenWaddenzee, fig.cap="Indeling van de Waddenzee in verschillende gebieden voor gebruik in morfologische indicatoren. "}
+
+polygonpath <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
+# selection of relevant polygons done by hand in QGIS
+polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33, 34)
+
+poly <- sf::st_read(polygonpath, quiet = T) %>% 
+  filter(fid %in% polygonsInRaster) %>% 
+  st_transform(28992)
+
+leaflet(poly %>% st_transform(4326)) %>%
+  addTiles() %>%
+  addPolygons(label = ~name, labelOptions = labelOptions(noHide = T))
+
+
+```
+
+
+
+
 Figuur \@ref(fig:hypsometriearealen) toont de hypsometrische curves voor het gehele Friesche Zeegat en de bekkens van het Pinkegat en de Zouutkamperlaag afzonderlijk. De verschillende klassen zijn met kleur aangegeven op de kaart. De veranderingen tussen de jaren (kolommen) zijn klein. In figuur \@ref(fig:hypsometriearealen2) zijn de verschillende jaren over elkaar geplot en is tevens de mogelijkheid verder in te zoomen.
 
 Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan de ontwikkeling per hoogteklasse beter worden gevolgd (figuur \@ref(fig:hypsometriearealen2)). 
 
-```{r hypsometriearealen, out.width="100%", fig.width=8, fig.height=8, fig.cap = "Hypsometrische curve van de Waddenzee"}
+```{r hypsometriearealen, out.width="100%", fig.width=7, fig.height=4, fig.cap = "Hypsometrische curve van de Waddenzee", eval = F}
 
-epsg28992 <- "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs"
-proj4wgs <- CRS('+init=EPSG:4326')
-# change !!!! Start with the correct bathymetrie in netcdf
+polygonpath <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
+# selection of relevant polygons done by hand in QGIS
+polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33, 34)
 
-# get polygon shapefile  and its boundingbox
-poly <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)
-polywgs <- sf::st_read(file.path(datadir, "RWS", "bathymetrie", "FriescheZeegat-P-Z.geojson"), quiet = T)  %>% sf::st_transform(4326)
-bbox <- sf::st_bbox(polywgs)
+poly <- sf::st_read(polygonpath, quiet = T) %>% 
+  filter(fid %in% polygonsInRaster) %>% 
+  st_transform(28992)
+
+polynames = unlist(poly$name)
 
 mosaicdir <- file.path(datadir, "RWS", "bathymetrie", "processing_tiles", "mosaic")
 mosaiclist <- list.files(mosaicdir)
 
-year <- mosaiclist[grepl("_", mosaiclist)]%>%
+# list of available years
+years <- mosaiclist[grepl("_", mosaiclist)] %>%
 lapply(., function(x) substring(x,8,11)) %>%
 unlist(.) %>%
 sort(.)
 
-dftot = list()
-na.df = tibble()
-rename = dplyr::rename
+# select some years 
+yearsToCalculate <- seq(2,length(mosaiclist), 11)
+rasterlist <- mosaiclist[yearsToCalculate]
 
-for(ii in seq(1,length(mosaiclist), 10)){
-  print(year[ii])
-  bathymetry <- raster::raster(file.path(mosaicdir, mosaiclist[ii])) 
-  #bathymetrywgs <- projectRaster(bathymetry, crs = proj4wgs) # ~ this is probably not needed
-  dfyear <- list()
-  for(jj in 1:dim(poly)[1]){ 
-    deelraster <- raster::mask(crop(bathymetry, extent(poly[jj,])), poly[jj,])
-    nas <- length(which(is.na(values(deelraster))))
-    na.df.temp <- tibble(year = year[ii], area = poly[,]$layer[jj], nas = nas)
-    df <- as.data.frame(deelraster) %>% drop_na() %>%
-      rename(setNames(names(.), "mosaic")) %>%
-      mutate(year=year[ii]) %>% # nog even jaar uit plukken
-      mutate(class=case_when(
-        mosaic < -5 ~ "geul",
-        mosaic >= -5 & mosaic < -1 ~ "subgetijdengebied",
-        mosaic >= -1 & mosaic < 1 ~ "intergetijdengebied",
-        mosaic >= 1 ~ "supragetijdengebied"
-      )) %>%
-      rename(depth=mosaic)
-    dfyear[[jj]] <- df
-    names(dfyear)[jj] <- poly[,]$layer[jj]
-    na.df <- na.df %>% bind_rows(na.df.temp)
-  }
-  dftot[[ii]] <-dfyear
-  names(dftot)[ii] <- year[ii]
-}
+# read bathymetry and crop to polygons
+bathymetries <- stack(file.path(mosaicdir,rasterlist[-1]))
+# 1927 is not used. There is not information for all polygons
 
-  # rp <- lapply(poly}, function(x){
-  #   as.data.frame(raster::mask(crop(bathymetry, extent(x)), x)) %>%
-  #     drop_na() %>%
-  #     rename(setNames(names(.), "mosaic")) %>%
-  #     mutate(year=ii) %>%    
-  #     mutate(class=case_when(
-  #       mosaic < -5 ~ "geul",
-  #       mosaic >= -5 & mosaic < -1 ~ "subgetijdengebied",
-  #       mosaic >= -1 & mosaic < 1 ~ "intergetijdengebied",
-  #       mosaic >= 1 ~ "supragetijdengebied"
-  #     )) %>%
-  #     rename(depth=mosaic)
-  # }) %>% rbindlist(idcol = "vak")
-  
-# If you subset (crop) to the common polygon extent you create a stack.
+croppedRasters <- lapply(1:nrow(poly), function(x) 
+  raster::mask(crop(bathymetries, extent(poly[x,])), poly[x,])) 
+rm(bathymetries)
 
-#creates a raster stack with all masked and cropped parts of the raster
-# rp <- do.call(stack,lapply(1:nrow(poly), function(x) 
-#   raster::mask(crop(bathymetry, extent(poly)), poly[x,]) )) 
+# find all valid data
+valid.data <- lapply(croppedRasters, function(x) which(!is.na(getValues(max(x, na.rm=FALSE)))))
 
-sample = 100000
-nrobs =
-  dftot %>% 
-  map(data.table::rbindlist, idcol = "area") %>% 
-  bind_rows() %>% dim()  %>% first()
-factor = nrobs/sample
-# factor = dim(rbindlist(dftot))[1]/sample
-
-p <- dftot %>% 
-  map(data.table::rbindlist, idcol = "area") %>% 
-  bind_rows() %>% 
-  sample_n(sample) %>%
-  mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
-arrange(depth) %>%
-group_by(area, year) %>%
-  mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
-  mutate(oppervlakte = factor*400*(cum/count)/1000000) %>%
-  ggplot() +
-  geom_line(aes(x = oppervlakte, y = depth, color = year)) +
-  facet_grid(. ~ area, scales = "free") +
-  xlab("oppervlakte in km2") + ylab("diepte") +
-  theme(legend.position = "bottom")
-
-ggplotly(p)
-```
-
-
-```{r hypsometriearealen2, out.width="100%", fig.width=8, fig.height=10, fig.cap = "Hypsometrische curve van de Waddenzee, 2e versie"}
-p <- dftot %>% 
-  map(data.table::rbindlist, idcol = "area") %>% 
-  bind_rows() %>% 
-  sample_n(sample) %>%
-  mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
-  arrange(depth) %>%
-  group_by(area, year) %>%
-  mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
-  mutate(oppervlakte = factor*400*(cum/count)/1000000) %>%
-  ggplot() +
-  geom_line(aes(x = oppervlakte, y = depth, color = as.factor(year)), size = 0.5) +
-  facet_grid(area ~ class, scales = "free") +
-  coord_cartesian(xlim = c(0,NA)) +
-  xlab("oppervlakte in km2") + ylab("diepte") +
-  theme(legend.position = "bottom")
-require(plotly)
-ggplotly(p)
+# extract valid values (no NA in any raster per year and area) for each raster and put in data.frame
+valid.values <- map2(croppedRasters, valid.data, raster::extract)
+valid.values.df <- map(valid.values, as_tibble) %>%
+  map(pivot_longer, everything(), names_to = "jaar", values_to = "diepte") %>%
+  set_names("Marsdiep","Vlie","Borndiep","Eilanderbalg","Pinkegat","Zoutkamperlaag","Schild","Eems-Dollard","Eijerlandse Gat","Lauwers")%>%
+  rbindlist(idcol = "naam") %>% 
+  mutate(jaar = as.integer(str_replace(jaar, "mosaic_", ""))) %>%
+  mutate(naam = factor(naam, levels = c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild","Eems-Dollard")))
 
 ```
 
 
-```{r hypsometriearealen3, out.width="100%", fig.width=8, fig.height=8, fig.cap = "Tijdseries met gemeten areaal"}
-rbindlist(dftot,idcol = "vak") %>% 
-  mutate(ncells = n(), nsamples=100000) %>% 
-  sample_n(nsamples) %>%
+
+```{r hypsometriePerGebied, fig.height=10, fig.width=8, fig.cap="Hypsografische curven voor verschillende gebieden in de Waddenzee en voor een selectie van bathymetrieën. "}
+
+valid.values.df %>%
+  mutate(class=case_when(
+    diepte < -5 ~ "geul",
+    diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
+    diepte >= -1 & diepte < 1 ~ "intergetijdengebied",
+    diepte >= 1 ~ "supragetijdengebied"
+  )) %>%
   mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
-  arrange(depth) %>%
-  group_by(vak, year) %>%
-  mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>% 
+arrange(diepte) %>%
+  mutate(jaar = as.factor(jaar)) %>%
+group_by(naam, jaar) %>%
+  mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>%
+  mutate(oppervlakte = 400*(cum/count)/1000000) %>%
+  sample_n(10000) %>%
   ggplot() +
-  geom_point(aes(x = year, y = (20*20*ncells/nsamples)*(cum/count)/1000000), size = 0.5) +
-  facet_grid(class ~ vak, scales = "free") +
-  coord_cartesian(xlim = c(2000,2020)) +
-  xlab("Jaar") + ylab("Areaal in km2") +
+  geom_line(aes(x = oppervlakte, y = diepte, color = jaar)) +
+  facet_wrap(~ naam, scales = "free_x", ncol = 4) +
+  xlab("oppervlakte in km2") + ylab("diepte") +
+  coord_cartesian(ylim = c(-10, NA)) +
   theme(legend.position = "bottom")
+
+```
+
+
+## Arealen
+
+```{r arealen, fig.height = 8, fig.width = 8, fig.cap = "Tijdseries met gemeten areaal per gebied en jaar."}
+
+valid.values.df  %>%
+  mutate(class=case_when(
+    diepte < -5 ~ "geul",
+    diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
+    diepte >= -1 & diepte < 1 ~ "intergetijdengebied",
+    diepte >= 1 ~ "supragetijdengebied"
+  )) %>%
+  mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
+  group_by(naam, jaar, class) %>%
+  mutate(oppervlakte = 400/1e6) %>%  # nu in km2
+  summarize(oppervlakte = sum(oppervlakte)) %>%
+  ggplot(aes(jaar, oppervlakte)) +
+  geom_col(aes()) +
+  facet_grid(naam ~ class) +
+  theme(strip.text.y = element_text(angle = 0))
 
 ```
 ##	Plaathoogte
@@ -232,42 +175,52 @@ Bij analyse van deelgebieden, is de ruimtelijke begrenzing zeer van belang voor 
 
 In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte voor het gehele Friesche Zeegat te berekenen. Hiervoor wordt het volume boven de NAP -1 m grens berekend, en gedeeld door de oppervlakte. 
 
-*(De plaathoogte moet nog worden uitgewerkt.)*
-
-##	Geuldiepte
-
-
-```{r}
-
-# mask cells deeper than 10 m --> channels
-# find deepest point
-# plot time series ?
-# 
-
-df2016 %>% 
-  group_by(class) %>% summarise(volume = sum(depth))
-
-ggplot()
+```{r plaathoogte, fig.cap = "Plaathoogte per gebied. "}
+valid.values.df %>% 
+  filter(diepte >= -1) %>%
+  group_by(naam, jaar) %>%
+  mutate(oppervlakte = 400/1e6, volume = diepte*400/1e6) %>%
+  summarize(plaathoogte = sum(volume)/sum(oppervlakte)) %>%
+  ggplot(aes(jaar, plaathoogte)) +
+  geom_point() +
+  facet_wrap(~ naam)
 ```
 
 
-*(De geuldiepte moet nog worden uitgewerkt.)*
+##	Geuldiepte
+
+Geuldiepte is de geintegreerde waarde voor het volume beneden 5 meter t.o.v. NAP gedeeld door het oppervlakte beneden 5 m t.o.v. NAP (zie ook vergelijking \@ref(eq:geuldiepte)). 
+
+De ontwikkeling hiervan door de jaren is 
+
+```{r geuldiepte, fig.cap="Geuldiepte door de jaren in de verschillende gebieden. "}
+
+valid.values.df %>% 
+  filter(diepte <= -5) %>%
+  group_by(naam, jaar) %>%
+  mutate(oppervlakte = 400/1e6, volume = diepte*400/1e6) %>%
+  summarize(geuldiepte = sum(volume)/sum(oppervlakte)) %>%
+  ggplot(aes(jaar, geuldiepte)) +
+  geom_point() +
+  facet_wrap(~ naam)
+```
+
+
 
 ##	Plaatvolume
 
 ```{r}
-# define plaat 
-# 
-# calculate volume
-# this can be done for geul and plaat at the same time, or for different depth classes as defined above 
-# Basically, it will take the form of:
 
-# dataframe %>% 
-  # group_by(year, class, polygon) %>% summarise(volume = 400 * sum(depth)) %>%  # check units!!!!!!
-  # ggplot(aes(year, volume)) +
-  # geom_col() %>%
-  # facet_grid(polygon ~ class)
-
+valid.values.df %>% 
+  filter(diepte >= -1) %>%
+  mutate(plaathoogte = diepte - -1) %>%
+  group_by(naam, jaar) %>%
+  mutate(oppervlakte = 400/1e6, volume = plaathoogte*400) %>%
+  summarize(plaatvolume = sum(volume)) %>%
+  ggplot(aes(jaar, plaatvolume)) +
+  ggtitle("Plaatvolume in m3.") +
+  geom_point() +
+  facet_wrap(~ naam)
 
 ```
 
@@ -279,11 +232,16 @@ ggplot()
 *(Het geulvolume moet nog worden uitgewerkt.)*
 
 ```{r}
-# define geul 
-# 
-# calculate volume
-# 
-
+valid.values.df %>% 
+  filter(diepte < -5) %>%
+  mutate(volumediepte = -(diepte)) %>%
+  group_by(naam, jaar) %>%
+  mutate(oppervlakte = 400/1e6, volume = volumediepte*400) %>%
+  summarize(geulvolume = sum(volume)) %>%
+  ggplot(aes(jaar, geulvolume)) +
+  ggtitle("Geulvolume in m3.") +
+  geom_point() +
+  facet_wrap(~ naam)
 ```
 
 

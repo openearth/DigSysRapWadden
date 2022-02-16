@@ -10,7 +10,9 @@ library(sf)
 
 waddenzeeURL <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
 # friesezeegatURL <- "https://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/RWS/bathymetrie/FriescheZeegat-P-Z.geojson"
+polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33, 34)
 poly <- sf::st_read(file.path(waddenzeeURL), quiet = T) %>%
+    filter(fid %in% polygonsInRaster) %>%
     st_transform(4326)
 
 
@@ -89,7 +91,7 @@ server <- function(input, output) {
         leafletProxy("map") %>%
             clearShapes() %>%
             addTiles(content(res())$url, group = "bathymetrie") %>%
-            addPolygons(data = poly, group = "vakken") %>%
+            addPolygons(data = poly, label = ~name, labelOptions = labelOptions(noHide = T), group = "vakken") %>%
             leaflet::addLayersControl(
                 baseGroups = c("OSM", "ESRI worldimagery"), 
                 overlayGroups = c("vakken", "bathymetrie"),
