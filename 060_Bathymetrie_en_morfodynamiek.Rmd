@@ -93,15 +93,16 @@ unlist(.) %>%
 sort(.)
 
 # select some years 
-yearsToCalculate <- seq(2,length(mosaiclist), 11)
+yearsToCalculate <- c(2, 4, 5, 8, 14, 23, 33, 43)     #seq(2,length(mosaiclist), 9)
 rasterlist <- mosaiclist[yearsToCalculate]
 
 # read bathymetry and crop to polygons
-bathymetries <- stack(file.path(mosaicdir,rasterlist[-1]))
+bathymetries <- stack(file.path(mosaicdir,rasterlist))
 # 1927 is not used. There is not information for all polygons
 
 croppedRasters <- lapply(1:nrow(poly), function(x) 
   raster::mask(crop(bathymetries, extent(poly[x,])), poly[x,])) 
+
 rm(bathymetries)
 
 # find all valid data
@@ -123,19 +124,19 @@ valid.values.df <- map(valid.values, as_tibble) %>%
 ```{r hypsometriePerGebied, fig.height=10, fig.width=8, fig.cap="Hypsografische curven voor verschillende gebieden in de Waddenzee en voor een selectie van bathymetrieën. "}
 
 valid.values.df %>%
-  mutate(class=case_when(
-    diepte < -5 ~ "geul",
-    diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
-    diepte >= -1 & diepte < 1 ~ "intergetijdengebied",
-    diepte >= 1 ~ "supragetijdengebied"
-  )) %>%
-  mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
-arrange(diepte) %>%
+  # mutate(class=case_when(
+  #   diepte < -5 ~ "geul",
+  #   diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
+  #   diepte >= -1 & diepte < 1 ~ "intergetijdengebied",
+  #   diepte >= 1 ~ "supragetijdengebied"
+  # )) %>%
+  # mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
+  arrange(diepte, naam, jaar) %>%
   mutate(jaar = as.factor(jaar)) %>%
-group_by(naam, jaar) %>%
-  mutate(count = n(), cum = cumsum(as.numeric(row_number())), rowNumber = row_number()) %>%
-  mutate(oppervlakte = 400*(cum/count)/1000000) %>%
-  sample_n(10000) %>%
+  group_by(naam, jaar) %>%
+  mutate(count = n(), cum = cumsum(as.numeric(row_number()))) %>%  #, rowNumber = row_number()
+  mutate(oppervlakte = 400*cum/1e6) %>%
+  sample_n(100) %>%     # sample om de grafiek sneller te laten tekenen. heeft geen invloed op de positie, wel op de resolutie
   ggplot() +
   geom_line(aes(x = oppervlakte, y = diepte, color = jaar)) +
   facet_wrap(~ naam, scales = "free_x", ncol = 4) +
@@ -148,7 +149,10 @@ group_by(naam, jaar) %>%
 
 ## Arealen
 
-```{r arealen, fig.height = 8, fig.width = 8, fig.cap = "Tijdseries met gemeten areaal per gebied en jaar."}
+
+
+
+```{r arealen, fig.height = 8, fig.width = 8, fig.cap = "Tijdseries met gemeten areaal in km2 per gebied en diepteklasse."}
 
 valid.values.df  %>%
   mutate(class=case_when(
@@ -162,9 +166,11 @@ valid.values.df  %>%
   mutate(oppervlakte = 400/1e6) %>%  # nu in km2
   summarize(oppervlakte = sum(oppervlakte)) %>%
   ggplot(aes(jaar, oppervlakte)) +
-  geom_col(aes()) +
-  facet_grid(naam ~ class) +
-  theme(strip.text.y = element_text(angle = 0))
+  geom_line(aes()) +
+  geom_point(aes(), shape = 21, color = "white", size = 1) +
+  facet_grid(naam ~ class, scales = "free_y") +
+  theme(strip.text.y = element_text(angle = 0)) +
+  ggtitle("areaal in km2 per gebied en diepteklasse")
 
 ```
 ##	Plaathoogte
@@ -209,16 +215,16 @@ valid.values.df %>%
 
 ##	Plaatvolume
 
-```{r}
+```{r plaatvolume, fig.cap = "Plaatvolume in m2 per gebied over de tijd. Het volume is bepaald voor dat deel van de plaat dat boven -1 m tov NAP ligt. Het volume is bepaald tov NAP. " }
 
 valid.values.df %>% 
   filter(diepte >= -1) %>%
-  mutate(plaathoogte = diepte - -1) %>%
+  mutate(plaathoogte = diepte) %>%    # nu volume t.o.v NAP. Kan oook negatief zijn. 
   group_by(naam, jaar) %>%
-  mutate(oppervlakte = 400/1e6, volume = plaathoogte*400) %>%
+  mutate(volume = plaathoogte*400) %>% # elk rastersegment is 20x20 m
   summarize(plaatvolume = sum(volume)) %>%
   ggplot(aes(jaar, plaatvolume)) +
-  ggtitle("Plaatvolume in m3.") +
+  ggtitle("Plaatvolume in m^3.") +
   geom_point() +
   facet_wrap(~ naam)
 
