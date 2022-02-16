@@ -1,42 +1,11 @@
 # (APPENDIX) Appendix {-} 
 
-# Appendix A: Versies
-
-
-```{r, message=FALSE, warning=FALSE, include=FALSE}
-# options(tinytex.verbose = TRUE)
-knitr::opts_chunk$set(echo = FALSE,	message = FALSE, warning = FALSE,
-	out.width = "100%")
-source("r/runThisFirst.R")
-theme_hy <- theme_bw()
-```
-
-
-## Versies van het rapport
-
-In \@ref(rapportversie) wordt de versie van de systeemrapportage beschreven. 
-
-
-## Versies van de data
-
-
-## Versiebeheer van de code
-
-De code wordt bewaard op SVN onder versiebeheer (adres).
-
-# Appendix B: Gebruikte software en packages
-
-```{r}
-pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
-```
-
-
-# Appendix C: Brondata en post-processing
+# Appendix A: Brondata en post-processing
 
 
 ## Zeespiegelstijging {#Appzeespiegelstijging}
 
-In de DSR Wadden is de jaargemiddelde waterstand voor de zes hoofdstations langs de Nederlandse kust overgenomen uit de Zeespiegelmonitor. In deze studie is de stijging van de zeespiegel nauwkeurig onderzocht en berekend. De berekening en aanvullende ?n interactieve figuren kunnen worden ingezien via de [Jupyter Notebook Zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb).
+In de DSR Wadden is de jaargemiddelde waterstand voor de zes hoofdstations langs de Nederlandse kust overgenomen uit de Zeespiegelmonitor. In deze studie is de stijging van de zeespiegel nauwkeurig onderzocht en berekend. De berekening en aanvullende en interactieve figuren kunnen worden ingezien via de [Jupyter Notebook Zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb).
 
 
 
@@ -44,22 +13,22 @@ In de DSR Wadden is de jaargemiddelde waterstand voor de zes hoofdstations langs
 
 ### Brondata
 
-Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de waterstand ingelezen via de [webservice van de Data Distributie Laag](https://rijkswaterstaat.github.io/wm-ws-dl/#introduction) van Rijkswaterstaat. 
+Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van zowel de gemeten als de berekende waterstand (astronomische waterstand) ingelezen via de [webservice van de Data Distributie Laag](https://rijkswaterstaat.github.io/wm-ws-dl/#introduction) van Rijkswaterstaat. Merk op dat er een aantal stations missen in de Waddenzee, zoals vermeld in paragraaf \@ref(ontsluiting).
 
-De recente waterstandsmetingen, vanaf 1984, hebben een tijdstap van 10 minuten op alle stations. V??r 1984 is met een lagere frequentie gemeten, met een tijdstap van 1 uur, en v??r 1966 is dit zelfs een tijdstap van 3 uur, zie figuur \@ref(fig:tijdstap)). Voor deze lagere frequenties is de hieronder beschreven methode voor het afleiden van de waterstanden te onnauwkeurig. Voor die periode beschikt RWS wel over een dataset van hoog- en laagwaterstanden, die hiervoor kunnen worden gebruikt. Daarvan kan dan het jaarlijkse gemiddelde worden bepaald. Deze data zijn momenteel nog niet openlijk beschikbaar. Ook missen er nog enkele stations (zie hoofdstuk \@ref(Informatiebehoefte)).
+De recente waterstandsmetingen, vanaf 1984, hebben een tijdstap van 10 minuten op alle stations. Voor 1984 is met een lagere frequentie gemeten, met een tijdstap van 1 uur, en voor 1966 is dit zelfs een tijdstap van 3 uur, zie figuur \@ref(fig:tijdstap)). Voor deze lagere frequenties is de hieronder beschreven methode voor het afleiden van de waterstanden te onnauwkeurig. Voor die periode beschikt RWS wel over een dataset van hoog- en laagwaterstanden, die hiervoor kunnen worden gebruikt. Daarvan kan dan het jaarlijkse gemiddelde worden bepaald. Deze data zijn momenteel nog niet online beschikbaar.
 
 ```{r tijdstap, out.width="80%", fig.cap= "Gebruikte tijdstap in de dataset voor alle stations. Vanaf 1984 is voor alle stations data op elke 10 minuten beschikbaar. Tussen 1966 en 1984 (vari?rend per station), is dit een tijdstap van een uur. V??r 1966 is dit zelfs 3 uur." }
 knitr::include_graphics("images/ts_timestep.png")
 ```
 
-De getijcomponenten zijn berekend op basis van de waterstationsmeetseries uit de Data DistributieLaag (DDL) van RWS.
+De getijcomponenten zijn berekend op basis van de waterstationsmeetseries van de OPeNDAP server van Deltares.
 
 
 ### Berekening GHW, GLW en Getijslag
 
-De berekening van GHW en GLW is gedaan door in de tijdseries met waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld2) is daarvan een voorbeeld te zien. Vervolgens wordt hiervan het jaargemiddelde bepaald. 
+De berekening van GHW en GLW is gedaan door in de tijdseries van gemeten waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld2) is daarvan een voorbeeld te zien. Vervolgens wordt hiervan het jaargemiddelde bepaald. 
 
-De gemiddelde getijslag wordt berekend door het verschil GHW-GLW te nemen over de te middelen periode.
+De gemiddelde getijslag wordt berekend door het verschil tussen GHW en GLW te nemen over de te middelen periode.
 
 Om trends te kunnen bepalen is vervolgens een lineaire trendlijn toegevoegd die varieert met de 18,6-jarige cyclus. Doordat de frequentie van de 18,6-jarige cyclus bekend is en de tijdserie voldoende lang, kan de software zelf de amplitude en de fase van de 18,6-jarige cyclus fitten.
 
@@ -85,26 +54,20 @@ Delfzijl %>%
 
 
 ### Getijcomponenten en -asymmetrie
-Op basis van de gemeten waterstanden wordt met het python package ?hatyan? de amplitude en fase van de verschillende getijcomponenten bepaald. Op basis van deze amplitudes kan de amplitudeverhouding M4/M2 en het faseverschil (2FM2 ? FM4) worden berekend [https://github.com/Deltares/hatyan](https://github.com/Deltares/hatyan).  Voor uitgebreide documentatie wordt verwezen naar [de gebruikershandleiding](https://github.com/Deltares/hatyan/blob/main/docs/11205257-013-DSC-0006_v1.0-Gebruikershandleiding%20hatyan.pdf ).
-
-
-
-## Golven en stormwaterstanden {#Appgolfhoogte}
-
-### Brondata
-
-Waterstanden: Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de gemeten waterstand ingelezen via de [webservice van de Data Distributie Laag](https://rijkswaterstaat.github.io/wm-ws-dl/#introduction) van Rijkswaterstaat.
-
-Astronomische waterstanden: Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordzee worden de tijdseries van de berekende waterstand ingelezen van de Data DistributieLaag (zie ook uitleg in paragraaf \@ref(Appwaterstanden)).
-
-Significante golfhoogte, golfperiode (Tm02) en golfrichting worden eveneens rechtstreeks ingelezen uit de Data DistributieLaag. 
-
+Op basis van de gemeten waterstanden wordt met het python package 'hatyan' de amplitude en fase van de verschillende getijcomponenten bepaald. Op basis van deze amplitudes en fases kan de amplitudeverhouding M~4~/M~2~ en het faseverschil ($2 \phi M_{2} - \phi M_{4}$) worden berekend [https://github.com/Deltares/hatyan](https://github.com/Deltares/hatyan).  Voor uitgebreide documentatie wordt verwezen naar [de gebruikershandleiding](https://github.com/Deltares/hatyan/blob/main/docs/11205257-013-DSC-0006_v1.0-Gebruikershandleiding%20hatyan.pdf).
 
 ### Stormopzet en Stormvloedhoogte
 
-De stormopzet (en -afzet), wordt berekend als de gemeten waterstand, verminderd met de astronomische waterstand (het getij). In de systeemrapportage worden de 99,5-percentiel per jaar en het maximum per jaar gebruikt als maat voor storm. 
+De stormopzet (en -afzet) wordt berekend als de gemeten waterstand, verminderd met de astronomische waterstand (het getij). In de systeemrapportage worden de 99,5-percentiel per jaar en het maximum per jaar gebruikt als maat voor storm. 
 
 Voor de stormvloedhoogte gebruiken we het 99,5-percentiel per jaar van de gemeten waterstand (dus inclusief het getij). 
+
+
+## Golven {#Appgolfhoogte}
+
+### Brondata
+
+Significante golfhoogte, golfperiode (Tm02) en golfrichting worden eveneens rechtstreeks ingelezen uit de Data DistributieLaag. 
 
 
 ### Anomalie van de maandgemiddelde golfhoogte
@@ -119,7 +82,7 @@ De anomalie is berekend aan de hand van de volgende stappen:
 
 1)  De afwijking per station en maand berekenen als het verschil tussen maandgemiddelde en langjarig gemiddelde
 
-1)  De afwijking uitzetten tegen de maand in het jaar, en voor alle jaren in ??n figuur. De kleurenschaal toont het onderscheid tussen de jaren.
+1)  De afwijking uitzetten tegen de maand in het jaar, en voor alle jaren in een figuur. De kleurenschaal toont het onderscheid tussen de jaren.
 
 
 ## Zoetwaterafvoeren {#Appzoetwaterafvoer}
@@ -147,7 +110,7 @@ dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 
 In de systeemrapportage worden voor de meteorologie (vooralsnog) alleen indicatoren voor wind weergegeven. Hiervoor is gebruik gemaakt van de [KNMI uurgegevens](https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens) voor de vier stations `r paste(unique(dtwind$station), collapse = ", ")`. 
 
-### Windsterkte
+### Windsterkte en windrichting
 
 Als indicatoren voor de windsterkte worden de windrozen per station van de volledige tijdreeks en het jaarlijkse 25, 50, 75 en 95 percentiel van de windsnelheid weergegeven. 
 
@@ -170,7 +133,7 @@ Ook is bekend dat er continue metingen van temperatuur en saliniteit plaatsvinde
 
 ### Gemiddelde watertemperatuur (maand, jaar en zomer/winter)
 
-Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de ?maandgemiddelden? te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden be?nvloed door de hogere meetfrequentie in de zomer. (Het woord ?maandgemiddelden? staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar ??n meting per maand is.)
+Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de 'maandgemiddelden' te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden beinvloed door de hogere meetfrequentie in de zomer. (Het woord 'maandgemiddelden' staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar 1 meting per maand is.)
 
 De seizoensgemiddelden zijn alleen berekend en weergegeven als er minimaal 5 metingen in het seizoen beschikbaar waren. Het zomerseizoen wordt gerekend vanaf 1 april t/m 30 september, en het winterseizoen vanaf 1 oktober t/m 31 maart.
 
@@ -179,7 +142,7 @@ Zomer- en wintergemiddelden zijn berekend om te zien of er trends in de seizoene
 
 ### Gemiddelde saliniteit (maand, jaar) en anomalie
 
-Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de ?maandgemiddelden? te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden be?nvloed door de hogere meetfrequentie in de zomer. (Het woord ?maandgemiddelden? staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar ??n meting per maand is.)
+Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de 'maandgemiddelden' te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden beinvloed door de hogere meetfrequentie in de zomer. (Het woord 'maandgemiddelden' staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar 1 meting per maand is.)
 
 Het jaargemiddelde is alleen berekend bij meer dan 10 metingen per jaar. 
 
@@ -196,7 +159,7 @@ De anomalie van de saliniteit is de afwijking van de maandgemiddelde saliniteit 
 
 ### Gemiddelde zwevende stof gehalte (maand, jaar) en anomalie
 
-Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de ?maandgemiddelden? te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden be?nvloed door de hogere meetfrequentie in de zomer. (Het woord ?maandgemiddelden? staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar ??n meting per maand is.)
+Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de 'maandgemiddelden' te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden beinvloed door de hogere meetfrequentie in de zomer. (Het woord 'maandgemiddelden' staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar 1 meting per maand is.)
 
 Voor zwevende stof is de anomalie, de afwijking ten opzichte van het langjarig gemiddelde, berekend voor alle jaren en maanden. Bovendien is deze data log-getransformeerd. De stappen voor de afleiding zijn:
 
@@ -217,7 +180,7 @@ Voor zwevende stof is de anomalie, de afwijking ten opzichte van het langjarig g
 
 ### Brondata bodemligging
 
-Gegevens van de bodemligging van de Waddenzee zijn opgehaald van de [Open Earth Dataserver](https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html). De database bevat de vaklodingen data in 20x20 m resolutie. De vaklodingen zijn een combinatie van lodingen van de diepe delen aangevuld met LiDAR opnames van de hoge delen. Voor meer informatie over deze metingen verwijzen we naar de desbetreffende webpaginan van [Rijkswaterstaat](https://waterinfo-extra.rws.nl/monitoring/morfologie/)
+Gegevens van de bodemligging van de Waddenzee zijn opgehaald van de [Open Earth Dataserver](https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html). De database bevat de vaklodingen data in 20x20 m resolutie. De vaklodingen zijn een combinatie van lodingen van de diepe delen aangevuld met LiDAR opnames van de hoge delen. Voor meer informatie over deze metingen verwijzen we naar de desbetreffende webpagina van [Rijkswaterstaat](https://waterinfo-extra.rws.nl/monitoring/morfologie/).
 
 <!-- Er is gewerkt met 1 polygoon van het Friesche Zeegat, dat wil zeggen dat voor alle jaren met hetzelfde polygoon is gerekend om de begrenzing van het bekken te bepalen. Daarnaast is er alleen data gebruikt van de cellen (20x20m tegels) die in alle opnamejaren data bevatten. Dit voorkomt dat afwijkingen ontstaan die het gevolg zijn van verschillende ruimtelijke dekking van de data. De getoonde veranderingen zijn daarmee puur het gevolg van veranderingen van de morfologie voor het geanalyseerde gebied. -->
 
@@ -230,7 +193,7 @@ Voor het berekenen van morfologische indicatoren zijn de vaklodingen als rasters
 
 ### Ruimtelijk dekkende waterstanden
 
-Voor de bepaling van bepaalde morfologische karakteristieken is het ook belangrijk om een ruimtelijk dekkend beeld te hebben van de waterstanden in het bekken. De gemeten waterstanden geven alleen informatie van de waterstanden op de stations (zie paragraaf \@ref(Appwaterstanden) ).
+Voor de bepaling van bepaalde morfologische karakteristieken is het ook belangrijk om een ruimtelijk dekkend beeld te hebben van de waterstanden in het bekken. De gemeten waterstanden geven alleen informatie van de waterstanden op de stations (zie paragraaf \@ref(Appwaterstanden)).
 
 Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, moet rekening worden gehouden met de getijvoortplanting. Maar numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden (rekencellen), waardoor de kleinere geultjes en prielen niet in het rekenrooster zijn opgenomen. Deze geultjes hebben een belangrijke functie in de drainage van de intergetijdengebieden, en daarmee ook op de laagwaterstand in die gebieden. 
 
@@ -242,7 +205,7 @@ Voor de (morfologische) zonering van de ondiepe gebieden is er voor gekozen om i
 
 Hypsometrische curves worden bepaald voor subgebieden (kombergingsgebieden) door de oppervlakte per diepte voor elk subgebied uit te zetten tegen de diepte. 
 
-Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, kan de hypsometrische curve worden onderverdeeld in vier verschillende diepteklassen. Omdat hierbij wordt gerekend met vaste begrenzingen van de diepteklassen, en veranderingen in getijslag door de tijd of over het gebied niet worden meegenomen, worden de (ondiepere) klassen aangeduid met ?proxy?.
+Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, kan de hypsometrische curve worden onderverdeeld in vier verschillende diepteklassen. Omdat hierbij wordt gerekend met vaste begrenzingen van de diepteklassen, en veranderingen in getijslag door de tijd of over het gebied niet worden meegenomen, worden de (ondiepere) klassen aangeduid met 'proxy'.
 
 We onderscheiden de volgende 4 klassen:
 
@@ -254,12 +217,12 @@ We onderscheiden de volgende 4 klassen:
 
 1)  Proxy supragetijdengebied ($z > 1 m$)
 
-Waar z de verticale co?rdinaat t.o.v. NAP betekent.
+Waar z de verticale coordinaat t.o.v. NAP betekent.
 
 ### Plaathoogte en -volume
 
 Voor de berekening van de plaathoogte wordt het volume boven de NAP -1 m grens berekend, en gedeeld door de oppervlakte.
-In formulevorm: (equation \@ref(eq:plaathoogte)).
+In formulevorm:
 
 \begin{equation} 
   \text{Plaathoogte} = \frac{\sum_i(h_i \cdot A_i)}{\sum_i A_i} \text{  if } h\geq -1
@@ -316,7 +279,7 @@ In ongeveer 2019 is de SIBES dataset gecomplementeerd met data van monsters die 
 
 
 
-## Dataoverzicht alle data
+## Overzicht alle brondata
 
 ```{r dataoverzich2t}
 # code om dataoverzicht in nette tabel weer te geven. 
@@ -326,6 +289,36 @@ read_excel(file.path(datadir, "dataoverzicht.xlsx")) %>%
 ```
 
 
+# Appendix B: Gebruikte software en packages
+
+```{r}
+pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
+```
 
 
+
+
+# Appendix C: Versies
+
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+# options(tinytex.verbose = TRUE)
+knitr::opts_chunk$set(echo = FALSE,	message = FALSE, warning = FALSE,
+	out.width = "100%")
+source("r/runThisFirst.R")
+theme_hy <- theme_bw()
+```
+
+
+## Versies van het rapport
+
+In \@ref(title) wordt de versie van de systeemrapportage vermeld. 
+
+
+## Versies van de data
+
+
+## Versiebeheer van de code
+
+De code wordt bewaard op SVN onder versiebeheer (adres).
 

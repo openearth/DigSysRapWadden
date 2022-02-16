@@ -23,7 +23,7 @@ Ook de samenstelling van sediment in de waterkolom is een inzichtelijke paramete
 Gegevens van de middelgrote en kleinere zoetwatervoeren in de Waddenzee zijn niet ontsloten en vaak ook niet beschikbaar. Ze kunnen afgeleid worden op basis van het verval over het betreffende spuimiddel. De gegevens van de spuisluizen bij Den Oever en Kornwerderzand zijn beschikbaar, maar zelfs de afvoergegevens van de sluizen bij het Lauwersmeer zijn niet goed ontsloten. Duran-Matute (2014) geeft een (incompleet) overzicht van de ordegrootte van de zoetwaterafvoeren in de westelijke Waddenzee met de gemiddelde afvoerhoeveelheden.
 
 
-## Data-ontsluiting
+## Data-ontsluiting {#ontsluiting}
 
 Ook wat betreft de data-ontsluiting zijn er verbeterpunten. Zeker bij het werken met digitale systeemrapportages loont het om de data-ontsluiting goed op orde te hebben, zodat de rapportage gemakkelijker kan worden geupdate als nieuwe data beschikbaar komen. De scripting achter de rapportage is in elk geval zo opgesteld, dat dit mogelijk is. Desalniettemin heeft het verzamelen van de data meer tijd gekost omdat niet alles goed ontsloten is. Onderstaand lijstje geeft een overzicht van gegevens, die beter ontsloten zouden moeten worden:
 
