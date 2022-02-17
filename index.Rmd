@@ -16,6 +16,10 @@ knitr::opts_chunk$set(
 source("r/runThisFirst.R")
 ```
 
+```{r voorplaat, fig.cap= "Luchtfoto van Rottumeroog in 2011 (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)" }
+knitr::include_graphics("images/voorplaat.png")
+```
+
 # Disclaimer {-}
 
 De informatie op deze website is nog volop in ontwikkeling en is bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden.
