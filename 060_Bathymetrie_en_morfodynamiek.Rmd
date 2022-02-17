@@ -21,7 +21,7 @@ Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswij
 
 De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). De bodemligging is een mosaiek van de verschillende vaklodingen^[https://puc.overheid.nl/rijkswaterstaat/doc/PUC_116617_31/] door Rijkswaterstaat. In de figuur kan het tijdsinterval van de vaklodingen worden aangepast om ook oudere bodemliggingen te bekijken. Hierdoor is bijvoorbeeld de ontwikkeling van het geulensysteem te volgen. 
 
-Voor een schermvullende weergave van de bathymetrie verwijzen we naar deze [link](https://deltares.shinyapps.io/bathymetrywadden/)
+Voor een schermvullende weergave van de bathymetrie verwijzen we naar deze [link](https://deltares.shinyapps.io/bathymetrywadden/).
 
 
 ```{r WaddenBathymetrieLeaflet2, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2026 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
@@ -30,24 +30,10 @@ knitr::include_url("https://deltares.shinyapps.io/bathymetrywadden/", height = "
 
 ```
 
-## Hypsometrie
+De morfologische indicatoren worden meestal getoond per kombergingsgebied, ook wel bekken genoemd. Figuur \@ref(fig:gebiedenWaddenzee) toont de begrenzing en benaming van de verschillende bekkens. Deze begrenzing is overgenomen van de Geoserver van WMR^[https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins]. 
+De begrenzing tussen de bekkens wordt gevormd door de zogenaamde 'wantijen'. Dit zijn gebieden achter de eilanden waar de getijgolven die door de zeegaten naar binnen komen elkaar ontmoeten. De stroomsnelheden zijn daardoor lager, waardoor sediment kan worden afgezet. Deze gebieden hebben vaak een hogere bodemligging en zijn slibrijk. Door de morfologische ontwikkeling van de Waddenzee en de morfodynamiek hebben de wantijen geen vaste positie, ze kunnen bijvoorbeeld van ligging veranderen als gevolg van afsluitingen (Zuiderzee, Lauwerszee). Bovendien moeten ze ook meer worden gezien als overgangszone dan als een vaste lijn zoals gebruikt wordt voor de begrenzing. In deze rapportage wordt geen rekening gehouden met de verschuivende positie van de wantijen en wordt de indeling zoals onderstaand weergegeven gebruikt in de analyse. 
 
-De hypsometrische curve geeft de verdeling van de hoogteligging in een bepaald gebied weer, in dit geval van het Friesche Zeegat. Op de verticale as wordt de bodemhoogte uitgezet, en daarbij op de horizontale as het totale areaal wat een bodemligging heeft die lager of gelijk is aan die bodemhoogte. Voor kombergingsgebieden in de Waddenzee hebben hypsometrische curves een vergelijkbare vorm, omdat er relatief weinig diepe geulen zijn en relatief veel intergetijdengebied. Indien een bepaalde hoogteligging weinig aanwezig is, zal de hypsometrische curve hier een steil verloop laten zien, en indien een bepaalde hoogteligging veel voorkomt wordt de curve bijna vlak. Door in eenzelfde figuur de hypsometrische curve voor verschillende jaren (bodemopnames) te tonen, kan in één oogslag worden bekeken welk areaal (bijvoorbeeld geulareaal) er door de tijd is bijgekomen of verdwenen. In de Appendix (#Appmorfologie) staan de brondata en berekeningswijze beschreven.
-
-Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in 4 verschillende hoogteklassen:
-
-1. Geul (z < -5 m)
-2. Proxy subgetijdengebied (-5 m < z <-1 m) 
-3. Proxy intergetijdengebied (-1 < z <1 m) 
-4. Proxy supragetijdengebied (z > 1 m)
-
-Het intergetijdengebied betreft het areaal wat een deel van de tijd droogvalt. De begrenzing van het intergetijdengebied wordt enerzijds gevormd door de bodemligging en anderszijds door de waterstandvariatie. De waterstand varieert niet alleen door de tijd, maar ook in de ruimte. Achterin de bekkens is de getijslag meestal groter dan nabij de zeegaten. Daarnaast neemt de getijslag toe van west naar oost, dus tussen Den Helder en Delfzijl. De kaart met de getijslag laat dit goed zien (\@ref(fig:ntb)). 
-
-De waterstand wordt echter alleen gemeten op een aantal stations. Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, dient rekening te worden gehouden met de getijvoortplanting. Numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden (rekencellen), en daarmee de kleinere geultjes en prielen, die een belangrijke functie hebben in het efficient draineren van de intergetijdengebieden, niet in het rekenrooster zijn opgenomen. Voor de ecotopenkaart wordt de waterspiegel berekend middels een driehoeksinterpolatie van de gemeten waterstanden als invoer voor het berekenen van de droogvalduur.
-
-Er is er voor deze rapportage voor gekozen om in eerste instantie uit te gaan van vaste begrenzingen van de hoogteklasses en daarmee niet de veranderingen in getijslag door de tijd of over het gebied mee te nemen. Dit betekent dat verandering in arealen alleen worden veroorzaakt door veranderingen in de bodemligging en niet door een verandering in getijvoortplanting. Daarom spreken we van een 'proxy', bijvoorbeeld voor het intergetijdengebied.
-
-```{r gebiedenWaddenzee, fig.cap="Indeling van de Waddenzee in verschillende gebieden voor gebruik in morfologische indicatoren. "}
+```{r gebiedenWaddenzee, fig.cap="Indeling van de Waddenzee in verschillende kombergingsgebieden of bekkens voor het gebruik in morfologische indicatoren. "}
 
 polygonpath <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
 # selection of relevant polygons done by hand in QGIS
@@ -64,10 +50,11 @@ leaflet(poly %>% st_transform(4326)) %>%
 
 ```
 
+## Hypsometrie
 
+De hypsometrische curve geeft de verdeling van de hoogteligging in een bepaald gebied weer. Op de verticale as wordt de bodemhoogte uitgezet, en daarbij op de horizontale as het totale areaal met een bodemligging lager of gelijk aan die bodemhoogte. Voor kombergingsgebieden in de Waddenzee hebben hypsometrische curves een vergelijkbare vorm, omdat er relatief weinig diepe geulen zijn en relatief veel intergetijdengebied. Indien een bepaalde hoogteligging weinig aanwezig is, zal de hypsometrische curve hier een steil verloop laten zien, en indien een bepaalde hoogteligging veel voorkomt wordt de curve bijna vlak. Door in eenzelfde figuur de hypsometrische curve voor verschillende jaren (bodemopnames) te tonen, kan in één oogslag worden bekeken welk areaal (bijvoorbeeld geulareaal) er door de tijd is bijgekomen of verdwenen. In de Appendix (#Appmorfologie) staan de brondata en berekeningswijze beschreven.
 
-
-Figuur \@ref(fig:hypsometriearealen) toont de hypsometrische curves voor het gehele Friesche Zeegat en de bekkens van het Pinkegat en de Zouutkamperlaag afzonderlijk. De verschillende klassen zijn met kleur aangegeven op de kaart. De veranderingen tussen de jaren (kolommen) zijn klein. In figuur \@ref(fig:hypsometriearealen2) zijn de verschillende jaren over elkaar geplot en is tevens de mogelijkheid verder in te zoomen.
+Figuur \@ref(fig:hypsometriearealen) toont de hypsometrische curves voor de bekkens in de Waddenzee. De verschillende klassen zijn met kleur aangegeven op de kaart. De veranderingen tussen de jaren (kolommen) zijn klein. In figuur \@ref(fig:hypsometriearealen2) zijn de verschillende jaren over elkaar geplot en is tevens de mogelijkheid verder in te zoomen.
 
 Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan de ontwikkeling per hoogteklasse beter worden gevolgd (figuur \@ref(fig:hypsometriearealen2)). 
 
@@ -121,7 +108,7 @@ valid.values.df <- map(valid.values, as_tibble) %>%
 
 
 
-```{r hypsometriePerGebied, fig.height=10, fig.width=8, fig.cap="Hypsografische curven voor verschillende gebieden in de Waddenzee en voor een selectie van bathymetrieën. "}
+```{r hypsometriePerGebied, fig.height=10, fig.width=8, fig.cap="Hypsometrische curven voor verschillende gebieden in de Waddenzee en voor een selectie van bathymetrieën. "}
 
 valid.values.df %>%
   # mutate(class=case_when(
@@ -149,7 +136,18 @@ valid.values.df %>%
 
 ## Arealen
 
+Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in vier verschillende hoogteklassen:
 
+1. Geul (z < -5 m)
+2. Proxy subgetijdengebied (-5 m < z <-1 m) 
+3. Proxy intergetijdengebied (-1 < z <1 m) 
+4. Proxy supragetijdengebied (z > 1 m)
+
+Het intergetijdengebied betreft het areaal wat een deel van de tijd droogvalt. De begrenzing van het intergetijdengebied wordt enerzijds gevormd door de bodemligging en anderszijds door de waterstandvariatie. De waterstand varieert niet alleen door de tijd, maar ook in de ruimte. Achterin de bekkens is de getijslag meestal groter dan nabij de zeegaten. Daarnaast neemt de getijslag toe van west naar oost, dus tussen Den Helder en Delfzijl. De kaart met de getijslag laat dit goed zien (\@ref(fig:ntb)). 
+
+De waterstand wordt echter alleen gemeten op een aantal stations. Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, dient rekening te worden gehouden met de getijvoortplanting. Numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden (rekencellen), en daarmee de kleinere geultjes en prielen, die een belangrijke functie hebben in het efficient draineren van de intergetijdengebieden, niet in het rekenrooster zijn opgenomen. Voor de ecotopenkaart wordt de waterspiegel berekend middels een driehoeksinterpolatie van de gemeten waterstanden als invoer voor het berekenen van de droogvalduur.
+
+Er is er voor deze rapportage voor gekozen om in eerste instantie uit te gaan van vaste begrenzingen van de hoogteklasses en daarmee niet de veranderingen in getijslag door de tijd of over het gebied mee te nemen. Dit betekent dat verandering in arealen alleen worden veroorzaakt door veranderingen in de bodemligging en niet door een verandering in getijvoortplanting. Daarom spreken we van een 'proxy', bijvoorbeeld voor het intergetijdengebied.
 
 
 ```{r arealen, fig.height = 8, fig.width = 8, fig.cap = "Tijdseries met gemeten areaal in km2 per gebied en diepteklasse."}
