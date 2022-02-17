@@ -37,7 +37,7 @@ De begrenzing tussen de bekkens wordt gevormd door de zogenaamde 'wantijen'. Dit
 
 polygonpath <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
 # selection of relevant polygons done by hand in QGIS
-polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33, 34)
+polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33)
 
 poly <- sf::st_read(polygonpath, quiet = T) %>% 
   filter(fid %in% polygonsInRaster) %>% 
@@ -54,7 +54,7 @@ leaflet(poly %>% st_transform(4326)) %>%
 
 De hypsometrische curve geeft de verdeling van de hoogteligging in een bepaald gebied weer. Op de verticale as wordt de bodemhoogte uitgezet, en daarbij op de horizontale as het totale areaal met een bodemligging lager of gelijk aan die bodemhoogte. Voor kombergingsgebieden in de Waddenzee hebben hypsometrische curves een vergelijkbare vorm, omdat er relatief weinig diepe geulen zijn en relatief veel intergetijdengebied. Indien een bepaalde hoogteligging weinig aanwezig is, zal de hypsometrische curve hier een steil verloop laten zien, en indien een bepaalde hoogteligging veel voorkomt wordt de curve bijna vlak. Door in eenzelfde figuur de hypsometrische curve voor verschillende jaren (bodemopnames) te tonen, kan in één oogslag worden bekeken welk areaal (bijvoorbeeld geulareaal) er door de tijd is bijgekomen of verdwenen. In de Appendix (#Appmorfologie) staan de brondata en berekeningswijze beschreven.
 
-Figuur \@ref(fig:hypsometriearealen) toont de hypsometrische curves voor de bekkens in de Waddenzee. De verschillende klassen zijn met kleur aangegeven op de kaart. De veranderingen tussen de jaren (kolommen) zijn klein. In figuur \@ref(fig:hypsometriearealen2) zijn de verschillende jaren over elkaar geplot en is tevens de mogelijkheid verder in te zoomen.
+Figuur \@ref(fig:hypsometriearealen) toont de hypsometrische curves voor de bekkens in de Waddenzee. Voor de meeste bekkens is de zien dat de recente jaren een curve hebben met een hogere ligging, wat betekent dat de bodem is opgehoogd.
 
 Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan de ontwikkeling per hoogteklasse beter worden gevolgd (figuur \@ref(fig:hypsometriearealen2)). 
 
@@ -62,7 +62,7 @@ Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan
 
 polygonpath <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
 # selection of relevant polygons done by hand in QGIS
-polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33, 34)
+polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33)
 
 poly <- sf::st_read(polygonpath, quiet = T) %>% 
   filter(fid %in% polygonsInRaster) %>% 
@@ -99,11 +99,11 @@ valid.data <- lapply(croppedRasters, function(x) which(!is.na(getValues(max(x, n
 valid.values <- map2(croppedRasters, valid.data, raster::extract)
 valid.values.df <- map(valid.values, as_tibble) %>%
   map(pivot_longer, everything(), names_to = "jaar", values_to = "diepte") %>%
-  set_names("Marsdiep","Vlie","Borndiep","Eilanderbalg","Pinkegat","Zoutkamperlaag","Schild","Eems-Dollard","Eijerlandse Gat","Lauwers")%>%
+  set_names("Marsdiep","Vlie","Borndiep","Eilanderbalg","Pinkegat","Zoutkamperlaag","Schild","Eijerlandse Gat","Lauwers")%>%
   rbindlist(idcol = "naam") %>% 
   mutate(jaar = as.integer(str_replace(jaar, "mosaic_", ""))) %>%
-  mutate(naam = factor(naam, levels = c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild","Eems-Dollard")))
-
+  mutate(naam = factor(naam, levels = c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild")))
+rm(valid.data,valid.values)
 ```
 
 
@@ -122,13 +122,13 @@ valid.values.df %>%
   mutate(jaar = as.factor(jaar)) %>%
   group_by(naam, jaar) %>%
   mutate(count = n(), cum = cumsum(as.numeric(row_number()))) %>%  #, rowNumber = row_number()
-  mutate(oppervlakte = 400*cum/1e6) %>%
+  mutate(oppervlakte = 400*cum/1e12) %>% #JV: blijkbaar hier 2x delen om van m2 naar km2 te gaan...
   sample_n(100) %>%     # sample om de grafiek sneller te laten tekenen. heeft geen invloed op de positie, wel op de resolutie
   ggplot() +
   geom_line(aes(x = oppervlakte, y = diepte, color = jaar)) +
-  facet_wrap(~ naam, scales = "free_x", ncol = 4) +
-  xlab("oppervlakte in km2") + ylab("diepte") +
-  coord_cartesian(ylim = c(-10, NA)) +
+  facet_wrap(~ naam, scales = "free_x", ncol = 3) +
+  xlab("Oppervlakte [km2]") + ylab("Diepte [m] t.o.v. NAP") +
+  coord_cartesian(ylim = c(-5, 3)) +
   theme(legend.position = "bottom")
 
 ```
@@ -143,11 +143,13 @@ Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende m
 3. Proxy intergetijdengebied (-1 < z <1 m) 
 4. Proxy supragetijdengebied (z > 1 m)
 
-Het intergetijdengebied betreft het areaal wat een deel van de tijd droogvalt. De begrenzing van het intergetijdengebied wordt enerzijds gevormd door de bodemligging en anderszijds door de waterstandvariatie. De waterstand varieert niet alleen door de tijd, maar ook in de ruimte. Achterin de bekkens is de getijslag meestal groter dan nabij de zeegaten. Daarnaast neemt de getijslag toe van west naar oost, dus tussen Den Helder en Delfzijl. De kaart met de getijslag laat dit goed zien (\@ref(fig:ntb)). 
+Het intergetijdengebied betreft het areaal wat een deel van de tijd droogvalt. De begrenzing van het intergetijdengebied wordt enerzijds gevormd door de bodemligging en anderszijds door de waterstandvariatie. De waterstand varieert niet alleen door de tijd, maar ook in de ruimte. Achterin de bekkens is de getijslag meestal groter dan nabij de zeegaten. Daarnaast neemt de getijslag toe van west naar oost, dus tussen Den Helder en Delfzijl. De kaart met de getijslag laat dit goed zien (figuur \@ref(fig:kaartGetijslag)). 
 
 De waterstand wordt echter alleen gemeten op een aantal stations. Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, dient rekening te worden gehouden met de getijvoortplanting. Numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden (rekencellen), en daarmee de kleinere geultjes en prielen, die een belangrijke functie hebben in het efficient draineren van de intergetijdengebieden, niet in het rekenrooster zijn opgenomen. Voor de ecotopenkaart wordt de waterspiegel berekend middels een driehoeksinterpolatie van de gemeten waterstanden als invoer voor het berekenen van de droogvalduur.
 
 Er is er voor deze rapportage voor gekozen om in eerste instantie uit te gaan van vaste begrenzingen van de hoogteklasses en daarmee niet de veranderingen in getijslag door de tijd of over het gebied mee te nemen. Dit betekent dat verandering in arealen alleen worden veroorzaakt door veranderingen in de bodemligging en niet door een verandering in getijvoortplanting. Daarom spreken we van een 'proxy', bijvoorbeeld voor het intergetijdengebied.
+
+Figuur \@ref(fig:arealen) toont de arealen per klasse (kolommen) en per bekken (rijen). De figuur laat zien dat het intergetijdengebied in de meeste bekkens toeneemt over de tijd. Alleen voor de Lauwers en Schild is dit niet zo. Ook neemt het areaal subgetijdengebied af (dit ligt tussen de NAP -5 m en de NAP -1 m lijn). De arealen supragetijdengebied zijn klein, ook omdat enkel de gebieden (cellen) worden meegenomen die in alle jaren opgenomen zijn. Het supragetijdengebied is niet altijd volledig opgenomen in de vaklodingen data, zeker niet in oudere opnamen. De ontwikkeling van het geulareaal verschilt per bekken.
 
 
 ```{r arealen, fig.height = 8, fig.width = 8, fig.cap = "Tijdseries met gemeten areaal in km2 per gebied en diepteklasse."}
@@ -166,22 +168,24 @@ valid.values.df  %>%
   ggplot(aes(jaar, oppervlakte)) +
   geom_line(aes()) +
   geom_point(aes(), shape = 21, color = "white", size = 1) +
-  facet_grid(naam ~ class, scales = "free_y") +
+  facet_grid(naam ~ class, scales = "free") + #free_y
   theme(strip.text.y = element_text(angle = 0)) +
-  ggtitle("areaal in km2 per gebied en diepteklasse")
+  ylab("Oppervlakte [km2]") + xlab("Jaar") +
+  # coord_cartesian(ylim = c(0, 50)) +
+  ggtitle("areaal in km2 per bekken en diepteklasse")
 
 ```
 ##	Plaathoogte
 
-De hoogte van het intergetijdengebied (plaathoogte) is afhankelijk van de hydrodynamiek en het aanbod van sediment. Het getij voert sediment aan, dat kan worden afgezet op de platen. Golfwerking leidt tot erosie van de platen. De balans tussen erosie en sedimentatie resulteert in een bepaalde plaathoogte. Indien er veranderingen optreden in het getij, kan dit leiden tot veranderingen in de stroomsnelheden, met andere sedimentbeschikbaarheid tot gevolg. Veranderingen in GHW (bijvoorbeeld door zeespiegelstijging) kunnen leiden tot veranderende invloed van de golven. Voor platen die in evenwicht zijn, zijn er evenwichtsrelaties afgeleid door Eysink (1992). 
+De hoogte van het intergetijdengebied (plaathoogte) is afhankelijk van de hydrodynamiek en het aanbod van sediment. Het getij voert sediment aan, dat kan worden afgezet op de platen. Golfwerking leidt tot erosie van de platen. De balans tussen erosie en sedimentatie resulteert in een bepaalde plaathoogte. Indien er veranderingen optreden in het getij, kan dit leiden tot veranderingen in de stroomsnelheden, met andere sedimentbeschikbaarheid tot gevolg. Veranderingen in GHW (bijvoorbeeld door zeespiegelstijging) leiden tot andere overstromingsduur en kunnen leiden tot veranderende invloed van de golven. Voor platen die in evenwicht zijn, zijn er evenwichtsrelaties afgeleid door Eysink (1992). 
 
-Bij analyse van deelgebieden, is de ruimtelijke begrenzing zeer van belang voor het berekenen van de plaathoogte. Indien een intergetijdengebied bijvoorbeeld verschuift, kan een stuk met lagere bodemligging (of zelfs geul) binnen de polygoon schuiven en daarmee de *gemiddelde* plaathoogte beïnvloeden. 
+Bij analyse van deelgebieden, is de ruimtelijke begrenzing zeer van belang voor het berekenen van de plaathoogte. Indien een intergetijdengebied bijvoorbeeld migreert of opschuift, kan een stuk met lagere bodemligging (of zelfs geul) binnen de polygoon schuiven en daarmee de *gemiddelde* plaathoogte beïnvloeden. 
 
-In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte voor het gehele Friesche Zeegat te berekenen. Hiervoor wordt het volume boven de NAP -1 m grens berekend, en gedeeld door de oppervlakte. 
+In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte per bekken te berekenen. Hiervoor wordt het volume tussen de NAP -1 m grens en NAP +1 m grens berekend, en gedeeld door de oppervlakte. 
 
 ```{r plaathoogte, fig.cap = "Plaathoogte per gebied. "}
 valid.values.df %>% 
-  filter(diepte >= -1) %>%
+  filter(diepte >= -1 & diepte < 1) %>%
   group_by(naam, jaar) %>%
   mutate(oppervlakte = 400/1e6, volume = diepte*400/1e6) %>%
   summarize(plaathoogte = sum(volume)/sum(oppervlakte)) %>%
