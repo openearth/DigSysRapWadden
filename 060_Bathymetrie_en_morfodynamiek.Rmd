@@ -179,19 +179,21 @@ valid.values.df  %>%
 
 De hoogte van het intergetijdengebied (plaathoogte) is afhankelijk van de hydrodynamiek en het aanbod van sediment. Het getij voert sediment aan, dat kan worden afgezet op de platen. Golfwerking leidt tot erosie van de platen. De balans tussen erosie en sedimentatie resulteert in een bepaalde plaathoogte. Indien er veranderingen optreden in het getij, kan dit leiden tot veranderingen in de stroomsnelheden, met andere sedimentbeschikbaarheid tot gevolg. Veranderingen in GHW (bijvoorbeeld door zeespiegelstijging) leiden tot andere overstromingsduur en kunnen leiden tot veranderende invloed van de golven. Voor platen die in evenwicht zijn, zijn er evenwichtsrelaties afgeleid door Eysink (1992). 
 
-Bij analyse van deelgebieden, is de ruimtelijke begrenzing zeer van belang voor het berekenen van de plaathoogte. Indien een intergetijdengebied bijvoorbeeld migreert of opschuift, kan een stuk met lagere bodemligging (of zelfs geul) binnen de polygoon schuiven en daarmee de *gemiddelde* plaathoogte beïnvloeden. 
+Bij analyse van deelgebieden, is de ruimtelijke begrenzing zeer van belang voor het berekenen van de plaathoogte. Indien een intergetijdengebied bijvoorbeeld migreert of opschuift, kan een stuk met lagere bodemligging (of zelfs geul) binnen de polygoon schuiven en daarmee de *gemiddelde* plaathoogte beïnvloeden. Op het niveau van bekkens speelt dit minder, omdat op de wantijen weinig geulen aanwezig zijn.
 
-In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte per bekken te berekenen. Hiervoor wordt het volume tussen de NAP -1 m grens en NAP +1 m grens berekend, en gedeeld door de oppervlakte. 
+In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte per bekken te berekenen. Hiervoor wordt het volume tussen de NAP -1 m grens en NAP +1 m grens berekend, en gedeeld door de oppervlakte.
+
+De gemiddelde plaathoogte per bekken is relatief laag (figuur \@ref(fig:plaathoogte)) en lijkt voor de grotere bekkens licht toe te nemen.
 
 ```{r plaathoogte, fig.cap = "Plaathoogte per gebied. "}
 valid.values.df %>% 
-  filter(diepte >= -1 & diepte < 1) %>%
+  filter(diepte >= -1 & diepte < 1) %>% #  
   group_by(naam, jaar) %>%
   mutate(oppervlakte = 400/1e6, volume = diepte*400/1e6) %>%
   summarize(plaathoogte = sum(volume)/sum(oppervlakte)) %>%
   ggplot(aes(jaar, plaathoogte)) +
   geom_point() +
-  facet_wrap(~ naam)
+  facet_wrap(~ naam, scales = "free") 
 ```
 
 
@@ -199,7 +201,7 @@ valid.values.df %>%
 
 Geuldiepte is de geintegreerde waarde voor het volume beneden 5 meter t.o.v. NAP gedeeld door het oppervlakte beneden 5 m t.o.v. NAP (zie ook vergelijking \@ref(eq:geuldiepte)). 
 
-De ontwikkeling hiervan door de jaren is 
+De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens een toename door de tijd zien. Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries door worden veroorzaakt.
 
 ```{r geuldiepte, fig.cap="Geuldiepte door de jaren in de verschillende gebieden. "}
 
@@ -210,34 +212,32 @@ valid.values.df %>%
   summarize(geuldiepte = sum(volume)/sum(oppervlakte)) %>%
   ggplot(aes(jaar, geuldiepte)) +
   geom_point() +
-  facet_wrap(~ naam)
+  facet_wrap(~ naam, scales = "free")
 ```
 
 
 
 ##	Plaatvolume
 
-```{r plaatvolume, fig.cap = "Plaatvolume in m2 per gebied over de tijd. Het volume is bepaald voor dat deel van de plaat dat boven -1 m tov NAP ligt. Het volume is bepaald tov NAP. " }
+```{r plaatvolume, fig.cap = "Plaatvolume in m3 per gebied over de tijd. Het volume is bepaald voor dat deel van de plaat dat boven -1 m tov NAP ligt. Het volume is bepaald tov NAP. " }
 
 valid.values.df %>% 
   filter(diepte >= -1) %>%
   mutate(plaathoogte = diepte) %>%    # nu volume t.o.v NAP. Kan oook negatief zijn. 
   group_by(naam, jaar) %>%
-  mutate(volume = plaathoogte*400) %>% # elk rastersegment is 20x20 m
+  mutate(volume = plaathoogte*400/1e6) %>% # elk rastersegment is 20x20 m
   summarize(plaatvolume = sum(volume)) %>%
   ggplot(aes(jaar, plaatvolume)) +
-  ggtitle("Plaatvolume in m^3.") +
+  ggtitle("Plaatvolume in miljoen m^3.") +
   geom_point() +
-  facet_wrap(~ naam)
+  facet_wrap(~ naam, scales = "free")
 
 ```
 
 
-*(Het plaatvolume moet nog worden uitgewerkt.)*
 
 ##	Geulvolume 
 
-*(Het geulvolume moet nog worden uitgewerkt.)*
 
 ```{r}
 valid.values.df %>% 
@@ -250,15 +250,6 @@ valid.values.df %>%
   ggtitle("Geulvolume in m3.") +
   geom_point() +
   facet_wrap(~ naam)
-```
-
-
-##	Lengte laagwaterlijn/plaatrand
-
-De lengte van de laagwaterlijn moet nog worden uitgewerkt.
-
-```{r}
-
 ```
 
 
