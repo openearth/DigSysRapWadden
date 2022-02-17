@@ -161,7 +161,7 @@ valid.values.df  %>%
     diepte >= -1 & diepte < 1 ~ "intergetijdengebied",
     diepte >= 1 ~ "supragetijdengebied"
   )) %>%
-  mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
+  mutate(class = factor(class, levels = c("geul z<-5 m NAP", "subgetijdengebied -5 m NAP<z<-1 m NAP", "intergetijdengebied -1 m NAP<z<1 m NAP", "supragetijdengebied z>1 m NAP"))) %>%
   group_by(naam, jaar, class) %>%
   mutate(oppervlakte = 400/1e6) %>%  # nu in km2
   summarize(oppervlakte = sum(oppervlakte)) %>%
@@ -172,7 +172,7 @@ valid.values.df  %>%
   theme(strip.text.y = element_text(angle = 0)) +
   ylab("Oppervlakte [km2]") + xlab("Jaar") +
   # coord_cartesian(ylim = c(0, 50)) +
-  ggtitle("areaal in km2 per bekken en diepteklasse")
+  ggtitle("Areaal in km2 per bekken en diepteklasse")
 
 ```
 ##	Plaathoogte
@@ -183,7 +183,7 @@ Bij analyse van deelgebieden, is de ruimtelijke begrenzing zeer van belang voor 
 
 In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte per bekken te berekenen. Hiervoor wordt het volume tussen de NAP -1 m grens en NAP +1 m grens berekend, en gedeeld door de oppervlakte.
 
-De gemiddelde plaathoogte per bekken is relatief laag (figuur \@ref(fig:plaathoogte)) en lijkt voor de grotere bekkens licht toe te nemen.
+De gemiddelde plaathoogte (figuur \@ref(fig:plaathoogte)) lijkt voor de grotere bekkens licht toe te nemen.
 
 ```{r plaathoogte, fig.cap = "Plaathoogte per gebied. "}
 valid.values.df %>% 
@@ -193,7 +193,8 @@ valid.values.df %>%
   summarize(plaathoogte = sum(volume)/sum(oppervlakte)) %>%
   ggplot(aes(jaar, plaathoogte)) +
   geom_point() +
-  facet_wrap(~ naam, scales = "free") 
+  facet_wrap(~ naam, scales = "free") +
+  ylab("Plaathoogte [m] t.o.v. NAP") + xlab("Jaar") 
 ```
 
 
@@ -201,7 +202,7 @@ valid.values.df %>%
 
 Geuldiepte is de geintegreerde waarde voor het volume beneden 5 meter t.o.v. NAP gedeeld door het oppervlakte beneden 5 m t.o.v. NAP (zie ook vergelijking \@ref(eq:geuldiepte)). 
 
-De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens een toename door de tijd zien. Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries door worden veroorzaakt.
+De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens een toename door de tijd zien (figuur \@ref(fig:geuldiepte)). Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries door worden veroorzaakt.
 
 ```{r geuldiepte, fig.cap="Geuldiepte door de jaren in de verschillende gebieden. "}
 
@@ -212,44 +213,48 @@ valid.values.df %>%
   summarize(geuldiepte = sum(volume)/sum(oppervlakte)) %>%
   ggplot(aes(jaar, geuldiepte)) +
   geom_point() +
-  facet_wrap(~ naam, scales = "free")
+  facet_wrap(~ naam, scales = "free")+
+  ylab("Geuldiepte [m] t.o.v. NAP") + xlab("Jaar") 
 ```
 
 
 
 ##	Plaatvolume
+Het plaatvolume is per bekken gevizualiseerd in figuur \@ref(fig:plaatvolume). 
 
 ```{r plaatvolume, fig.cap = "Plaatvolume in m3 per gebied over de tijd. Het volume is bepaald voor dat deel van de plaat dat boven -1 m tov NAP ligt. Het volume is bepaald tov NAP. " }
 
 valid.values.df %>% 
-  filter(diepte >= -1) %>%
-  mutate(plaathoogte = diepte) %>%    # nu volume t.o.v NAP. Kan oook negatief zijn. 
+  filter(diepte >= -1 & diepte < 1) %>%
+  mutate(plaathoogte = diepte) %>%    # nu volume t.o.v NAP. Kan ook negatief zijn. 
   group_by(naam, jaar) %>%
   mutate(volume = plaathoogte*400/1e6) %>% # elk rastersegment is 20x20 m
   summarize(plaatvolume = sum(volume)) %>%
   ggplot(aes(jaar, plaatvolume)) +
   ggtitle("Plaatvolume in miljoen m^3.") +
   geom_point() +
-  facet_wrap(~ naam, scales = "free")
-
+  facet_wrap(~ naam, scales = "free")+
+  ylab("Plaatvolume [miljoen m3] t.o.v. NAP") + xlab("Jaar") 
 ```
 
 
 
 ##	Geulvolume 
 
+Het geulvolume is in de westelijke bekkens toegenomen, terwijl deze in het Friesche Zeegat (Pinkegat+Zoutkamperlaag) is afgenomen (figuur \@ref(fig:geulvolume)). 
 
-```{r}
+```{r geulvolume, fig.cap = "Geulvolume in miljoen m3 per bekken over de tijd. Het volume is bepaald voor dat deel van de geul dat onder de NAP -5 m t.o.v. NAP ligt. Het volume is bepaald tov NAP. " }
 valid.values.df %>% 
   filter(diepte < -5) %>%
   mutate(volumediepte = -(diepte)) %>%
   group_by(naam, jaar) %>%
   mutate(oppervlakte = 400/1e6, volume = volumediepte*400) %>%
-  summarize(geulvolume = sum(volume)) %>%
+  summarize(geulvolume = sum(volume)/1e6) %>%
   ggplot(aes(jaar, geulvolume)) +
-  ggtitle("Geulvolume in m3.") +
+  ggtitle("Geulvolume in miljoen m3.") +
   geom_point() +
-  facet_wrap(~ naam)
+  facet_wrap(~ naam, scales = "free")+
+  ylab("Geulvomume [miljoen m3] t.o.v. NAP") + xlab("Jaar") 
 ```
 
 
