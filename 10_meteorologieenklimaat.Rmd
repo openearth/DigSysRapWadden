@@ -26,7 +26,7 @@ De luchttemperatuur, zoninstraling en bewolking hebben invloed op veel ecologisc
 
 Luchtdruk en neerslag zijn eveneens buiten beschouwing gelaten. Voor variaties in het waterniveau is vooral de wind van invloed, meer dan de luchtdruk. Op schaal van de Waddenzee wordt de saliniteitsverdeling in grotere mate beïnvloed door het spuien van zoet water dan via neerslag. De afvoeren zijn opgenomen in paragraaf \@ref(zoetwaterafvoeren).
 
-De wind wordt geanalyseerd en gevizualiseerd op vier KNMI stations (zie bron Appendix: \@ref(Appwind)): `r paste(unique(dtwind$station), collapse = ", ")`. Zie figuur \@ref(fig:KNMIstationsmap) voor de ligging van deze stations.
+De wind wordt geanalyseerd en gevizualiseerd op vier KNMI stations (zie bron Appendix: \@ref(Appwind)): De Kooy, Lauwersoog, Hoorn Terschelling, Vlieland. Zie figuur \@ref(fig:KNMIstationsmap) voor de ligging van deze stations.
 
 
 ```{r KNMIstationsmap, fig.cap="Kaart met gebruikte KNMI waarnemingsstations."}

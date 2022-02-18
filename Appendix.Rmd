@@ -1,5 +1,22 @@
 # (APPENDIX) Appendix {-} 
 
+```{r setupAppendix, include = FALSE}
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE,
+	echo = FALSE,
+	out.width = "100%"
+)
+
+source("r/runThisFirst.R")
+theme_hy <- theme_bw()
+
+alt_theme_hy <- theme_tufte() + theme(axis.line=element_line()) #+ 
+    # scale_x_continuous(limits=c(10,35)) + scale_y_continuous(limits=c(0,400))
+```
+
+
+
 # Appendix A: Brondata en post-processing
 
 
@@ -108,7 +125,7 @@ dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 
 ### Brondata
 
-In de systeemrapportage worden voor de meteorologie (vooralsnog) alleen indicatoren voor wind weergegeven. Hiervoor is gebruik gemaakt van de [KNMI uurgegevens](https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens) voor de vier stations `r paste(unique(dtwind$station), collapse = ", ")`. 
+In de systeemrapportage worden voor de meteorologie (vooralsnog) alleen indicatoren voor wind weergegeven. Hiervoor is gebruik gemaakt van de [KNMI uurgegevens](https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens) voor de vier stations De Kooy, Lauwersoog, Hoorn Terschelling, Vlieland. 
 
 ### Windsterkte en windrichting
 

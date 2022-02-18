@@ -33,6 +33,8 @@ getPackage("plotly")
 getPackage("readxl")
 getPackage("tidync")
 getPackage("ggthemes")
+getPackage("leaflet.extras")
+getPackage("oce")
 
 select <- dplyr::select
 addLegend <- leaflet::addLegend

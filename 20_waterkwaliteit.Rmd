@@ -218,14 +218,14 @@ my_breaks = c(5, 10, 15, 20, 25, 30)
 k = 13
 
 WQ %>%
-  select(tijdstip, locatie.naam, grootheid.code, parameter.code, eenheid.code, geometriepunt.x, geometriepunt.y, coordinatenstelsel, bemonsteringshoogte, referentievlak, kwaliteitswaarde.code, numeriekewaarde) %>%
-  filter(parameter.code == par, grootheid.code == gro, as.numeric(kwaliteitswaarde.code) < 50, year(tijdstip) >= 1989) %>%
-  filter(locatie.naam %in% plotlocaties) %>%
-  mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
+  dplyr::select(tijdstip, locatie.naam, grootheid.code, parameter.code, eenheid.code, geometriepunt.x, geometriepunt.y, coordinatenstelsel, bemonsteringshoogte, referentievlak, kwaliteitswaarde.code, numeriekewaarde) %>%
+  dplyr::filter(parameter.code == par, grootheid.code == gro, as.numeric(kwaliteitswaarde.code) < 50, year(tijdstip) >= 1989) %>%
+  dplyr::filter(locatie.naam %in% plotlocaties) %>%
+  dplyr::mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
   # mutate(logwaarde = log(numeriekewaarde)+0.001) %>%
-  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde)) %>% ungroup() %>%
-  group_by(locatie.naam) %>% mutate(anomalie = maandgemiddelde - mean(maandgemiddelde)) %>% 
-  complete(locatie.naam, jaar, maand, fill = list(maandgemiddelde = NA, anomalie = NA)) %>% 
+  dplyr::group_by(locatie.naam, jaar, maand) %>% dplyr::summarize(maandgemiddelde = mean(numeriekewaarde)) %>% ungroup() %>%
+  dplyr::group_by(locatie.naam) %>% dplyr::mutate(anomalie = maandgemiddelde - mean(maandgemiddelde)) %>% ungroup() %>% 
+  tidyr::complete(locatie.naam, jaar, maand, fill = list(maandgemiddelde = NA, anomalie = NA)) %>% 
   mutate(datum = as.Date(lubridate::ymd(paste(jaar, maand, "15")))) %>%
   arrange(locatie.naam, datum) %>%
   # mutate(anomalie = oce::fillGap(anomalie)) %>%
@@ -369,7 +369,7 @@ WQ %>%
   mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>%
   mutate(logwaarde = log(numeriekewaarde)+0.001) %>%
   group_by(locatie.naam, jaar, maand) %>% summarize(logmaandgemiddelde = mean(logwaarde)) %>% ungroup() %>%
-  group_by(locatie.naam) %>% mutate(anomalie = logmaandgemiddelde - mean(logmaandgemiddelde)) %>% 
+  group_by(locatie.naam) %>% mutate(anomalie = logmaandgemiddelde - mean(logmaandgemiddelde)) %>% ungroup() %>%
   complete(locatie.naam, jaar, maand, fill = list(logmaandgemiddelde = NA, anomalie = NA)) %>% 
   mutate(datum = as.Date(lubridate::ymd(paste(jaar, maand, "15")))) %>%
   arrange(locatie.naam, datum) %>%

@@ -120,7 +120,7 @@ ggplotly(p)
 
 De berekeningswijze van de Gemiddelde LaagWaterstanden vergelijkbaar met de GHW en opgenomen in Appendix \@ref(Appwaterstanden). 
 
-De GLW (figuur \@ref(fig:Laagwaters)) laten voor de meeste stations ook een stijging zien. Ook is te zien hoe de laagwaterniveaus variëren over de Waddenzee.
+De GLW (figuur \@ref(fig:Laagwaters)) laten voor de meeste stations ook een stijging zien. Ook is te zien hoe de laagwaterniveaus variÃ«ren over de Waddenzee.
 
 
 ```{r Laagwaters, fig.height=8, fig.width=8, fig.cap="Jaargemiddeld laagwater (GLW) per stations. De lijn is een linaire regressie door alle data rekening houdend met een cyclus van 18.6 jaar."}
