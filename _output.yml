@@ -4,6 +4,10 @@ bookdown::gitbook:
   config:
     toc:
       collapse: section
+      before: |
+        <li><a href="./index.html">Digitale Systeeemrapportage Wadden</a></li>
+      after: |
+        <li><a href="https://bookdown.org/yihui/bookdown/" target="blank">Published with bookdown</a></li>
     toc_float:
       collapsed: false
       smooth_scroll: false

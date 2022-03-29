@@ -215,7 +215,7 @@ valid.values.df %>%
   geom_line(aes()) +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
   facet_wrap(~ naam, scales = "free") +
-  ylab("Plaathoogte [m] t.o.v. NAP") + xlab("Jaar") 
+  ylab("Plaathoogte [m] t.o.v. NAP") + xlab("Jaar") +
   ggtitle("Plaathoogte in m per bekken")
 ```
 

@@ -1,10 +1,11 @@
 ---
 title: "Digitale systeemrapportage Wadden, concept 0.5"
-author: "Deltares, Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren"
-date: "18 februari 2022"
+author: Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren
+date: '`r Sys.Date()`'
 bibliography: "references/wadden.bib"
 biblio-style: "apalike"
 link-citations: yes
+cover-image: images/voorplaat.png
 subtitle: "Natuurmonitoring, onderdeel morfologie"
 ---
 
@@ -18,11 +19,15 @@ knitr::opts_chunk$set(
 source("r/runThisFirst.R")
 ```
 
-```{r voorplaat, fig.cap= "Luchtfoto van Rottumeroog in 2011 (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)" }
-knitr::include_graphics("images/voorplaat.jpg")
-```
+  {.unnumbered}
 
-# Disclaimer {-}
+```{r voorplaat, fig.cap="Luchtfoto van Rottumeroog in 2011. (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)"}
+knitr::include_graphics("images/voorplaat.png")
+```
+</br>
+</br>
+
+**Disclaimer**
 
 De informatie op deze website is nog volop in ontwikkeling en is bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden.
 
@@ -30,86 +35,11 @@ This website is a test version. Nothing from this website may be used.
 
 Deze watersysteemrapportage is een initiatief van:
 
-* Rijkswaterstaat
+-   Rijkswaterstaat
 
-    + Noord-Nederland
-    + WVL
-    
-* Deltares
+    -   Noord-Nederland
+    -   WVL
 
-
-# Introductie
+-   Deltares
 
 Deze digitale Systeemrapportage van de Wadden is opgezet als een naslagwerk, om te voldoen aan de eerste informatiebehoefte voor beheerders, gebruikers en onderzoekers van de Waddenzee. Het bevat indicatoren die de toestand en trends van het natuurlijke abiotische systeem beschrijven, en die invloed hebben op de natuurlijkheid van het Waddensysteem. Dat maakt dat ze relevant zijn voor de verschillende beheer- en beleidsdoelen in het Waddengebied.
-
-## Basismonitoring Wadden
-
-De systeemrapportage wordt opgezet als onderdeel van het project Natuurmonitoring Wadden - Morfologie. Dit valt vervolgens weer onder de [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/), en heeft betrekking op de niet-levende (abiotische) kenmerken van de Waddenzee.
-
-Basismonitoring Wadden houdt de ontwikkelingen in het Waddengebied in de gaten. Doordat beheerders van het Waddengebied verzamelde gegevens en kennis met elkaar delen, kan er effectiever en efficiënter worden gemonitord.
-
-De hoofddoelen van Basismonitoring Wadden zijn daarbij:
-
-* inzicht te geven in de toestand en trends in het Waddengebied voor de beheerder;
-* het komen tot een effectieve en efficiënte systeemgerichte monitoring;
-* het toegankelijk maken van alle beschikbare informatie en monitoringgegevens over het Waddengebied, waardoor de gebruiker zicht heeft op het volledige Waddensysteem.
-
-Basismonitoring Wadden richt zich daarbij op bepaalde kernwaarden, te weten: Landschappelijke kwaliteiten; Natuurlijke Waddenzee Abiotisch (niet-levende natuur); Natuurlijke Waddenzee Biotisch (levende natuur); en Menselijk Medegebruik. Aan elk van deze kernwaarden, of thema’s, zijn beleid- en beheerdoelen gekoppeld. Voor meer informatie hierover verwijzen we naar de [Ambitie van Basismonitoring Wadden]( https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf). 
-
-Voor de abiotische (niet-levende) natuur van de Waddenzee geldt als belangrijke doelstelling:
-
-*'een zo natuurlijk mogelijke ontwikkeling van waterbewegingen en hiermee gepaard gaande geomorfologische en bodemkundige processen.' ([Structuurvisie Waddenzee](https://www.noordzeeloket.nl/publish/pages/122066/brein-herziening-2021-structuurvisie-waddenzee-id-28.pdf))*
-
-## Doel
-
-Het doel van de Digitale Systeemrapportage Wadden is om te komen tot actuele en consistente reeksen van indicatoren, en om deze op een toegankelijke manier te ontsluiten. De digitale rapportage maakt het bovendien mogelijk om de informatie gemakkelijk te actualiseren en bij te houden. Daarmee draagt het al direct bij aan het eerste en derde doel van Basismonitoring Wadden. 
-
-Door het toegankelijk maken van de relevante informatie, kunnen trends en ontwikkelingen snel worden opgespoord, en verder worden geanalyseerd. Dit kan weer bijdragen aan een efficiëntere en effectievere uitvoering van het beheer, bijvoorbeeld bij het verklaren van bepaalde waargenomen ontwikkelingen in de natuurdoelen, of wanneer men de invloed van bepaalde menselijke activiteiten in beeld wil brengen. Dit maakt het vervolgens weer makkelijker om kennisleemtes en aanvullende monitoringsbehoeften te identificeren, waardoor het indirect ook bijdraagt aan het tweede doel van Basismonitoring Wadden: de systeemgerichte monitoring.
-
-
-## Informatiebehoefte en indicatoren
-
-Indicatoren zijn meetbare (of uit metingen af te leiden) grootheden die een signaalfunctie hebben, en bijvoorbeeld informatie geven over de kwaliteit van iets. In deze systeemrapportage beperken we ons tot de informatiebehoefte die voorkomt uit de beleids- en beheerdoelen voor de abiotische natuur van de Waddenzee. Daarbij gaat het om alle abiotische kenmerken die invloed hebben op de natuurlijkheid van het Waddensysteem, zoals ook sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc.
-
-De fysische kenmerken van de Waddenzee zijn een waarde op zich. Zij worden hier beschouwd als losstaand van de ecologie of biologie. Dit betekent dat abiotische indicatoren niet direct informatie geven over de biotische (levende) natuur. Maar omdat de biota wel afhangen van de abiotiek, zijn deze indicatoren wel indirect van belang voor de biotische natuur. 
-
-De informatiebehoefte is nergens formeel vastgelegd. De indicatoren in deze systeemrapportage zijn afkomstig uit een inventarisatie vanuit verschillende documenten, waarin aandacht is besteed aan indicatoren in relatie tot de doelstelling. Daarbij moet gezegd worden dat de systeemrapportage nog in ontwikkeling is, en daarom nog niet compleet is. Het is ook mogelijk om in de toekomst de rapportage uit te breiden naar indicatoren die behoren bij de andere thema’s van Basismonitoring, voor een optimale bundeling van alle relevante informatie van het Waddengebied. 
-
-Meer informatie over de indicatoren voor morfologie is terug te vinden in het [Analysedocument Morfologie](https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/analysedoc/pdf/Morfologie_20191231_Analysedocument_Morfologie-concept_extern.pdf).
-
-## Proces
-
-De Digitale Systeemrapportage Wadden wordt door Deltares in consultatie met stakeholders en experts ontwikkeld. We volgen een iteratieve werkwijze, waarmee toegewerkt wordt naar een bruikbaar en hoogwaardig product voor belanghebbenden in het Waddengebied.
-
-Voor het opstellen van deze systeemrapportage wordt dankbaar gebruik gemaakt van de ervaringen van de Evaluatiemethodiek en de Eerstelijnsrapportages van de Westerschelde, en de [(digitale) systeemrapportages](https://www.testsysteemrapportage.nl/) die voor de zuidwestelijke delta (Grevelingen, Oosterschelde, Volkerak-Zoommeer) worden gemaakt.
-
-## Leeswijzer
-
-De systeemrapportage is bedoeld als een naslagwerk, waarin gericht snel bepaalde informatie kan worden opgezocht. De nadruk ligt daarbij in eerste instantie op de gegevens (figuren) zelf, en hoe deze geïnterpreteerd moeten worden. Voor meer uitleg over de indicatoren kunt u eenvoudig doorklikken naar de bijlagen.
-
-Een overzicht van de volledige inhoud is te vinden in de inhoudsopgave links in uw scherm. De rapportage is nog volop in ontwikkeling. Daarom zijn nog niet alle indicatoren opgenomen in deze versie. 
-
-# Wettelijke kaders
-
-Sommige indicatoren zijn gekoppeld aan (al dan niet wettelijke) doelstellingen, vanuit verschillende kaders. Via de koppelingen in tabel \@ref(tab:kadertabel), is het mogelijk om snel de juiste selectie indicatoren te vinden, behorend bij een bepaald kader.
-
-```{r kadertabel}
-
-kadertabel <- readxl::read_excel(file.path(datadir, "RWS/Indicatoren behorend bij kaders_v0.1.xlsx"), skip = 3) %>% replace_na(list(Kader = "", Indicator = "", Snelkoppeling = "")) %>%
-  mutate(Snelkoppeling = case_when(
-    Snelkoppeling != "<nog niet beschikbaar>" ~ paste0("[", Indicator, "]", "(", Snelkoppeling, ")"),
-    Snelkoppeling == "<nog niet beschikbaar>" ~ "nog niet beschikbaar"
-  )
-  )
-
-# \@ref(sec:FirstSection)
-
-knitr::kable(kadertabel, caption = "Beheerskaders en, waar passend, koppelingen naar de verschillende onderdelen in de systeemrapportage.")
-
-```
-
-
-
-
-
-

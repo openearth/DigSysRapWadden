@@ -17,7 +17,7 @@ alt_theme_hy <- theme_tufte() + theme(axis.line=element_line()) #+
 
 
 
-# Appendix A: Brondata en post-processing
+# Brondata en post-processing
 
 
 ## Zeespiegelstijging {#Appzeespiegelstijging}
@@ -306,7 +306,7 @@ read_excel(file.path(datadir, "dataoverzicht.xlsx")) %>%
 ```
 
 
-# Appendix B: Gebruikte software en packages
+# Gebruikte software en packages
 
 ```{r}
 pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
@@ -315,7 +315,7 @@ pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
 
 
 
-# Appendix C: Versies
+# Versies
 
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
