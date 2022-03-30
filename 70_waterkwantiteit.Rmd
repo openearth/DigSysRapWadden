@@ -44,8 +44,9 @@ In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheids
 
 ## Zeespiegelstijging {#zeespiegelstijging}
 
-```{r zeespiegelstijging, fig.cap= "Huidige zeespiegelstijging volgens het lineaire model zonder wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP. De zwarte lijn is het gemiddelde over de 6 stations. " }
-knitr::include_graphics("images/zeespiegelmonitor.png")
+```{r zeespiegelstijging, fig.cap= "Huidige zeespiegelstijging volgens het lineaire model met correctie voor wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP. De zwarte lijn is het gemiddelde over de 6 stations. " }
+
+# knitr::include_graphics("images/zeespiegelmonitor.png")
 
 sealevelurl <- "https://raw.githubusercontent.com/openearth/sealevel/master/data/deltares/results/dutch-sea-level-monitor-export-2022-01-14.csv"
 
@@ -144,9 +145,9 @@ p <- df.extrema %>%
   # scale_x_continuous(limits = c(1970, 2020)) +
   # coord_cartesian(ylim = c(-175, 0)) +
   theme_hy +
-  xlab("Jaar") + ylab("Jaargemiddelde gemeten waterstand in cm")
+  xlab("Jaar") + ylab("Jaargemiddelde gemeten hoogwater in cm")
 
-ggplotly(p)
+ggplotly(p, height = 550, width = 800)
 ```
 
 ## Gemiddeld Laagwater (GLW) {#gemiddeld-laagwater-glw}
@@ -198,9 +199,9 @@ p <- df.extrema %>%
   # scale_x_continuous(limits = c(1970, 2020)) +
   # coord_cartesian(ylim = c(-175, 0)) +
   theme_hy +
-  xlab("Jaar") + ylab("Jaargemiddelde gemeten waterstand in cm")
+  xlab("Jaar") + ylab("Jaargemiddelde gemeten laagwater in cm")
 
-ggplotly(p)
+ggplotly(p, width = 800, height = 550)
 ```
 
 ## Getijslag {#getijslag}
@@ -226,7 +227,7 @@ p <- df.extrema %>%
   # facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
   theme_hy
 
-ggplotly(p, height = 550)
+ggplotly(p, height = 550, width = 800)
 
 ```
 
