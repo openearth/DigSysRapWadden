@@ -1,17 +1,20 @@
-bookdown::gitbook:
-  split_bib: no
-  split_by: chapter
-  config:
-    toc:
-      collapse: section
-      before: |
-        <li><a href="./index.html">Digitale Systeeemrapportage Wadden</a></li>
-      after: |
-        <li><a href="https://bookdown.org/yihui/bookdown/" target="blank">Published with bookdown</a></li>
-    toc_float:
-      collapsed: false
-      smooth_scroll: false
-  includes:
-    before_body: navbar/navbar.html
-    in_header: clickandzoom.html
-  css: ["navbar/navbar.css", "style/deltares.css"]
+# bookdown::gitbook:
+#   split_bib: no
+#   split_by: chapter
+#   config:
+#     toc:
+#       collapse: section
+#       before: |
+#         <li><a href="./index.html">Digitale Systeeemrapportage Wadden</a></li>
+#       after: |
+#         <li><a href="https://bookdown.org/yihui/bookdown/" target="blank">Published with bookdown</a></li>
+#     toc_float:
+#       collapsed: false
+#       smooth_scroll: false
+#   includes:
+#     before_body: navbar/navbar.html
+#     in_header: clickandzoom.html
+#   css: ["navbar/navbar.css", "style/deltares.css"]
+bookdown::pdf_document2:
+  latex_engine: pdflatex
+  keep_tex: true

@@ -34,8 +34,10 @@ Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordz
 
 De recente waterstandsmetingen, vanaf 1984, hebben een tijdstap van 10 minuten op alle stations. Voor 1984 is met een lagere frequentie gemeten, met een tijdstap van 1 uur, en voor 1966 is dit zelfs een tijdstap van 3 uur, zie figuur \@ref(fig:tijdstap)). Voor deze lagere frequenties is de hieronder beschreven methode voor het afleiden van de waterstanden te onnauwkeurig. Voor die periode beschikt RWS wel over een dataset van hoog- en laagwaterstanden, die hiervoor kunnen worden gebruikt. Daarvan kan dan het jaarlijkse gemiddelde worden bepaald. Deze data zijn momenteel nog niet online beschikbaar.
 
-```{r tijdstap, out.width="80%", fig.cap= "Gebruikte tijdstap in de dataset voor alle stations. Vanaf 1984 is voor alle stations data op elke 10 minuten beschikbaar. Tussen 1966 en 1984 (vari?rend per station), is dit een tijdstap van een uur. V??r 1966 is dit zelfs 3 uur." }
-knitr::include_graphics("images/ts_timestep.png")
+(ref:tijdstapCaption) Gebruikte tijdstap in de dataset voor alle stations. Vanaf 1984 is voor alle stations data op elke 10 minuten beschikbaar. Tussen 1966 en 1984 (variërend per station), is dit een tijdstap van een uur. In de jaren voor 1966 is dit zelfs 3 uur.
+
+```{r tijdstap, out.width="80%", fig.cap= "(ref:tijdstapCaption)"  }
+knitr::include_graphics("images/tsTimestep.png")
 ```
 
 De getijcomponenten zijn berekend op basis van de waterstationsmeetseries van de OPeNDAP server van Deltares.
@@ -139,7 +141,7 @@ Voor het bepalen van de periodes met hoge windsterkte wordt gekeken naar het aan
 
 ### Brondata
 
-MWTL metingen van Rijkswaterstaat worden beschikbaar gemaakt via Waterinfo ([link](https://waterinfo.rws.nl/)) en zijn ook direct via een webservice te downloaden uit de Datadistributielaag (DDL) ([documentatie webservice](https://www.rijkswaterstaat.nl/rws/opendata/DistributielaagWebservices-SUM-2v7.pdf)). 
+MWTL metingen van Rijkswaterstaat worden beschikbaar gemaakt via Waterinfo ([link](https://waterinfo.rws.nl/)) en zijn ook direct via een webservice te downloaden uit de Datadistributielaag (DDL) ([documentatie webservice](https://www.rijkswaterstaat.nl/rws/opendata/DistributielaagWebservices-SUM-2v7.pdf)).
 
 Zwevend stof was tijdens de samenstelling van dit rapport niet beschikbaar uit de DDL, en is daarom apart opgevraagd bij de servicedesk data van RWS. Voor het kunnen combineren van deze data met andere waterkwaliteitsdata is een aparte nabewerking nodig (mapping). 
 

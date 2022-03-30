@@ -1,4 +1,4 @@
-# Waterkwaliteit  {#Waterkwaliteit}
+# Fysische waterkwaliteit  {#Waterkwaliteit}
 
 ```{r setupWaterkwaliteit, include = FALSE}
 knitr::opts_chunk$set(
@@ -63,7 +63,7 @@ De watertemperatuur wordt opgenomen als indicator omdat deze direct van invloed 
 Figuur \@ref(fig:jaargemiddeldeTemp) toont de jaargemiddelde watertemperatuur in rood, de maandgemiddelden als zwarte punten en de individuele metingen als grijze punten. De punten laten de seizoensdynamiek zien met hogere waarden in de zomer (tot 20-25 graden Celcius). De locaties die dieper in de bekkens liggen tonen daarbij iets hogere piektemperaturen dan de meetpunten in dieper water, nabij de zeegaten en in de Noordzee.
 
 
-```{r jaargemiddeldeTemp, fig.height=15, fig.width=10, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). De figuur is interactief. "}
+```{r jaargemiddeldeTemp, fig.height=12, fig.width=8, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). Jaargemiddelden zijn alleen berekend wanneer er voor minstens 11 maanden gegevens waren. "}
 
 par = "NVT"
 gro = "T"
@@ -102,18 +102,20 @@ p =   ggplot() +
                                    "metingen" = "darkgrey")) +
     guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
 
-ggplotly(p) %>% 
-  layout(
-    legend = list(orientation = "h",   # show entries horizontally
-                  xanchor = "center",  # use center of legend as anchor
-                  x = 0.5, y = -0.05)             # put legend in center of x-axis
-)
+# ggplotly(p) %>% 
+#   layout(
+#     legend = list(orientation = "h",   # show entries horizontally
+#                   xanchor = "center",  # use center of legend as anchor
+#                   x = 0.5, y = -0.05)             # put legend in center of x-axis
+# )
+
+p
 
 ```
 
 De zomer- en wintergemiddelden (figuur \@ref(fig:seizoensgemiddeldenWatertemperatuur)) laten een stijging in de watertemperatuur zien, waarbij vooral de watertemperatuur in de zomer toeneemt. Het zomergemiddelde (tussen 1 april en 30 september) ligt voor de meeste locaties rond de 15 graden en het wintergemiddelde (tussen 1 oktober en 31 maart) rond de 7 graden. In de winter tonen de Noordzeestations hogere temperaturen, en in de zomer juist lagere temperaturen dan de stations die dieper in de bekkens liggen.
 
-```{r seizoensgemiddeldenWatertemperatuur, fig.width=8, fig.height=20, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) watertemperatuur in de Waddenzee, met regressielijnen. Seizoensgemiddelden zijn alleen berekend en meegenomen in de grafiek wanneer er 5 of meer metingen per seizoen beschikbaar waren. "}
+```{r seizoensgemiddeldenWatertemperatuur, fig.width=8, fig.height=15, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) watertemperatuur in de Waddenzee, met regressielijnen. Seizoensgemiddelden zijn alleen berekend en meegenomen in de grafiek wanneer er 5 of meer metingen per seizoen beschikbaar waren. "}
 
 parData <- WQ %>% 
   filter(parameter.code == par, grootheid.code == gro, as.numeric(kwaliteitswaarde.code) == "0") %>%

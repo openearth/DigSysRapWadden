@@ -44,17 +44,49 @@ In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheids
 
 ## Zeespiegelstijging {#zeespiegelstijging}
 
-```{r zeespiegelstijging, fig.cap= "Huidige zeespiegelstijging volgens het lineaire model zonder wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP" }
+```{r zeespiegelstijging, fig.cap= "Huidige zeespiegelstijging volgens het lineaire model zonder wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP. De zwarte lijn is het gemiddelde over de 6 stations. " }
 knitr::include_graphics("images/zeespiegelmonitor.png")
 
+sealevelurl <- "https://raw.githubusercontent.com/openearth/sealevel/master/data/deltares/results/dutch-sea-level-monitor-export-2022-01-14.csv"
+
+sealevel <- read_csv(sealevelurl,
+                     comment = "#")
+
+
 sealevelAllStationsurl <- "https://raw.githubusercontent.com/openearth/sealevel/master/data/deltares/results/dutch-sea-level-monitor-export-stations-2021-11-26.csv"
+
+stations <- read_delim("https://raw.githubusercontent.com/openearth/sealevel/master/data/psmsl/NLstations.csv", delim = ";")
+
+
 
 sealevelAllStations <- read_csv(sealevelAllStationsurl,
                      comment = "#")
 
+  p <- sealevelAllStations %>% 
+    left_join(stations %>% select(ID, StationName), by = c(station = "ID")) %>%
+    mutate(`height in cm` = height / 10,
+           `predicted_linear_with_wind in cm` = predicted_linear_with_wind / 10) %>%
+    ggplot() +
+    geom_point(aes(year, `height in cm`, color = StationName)) +
+    geom_line(aes(year, `predicted_linear_with_wind in cm`, color = StationName)) +
+    geom_line(data = sealevel, aes(x = year, y = predicted_linear_with_wind/10), color = "black") +
+    theme_hy
+  
+  ggplotly(p) %>% 
+    layout(
+      legend = list(
+        orientation = 'v',
+        x = 0.05,
+        y = 0.95
+      ),
+      yaxis = list(hoverformat = '.2f')
+    ) 
+
 ```
 
 In deze rapportage is de jaargemiddelde waterstand voor de zes hoofdstations langs de Nederlandse kust overgenomen uit de Zeespiegelmonitor (figuur \@ref(fig:zeespiegelstijging)). In deze studie is de stijging van de zeespiegel nauwkeurig onderzocht en berekend. De berekening en aanvullende én interactieve figuren kunnen worden ingezien via de [Jupyter Notebook Zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb).
+
+De data voor figuur \@ref(fig:zeespiegelstijging) zijn verkregen via [PSMSL](https://psmsl.org/data/) als jaargemiddelde. Rijkswaterstaat levert elk jaar deze data na controle als maandgemiddelden en jaargemiddelden aan voor alle hoofdstations.  
 
 ## Gemiddeld Hoogwater (GHW) {#gemiddeld-hoogwater-ghw}
 
@@ -62,7 +94,7 @@ De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix 
 
 De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde periode van 1985 tot heden. Ook de ruimtelijke verschillen over de Waddenzee zijn duidelijk terug te zien in de grafieken.
 
-```{r Hoogwaters, fig.height=8, fig.width=8, fig.cap="Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar."}
+```{r Hoogwaters, fig.height=8, fig.width=8, fig.cap="Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel. "}
 
 df.extrema <- read_delim(file.path(datadir, "ddl", "standard", paste0("extremaHLLL", "2021-08-04", ".csv")), delim = ";")
 
@@ -123,7 +155,7 @@ De berekeningswijze van de Gemiddelde LaagWaterstanden vergelijkbaar met de GHW 
 
 De GLW (figuur \@ref(fig:Laagwaters)) laten voor de meeste stations ook een stijging zien. Ook is te zien hoe de laagwaterniveaus variëren over de Waddenzee.
 
-```{r Laagwaters, fig.height=8, fig.width=8, fig.cap="Jaargemiddeld laagwater (GLW) per stations. De lijn is een linaire regressie door alle data rekening houdend met een cyclus van 18.6 jaar."}
+```{r Laagwaters, fig.height=8, fig.width=8, fig.cap="Jaargemiddeld laagwater (GLW) per stations. De lijn is een linaire regressie door alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel."}
 
 # versie waarbij de lijn door ALLE punten wordt bepaald, niet alleen door jaargemiddelden. 
 # df.extrema %>%
@@ -177,7 +209,7 @@ De getijslag (figuur \@ref(fig:getijslag)), die wordt gevormd door het verschil 
 
 Figuur \@ref(fig:kaartGetijslag) geeft de gemiddelde getijslag over de in figuur \@ref(fig:getijslag) getoonde periode weer op de kaart in de Waddenzee. De figuur toont dat de getijslag toeneemt van west naar oost, en dat bij Delfzijl de getijslag het grootste is, door opslingering van het getij in het Eems estuarium. De meeste waterstandstations liggen in geulen, behalve Wierumerwad1 en Uithuizerwad1. Deze twee stations tonen een kleinere getijslag omdat ze een gedeelte van de tijd droogvallen.
 
-```{r getijslag, fig.height=8, fig.width=8, fig.cap="Jaargemiddelde getijslag per station. De lijn is een linaire regressie door alle data rekening houdend met een cyclus van 18.6 jaar."}
+```{r getijslag, fig.height=8, fig.width=8, fig.cap="Jaargemiddelde getijslag per station. De lijn is een linaire regressie door alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel."}
 
 p <- df.extrema %>%
     # filter(HL == "L") %>%
@@ -194,7 +226,7 @@ p <- df.extrema %>%
   # facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
   theme_hy
 
-ggplotly(p)
+ggplotly(p, height = 550)
 
 ```
 
@@ -223,7 +255,10 @@ pal <- colorNumeric(
 
 leaflet(gemGetijslag) %>%
   addTiles() %>%
-  addCircleMarkers(radius = 7, label = ~paste(locatie.naam, ", gemiddelde getijslag =", trunc(`gemiddelde getijslag in cm`), "cm"), color = ~ pal(`gemiddelde getijslag in cm`)) %>%
+  addCircleMarkers(radius = 7, 
+                   label = ~paste(locatie.naam, ", gemiddelde getijslag =", trunc(`gemiddelde getijslag in cm`), "cm"), 
+                   color = ~ pal(`gemiddelde getijslag in cm`),
+                   labelOptions = labelOptions(textsize = 12)) %>%
   leaflet::addLegend(pal = pal, values = gemGetijslag$`gemiddelde getijslag in cm`)
 
 ```
@@ -310,19 +345,21 @@ labelpositions <-
 # hist(yearlyStat$p95, breaks = 100)
 
 # plot per year based on monthly statistics
-yearlyStat %>%
+p<- yearlyStat %>%
   drop_na() %>%
   filter(station != "Eemshaven" | year != 1978) %>%
   complete(station, year, fill = list(p995 = NA, max = NA)) %>%
   mutate(station = factor(station)) %>%
   mutate(station = fct_reorder(station, p95)) %>%
 ggplot(aes(year, p995)) +
-  geom_line(aes(color = station), size = 0.8) +
-  geom_label(data = labelpositions, aes(x = 1970 + x, y = y, label = station), size = 3) +
+  geom_line(aes(color = station), size = 0.5) +
+  # geom_label(data = labelpositions, aes(x = 1970 + x, y = y, label = station), size = 3) +
   theme_hy +
   theme(
     strip.text.y = element_text(angle = 0)) +
-  xlab("Jaar") + ylab("95-percentiel van gemeten waterhoogte (cm) per jaar")
+  xlab("Jaar") + ylab("99,5-percentiel van gemeten waterhoogte (cm) per jaar")
+
+  ggplotly(p, height = 550)
 ```
 
 Het maximum van alle 99,5-percentielen voor de verschillende jaren in de tijdreeks is ook op de kaart ingetekend (figuur \@ref(fig:kaartjeMaximaleStormhoogte)). Bij Harlingen en Delfzijl zijn de grootste waarden gemeten, dat zijn de pieken rond 1960 uit figuur \@ref(fig:stormhoogte). Maar ook in recentere jaren treden de maximale stormhoogtes op bij Harlingen en Delfzijl, vanwege hun ligging achterin de bekkens.
@@ -363,24 +400,23 @@ gdf <- read_delim(file.path(golf.pad, golf.df), delim = ";")
 
 param = "Significante golfhoogte in het spectrale domein Oppervlaktewater golffrequentie tussen 30 en 500 mHz in cm"
 
-
-plotlocaties <- gdf %>% 
+plotlocaties <- gdf %>% ungroup() %>%
   filter(parameter.wat.omschrijving == param) %>%
-  group_by(locatie.naam, jaar) %>% mutate(n_maanden = n()) %>% 
+  group_by(locatie.naam, jaar) %>% summarize(n_maanden = n(), yearly_perc95 = mean(yearly_perc95)) %>% 
   filter(n_maanden == 12) %>%
-  group_by(locatie.naam) %>% summarize(mean = mean(yearly_perc95)) %>%
-  arrange(-mean) %>% unlist %>% unname
-  
+  group_by(locatie.naam) %>% 
+  summarize(mean = mean(yearly_perc95)) %>%
+  arrange(-mean) %>% select(locatie.naam) %>%  unlist %>% unname
   
 gdf %>% 
-  filter(parameter.wat.omschrijving == param) %>%
-  group_by(locatie.naam, jaar) %>% mutate(n_maanden = n()) %>% 
-  filter(n_maanden == 12) %>%
+  filter(parameter.wat.omschrijving == param, locatie.naam %in% plotlocaties) %>%
+  # group_by(locatie.naam, jaar) %>% mutate(n_maanden = n()) %>% 
   group_by(locatie.naam, jaar, parameter.wat.omschrijving) %>%
-  summarize(`95-percentiel per jaar in cm` = mean(yearly_perc95)) %>%
-  group_by(locatie.naam) %>% mutate(`aantal jaren` = n()) %>% 
+  summarize(n_maanden = n(), `95-percentiel per jaar in cm` = mean(yearly_perc95)) %>%
+  filter(n_maanden == 12) %>%
+  # group_by(locatie.naam) %>% mutate(`aantal jaren` = n()) %>% 
   mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
-  mutate(locatie.naam = fct_reorder(locatie.naam, `95-percentiel per jaar in cm`)) %>%
+  # mutate(locatie.naam = fct_reorder(locatie.naam, `95-percentiel per jaar in cm`)) %>%
   ggplot(aes(jaar, `95-percentiel per jaar in cm`)) +
   geom_line(aes(color = locatie.naam), size = 1) +
   scale_x_continuous(breaks = pretty_breaks()) +
@@ -389,7 +425,7 @@ gdf %>%
 
 De afwijking van maandgemiddelde golfhoogte ten opzichte van het langjarig gemiddelde is een maat voor de seizoensdynamiek (zie berekeningswijze in Appendix \@ref(Appgolfhoogte)). In figuur \@ref(fig:golfanomalie) is dit uitgezet voor alle stations. Te zien is dat er in de winter over het algemeen hogere golven zijn dan in de zomer. In Uithuizerwad en Wieringerwad is dit niet zichtbaar. Dit zijn zeer beschutte locaties zonder hoge golven. Uit de langjarige series bij Schiermonnikoog Noord en Eierlandse Gat is ook de variatie van de seizoensdynamiek in de tijd te zien, maar er lijkt geen duidelijke trend te zijn. Tussen de maanden en jaren zitten flinke fluctuaties.
 
-```{r golfanomalie, fig.height=20, fig.width = 8, fig.cap="Afwijking maandgemiddeld t.o.v. langjarig gemiddelde, als maat voor seizoensdynamiek. Verschillende jaren weergeven als stippen met kleurverloop (oude jaren blauw en naar heden toe verkleurend naar rood). De blauwe doorgetrokken lijn geeft het gemiddelde voor alle beschikbare jaren. "}
+```{r golfanomalie, fig.height=15, fig.width = 8, fig.cap="Afwijking maandgemiddeld t.o.v. langjarig gemiddelde, als maat voor seizoensdynamiek. Verschillende jaren weergeven als stippen met kleurverloop (oude jaren blauw en naar heden toe verkleurend naar rood). De blauwe doorgetrokken lijn geeft het gemiddelde voor alle beschikbare jaren. "}
 
 labels = tibble(bind_cols(x = 1:12, y = month.abb))
 

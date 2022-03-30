@@ -1,6 +1,6 @@
 ---
-title: "Digitale systeemrapportage Wadden, concept 0.5"
-author: Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren
+title: "Systeemrapportage Abiotiek Wadden, concept 0.51"
+author: "Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren"
 date: '`r Sys.Date()`'
 bibliography: "references/wadden.bib"
 biblio-style: "apalike"
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 source("r/runThisFirst.R")
 ```
 
-  {.unnumbered}
+#  {.unnumbered}
 
 ```{r voorplaat, fig.cap="Luchtfoto van Rottumeroog in 2011. (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)"}
 knitr::include_graphics("images/voorplaat.png")
