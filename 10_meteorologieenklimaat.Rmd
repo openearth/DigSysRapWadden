@@ -136,7 +136,7 @@ dtwind %>%
 Naast de variatie in windsnelheid in de zomer en de winter, is ook inzicht in stormen of periodes met hoge windsnelheden belangrijk. Hiermee kan inzicht worden gekregen of bepaalde jaren dynamischer zijn geweest of juist kalmer dan gemiddeld. Vanaf een windsnelheid van 20,8 m/s spreken we van storm (Windkracht 9 op de Schaal van Beaufort), maar in de Waddenzee treden al bij veel lagere windsnelheden grote transporten over de wantijen en toename van de vertroebeling op. Daarom wordt in figuur \@ref(fig:consecHours) het totaal aantal uren dat de windsterkte > 10,8 m/s (Beaufort 6) was gesommeerd per jaar uitgezet. Figuur \@ref(fig:consecHours2) is hetzelfde, maar dan met de grens op 13,9 m/s (Beaufort 7). 
 
 
-```{r consecHours, fig.height=10, fig.width=10, fig.cap="Aantal achtereenvolgende uren dat de windsnelheid boven 10,8 m/s is geweest vanaf 2010."  }
+```{r consecHours, fig.height=10, fig.width=10, fig.cap="Aantal achtereenvolgende uren dat de windsnelheid boven 10,8 m/s (>Bft 6) is geweest vanaf 2010."  }
 
 jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"))
 
@@ -160,7 +160,7 @@ dtwind %>% filter(year > 2010) %>%
 
 ```
 
-```{r consecHours2, fig.height=10, fig.width=10, fig.cap="Aantal achtereenvolgende uren dat de windsnelheid boven 13,9 m/s is geweest vanaf 2010."  }
+```{r consecHours2, fig.height=10, fig.width=10, fig.cap="Aantal achtereenvolgende uren dat de windsnelheid boven 13,9 m/s (>Bft 7) is geweest vanaf 2010."  }
 
 jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"))
 
@@ -187,7 +187,7 @@ Voor de opwekking van golven en de windopzet en -afzet is niet alleen de windste
 
 Door het aantal uren te sommeren per jaar (figuur \@ref(fig:jaarAggregatiePlot)), kunnen de verschillende jaren onderling beter vergeleken worden. 
     
-```{r consecHoursPerDirection, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 10,8 m/s is geweest per richting (kwadrant) vanaf 2010."  }
+```{r consecHoursPerDirection, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 10,8 m/s (>Bft 6) is geweest per richting (kwadrant) vanaf 2010."  }
 
 dtwind %>% filter(year > 2010) %>%
   filter(`Windrichting in graden` < 361) %>%

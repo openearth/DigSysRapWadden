@@ -21,10 +21,10 @@ Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswij
 
 De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). De bodemligging is een mosaiek van de verschillende vaklodingen^[https://puc.overheid.nl/rijkswaterstaat/doc/PUC_116617_31/] door Rijkswaterstaat. In de figuur kan het tijdsinterval van de vaklodingen worden aangepast om ook oudere bodemliggingen te bekijken. Hierdoor is bijvoorbeeld de ontwikkeling van het geulensysteem te volgen. 
 
-Voor een schermvullende weergave van de bathymetrie verwijzen we naar deze [link](https://deltares.shinyapps.io/bathymetrywadden/).
+Voor een schermvullende interactieve weergave van bathymetrie zoals getoond in figuur \@ref(fig:WaddenBathymetrieLeaflet2) verwijzen we naar deze [link](https://deltares.shinyapps.io/bathymetrywadden/).
 
 
-```{r WaddenBathymetrieLeaflet2, out.width="100%", fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2026 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
+```{r WaddenBathymetrieLeaflet2, out.width="150%", fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2026 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
 
 knitr::include_url("https://deltares.shinyapps.io/bathymetrywadden/", height = "600px")
 
@@ -50,7 +50,7 @@ leaflet(poly %>% st_transform(4326)) %>%
 
 ```
 
-## Hypsometrie
+## Hypsometrie {#hypsometrie}
 
 De hypsometrische curve geeft de verdeling van de hoogteligging in een bepaald gebied weer. Op de verticale as wordt de bodemhoogte uitgezet, en daarbij op de horizontale as het totale areaal met een bodemligging lager of gelijk aan die bodemhoogte. Voor kombergingsgebieden in de Waddenzee hebben hypsometrische curves een vergelijkbare vorm, omdat er relatief weinig diepe geulen zijn en relatief veel intergetijdengebied. Indien een bepaalde hoogteligging weinig aanwezig is, zal de hypsometrische curve hier een steil verloop laten zien, en indien een bepaalde hoogteligging veel voorkomt wordt de curve bijna vlak. Door in eenzelfde figuur de hypsometrische curve voor verschillende jaren (bodemopnames) te tonen, kan in één oogslag worden bekeken welk areaal (bijvoorbeeld geulareaal) er door de tijd is bijgekomen of verdwenen. In de Appendix (#Appmorfologie) staan de brondata en berekeningswijze beschreven.
 
@@ -125,11 +125,11 @@ Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan
 
 
 
-```{r hypsometriePerGebied, fig.height=10, fig.width=8, fig.cap="Hypsometrische curven voor verschillende gebieden in de Waddenzee en voor een selectie van bathymetrieën. "}
+```{r hypsometriePerGebied, fig.cap="Hypsometrische curven voor verschillende gebieden in de Waddenzee en voor een selectie van bathymetrieën. "}
 
 load(file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
 
-valid.values.df %>%
+p <- valid.values.df %>%
   # mutate(class=case_when(
   #   diepte < -5 ~ "geul",
   #   diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
@@ -150,6 +150,10 @@ valid.values.df %>%
   coord_cartesian(ylim = c(-5, 3)) +
   theme(legend.position = "bottom")
 
+ggplotly(p, 900, 900) %>%
+  config(displayModeBar = F) %>%
+  layout(xaxis=list(fixedrange=TRUE)) %>% 
+  layout(yaxis=list(fixedrange=TRUE))
 ```
 
 
