@@ -52,74 +52,81 @@ leaflet(poly %>% st_transform(4326)) %>%
 
 ## Hypsometrie {#hypsometrie}
 
-De hypsometrische curve geeft de verdeling van de hoogteligging in een bepaald gebied weer. Op de verticale as wordt de bodemhoogte uitgezet, en daarbij op de horizontale as het totale areaal met een bodemligging lager of gelijk aan die bodemhoogte. Voor kombergingsgebieden in de Waddenzee hebben hypsometrische curves een vergelijkbare vorm, omdat er relatief weinig diepe geulen zijn en relatief veel intergetijdengebied. Indien een bepaalde hoogteligging weinig aanwezig is, zal de hypsometrische curve hier een steil verloop laten zien, en indien een bepaalde hoogteligging veel voorkomt wordt de curve bijna vlak. Door in eenzelfde figuur de hypsometrische curve voor verschillende jaren (bodemopnames) te tonen, kan in één oogslag worden bekeken welk areaal (bijvoorbeeld geulareaal) er door de tijd is bijgekomen of verdwenen. In de Appendix (#Appmorfologie) staan de brondata en berekeningswijze beschreven.
+De hypsometrische curve geeft de verdeling van de hoogteligging in een bepaald gebied weer. Op de verticale as wordt de bodemhoogte uitgezet, en daarbij op de horizontale as het totale areaal met een bodemligging lager of gelijk aan die bodemhoogte. Voor kombergingsgebieden in de Waddenzee hebben hypsometrische curves een vergelijkbare vorm, omdat er relatief weinig diepe geulen zijn en relatief veel intergetijdengebied. Indien een bepaalde hoogteligging weinig aanwezig is, zal de hypsometrische curve hier een steil verloop laten zien, en indien een bepaalde hoogteligging veel voorkomt wordt de curve bijna vlak. Door in eenzelfde figuur de hypsometrische curve voor verschillende jaren (bodemopnames) te tonen, kan in één oogslag worden bekeken welk areaal (bijvoorbeeld geulareaal) er door de tijd is bijgekomen of verdwenen. In de Appendix \@ref(Appmorfologie) staan de brondata en berekeningswijze beschreven.
 
-Figuur \@ref(fig:hypsometriearealen) toont de hypsometrische curves voor de bekkens in de Waddenzee. Voor de meeste bekkens is de zien dat de recente jaren een curve hebben met een hogere ligging, wat betekent dat de bodem is opgehoogd.
+Figuur \@ref(fig:hypsometriePerGebied) toont de hypsometrische curves voor de bekkens in de Waddenzee. Voor de meeste bekkens is de zien dat de recente jaren een curve hebben met een hogere ligging, wat betekent dat de bodem is opgehoogd.
 
-Door de hypsometrische curve onder te verdelen in de genoemde hoogteklassen, kan de ontwikkeling per hoogteklasse beter worden gevolgd (figuur \@ref(fig:hypsometriearealen2)). 
 
-```{r hypsometriearealen, out.width="100%", fig.width=7, fig.height=4, fig.cap = "Hypsometrische curve van de Waddenzee", eval = F}
+```{r prepareHypsometriearealen, eval = F}
 
-# polygonpath <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
-# # selection of relevant polygons done by hand in QGIS
-# polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33)
-# 
-# poly <- sf::st_read(polygonpath, quiet = T) %>% 
-#   filter(fid %in% polygonsInRaster) %>% 
-#   st_transform(28992)
-# 
-# polynames = unlist(poly$name)
-# 
-# mosaicdir <- file.path(datadir, "RWS", "bathymetrie", "processing_tiles", "mosaic")
-# mosaiclist <- list.files(mosaicdir)
-# 
-# # list of available years
-# years <- mosaiclist[grepl("_", mosaiclist)] %>%
-# lapply(., function(x) substring(x,8,11)) %>%
-# unlist(.) %>%
-# sort(.)
-# 
-# # select some years 
-# # jaren
-# doeljaren <- c("1933","1949","1971","1975","1991","2003","2009","2015")
-# 
-# mosaicdir <- file.path(datadir, "RWS", "bathymetrie", "processing_tiles", "mosaic")
-# mosaiclist <- list.files(mosaicdir)
-# 
-# # list of available years
-# years <- mosaiclist[grepl("_", mosaiclist)] %>%
-# lapply(., function(x) substring(x,8,11)) %>%
-# unlist(.) %>%
-# sort(.)
-# 
-# # select some years
-# yearsToCalculate <- which(years %in% doeljaren) # c(2, 4, 5, 8, 14, 23, 33, 43) #seq(2,length(mosaiclist), 9)
-# rasterlist <- mosaiclist[yearsToCalculate]
-# 
-# # read bathymetry and crop to polygons
-# bathymetries <- stack(file.path(mosaicdir,rasterlist))
-# # 1927 is not used. There is not information for all polygons
-# 
-# croppedRasters <- try(lapply(1:nrow(poly), function(x)   # croppedRasters <- lapply(1:nrow(poly), function(x) 
-#   raster::mask(crop(bathymetries, extent(poly[x,])), poly[x,]))) 
-# 
+polygonpath <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
+# selection of relevant polygons done by hand in QGIS
+polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33)
+
+poly <- sf::st_read(polygonpath, quiet = T) %>%
+  filter(fid %in% polygonsInRaster) %>%
+  st_transform(28992)
+
+polynames = unlist(poly$name)
+
+mosaicdir <- file.path(datadir, "RWS", "bathymetrie", "processing_tiles", "mosaic")
+mosaiclist <- list.files(mosaicdir)
+
+# list of available years
+years <- mosaiclist[grepl("_", mosaiclist)] %>%
+lapply(., function(x) substring(x,8,11)) %>%
+unlist(.) %>%
+sort(.)
+
+# select some years
+# jaren
+doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015")
+rasterlist <- mosaiclist[which(years %in% doeljaren)]
+
+# read bathymetry and crop to polygons
+bathymetries <- stack(file.path(mosaicdir,rasterlist))
+raster::crs(bathymetries) <- 28992
 # rm(bathymetries)
-# 
-# # find all valid data
-# valid.data <- lapply(croppedRasters, function(x) which(!is.na(getValues(max(x, na.rm=FALSE)))))
-# 
-# # extract valid values (no NA in any raster per year and area) for each raster and put in data.frame
-# valid.values <- map2(croppedRasters, valid.data, raster::extract)
-# valid.values.df <- map(valid.values, as_tibble) %>%
-#   map(pivot_longer, everything(), names_to = "jaar", values_to = "diepte") %>%
-#   set_names("Marsdiep","Vlie","Borndiep","Eilanderbalg","Pinkegat","Zoutkamperlaag","Schild","Eijerlandse Gat","Lauwers")%>%
-#   rbindlist(idcol = "naam") %>% 
-#   mutate(jaar = as.integer(str_replace(jaar, "mosaic_", ""))) %>%
-#   mutate(naam = factor(naam, levels = c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild")))
-# 
-# rm(valid.data,valid.values)
-# 
-# save(valid.values.df, file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
+# 1927 is not used. There is not information for all polygons
+
+croppedRasters <- try(
+  lapply(
+    1:nrow(poly), 
+    function(x)   # croppedRasters <- lapply(1:nrow(poly), function(x)
+      raster::mask(
+        raster::crop(bathymetries, extent(poly[x,])), poly[x,]
+      )
+  )
+)
+
+
+contours <- lapply(croppedRasters, function(x) 
+  tibble(
+    jaar = doeljaren,
+    laagwaterlijnlengte = unlist(lapply(as.list(x), function(y)
+      st_length(st_as_sf(rasterToContour(y, level = -1)))
+    ))
+  )
+)
+names(contours) <- polynames
+contour.df <- data.table::rbindlist(contours, idcol = "gebied")
+write_delim(contour.df, file.path(datadir, "RWS", "bathymetrie", "products", "laagwaterlijnlengte.csv"), delim = ";")
+
+# find all valid data
+valid.data <- lapply(croppedRasters, function(x) which(!is.na(getValues(max(x, na.rm=FALSE)))))
+
+# extract valid values (no NA in any raster per year and area) for each raster and put in data.frame
+valid.values <- map2(croppedRasters, valid.data, raster::extract)
+valid.values.df <- map(valid.values, as_tibble) %>%
+  map(pivot_longer, everything(), names_to = "jaar", values_to = "diepte") %>%
+  set_names("Marsdiep","Vlie","Borndiep","Eilanderbalg","Pinkegat","Zoutkamperlaag","Schild","Eijerlandse Gat","Lauwers")%>%
+  rbindlist(idcol = "naam") %>%
+  mutate(jaar = as.integer(str_replace(jaar, "mosaic_", ""))) %>%
+  mutate(naam = factor(naam, levels = c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild")))
+
+rm(valid.data,valid.values)
+
+save(valid.values.df, file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
 
 ```
 
@@ -192,10 +199,10 @@ valid.values.df  %>%
   geom_line(aes()) +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
   # facet_grid(naam ~ class, scales = "free") + #free_y facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free_y") + #
-  facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free_y") +
+  facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free") +
   theme(strip.text.y = element_text(angle = 0)) +
   ylab("Oppervlakte [km2]") + xlab("Jaar") +
-  # coord_cartesian(ylim = c(0, 50)) +
+  coord_cartesian(xlim = c(1940, 2020)) +
   ggtitle("Areaal in km2 per bekken en diepteklasse")
 
 ```
@@ -219,6 +226,7 @@ valid.values.df %>%
   geom_line(aes()) +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
   facet_wrap(~ naam, scales = "free") +
+  coord_cartesian(xlim = c(1940, 2020)) +
   ylab("Plaathoogte [m] t.o.v. NAP") + xlab("Jaar") +
   ggtitle("Plaathoogte in m per bekken")
 ```
@@ -241,6 +249,7 @@ valid.values.df %>%
   geom_line(aes()) +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
   facet_wrap(~ naam, scales = "free")+
+  coord_cartesian(xlim = c(1940, 2020)) +
   ylab("Geuldiepte [m] t.o.v. NAP") + xlab("Jaar") 
 ```
 
@@ -262,6 +271,7 @@ valid.values.df %>%
   geom_line(aes()) +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
   facet_wrap(~ naam, scales = "free")+
+  coord_cartesian(xlim = c(1940, 2020)) +
   ylab("Plaatvolume [miljoen m3] t.o.v. NAP") + xlab("Jaar") 
 ```
 
@@ -283,8 +293,30 @@ valid.values.df %>%
   geom_line(aes()) +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
   facet_wrap(~ naam, scales = "free")+
+  coord_cartesian(xlim = c(1940, 2020)) +
   ylab("Geulvomume [miljoen m3] onder NAP -5 m vlak") + xlab("Jaar") 
 ```
+
+
+## Lengte Laagwaterlijn
+
+De lengte van de laagwaterlijn geeft een indruk van de lengte van de plaatrand. Deze is hier bepaald aan de hand van de -1 m NAP contourlijn. 
+
+De lengte is bepaald voor dezelfde jaren als de andere indicatoren, en weer voor elk bekken. De lengte is in de meeste bekkens toegenomen over de tijd, of op zijn minst ongeveer gelijk gebleven \@ref(fig:lengteLaagwaterLijn) . 
+
+```{r lengteLaagwaterLijn, fig.cap="Ontwikkeling (tijdreeks) van de lengte van de laagwaterlijn, geschat uit de contour op -1 m NAP. " }
+
+contour.df <- read_delim(file.path(datadir, "RWS", "bathymetrie", "products", "laagwaterlijnlengte.csv"), delim = ";")
+
+contour.df %>%
+  mutate(`laagwaterlijnlengte (km)` = laagwaterlijnlengte/1000) %>%
+    mutate(gebied = factor(gebied, levels = c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild"))) %>%
+ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
+  geom_line() +
+  facet_wrap(~ gebied, scales = 'free') +
+  scale_y_continuous(limits = c(0, NA))
+```
+
 
 
 ##	Ecotopenkaart

@@ -101,6 +101,7 @@ server <- function(input, output) {
     
     leafletProxy("map") %>%
       clearShapes() %>%
+      clearTiles() %>%
       addTiles(content(res())$url, group = "bathymetrie") %>%
       addPolygons(data = poly, label = ~name, labelOptions = labelOptions(noHide = T), group = "vakken") %>%
       leaflet::addLayersControl(

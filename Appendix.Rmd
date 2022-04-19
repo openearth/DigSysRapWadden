@@ -285,6 +285,10 @@ Voor het geulvolume wordt het volume onder de NAP -1 m grens berekend:
   (\#eq:geulvolume)
 \end{equation} 
 
+### Lengte van de laagwaterlijn
+
+Voor de berekening van de lengte van de laagwaterlijn is in eerste instantie de totale lengte berekend van de -1 m NAP contourlijnen binnen elk bekken. 
+
 
 ## Bodemslibgehalte {#Appbodemkwaliteit}
 
