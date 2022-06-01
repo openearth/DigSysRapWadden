@@ -30,8 +30,8 @@ Metingen van bijvoorbeeld stroomsnelheden zijn schaars en worden niet continu ui
 
 Een overzicht van alle voor dit hoofdstuk gebruikte brondata en rekenmethoden is te vinden in de Appendix: \@ref(Appwaterstanden)
 
-```{r getijVanRijn1994, fig.cap= "Waterbeweging in de tijd (bron: Van Rijn, 1994)" }
-knitr::include_graphics("images/getijVanRijn1994.png")
+```{r getijVanRijn1994, fig.cap= "Getijdenniveaus plus waterbeweging in de tijd (eigen illustratie/Deltares 2022)" }
+knitr::include_graphics("images/getij.png")
 ```
 
 De waterstanden in de Waddenzee worden voor een groot deel bepaald door het getij. Het getij ontstaat door de aantrekkende kracht van de maan en de zon op de aarde. De variaties in het getij ontstaan door de draaiing van de aarde en de positie van de aarde ten opzichte van de maan en de zon en doordat de maan en de aarde zich in een baan rond de zon bewegen. Daarnaast wordt het getij vervormd door de bodemligging van zeeën en oceanen. Wiskundig gezien kan het getij worden ontleed in groot aantal sinusvormige golven: de getijcomponenten. De M~2~-component ontstaat door de aantrekkingskracht van de maan en is een belangrijke getijcomponent in de Noordzee en de Waddenzee. De S~2~-component ontstaat door de aantrekkingskracht van de zon. De belangrijkste periodieke variaties in het getij zorgen voor de zogeheten dagelijkse ongelijkheid, de springtij-doodtij cyclus (interactie tussen de M~2~ en S~2~-component) en de 18,6-jarige cyclus. Vanaf de zeegaten dringt het getij als een langgerekte golf de bekkens binnen. De geringer wordende diepte en de geometrie van het bekken vervormen het getij. Het getij wordt daardoor asymmetrisch, wat weer belangrijk is voor het transport van zand en slib. De asymmetrie wordt vaak uitgedrukt met de verhouding en het faseverschil tussen de M~2~-component en de M~4~-component. De waterstanden worden verder beinvloed door de wind (zie hoofdstuk \@ref(wind)) en luchtdruk.

@@ -9,7 +9,7 @@ file.remove("_main.md")
 file.remove("_main.Rmd")
 
 # to preview a chapter, uncomment one of the lines and run.
-bookdown::preview_chapter("index.Rmd")
+# bookdown::preview_chapter("index.Rmd")
 # bookdown::preview_chapter("10_meteorologieenklimaat.Rmd")
 # bookdown::preview_chapter("060_Bathymetrie_en_morfodynamiek.Rmd")
 # bookdown::preview_chapter("10_meteorologieenklimaat.Rmd")
@@ -22,11 +22,9 @@ bookdown::preview_chapter("index.Rmd")
 
 # knitr::clean_cache() # kan soms handig zijn
 
-file.remove("_main.md")
-file.remove("_main.Rmd")
-# gitbook formatted html pages (gebruikt op testpagina)
 bookdown::render_book("index.Rmd", output_format = NULL, 
                       new_session = F)
+
 # "normal" pdf
 # options(tinytex.verbose = FALSE) # change to TRUE for debugging
 # bookdown::render_book("index.Rmd", output_format = bookdown::pdf_book(latex_engine = "lualatex"),

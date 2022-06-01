@@ -42,7 +42,7 @@ leaflet::leaflet(mijnShape) %>%
   leaflet::addLayersControl(baseGroups = c("OSM"),
   overlayGroups = c("watersysteem", "KRW waterlichamen"))
   
-buffer_in_m <- 0
+buffer_in_m <- 200
 mijnLocaties <- sf::st_intersection(locs_sf_rd, sf::st_buffer(mijnShape2, buffer_in_m))
 southernBorder = min(st_coordinates(mijnLocaties[grepl("Callantsoog", mijnLocaties$Naam),])[,"Y"])
 
@@ -80,4 +80,4 @@ mijnCatalogus <- rwsapi::rws_getParameters(metadata, locatiecode = unique(mijnLo
   mutate(across(where(is.character), str_trim))
 dir.create(file.path(datadir, "ddl"))
 dir.create(file.path(datadir, "ddl/metadata"))
-write_delim(mijnCatalogus, path = file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.csv")), delim = ";")
+write_delim(mijnCatalogus, file = file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.csv")), delim = ";")

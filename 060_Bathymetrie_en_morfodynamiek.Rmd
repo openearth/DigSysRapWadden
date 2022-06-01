@@ -89,6 +89,15 @@ raster::crs(bathymetries) <- 28992
 # rm(bathymetries)
 # 1927 is not used. There is not information for all polygons
 
+contours_allregions <- lapply(as.list(bathymetries), function(x)
+  laagwaterlijn = st_as_sf(rasterToContour(x, level = -1))
+)
+names(contours_allregions) <- doeljaren
+
+save(contours_allregions, file = file.path(datadir, "RWS", "bathymetrie", "1mNAPcontourlijnen.Rdata"))
+
+
+
 croppedRasters <- try(
   lapply(
     1:nrow(poly), 
@@ -303,6 +312,25 @@ valid.values.df %>%
 De lengte van de laagwaterlijn geeft een indruk van de lengte van de plaatrand. Deze is hier bepaald aan de hand van de -1 m NAP contourlijn. 
 
 De lengte is bepaald voor dezelfde jaren als de andere indicatoren, en weer voor elk bekken. De lengte is in de meeste bekkens toegenomen over de tijd, of op zijn minst ongeveer gelijk gebleven \@ref(fig:lengteLaagwaterLijn) . 
+
+
+```{r, eval=F}
+load(file = file.path(datadir, "RWS", "bathymetrie", "1mNAPcontourlijnen.Rdata"))
+
+# convert to leaflet map with different layers, on top of bathymetries
+
+map(
+  contours_allregions, 
+  function(x) 
+    ggplot(x) + 
+    geom_sf()
+)
+
+```
+
+
+
+
 
 ```{r lengteLaagwaterLijn, fig.cap="Ontwikkeling (tijdreeks) van de lengte van de laagwaterlijn, geschat uit de contour op -1 m NAP. " }
 

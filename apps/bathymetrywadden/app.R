@@ -90,8 +90,8 @@ server <- function(input, output) {
     # run request
     
     leaflet() %>% 
-      addTiles(group = "OSM") %>%
-      addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
+      # addTiles(group = "OSM") %>%
+      # addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
       setView(5.0, 53.0, zoom = 12) 
   })
   
@@ -100,8 +100,10 @@ server <- function(input, output) {
   observe({
     
     leafletProxy("map") %>%
-      clearShapes() %>%
       clearTiles() %>%
+      addTiles(group = "OSM") %>%
+      addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
+      leaflet::clearImages() %>%
       addTiles(content(res())$url, group = "bathymetrie") %>%
       addPolygons(data = poly, label = ~name, labelOptions = labelOptions(noHide = T), group = "vakken") %>%
       leaflet::addLayersControl(

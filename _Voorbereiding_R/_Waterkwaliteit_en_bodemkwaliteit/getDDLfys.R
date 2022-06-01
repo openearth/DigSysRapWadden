@@ -25,6 +25,8 @@ waterhoogteCatalogus <- mijnCatalogus  %>%
     parameter_wat_omschrijving %in% c(
       "Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm",
       "Waterhoogte berekend Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm",
+      "Waterhoogte Oppervlaktewater t.o.v. Mean Sea Level in cm",
+      "Waterhoogte berekend Oppervlaktewater t.o.v. Mean Sea Level in cm",
       "Berekend Wateropzet Oppervlaktewater cm"
     ),
   )
@@ -138,8 +140,23 @@ for(year in c(1870:2021)){
     filter(locatie.naam %in% 
              c("Delfzijl", "Den Helder", "Eemshaven", "Harlingen", "Holwerd", "Huibertgat", "Lauwersoog",
                "Nes", "Schiermonnikoog", "Terschelling Noordzee", "Texel Noordzee", "Uithuizerwad 1", "West-Terschelling", "Wierumergronden",
-               "Wierumerwad 1")
+               "Wierumerwad 1", "Termunterzijl", "Vlieland haven", "Nieuwe Statenzijl", "Den Oever buiten", "Oudeschild")
     )
+  
+  ## Temporarily set to below ophaalCatalogus !!!!!!!!!!!!!!!!!!!!!!1
+  # some stations were not selected because they fall outside the Wadden Sea water body
+  # additional <-   c("Kornwerderzand buiten boei 1","Kornwerderzand buiten boei 2",             
+  #                 "Kornwerderzand buiten boei 3","Kornwerderzand buitenspuikom")
+  # 
+  # notFound <- c("AWG platform", "Amelander Westgat platform",
+  #               "Nieuwe Statenzijl buiten")
+  # 
+  # ophaalCatalogus <- bind_rows(waterhoogteCatalogus) %>%
+  #   filter(locatie.naam %in% 
+  #            additional
+  #   )
+  
+  
   
   getList <- rws_makeDDLapiList(beginDatumTijd = startdate,
                                 eindDatumTijd = enddate,
@@ -248,7 +265,7 @@ source("r/runThisFirst.R")
 
 allFiles = list()
 
-filenamesRaw = list.files(file.path(datadir, "ddl/raw/waterhoogte"), full.names = T, recursive = T, pattern = "WATHTE")
+filenamesRaw = list.files(file.path(datadir, "ddl/raw/waterhoogte"), full.names = T, recursive = T, pattern = "WATHTE_")
 allFiles <- lapply(filenamesRaw, function(x) 
   read_delim(x, delim = ";", 
              col_types = 'cccccccccccn',
@@ -266,6 +283,14 @@ df_all_WATHTE <- bind_rows(allFiles)
 
 save(df_all_WATHTE, file = file.path(datadir, "ddl", "standard", paste0("waterhoogte", today(), ".Rdata")))
 # write_delim(df_all, file.path(datadir, "ddl", "standard", paste0("waterhoogte", today(), ".csv")), delim = ";")
+
+install.packages("RSQLite")
+install.packages("dbplyr") # moet nog gebeuren
+require(RSQLite)
+require(DBI)
+dbfile = file.path(datadir, "ddl", "standard", "ddldb")
+con <- dbConnect(RSQLite::SQLite(), dbfile)
+dbWriteTable(con, "waterhoogte_gemeten" , df_all_WATHTE)
 
 
 df_all_WATHTE %>% group_split(locatie.naam) %>%
@@ -327,8 +352,9 @@ rm(df_all, df_all_WATHTBRKD, df_all_WATHTE)
 
 #===== berekening extrema ===========
 
+downloaddatum = "2021-07-26"
 
-load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-26", ".Rdata")))
+load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", downloaddatum, ".Rdata")))
 
 df_all_WATHTE2 <- df_all_WATHTE %>%
   # filter(year(tijdstip) >=2000) %>% # voor testen
@@ -340,9 +366,9 @@ names(df_all_WATHTE2) <- map_chr(df_all_WATHTE2, function(x) unique(x$locatie.na
 
 # save waterhoogte data per station
 map(names(df_all_WATHTE2), function(x){ 
-  x1 <- df_all_WATHTE2[["Delfzijl"]]
-  assign("Delfzijl", x1)
-  save(x = x1, file = file.path(datadir, "ddl", "standard", paste0("waterhoogte", x, today(), ".Rdata")))
+  x1 <- df_all_WATHTE2[[x]]
+  assign(x, x1)
+  save(x = x1, file = file.path(datadir, "ddl", "standard", paste0("waterhoogte", x, downloaddatum, ".Rdata")))
 })
 
 # gaps <- lapply(df_all_WATHTE2,
@@ -358,10 +384,23 @@ map(names(df_all_WATHTE2), function(x){
 
 
 h <- lapply(df_all_WATHTE2, function(x) 
-  x %>% dplyr::select(time = tijdstip, h = numeriekewaarde) %>% filter(year(time) > 1984)
+  x %>% 
+    dplyr::select(time = tijdstip, h = numeriekewaarde) %>% 
+    dplyr::filter(year(time) > 1984) %>%
+    group_by(year(time)) %>% 
+    mutate(across(h, remove_outliers))
   )
 
-extrema = lapply(h, function(x) Tides::extrema(x, h0 = -900, hoffset = 0, T2 = 4*60*60, filtconst = 3))
+extrema = lapply(h, 
+                 function(x) 
+                   Tides::extrema(
+                     x, 
+                     h0 = -900, 
+                     hoffset = 0, 
+                     T2 = 4*60*60, 
+                     filtconst = 3
+                   )
+                 )
 
 df.extrema = rbindlist(map(extrema, function(x) x$HL), idcol = "locatie.naam")
 
