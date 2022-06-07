@@ -47,7 +47,7 @@ ui <- fluidPage(title = "Wadden Sea Bathymetry",
                                       min = 1920, 
                                       max = 2020, 
                                       value = c(2005,2020), 
-                                      ticks = seq(1930, 2020, 10),
+                                      ticks = T,
                                       # step = 10, 
                                       sep = "", 
                                       dragRange = TRUE, 
@@ -66,8 +66,8 @@ server <- function(input, output) {
   request <- reactive({list(dataset = "vaklodingen", 
                             begin_date = paste0(as.integer(max(c(input$endyear[1]), 1926))-0, "-01-01T00:00:00.000Z"), 
                             end_date = paste0(input$endyear[2], "-12-31T23:59:00.000Z"), 
-                            min = -3000L, 
-                            max = 1000L, 
+                            min = -30L, 
+                            max = 10L, 
                             hillshade = input$hillshade)
   })
   
@@ -127,7 +127,7 @@ server <- function(input, output) {
       clearControls() %>%
       leaflet::addLegend(
         colors = unlist(strsplit(content(res())$palette, ",")),
-        labels = round(seq(request()$min/100, request()$max/100, length.out = 20), 0), opacity = 1
+        labels = round(seq(request()$min, request()$max, length.out = 20), 0), opacity = 1
       )
   })
   
