@@ -300,7 +300,7 @@ De definities en rekenmethoden van de hier gebruikte indicatoren zijn terug te v
 
 Figuur \@ref(fig:wateropzet) laat de variatie van de opzet in de tijd zien. Er zijn geen trends waar te nemen.
 
-```{r wateropzet, out.width = "100%", fig.cap= "Maandelijks 99,5-percentiel voor opzet = gemeten waterstand - astronomische waterstand (rode lijn) en het jaarlijks maximum van de opzet (grijs streepje).", fig.height=30, fig.width=8}
+```{r wateropzet, fig.cap= "Maandelijks 99,5-percentiel voor opzet = gemeten waterstand - astronomische waterstand (rode lijn) en het jaarlijks maximum van de opzet (grijs streepje).", fig.height=30, fig.width=8}
 
 monthlyStat  <- read_delim(file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", "2021-07-28", ".csv")), delim = ";")
 

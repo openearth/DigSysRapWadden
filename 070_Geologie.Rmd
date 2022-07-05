@@ -1,0 +1,22 @@
+# Geologie
+
+```{r setupGeologie, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	# message = FALSE,
+	warning = FALSE,
+	out.width = "100%"
+)
+source("r/runThisFirst.R")
+```
+
+## Erosie-resistente lagen
+
+..Tekst..  
+
+[Schermvullende versie](https://www.testsysteemrapportage.nl/ERL kaart NL v1.0/index.html#10/53.2167/5.6978)
+
+```{r, fig.cap= "Interactieve kaart van erosie-resistente lagen in het Waddengebied. "}
+knitr::include_url("../ERL kaart NL v1.0/index.html#10/53.2167/5.6978", height = "600px")
+```
+
