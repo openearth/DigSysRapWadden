@@ -7,7 +7,12 @@ rmd_files: [
   "060_Bathymetrie_en_morfodynamiek.Rmd",
   "070_Geologie.Rmd",
   "90_Meetbehoefte.Rmd",
+  "200-references.Rmd",
   "Appendix.Rmd"] 
 bibliography: ["references/wadden.bib"]
 biblio-style: "apalike"
 link-citations: yes
+before_chapter_script: _common.R
+language:
+  ui:
+    chapter_name: "Hoofdstuk "

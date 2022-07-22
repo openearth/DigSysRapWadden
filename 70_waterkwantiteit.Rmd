@@ -95,36 +95,11 @@ De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix 
 
 De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde periode van 1985 tot heden. Ook de ruimtelijke verschillen over de Waddenzee zijn duidelijk terug te zien in de grafieken.
 
-```{r Hoogwaters, fig.height=8, fig.width=8, fig.cap="Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel. "}
+```{r Hoogwaters, fig.height=6, fig.width=6, fig.cap="Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel. "}
 
-df.extrema <- read_delim(file.path(datadir, "ddl", "standard", paste0("extremaHLLL", "2021-08-04", ".csv")), delim = ";")
+df.extrema <- read_delim(file.path(datadir, "RWS", "standard", paste0("extremaHLLL", "latest", ".csv")), delim = ";") %>%
+  mutate(h = h * 100) # van meter naar cm
 
-# extra data RWS levering inlezen. Deze overlappen gedeeltelijk
-extremafiles <- list.files(file.path(datadir, "RWS", "hoogLaagWaters"))
-# df.extrema2 <- read_delim()
-
-# df.extrema %>%
-#   filter(HL == "H") %>%
-#   mutate(
-#     jaar = year(time)
-#   ) %>% 
-#   filter(jaar != 2021 & jaar > 1984) %>%
-#   ggplot () +
-#   geom_point(
-#     data = . %>% group_by(locatie.naam, jaar) %>% summarise(jaargemiddelde = mean(h)), 
-#     aes(
-#       x = as_datetime(paste(jaar, "07", "01")), 
-#       y = jaargemiddelde)
-#   ) +
-#   # geom_smooth(aes(time, h, group = jaar), method = "lm", formula = y ~ 1, alpha = 0) +
-#   geom_smooth(aes(time, h), method = "lm", 
-#               formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6*31556995))) + I(sin(2 * pi * as.numeric(x) / (18.6*31556995)))) +
-#   # coord_cartesian(ylim = c(-160, -100)) +
-#   facet_wrap( ~ locatie.naam, ncol = 2, scales= "free") +
-#   # theme_hy + 
-#   # scale_x_datetime(limits = c(NA, NA)) +
-#   scale_y_continuous(limits = c(0,150)) +
-#   xlab("Jaar") + ylab("Jaargemiddelde gemeten waterstand in cm")
 
 
 p <- df.extrema %>%
@@ -137,9 +112,10 @@ p <- df.extrema %>%
   summarise(jaargemiddelde = mean(h, na.rm = T)) %>%
     # filter(jaar != 2021 & jaar > 1970) %>%
     ggplot() +
-  geom_point(aes(x = jaar, y = jaargemiddelde, color = locatie.naam)) +
+  geom_point(aes(x = jaar, y = jaargemiddelde, color = locatie.naam), size = 1) +
   geom_smooth(aes(jaar, jaargemiddelde, color = locatie.naam), method = "lm", 
-              formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6))) + I(sin(2 * pi * as.numeric(x) / (18.6)))) +
+              formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6))) + I(sin(2 * pi * as.numeric(x) / (18.6))),
+              size = 1) +
     # coord_cartesian(ylim = c(-160, -100)) +
     # facet_wrap(~locatie.naam, ncol = 2, scales = "free") + 
   # scale_x_continuous(limits = c(1970, 2020)) +
@@ -147,7 +123,7 @@ p <- df.extrema %>%
   theme_hy +
   xlab("Jaar") + ylab("Jaargemiddelde gemeten hoogwater in cm")
 
-ggplotly(p, height = 550, width = 800)
+ggplotly(p, height = 550, width = 700)
 ```
 
 ## Gemiddeld Laagwater (GLW) {#gemiddeld-laagwater-glw}
@@ -191,9 +167,10 @@ p <- df.extrema %>%
   summarise(jaargemiddelde = mean(h, na.rm = T)) %>%
     # filter(jaar != 2021 & jaar > 1970) %>%
     ggplot() +
-  geom_point(aes(x = jaar, y = jaargemiddelde, color = locatie.naam)) +
+  geom_point(aes(x = jaar, y = jaargemiddelde, color = locatie.naam), size = 1) +
   geom_smooth(aes(jaar, jaargemiddelde, color = locatie.naam), method = "lm", 
-              formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6))) + I(sin(2 * pi * as.numeric(x) / (18.6)))) +
+              formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6))) + I(sin(2 * pi * as.numeric(x) / (18.6))),
+              size = 1) +
     # coord_cartesian(ylim = c(-160, -100)) +
     # facet_wrap(~locatie.naam, ncol = 2, scales = "free") + 
   # scale_x_continuous(limits = c(1970, 2020)) +
@@ -201,7 +178,7 @@ p <- df.extrema %>%
   theme_hy +
   xlab("Jaar") + ylab("Jaargemiddelde gemeten laagwater in cm")
 
-ggplotly(p, width = 800, height = 550)
+ggplotly(p, width = 700, height = 550)
 ```
 
 ## Getijslag {#getijslag}
@@ -227,11 +204,11 @@ p <- df.extrema %>%
   # facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
   theme_hy
 
-ggplotly(p, height = 550, width = 800)
+ggplotly(p, height = 550, width = 700)
 
 ```
 
-```{r kaartGetijslag, fig.height=6, fig.width=8, fig.cap="Gemiddelde getijslag per station."}
+```{r kaartGetijslag, fig.height=6, fig.width=8, fig.cap="Gemiddelde getijslag per station over de periode 2011 - 2020."}
 
 metadata <- read_delim(file.path(datadir, "ddl/metadata/Wadden_metadata.csv"),delim = ";") %>%
   distinct(locatie.naam, x, y)
@@ -239,7 +216,7 @@ metadata <- read_delim(file.path(datadir, "ddl/metadata/Wadden_metadata.csv"),de
 gemGetijslag <- df.extrema %>%
     # filter(HL == "L") %>%
     mutate(jaar = year(time)) %>% 
-    filter(jaar != 2021 & jaar > 1970) %>%
+    filter(jaar != 2021 & jaar > 2010) %>%
   group_by(locatie.naam, jaar, HL) %>% summarise(mean = mean(h)) %>%
   pivot_wider(id_cols = c(locatie.naam, jaar), names_from = HL, values_from = mean) %>%
   mutate(`getijslag in cm` = H-L) %>% ungroup() %>%
@@ -260,7 +237,7 @@ leaflet(gemGetijslag) %>%
                    label = ~paste(locatie.naam, ", gemiddelde getijslag =", trunc(`gemiddelde getijslag in cm`), "cm"), 
                    color = ~ pal(`gemiddelde getijslag in cm`),
                    labelOptions = labelOptions(textsize = 12)) %>%
-  leaflet::addLegend(pal = pal, values = gemGetijslag$`gemiddelde getijslag in cm`)
+  leaflet::addLegend(pal = pal, values = gemGetijslag$`gemiddelde getijslag in cm`, position = 'bottomright')
 
 ```
 
@@ -486,7 +463,11 @@ rm(df_all)
 
 ## Zoetwaterafvoeren {#zoetwaterafvoeren}
 
-De zoetwaterafvoer leidt tot saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterbel, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in hoofdstuk \@ref(Waterkwaliteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. De data van de grootste afvoeren (Den Oever, Kornwerderzand, Lauwersoog) zijn ontsloten en worden hier getoond. Andere/kleinere afvoeren zijn zeer nuttig om te ontsluiten, maar deze gegevens zijn via de waterschappen zeer moeilijk te verkrijgen. Bovendien is de verwachting dat de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval of droogte) zullen volgen, en daarmee voor het volgen van trends voor eerst met deze grotere afvoeren kan worden volstaan. De afvoeren bij Den Oever en Kornwerderzand worden beïnvloed door het peilbeheer in het IJsselmeer. Daarom worden ook zomer- en wintergemiddelde afvoeren gevizualiseerd.
+De zoetwaterafvoer leidt tot saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterbel, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in hoofdstuk \@ref(Waterkwaliteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen. 
+
+### Rijkswateren - IJsselmeer en Lauwersmeer
+
+De data van de grootste afvoeren vanuit Rijkswateren (Den Oever, Kornwerderzand, Lauwersoog) zijn ontsloten door Rijkswaterstaat en worden hier getoond. Andere/kleinere afvoeren zijn zeer nuttig om te ontsluiten, maar deze gegevens zijn via de waterschappen te verkrijgen. Bovendien is de verwachting dat de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval of droogte) zullen volgen, en daarmee voor het volgen van trends voor eerst met deze grotere afvoeren kan worden volstaan. De afvoeren bij Den Oever en Kornwerderzand worden beïnvloed door het peilbeheer in het IJsselmeer. Daarom worden ook zomer- en wintergemiddelde afvoeren gevizualiseerd.
 
 De daggemiddelde waarden van de afvoeren (grijze punten in figuur \@ref(fig:jaargemiddeldeAfvoer)) laten de sterke fluctuaties in afvoeren zien. Er treden pieken op tot boven de 2000 m^3^/s bij Den Oever en 1500 m^3^/s bij Kornwerderzand. Ook laten de grijze punten en de zwarte punten die de maandgemiddelden voorstellen, een duidelijk seizoenssignaal zien, waarbij in de zomer minder wordt gespuid dan in de winter. In de jaargemiddelden is het lastig trends te herkennen.
 
@@ -530,7 +511,7 @@ ggplot() +
   facet_grid(tydstp ~ locatie)
 ```
 
-```{r jaargemiddeldeAfvoer, fig.height=8, fig.width=10, fig.cap="Jaargemiddelde afvoer per etmaal naar de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten)"}
+```{r jaargemiddeldeAfvoer, fig.height=8, fig.width=10, fig.cap="Jaargemiddelde afvoer vanuit de Rijkswaterern (IJsselmeer en Lauwersmeer) per etmaal naar de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten)."}
 
 parlabel = "jaargemiddelde afvoer "
 xlabel = "jaar"
@@ -556,7 +537,7 @@ parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>% #dist
     ) +
     coord_cartesian(ylim = c(NA,1000)) +
     # ylab(parlabel) + xlab(xlabel) +
-    facet_wrap(~ locatie, ncol = 1, scales = "free") +  #scales = "free",
+    facet_wrap(~ locatie, ncol = 1, scales = "free_y") +  #scales = "free",
     theme_hy +
     theme(legend.position = "bottom") +
     scale_colour_manual(name = "",
@@ -596,12 +577,66 @@ parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>%
               aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), seizoensgemiddelde, color = seizoen), size = 1.5, alpha = 0.8
     ) +
     ylab(parlabel) + xlab(xlabel) +
-    facet_wrap(~ locatie, ncol = 1) +  #scales = "free",
+    facet_wrap(~ locatie, ncol = 1, scales = "free_y") +  #scales = "free",
     theme_hy +
     theme(legend.position = "bottom") #+
 
 
 ```
+### Eems
+
+De afvoer vanuit de Eems wordt weergegeven als geschatte afvoer bij Hebrum, het meest stroomafwaartse gedeelte van de rivier waar nog getij-invloed is. De waarde is berekend als 1.1 * de afvoer bij Versen. De gegevens zijn opgevraagd bij, en geleverd door Federal Institut of Hydrology en komen uit de hydrological database HYDABA1. Voor metingen bij Versen is tot 2019 het station "Versen_gesamt" gebruikt, daarna is overgegaan op station "versen_wehr_durchstich" (zie kaart \@ref(fig:kaartHydrologischeStationsNLWKN)).
+
+
+```{r kaartHydrologischeStationsNLWKN, out.width="80%", fig.cap="Overzichtskaart van hydrologische meetstations in het stroomgebied van de Eems en West-Duitse Waddenzee."}
+knitr::include_graphics(path = file.path(datadir, "NLWKN/afvoeren/raw/2022_07_06_Discharges Ems.jpg"))
+```
+
+
+```{r afvoerEems}
+
+EmsAfvoer <- read_delim(file.path(datadir, "NLWKN", "afvoeren", "standard", "Ems-discharge_bewerkt.csv"))
+
+parlabel = "jaargemiddelde afvoer "
+xlabel = "jaar"
+
+plotlocaties = c("q_hebrum_berekend_m3_s")
+
+parData <- EmsAfvoer %>%
+  filter(locatie.naam %in% plotlocaties) %>%
+  mutate(jaar = year(datum), maand = month(datum), datum = as.Date(datum)) %>%
+  mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
+  group_by(locatie.naam, jaar, maand, datum) %>% summarize(`Q daggemiddeld` = mean(numeriekewaarde))
+
+  ggplot() +
+    geom_point(data = parData, aes(datum, `Q daggemiddeld`, color = "metingen"), alpha = 1, size = 0.65) + #
+    geom_point(data = parData %>%
+                 group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(`Q daggemiddeld`), n = n()),
+               aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
+    ) +
+    geom_line(data = parData %>%
+                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(`Q daggemiddeld`), n = n()) %>% ungroup() %>%
+                group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
+              aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
+    ) +
+    coord_cartesian(ylim = c(NA,1000)) +
+    # ylab(parlabel) + xlab(xlabel) +
+    facet_wrap(~ locatie.naam, ncol = 1, scales = "free_y") +  #scales = "free",
+    theme_hy +
+    theme(legend.position = "bottom") +
+    scale_colour_manual(name = "",
+                        values = c("maandgemiddelde" = "black", 
+                                   "jaargemiddelde" = "red",
+                                   "metingen" = "darkgrey")) +
+    guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
+
+
+
+```
+
+
+
+
 
 ```{r cleanupWaterkwantiteit}
 rm(df_all_WATHTE, df_all_WATHTE2, df_all, extrema, h)

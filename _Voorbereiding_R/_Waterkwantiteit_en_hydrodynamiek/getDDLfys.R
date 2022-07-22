@@ -131,6 +131,52 @@ for(year in c(1870:1970)){
 
 
 #=== golven opwerking =================
+# for(year in c(1991:2021)){ # done
+for(year in c(1870:2021)){
+  startdate <- paste0(year, "-01-01T00:00:00.000+01:00")  # hardcoded startyear
+  enddate <- paste0(year+1, "-01-01T00:00:00.000+01:00")
+  
+  ophaalCatalogus <- bind_rows(waterhoogteCatalogus) %>%
+    filter(locatie.naam %in% 
+             c("Delfzijl", "Den Helder", "Eemshaven", "Harlingen", "Holwerd", "Huibertgat", "Lauwersoog",
+               "Nes", "Schiermonnikoog", "Terschelling Noordzee", "Texel Noordzee", "Uithuizerwad 1", "West-Terschelling", "Wierumergronden",
+               "Wierumerwad 1", "Termunterzijl", "Vlieland haven", "Nieuwe Statenzijl", "Den Oever buiten", "Oudeschild")
+    )
+  
+  # Temporarily set to below ophaalCatalogus !!!!!!!!!!!!!!!!!!!!!!  maar levert niets op! niet in DDL
+  # some stations were not selected because they fall outside the Wadden Sea water body
+  # additional <-   c("Kornwerderzand buiten boei 1","Kornwerderzand buiten boei 2",
+  #                 "Kornwerderzand buiten boei 3","Kornwerderzand buitenspuikom")
+  # 
+  # notFound <- c("AWG platform", "Amelander Westgat platform",
+  #               "Nieuwe Statenzijl buiten")
+  # 
+  # ophaalCatalogus <- bind_rows(waterhoogteCatalogus) %>%
+  #   filter(locatie.naam %in%
+  #            additional
+  #   )
+  
+  
+  
+  getList <- rws_makeDDLapiList(beginDatumTijd = startdate,
+                                eindDatumTijd = enddate,
+                                mijnCatalogus = ophaalCatalogus
+  )
+  
+  for(jj in c(1:length(getList))){   #
+    print(paste("getting", jj, ophaalCatalogus$locatie.code[jj], ophaalCatalogus$compartiment.code[jj], ophaalCatalogus$grootheid.code[jj], ophaalCatalogus$parameter.code[jj]))
+    response <- rws_observations2(bodylist = getList[[jj]])
+    if(!is.null(response) & nrow(response$content)!=0){
+      writefile <- response$content %>% select(
+        locatie.naam, locatie.code, tijdstip, statuswaarde, kwaliteitswaarde.code, parameter.wat.omschrijving, eenheid.code, hoedanigheid.omschrijving, meetapparaat.omschrijving,
+        parameter.code, grootheid.code, numeriekewaarde
+      )
+      filename <- paste(ophaalCatalogus$locatie.code[jj], ophaalCatalogus$compartiment.code[jj], str_replace(ophaalCatalogus$grootheid.code[jj], "[^A-Za-z0-9]+", "_"), ophaalCatalogus$parameter.code[jj], str_replace(ophaalCatalogus$hoedanigheid.code[jj], "[^A-Za-z0-9]+", "_"), year, "ddl_wq.csv", sep = "_")
+      write_delim(writefile, file = file.path(datadir, "ddl/raw/waterhoogte", filename), delim = ";")} else next
+  }
+}
+
+#=== golven opwerking =================
 
 
 
@@ -290,6 +336,8 @@ df_all_WATHTE <- bind_rows(allFiles)
 
 save(df_all_WATHTE, file = file.path(datadir, "ddl", "standard", paste0("waterhoogte", today(), ".Rdata")))
 # write_delim(df_all, file.path(datadir, "ddl", "standard", paste0("waterhoogte", today(), ".csv")), delim = ";")
+
+
 
 install.packages("RSQLite")
 install.packages("dbplyr") # moet nog gebeuren

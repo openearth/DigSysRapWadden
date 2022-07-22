@@ -4,11 +4,10 @@
 
 ## Gesloten gebieden voor visserij
 
+
 Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d
 
-
-
-```{r geslotenGebiedenVisserij, out.height="300px", fig.cap="Gesloten gebiedenvoor de visserij in de buurt van de Waddenzee.", out.width = "100%"}
+```{r geslotenGebiedenVisserij, out.height="450px", fig.cap="Gesloten gebiedenvoor de visserij in de buurt van de Waddenzee.", out.width = "100%"}
 
 library(sf)
 library(httr) 

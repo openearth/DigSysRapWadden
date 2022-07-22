@@ -436,7 +436,7 @@ ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
 
 Hieronder is de ecotopenkaart weergegeven zoals opgenomen in het [Nationaal Georegister](https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search;jsessionid=0B4745908C502557E461385BDB69FE9F#/metadata/291d329a-a421-41f4-b219-a904756e7aa5).
 
-
+De ecotopenkaart is ook te bekijken in de [Datahuis Wadden Waddenviewer](https://rws-viewer.netlify.app/wadden-viewer/?layers=100230540), samen met andere kaartlagen. 
 
 
 ```{r Ecotopen, fig.cap="Ecotopenkaart 2017 voor de Waddenzee."}
@@ -479,30 +479,6 @@ leaflet() %>%
     options = WMSTileOptions(format = "image/png", transparent = TRUE),
     group = "ecotopenkaart_waddenzee_2017"
   ) %>%
-  # addWMSTiles(
-  #   wms_ecotopen,
-  #   layers = "ecotopen_zout:ecotopenkaart_waddenzee_2017",
-  #   options = WMSTileOptions(format = "image/png", transparent = TRUE),
-  #   group = "ecotopen_zout:ecotopenkaart_waddenzee_2017"
-  # ) %>%
-  # addWMSTiles(
-  #   wms_ecotopen,
-  #   layers = "ecotopen_zout:ezout_2001",
-  #   options = WMSTileOptions(format = "image/png", transparent = TRUE),
-  #   group = "ezout_2001"
-  # ) %>%
-  # addWMSTiles(
-  #   wms_ecotopen,
-  #   layers = "ecotopen:eco.topen_cyclus_4",
-  #   options = WMSTileOptions(format = "image/png", transparent = TRUE),
-  #   group = "ecotopen_cyclus_4"
-  # ) %>%
-  #   addWMSTiles(
-  #   wms_ecotopen,
-  #   layers = "ecotopen:ecotopen_cyclus_5",
-  #   options = WMSTileOptions(format = "image/png", transparent = TRUE),
-  #   group = "ecotopen_cyclus_5"
-  # ) %>%
   addWMSLegend(
     uri = paste0(request_ecotopen_cyclus_4),
     position = "bottomright"
@@ -510,7 +486,6 @@ leaflet() %>%
   addLayersControl(
     baseGroups = c("OSM", "Esri.WorldImagery"),
     overlayGroups = c("ecotopenkaart_waddenzee_2017"
-                      # "ecotopen_zout:ecotopenkaart_waddenzee_2017","ezout_2001","ecotopen_cyclus_4","ecotopen_cyclus_5"
                       ),
     options = layersControlOptions(collapsed = FALSE)
   )
@@ -579,10 +554,6 @@ leaflet(slib) %>%
     radius = ~sign(slibgehalte) * 30, label = ~trunc(slibgehalte)) %>%
   leaflet::addLegend(position = "bottomright", pal = pal, values = slib$slibgehalte, opacity = 1)
 ```
-
-## Erosieresistente lagen
-
-.. tekst...
 
 
 

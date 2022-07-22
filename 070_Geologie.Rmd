@@ -12,6 +12,9 @@ source("r/runThisFirst.R")
 
 ## Erosie-resistente lagen
 
+<!-- Dit stuk verwijst naar een geo-applicatie die als standa-alone website werkt. De app is gemaakt door Erik van Onselen en staat op de p schijf (p:\1204421-kpp-benokust\2021\3-MorfologieKust\3A1 - Geologie\Kaart\Concept Webgis\ERL kaart NL v1.0\). Voor de systeemrapportage wordt deze app in zijn geheel op de webserver gezet en wordt er hieronder naar gelinkt.  -->
+
+
 ..Tekst..  
 
 [Schermvullende versie](https://www.testsysteemrapportage.nl/ERL kaart NL v1.0/index.html#10/53.2167/5.6978)
@@ -19,4 +22,8 @@ source("r/runThisFirst.R")
 ```{r, fig.cap= "Interactieve kaart van erosie-resistente lagen in het Waddengebied. "}
 knitr::include_url("../ERL kaart NL v1.0/index.html#10/53.2167/5.6978", height = "600px")
 ```
+
+## Bodemdaling
+
+
 
