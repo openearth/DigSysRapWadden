@@ -1,19 +1,21 @@
 
 ```{r setupIntroductie, message=FALSE, warning=FALSE, include=FALSE}
 
+source("r/runThisFirst.R")
+
 knitr::opts_chunk$set(
 	echo = FALSE,
 	message = FALSE,
 	warning = FALSE
 )
-source("r/runThisFirst.R")
+
 ```
 
 # Introductie {#introductie}
 
 ## Basismonitoring Wadden
 
-De systeemrapportage wordt opgezet als onderdeel van het project Natuurmonitoring Wadden - Morfologie. Dit valt vervolgens weer onder de [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/), en heeft betrekking op de niet-levende (abiotische) kenmerken van de Waddenzee.
+De systeemrapportage wordt opgezet als onderdeel van het project Natuurmonitoring Wadden - Morfologie. Dit valt vervolgens weer onder de [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/), en heeft betrekking op de niet-levende (abiotische) kenmerken van de Waddenzee. Deze informatie kan gebruikt worden om te analyseren hoe  omgevingsfactoren de veranderingen in het voorkomen van biota zoals vissen en vogels beïnvloeden. 
 
 ```{r}
 
