@@ -1,7 +1,8 @@
 # Meteorologie {#meteo}
 
-
 ```{r setupMeteo, include=FALSE}
+source("r/runThisFirst.R")
+
 knitr::opts_chunk$set(
 	echo = FALSE,
 	message = FALSE,
@@ -9,7 +10,7 @@ knitr::opts_chunk$set(
 	fig.width = 8,
 	out.width = "100%"
 )
-source("r/runThisFirst.R")
+
 
 theme_met <- theme_bw()
 ```
@@ -20,14 +21,14 @@ dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 ```
 
 ## Afbakening
+
 Om het abiotische systeem in het Waddengebied te beschrijven, is de wind van groot belang, omdat deze direct en in sterke mate de waterbeweging in de Waddenzee beinvloedt. De windsterkte en de windrichting bepalen samen over welke afstand (strijklengte) de wind invloed kan uitoefenen op het wateroppervlak en hoe groot de windopzet of windafzet is (zie ook Waterhoogte bij storm in paragraaf \@ref(waterhoogte-bij-storm)). Ook wordt het merendeel van de golven in de Waddenzee lokaal opgewekt door de wind. De indicatoren voor golven zijn opgenomen in paragraaf \@ref(golfhoogte) en \@ref(golfperiode).
 
-De luchttemperatuur, zoninstraling en bewolking hebben invloed op veel ecologische processen, zoals algen- en plantengroei. Indirect kunnen deze ook weer de morfologie beinvloeden. De watertemperatuur is ook een directe resultante van de luchttemperatuur, zoninstraling en bewolking, en is opgenomen in deze systeemrapportage in paragraaf \@ref(watertemperatuur). Via deze indicator is ook de toestand en trends van de luchttemperatuur, zoninstraling en bewolking te volgen. Deze worden daarom verder niet afzonderlijk gerapporteerd. 
+De luchttemperatuur, zoninstraling en bewolking hebben invloed op veel ecologische processen, zoals algen- en plantengroei. Indirect kunnen deze ook weer de morfologie beinvloeden. De watertemperatuur is ook een directe resultante van de luchttemperatuur, zoninstraling en bewolking, en is opgenomen in deze systeemrapportage in paragraaf \@ref(watertemperatuur). Via deze indicator is ook de toestand en trends van de luchttemperatuur, zoninstraling en bewolking te volgen. Deze worden daarom verder niet afzonderlijk gerapporteerd.
 
 Luchtdruk en neerslag zijn eveneens buiten beschouwing gelaten. Voor variaties in het waterniveau is vooral de wind van invloed, meer dan de luchtdruk. Op schaal van de Waddenzee wordt de saliniteitsverdeling in grotere mate beïnvloed door het spuien van zoet water dan via neerslag. De afvoeren zijn opgenomen in paragraaf \@ref(zoetwaterafvoeren).
 
 De wind wordt geanalyseerd en gevizualiseerd op vier KNMI stations (zie bron Appendix: \@ref(Appwind)): De Kooy, Lauwersoog, Hoorn Terschelling, Vlieland. Zie figuur \@ref(fig:KNMIstationsmap) voor de ligging van deze stations.
-
 
 ```{r KNMIstationsmap, fig.cap="Kaart met gebruikte KNMI waarnemingsstations."}
 
@@ -52,9 +53,7 @@ leaflet() %>%
 
 ```
 
-
-
-##  Wind   {#wind}
+## Wind {#wind}
 
 ### Windsterkte en -richting over de langere termijn {#windroos}
 
@@ -84,7 +83,7 @@ walk(
 
 ```
 
-###	25, 50, 75 en 95-percentiel van de windsnelheid per jaar {#windpercentielen}
+### 25, 50, 75 en 95-percentiel van de windsnelheid per jaar {#windpercentielen}
 
 Om meer inzicht te krijgen in trendmatige veranderingen in de windsnelheid, worden de verschillende percentielen van de windsnelheid per jaar weergegeven in figuur \@ref(fig:percentilesPerYear). De figuur laat geen duidelijke trends zien. Doordat de data tot op 1 decimaal achter de komma worden opgeslagen, tonen de figuren een vrij schokkerig verloop. De verschillende percentielen en stations laten een vergelijkbaar verloop zien.
 
@@ -116,10 +115,9 @@ ggplot(aes(year, value)) +
   theme(legend.position = "bottom")
 ```
 
+### Seizoensvariatie {#windseizoen}
 
-### Seizoensvariatie  {#windseizoen}
-
-De seizoensverdeling van windsterkte laat zien dat de hogere windsnelheden vaker voorkomen in de winter dan in de zomer. Dit is te zien in een heatmap grafiek van de maandgemiddelde windsnelheden, uitgezet tegen jaren (horizontale as) en maanden (verticale as) in figuur \@ref(fig:windHeatmapWaddenzee). Hierin is zowel de lange termijn variatie te zien (horizontaal) als de seizoensvariatie (verticaal). Over het geheel gesproken bevestigt dit het beeld dat de windsnelheid in de wintermaanden hoger is dan in de zomer. Er lijkt geen structurele trend in de tijd te zijn wat betreft gemiddelde windsnelheid of de variatie per seizoen. 
+De seizoensverdeling van windsterkte laat zien dat de hogere windsnelheden vaker voorkomen in de winter dan in de zomer. Dit is te zien in een heatmap grafiek van de maandgemiddelde windsnelheden, uitgezet tegen jaren (horizontale as) en maanden (verticale as) in figuur \@ref(fig:windHeatmapWaddenzee). Hierin is zowel de lange termijn variatie te zien (horizontaal) als de seizoensvariatie (verticaal). Over het geheel gesproken bevestigt dit het beeld dat de windsnelheid in de wintermaanden hoger is dan in de zomer. Er lijkt geen structurele trend in de tijd te zijn wat betreft gemiddelde windsnelheid of de variatie per seizoen.
 
 ```{r windHeatmapWaddenzee, fig.height=6, fig.width = 8, fig.cap="Variatie van windsnelheden over de lange termijn (horizontaal) en over het jaar (verticaal) over de periode 1998 - 2018. Grijze vlakken zijn maanden zonder data. "}
 dtwind %>% 
@@ -131,10 +129,9 @@ dtwind %>%
   ylab("maanden")
 ```
 
-###	Periodes met hoge windsterkte {#windperiodes}
+### Periodes met hoge windsterkte {#windperiodes}
 
-Naast de variatie in windsnelheid in de zomer en de winter, is ook inzicht in stormen of periodes met hoge windsnelheden belangrijk. Hiermee kan inzicht worden gekregen of bepaalde jaren dynamischer zijn geweest of juist kalmer dan gemiddeld. Vanaf een windsnelheid van 20,8 m/s spreken we van storm (Windkracht 9 op de Schaal van Beaufort), maar in de Waddenzee treden al bij veel lagere windsnelheden grote transporten over de wantijen en toename van de vertroebeling op. Daarom wordt in figuur \@ref(fig:consecHours) het totaal aantal uren dat de windsterkte > 10,8 m/s (Beaufort 6) was gesommeerd per jaar uitgezet. Figuur \@ref(fig:consecHours2) is hetzelfde, maar dan met de grens op 13,9 m/s (Beaufort 7). 
-
+Naast de variatie in windsnelheid in de zomer en de winter, is ook inzicht in stormen of periodes met hoge windsnelheden belangrijk. Hiermee kan inzicht worden gekregen of bepaalde jaren dynamischer zijn geweest of juist kalmer dan gemiddeld. Vanaf een windsnelheid van 20,8 m/s spreken we van storm (Windkracht 9 op de Schaal van Beaufort), maar in de Waddenzee treden al bij veel lagere windsnelheden grote transporten over de wantijen en toename van de vertroebeling op. Daarom wordt in figuur \@ref(fig:consecHours) het totaal aantal uren dat de windsterkte \> 10,8 m/s (Beaufort 6) was gesommeerd per jaar uitgezet. Figuur \@ref(fig:consecHours2) is hetzelfde, maar dan met de grens op 13,9 m/s (Beaufort 7).
 
 ```{r consecHours, fig.height=10, fig.width=10, fig.cap="Aantal achtereenvolgende uren dat de windsnelheid boven 10,8 m/s (>Bft 6) is geweest vanaf 2010."  }
 
@@ -183,10 +180,10 @@ dtwind %>% filter(year > 2010) %>%
 
 ```
 
-Voor de opwekking van golven en de windopzet en -afzet is niet alleen de windsterkte, maar ook de windrichting van belang. Als de wind uit het zuidwesten komt, strijkt deze vanaf de Afsluitdijk over een lange afstand over de Waddenzee, waardoor er een veel groter verhang kan ontstaan dan bij bijvoorbeeld zuidenwind. In figuur \@ref(fig:consecHoursPerDirection) zijn de dynamische condities (windsnelheid>10,8 m/s) uitgezet per kwadrant. De meeste energetische condities treden op bij zuidwesten wind, logischerwijs omdat deze wind het vaakst uit deze richting waait. Ook uit het noordoosten komt af en toe krachtige wind.
+Voor de opwekking van golven en de windopzet en -afzet is niet alleen de windsterkte, maar ook de windrichting van belang. Als de wind uit het zuidwesten komt, strijkt deze vanaf de Afsluitdijk over een lange afstand over de Waddenzee, waardoor er een veel groter verhang kan ontstaan dan bij bijvoorbeeld zuidenwind. In figuur \@ref(fig:consecHoursPerDirection) zijn de dynamische condities (windsnelheid\>10,8 m/s) uitgezet per kwadrant. De meeste energetische condities treden op bij zuidwesten wind, logischerwijs omdat deze wind het vaakst uit deze richting waait. Ook uit het noordoosten komt af en toe krachtige wind.
 
-Door het aantal uren te sommeren per jaar (figuur \@ref(fig:jaarAggregatiePlot)), kunnen de verschillende jaren onderling beter vergeleken worden. 
-    
+Door het aantal uren te sommeren per jaar (figuur \@ref(fig:jaarAggregatiePlot)), kunnen de verschillende jaren onderling beter vergeleken worden.
+
 ```{r consecHoursPerDirection, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 10,8 m/s (>Bft 6) is geweest per richting (kwadrant) vanaf 2010."  }
 
 dtwind %>% filter(year > 2010) %>%
@@ -220,9 +217,6 @@ dtwind %>% filter(year > 2010) %>%
 
 ```
 
-
-
-
 ```{r jaarAggregatiePlot, fig.height=8, fig.width=8, fig.cap= "Totaal aantal uren per jaar, station en kwadrant boven een 10,8 m/s (Bft 6, links) en 13,9 m/s (Bft 7, rechts) grenswaarde. " }
 
 dtwind %>% filter(year > 2010) %>%
@@ -249,14 +243,6 @@ dtwind %>% filter(year > 2010) %>%
   theme_met
 ```
 
-
-
-
 ```{r cleanupWind}
 rm(dtwind, winddatalist, winddata)
 ```
-
-
-
-
-

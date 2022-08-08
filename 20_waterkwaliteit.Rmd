@@ -28,7 +28,7 @@ WQ <- WQ %>% bind_rows(ZS)
 
 ```
 
-Voor de waterkwaliteit zijn de parameters watertemperatuur, saliniteit en concentratie van zwevende stof (van invloed op vertroebeling, lichtdoordringing in de waterkolom en het slibtransport) geselecteerd. Deze parameters worden tweewekelijks tot maandelijks bemeten vanaf een schip op 1 m onder het wateroppervlak via het meetnet Monitoring Waterstaatkundige Toestand des Lands (MWTL). 
+Voor de fysische waterkwaliteit zijn de parameters watertemperatuur, saliniteit en concentratie van zwevende stof (van invloed op vertroebeling, lichtdoordringing in de waterkolom en het slibtransport) geselecteerd. Deze parameters worden tweewekelijks tot maandelijks bemeten vanaf een schip op 1 m onder het wateroppervlak via het meetnet Monitoring Waterstaatkundige Toestand des Lands (MWTL). 
 
 De MWTL metingen zijn beschikbaar op locaties in de Waddenzee, Noordzee en het Eems estuarium zoals aangegeven in figuur \@ref(fig:kaartDDLlocaties). Vroeger werd op veel meer locaties de waterkwaliteit bemeten. Voor deze systeemrapportage is ervoor gekozen om alleen de nog actieve meetpunten op te nemen. De locaties Bocht van Watum en Rotummerplaat 3 km uit de kust zijn in het verleden verplaatst en daarom 2x terug te vinden in de kaart.
 

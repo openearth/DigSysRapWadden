@@ -1,4 +1,3 @@
-
 ```{r setupIntroductie, message=FALSE, warning=FALSE, include=FALSE}
 
 source("r/runThisFirst.R")
@@ -15,9 +14,31 @@ knitr::opts_chunk$set(
 
 ## Basismonitoring Wadden
 
-De systeemrapportage wordt opgezet als onderdeel van het project Natuurmonitoring Wadden - Morfologie. Dit valt vervolgens weer onder de [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/), en heeft betrekking op de niet-levende (abiotische) kenmerken van de Waddenzee. Deze informatie kan gebruikt worden om te analyseren hoe  omgevingsfactoren de veranderingen in het voorkomen van biota zoals vissen en vogels beïnvloeden. 
+Deze Digitale Systeemrapportage (DSR) is opgezet als onderdeel van het project Natuurmonitoring Wadden - Morfologie van Rijkswaterstaat. Dit valt vervolgens weer onder de [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/), en heeft betrekking op de niet-levende (abiotische) kenmerken van de Waddenzee. Basismonitoring Wadden houdt de ontwikkelingen in het Waddengebied in de gaten, met de volgende hoofddoelen:.
 
-```{r}
+-   inzicht geven in de toestand en trends in het Waddengebied voor beheerders en gebruikers;
+-   het komen tot een effectieve en efficiënte systeemgerichte monitoring;
+-   het toegankelijk maken van alle beschikbare informatie en monitoringgegevens over het Waddengebied, waardoor de gebruiker zicht heeft op het volledige Waddensysteem.
+
+Basismonitoring Wadden richt zich daarbij op bepaalde kernwaarden, te weten: Landschappelijke kwaliteiten; Natuurlijke Waddenzee Abiotisch (niet-levende natuur); Natuurlijke Waddenzee Biotisch (levende natuur); en Menselijk Medegebruik. Aan elk van deze kernwaarden, of thema's, zijn beleid- en beheerdoelen gekoppeld. Voor meer informatie hierover verwijzen we naar de [Ambitie van Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf).
+
+Voor de abiotische (niet-levende) natuur van de Waddenzee geldt als belangrijke doelstelling:
+
+> een zo natuurlijk mogelijke ontwikkeling van waterbewegingen en hiermee gepaard gaande geomorfologische en bodemkundige processen.' ([Structuurvisie Waddenzee](https://www.noordzeeloket.nl/publish/pages/122066/brein-herziening-2021-structuurvisie-waddenzee-id-28.pdf))
+
+
+## Doel Digitale Systeemrapportage
+
+Het doel van de Digitale Systeemrapportage Wadden is om te komen tot actuele, transparante en consistente reeksen van indicatoren, en om deze op een toegankelijke manier te ontsluiten. De digitale rapportage maakt het bovendien mogelijk om de informatie gemakkelijk te actualiseren en bij te houden. Daarmee draagt het al direct bij aan het eerste en derde doel van Basismonitoring Wadden.
+
+Door het toegankelijk maken van de relevante informatie, kunnen trends en ontwikkelingen snel worden opgespoord, en verder worden geanalyseerd. Dit kan weer bijdragen aan een efficiëntere en effectievere uitvoering van het beheer, bijvoorbeeld bij het verklaren van bepaalde waargenomen ontwikkelingen in de natuurdoelen, of wanneer men de invloed van bepaalde menselijke activiteiten in beeld wil brengen. Dit maakt het vervolgens weer makkelijker om kennisleemtes en aanvullende monitoringsbehoeften te identificeren, waardoor het indirect ook bijdraagt aan het tweede doel van Basismonitoring Wadden: de systeemgerichte monitoring.
+
+## Informatiebehoefte en indicatoren
+
+Indicatoren zijn meetbare (of uit metingen af te leiden) grootheden die een signaalfunctie hebben, en bijvoorbeeld informatie geven over de kwaliteit van iets. In deze systeemrapportage beperken we ons tot de informatiebehoefte die voorkomt uit de beleids- en beheerdoelen voor de abiotische natuur van de Waddenzee. Daarbij gaat het om alle abiotische kenmerken die invloed hebben op de natuurlijkheid van het Waddensysteem, zoals ook sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc. De benodigde data is deels afkomstig van ruimtelijke metingen (bijvoorbeeld bodemligging), deels van vaste meetstations \@ref(fig:kaartAbiotieklocaties).
+
+
+```{r kaartAbiotieklocaties, cache=F, fig.cap = "Overzicht van vaste meetstations voor fysische waterkwaliteit (temperatuur, zwevend stof en saliniteit) en hydrodynamiek (golven, waterstanden) in het Waddengebied gebruikt in de rapportage. Een groot deel van de in hoofdstuk \@ref(hydro) en \@ref(Waterkwaliteit) gepresenteerde parameters is afkomstig van deze stations."}
 
 mijnShape <- st_read(file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.geojson")), quiet = T)
 mijnCatalogus <- read_delim(file = file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.csv")), delim = ";")
@@ -89,31 +110,6 @@ leaflet(data = plotCatalogus) %>%
   leaflet::addLegend(pal = pal, values = unique(plotCatalogus$groep), opacity = 1)
 ```
 
-
-Basismonitoring Wadden houdt de ontwikkelingen in het Waddengebied in de gaten. Doordat beheerders van het Waddengebied verzamelde gegevens en kennis met elkaar delen, kan er effectiever en efficiënter worden gemonitord.
-
-De hoofddoelen van Basismonitoring Wadden zijn daarbij:
-
--   inzicht te geven in de toestand en trends in het Waddengebied voor de beheerder;
--   het komen tot een effectieve en efficiënte systeemgerichte monitoring;
--   het toegankelijk maken van alle beschikbare informatie en monitoringgegevens over het Waddengebied, waardoor de gebruiker zicht heeft op het volledige Waddensysteem.
-
-Basismonitoring Wadden richt zich daarbij op bepaalde kernwaarden, te weten: Landschappelijke kwaliteiten; Natuurlijke Waddenzee Abiotisch (niet-levende natuur); Natuurlijke Waddenzee Biotisch (levende natuur); en Menselijk Medegebruik. Aan elk van deze kernwaarden, of thema's, zijn beleid- en beheerdoelen gekoppeld. Voor meer informatie hierover verwijzen we naar de [Ambitie van Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf).
-
-Voor de abiotische (niet-levende) natuur van de Waddenzee geldt als belangrijke doelstelling:
-
-> een zo natuurlijk mogelijke ontwikkeling van waterbewegingen en hiermee gepaard gaande geomorfologische en bodemkundige processen.' ([Structuurvisie Waddenzee](https://www.noordzeeloket.nl/publish/pages/122066/brein-herziening-2021-structuurvisie-waddenzee-id-28.pdf))
-
-## Doel
-
-Het doel van de Digitale Systeemrapportage Wadden is om te komen tot actuele en consistente reeksen van indicatoren, en om deze op een toegankelijke manier te ontsluiten. De digitale rapportage maakt het bovendien mogelijk om de informatie gemakkelijk te actualiseren en bij te houden. Daarmee draagt het al direct bij aan het eerste en derde doel van Basismonitoring Wadden.
-
-Door het toegankelijk maken van de relevante informatie, kunnen trends en ontwikkelingen snel worden opgespoord, en verder worden geanalyseerd. Dit kan weer bijdragen aan een efficiëntere en effectievere uitvoering van het beheer, bijvoorbeeld bij het verklaren van bepaalde waargenomen ontwikkelingen in de natuurdoelen, of wanneer men de invloed van bepaalde menselijke activiteiten in beeld wil brengen. Dit maakt het vervolgens weer makkelijker om kennisleemtes en aanvullende monitoringsbehoeften te identificeren, waardoor het indirect ook bijdraagt aan het tweede doel van Basismonitoring Wadden: de systeemgerichte monitoring.
-
-## Informatiebehoefte en indicatoren
-
-Indicatoren zijn meetbare (of uit metingen af te leiden) grootheden die een signaalfunctie hebben, en bijvoorbeeld informatie geven over de kwaliteit van iets. In deze systeemrapportage beperken we ons tot de informatiebehoefte die voorkomt uit de beleids- en beheerdoelen voor de abiotische natuur van de Waddenzee. Daarbij gaat het om alle abiotische kenmerken die invloed hebben op de natuurlijkheid van het Waddensysteem, zoals ook sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc.
-
 De fysische kenmerken van de Waddenzee zijn een waarde op zich. Zij worden hier beschouwd als losstaand van de ecologie of biologie. Dit betekent dat abiotische indicatoren niet direct informatie geven over de biotische (levende) natuur. Maar omdat de biota wel afhangen van de abiotiek, zijn deze indicatoren wel indirect van belang voor de biotische natuur.
 
 De informatiebehoefte is nergens formeel vastgelegd. De indicatoren in deze systeemrapportage zijn afkomstig uit een inventarisatie vanuit verschillende documenten, waarin aandacht is besteed aan indicatoren in relatie tot de doelstelling. Daarbij moet gezegd worden dat de systeemrapportage nog in ontwikkeling is, en daarom nog niet compleet is. Het is ook mogelijk om in de toekomst de rapportage uit te breiden naar indicatoren die behoren bij de andere thema's van Basismonitoring, voor een optimale bundeling van alle relevante informatie van het Waddengebied.
@@ -131,6 +127,7 @@ Voor het opstellen van deze systeemrapportage wordt dankbaar gebruik gemaakt van
 De systeemrapportage is bedoeld als een naslagwerk, waarin gericht snel bepaalde informatie kan worden opgezocht. De nadruk ligt daarbij in eerste instantie op de gegevens (figuren) zelf, en hoe deze geïnterpreteerd moeten worden. Voor meer uitleg over de indicatoren kunt u eenvoudig doorklikken naar de bijlagen.
 
 Een overzicht van de volledige inhoud is te vinden in de inhoudsopgave links in uw scherm. De rapportage is nog volop in ontwikkeling. Daarom zijn nog niet alle indicatoren opgenomen in deze versie.
+
 
 ## Wettelijke kaders
 

@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.2.0",
+    "Version": "4.2.1",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -27,10 +27,10 @@
     },
     "MASS": {
       "Package": "MASS",
-      "Version": "7.3-56",
+      "Version": "7.3-58",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "af0e1955cb80bb36b7988cc657db261e",
+      "Hash": "4bf2c61e656bbc238634c798c208d386",
       "Requirements": []
     },
     "Matrix": {
@@ -337,19 +337,6 @@
       "Hash": "2ba81b120c1655ab696c935ef33ea716",
       "Requirements": []
     },
-    "cowplot": {
-      "Package": "cowplot",
-      "Version": "1.1.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "b418e8423699d11c7f2087c2bfd07da2",
-      "Requirements": [
-        "ggplot2",
-        "gtable",
-        "rlang",
-        "scales"
-      ]
-    },
     "cpp11": {
       "Package": "cpp11",
       "Version": "0.4.2",
@@ -604,14 +591,6 @@
       "Hash": "77bd60a6157420d4ffa93b27cf6a58b8",
       "Requirements": []
     },
-    "filelock": {
-      "Package": "filelock",
-      "Version": "1.0.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "38ec653c2613bed60052ba3787bd8a2c",
-      "Requirements": []
-    },
     "fontawesome": {
       "Package": "fontawesome",
       "Version": "0.3.0",
@@ -669,20 +648,6 @@
       "Repository": "CRAN",
       "Hash": "15e9634c0fcd294799e9b2e929ed1b86",
       "Requirements": []
-    },
-    "geometa": {
-      "Package": "geometa",
-      "Version": "0.6-6",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "708450a6bed97319d72159db6fcb988a",
-      "Requirements": [
-        "R6",
-        "XML",
-        "httr",
-        "jsonlite",
-        "keyring"
-      ]
     },
     "gert": {
       "Package": "gert",
@@ -984,23 +949,6 @@
       "Hash": "d07e729b27b372429d42d24d503613a0",
       "Requirements": []
     },
-    "keyring": {
-      "Package": "keyring",
-      "Version": "1.3.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "f97832aee679462739f7146fead53b11",
-      "Requirements": [
-        "R6",
-        "askpass",
-        "assertthat",
-        "filelock",
-        "openssl",
-        "rappdirs",
-        "sodium",
-        "yaml"
-      ]
-    },
     "knitr": {
       "Package": "knitr",
       "Version": "1.39",
@@ -1235,10 +1183,10 @@
     },
     "nlme": {
       "Package": "nlme",
-      "Version": "3.1-157",
+      "Version": "3.1-158",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "dbca60742be0c9eddc5205e5c7ca1f44",
+      "Hash": "9469aeaeddf4f48a7ac70877d0b7ba36",
       "Requirements": [
         "lattice"
       ]
@@ -1262,24 +1210,6 @@
       "Hash": "6d3bef2e305f55c705c674653c7d7d3d",
       "Requirements": [
         "askpass"
-      ]
-    },
-    "ows4R": {
-      "Package": "ows4R",
-      "Version": "0.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "f15016392b4404a793e6dda84c89891d",
-      "Requirements": [
-        "R6",
-        "XML",
-        "geometa",
-        "httr",
-        "jsonlite",
-        "keyring",
-        "openssl",
-        "sf",
-        "terra"
       ]
     },
     "pander": {
@@ -1912,14 +1842,6 @@
         "xtable"
       ]
     },
-    "sodium": {
-      "Package": "sodium",
-      "Version": "1.2.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "3606bb09e0914edd4fc8313b500dcd5e",
-      "Requirements": []
-    },
     "sourcetools": {
       "Package": "sourcetools",
       "Version": "0.1.7",
@@ -1989,10 +1911,10 @@
     },
     "terra": {
       "Package": "terra",
-      "Version": "1.5-34",
+      "Version": "1.6-3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "c3401c4598d3c2d6158e10c966d70cbd",
+      "Hash": "7a6e8023898e3549818e60fd9ec2eeb8",
       "Requirements": [
         "Rcpp"
       ]
