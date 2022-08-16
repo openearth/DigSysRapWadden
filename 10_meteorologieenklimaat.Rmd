@@ -20,15 +20,13 @@ dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 # paste(unique(dtwind$station), collapse = ", ")
 ```
 
-## Afbakening
+## Afbakening en definitie
 
-Om het abiotische systeem in het Waddengebied te beschrijven, is de wind van groot belang, omdat deze direct en in sterke mate de waterbeweging in de Waddenzee beinvloedt. De windsterkte en de windrichting bepalen samen over welke afstand (strijklengte) de wind invloed kan uitoefenen op het wateroppervlak en hoe groot de windopzet of windafzet is (zie ook Waterhoogte bij storm in paragraaf \@ref(waterhoogte-bij-storm)). Ook wordt het merendeel van de golven in de Waddenzee lokaal opgewekt door de wind. De indicatoren voor golven zijn opgenomen in paragraaf \@ref(golfhoogte) en \@ref(golfperiode).
+In een ondiep systeem zoals de Waddenzee heeft de meteorologie -wind, luchtdruk, temperatuur, instraling en neerslag- een sterke invloed op zowel biotische als abiotische processen. Meteorologie is dus een belangrijke verklarende parameter voor het beschrijven en verklaren van trends in zowel de biotiek als abiotiek. Biotische processen zoals algen- en plantengroei worden direct beïnvloed door temperatuur en instraling van zonlicht. Via de abiotiek is naast door neerslag bepaalde saliniteit vooral de wind van groot belang voor ecologische processen: Het grootse deel van de golven (voor het belang daarvan zie \@ref(hydrodynamiek)) in de Waddenzee wordt namelijk lokaal door de wind gegenereerd. Daarnaast is de wind, in combinatie met de luchtdruk, bepalend voor de opzet (of afzet) van waterhoogtes tijdens stormen. 
 
-De luchttemperatuur, zoninstraling en bewolking hebben invloed op veel ecologische processen, zoals algen- en plantengroei. Indirect kunnen deze ook weer de morfologie beinvloeden. De watertemperatuur is ook een directe resultante van de luchttemperatuur, zoninstraling en bewolking, en is opgenomen in deze systeemrapportage in paragraaf \@ref(watertemperatuur). Via deze indicator is ook de toestand en trends van de luchttemperatuur, zoninstraling en bewolking te volgen. Deze worden daarom verder niet afzonderlijk gerapporteerd.
+In dit hoofdstuk is de beschrijving van de meteorologie beperkt tot de wind (richting en sterkte). De temperatuur is in deze systeemrapportage opgenomen als een verklarende waterkwaliteitsparameter in paragraaf \@ref(watertemperatuur). Deze is het gevolg van, en daarmee informatiever dan, zuiver meteorologische parameters als luchttemperatuur, zoninstraling en bewolking, welke daarom buiten beschouwing zijn gelaten. Luchtdruk en neerslag zijn ook niet opgenomen in deze rapportage. Voor luchtdruk geldt dat getij en wind een veel sterkere invloed op waterstanden hebben, waardoor luchtdruk van ondergeschikt belang is. Neerslag is niet opgenomen omdat de saliniteitsverdeling in de Waddenzee sterker afhangt van het spuien van zoet water dan van directe neerslag. De afvoeren zijn daarom wél opgenomen, in paragraaf \@ref(zoetwaterafvoeren).  
 
-Luchtdruk en neerslag zijn eveneens buiten beschouwing gelaten. Voor variaties in het waterniveau is vooral de wind van invloed, meer dan de luchtdruk. Op schaal van de Waddenzee wordt de saliniteitsverdeling in grotere mate beïnvloed door het spuien van zoet water dan via neerslag. De afvoeren zijn opgenomen in paragraaf \@ref(zoetwaterafvoeren).
-
-De wind wordt geanalyseerd en gevizualiseerd op vier KNMI stations (zie bron Appendix: \@ref(Appwind)): De Kooy, Lauwersoog, Hoorn Terschelling, Vlieland. Zie figuur \@ref(fig:KNMIstationsmap) voor de ligging van deze stations.
+De wind wordt geanalyseerd en gevisualiseerd op vier KNMI stations (zie bron Appendix: \@ref(Appwind)): De Kooy, Lauwersoog, Hoorn Terschelling, Vlieland. Zie figuur \@ref(fig:KNMIstationsmap) voor de ligging van deze stations.
 
 ```{r KNMIstationsmap, fig.cap="Kaart met gebruikte KNMI waarnemingsstations."}
 
