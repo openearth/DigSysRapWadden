@@ -608,7 +608,7 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
   filter(locatie.origineel %in% plotlocaties) %>%
   mutate(jaar = year(datum), maand = month(datum), datum = as.Date(datum)) %>%
   mutate(locatie.naam = factor(paste(locatie.naam, gebied, sep = " - "))) %>%
-  group_by(locatie.naam, gebied, jaar, maand, datum) %>% summarize(`Q daggemiddeld` = mean(numeriekewaarde)) %>%
+  group_by(locatie.naam, gebied, jaar, maand, datum) %>% summarize(`Q daggemiddeld` = mean(numeriekewaarde))
 
   ggplot() +
     geom_point(data = parData, aes(datum, `Q daggemiddeld`, color = "metingen"), alpha = 1, size = 0.65) + #
@@ -623,7 +623,7 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
     ) +
     coord_cartesian(ylim = c(NA,1000)) +
     # ylab(parlabel) + xlab(xlabel) +
-    facet_wrap(~ locatie.naam, ncol = 1, scales = "free_y") +  #scales = "free",
+    facet_grid(locatie.naam ~., scales = "free_y") +  #scales = "free",
     theme_hy +
     theme(legend.position = "bottom") +
     scale_colour_manual(name = "",
