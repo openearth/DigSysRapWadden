@@ -42,7 +42,9 @@ In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheids
 
 ## Zeespiegelstijging {#zeespiegelstijging}
 
-```{r zeespiegelstijging, fig.cap= "Huidige zeespiegelstijging volgens het lineaire model met correctie voor wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP. De zwarte lijn is het gemiddelde over de 6 stations. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties)." }
+ref:zeespiegelstijgingLabel Huidige zeespiegelstijging volgens het lineaire model met correctie voor wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP. De zwarte lijn is het gemiddelde over de 6 stations. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
+
+```{r zeespiegelstijging, fig.cap='(ref:zeespiegelstijgingLabel)' }
 
 # knitr::include_graphics("images/zeespiegelmonitor.png")
 
@@ -93,7 +95,10 @@ De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix 
 
 De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde periode van 1985 tot heden. Ook de ruimtelijke verschillen over de Waddenzee zijn duidelijk terug te zien in de grafieken.
 
-```{r Hoogwaters, fig.height=6, fig.width=6, fig.cap="Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties)."}
+
+ref:HoogwatersLabel  Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
+
+```{r Hoogwaters, fig.height=6, fig.width=6, fig.cap='(ref:HoogwatersLabel)'}
 
 df.extrema <- read_delim(file.path(datadir, "RWS", "standard", paste0("extremaHLLL", "latest", ".csv")), delim = ";") %>%
   mutate(h = h * 100) # van meter naar cm
@@ -185,7 +190,9 @@ De getijslag (figuur \@ref(fig:getijslag)), die wordt gevormd door het verschil 
 
 Figuur \@ref(fig:kaartGetijslag) geeft de gemiddelde getijslag over de in figuur \@ref(fig:getijslag) getoonde periode weer op de kaart in de Waddenzee. De figuur toont dat de getijslag toeneemt van west naar oost, en dat bij Delfzijl de getijslag het grootste is, door opslingering van het getij in het Eems estuarium. De meeste waterstandstations liggen in geulen, behalve Wierumerwad1 en Uithuizerwad1. Deze twee stations tonen een kleinere getijslag omdat ze een gedeelte van de tijd droogvallen.
 
-```{r getijslag, fig.height=8, fig.width=8, fig.cap="Jaargemiddelde getijslag per station. De lijn is een linaire regressie door alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties)."}
+ref:getijslagLabel Jaargemiddelde getijslag per station. De lijn is een linaire regressie door alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
+
+```{r getijslag, fig.height=8, fig.width=8, fig.cap= '(ref:getijslagLabel)'}
 
 p <- df.extrema %>%
     # filter(HL == "L") %>%
@@ -206,7 +213,9 @@ ggplotly(p, height = 550, width = 700)
 
 ```
 
-```{r kaartGetijslag, fig.height=6, fig.width=8, fig.cap="Gemiddelde getijslag per station over de periode 2011 - 2020. Wierumerwad1 en Uithuizerwad1 vertonen een veel lagere getijslag omdat ze een gedeelte van de tijd droogvallen. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties)."}
+ref:kaartGetijslagLabel Gemiddelde getijslag per station over de periode 2011 - 2020. Wierumerwad1 en Uithuizerwad1 vertonen een veel lagere getijslag omdat ze een gedeelte van de tijd droogvallen. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
+
+```{r kaartGetijslag, fig.height=6, fig.width=8, fig.cap="(ref:kaartGetijslagLabel)"}
 
 metadata <- read_delim(file.path(datadir, "ddl/metadata/Wadden_metadata.csv"),delim = ";") %>%
   distinct(locatie.naam, x, y)
@@ -275,7 +284,9 @@ De definities en rekenmethoden van de hier gebruikte indicatoren zijn terug te v
 
 Figuur \@ref(fig:wateropzet) laat de variatie van de opzet in de tijd zien. Er zijn geen trends waar te nemen.
 
-```{r wateropzet, fig.cap= "Maandelijks 99,5-percentiel voor opzet = gemeten waterstand - astronomische waterstand (rode lijn) en het jaarlijks maximum van de opzet (grijs streepje). De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).", fig.height=30, fig.width=8}
+ref:wateropzetLabel Maandelijks 99,5-percentiel voor opzet = gemeten waterstand - astronomische waterstand (rode lijn) en het jaarlijks maximum van de opzet (grijs streepje). De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
+
+```{r wateropzet, fig.cap= "(wateropzetLabel)", fig.height=30, fig.width=8}
 
 monthlyStat  <- read_delim(file.path(datadir, "ddl", "standard", paste0("monthlyStatWaterhoogte", "2021-07-28", ".csv")), delim = ";")
 
@@ -309,7 +320,9 @@ monthlyStat %>%
 
 Figuur \@ref(fig:stormhoogte) laat de variatie van stormhoogte in de tijd zien. Het begin van de jaren '90 springt eruit met relatief hoge waarden.
 
-```{r stormhoogte, fig.cap="Tijdserie van stormhoogte, berekend als 99,5-percentiel van de gemeten waterhoogte per jaar. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties). ", fig.width=10, fig.height=5}
+ref:stormhoogteLabel Tijdserie van stormhoogte, berekend als 99,5-percentiel van de gemeten waterhoogte per jaar. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties). 
+
+```{r stormhoogte, fig.cap="(ref:stormhoogteLabel)", fig.width=10, fig.height=5}
 
 yearlyStat <-  read_delim(file.path(datadir, "ddl", "standard", paste0("yearlyStatWaterhoogte", "2021-07-28", ".csv")), delim = ";")
 
@@ -372,7 +385,9 @@ golf.pad <- file.path(datadir, "ddl", "standard")
 gdf <- read_delim(file.path(golf.pad, golf.df), delim = ";")
 ```
 
-```{r golfhoogte95perc, fig.cap="Tijdserie van jaarlijks 95-percentiel van de significante golfhoogte in het spectrale domein Oppervlaktewater golffrequentie tussen 30 en 500 mHz in cm. Alleen jaren met metingen in alle maanden zijn meegenomen in de het berekenen van het percentiel. NB De stations Uithuizerwad1 en Wierumerwad1 liggen hoog, op bij laag water droogvallende gebieden waardoor de golfhoogte substantieel lager is dan bij andere stations (geen meetfout). De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).", fig.height=4, fig.width=10}
+ref:golfhoogte95perc Tijdserie van jaarlijks 95-percentiel van de significante golfhoogte in het spectrale domein Oppervlaktewater golffrequentie tussen 30 en 500 mHz in cm. Alleen jaren met metingen in alle maanden zijn meegenomen in de het berekenen van het percentiel. NB De stations Uithuizerwad1 en Wierumerwad1 liggen hoog, op bij laag water droogvallende gebieden waardoor de golfhoogte substantieel lager is dan bij andere stations (geen meetfout). De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
+
+```{r golfhoogte95perc, fig.cap="(ref:golfhoogte95perc)", fig.height=4, fig.width=10}
 
 param = "Significante golfhoogte in het spectrale domein Oppervlaktewater golffrequentie tussen 30 en 500 mHz in cm"
 
@@ -592,7 +607,7 @@ knitr::include_graphics(path = file.path(datadir, "NLWKN/afvoeren/raw/2022_07_06
 
 
 
-````{r eemsafvoertijdserie, fig.cap = ""}
+```{r eemsafvoertijdserie, fig.cap = ""}
 
 EmsAfvoer <- read_delim(file.path(datadir, "NLWKN", "afvoeren", "standard", "Ems-discharge_bewerkt.csv"))
 LedaAfvoer <- read_delim(file.path(datadir, "NLWKN", "afvoeren", "standard", "Leda-discharge_bewerkt.csv"))

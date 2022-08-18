@@ -37,8 +37,9 @@ Door het toegankelijk maken van de relevante informatie, kunnen trends en ontwik
 
 Indicatoren zijn meetbare (of uit metingen af te leiden) grootheden die een signaalfunctie hebben, en bijvoorbeeld informatie geven over de kwaliteit van iets. In deze systeemrapportage beperken we ons tot de informatiebehoefte die voorkomt uit de beleids- en beheerdoelen voor de abiotische natuur van de Waddenzee. Daarbij gaat het om alle abiotische kenmerken die invloed hebben op de natuurlijkheid van het Waddensysteem, zoals ook sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc. De benodigde data is deels afkomstig van ruimtelijke metingen (bijvoorbeeld bodemligging), deels van vaste meetstations zoals weergegeven in figuur \@ref(fig:kaartAbiotieklocaties).
 
+ref:kaartAbiotieklocatiesLabel  Overzicht van vaste meetstations voor fysische waterkwaliteit (temperatuur, zwevend stof en saliniteit) en hydrodynamiek (golven, waterstanden) in het Waddengebied gebruikt in de rapportage. Een groot deel van de in hoofdstuk \@ref(hydro) en \@ref(Waterkwaliteit) gepresenteerde parameters is afkomstig van deze stations.
 
-```{r kaartAbiotieklocaties, cache=F, fig.cap = "Overzicht van vaste meetstations voor fysische waterkwaliteit (temperatuur, zwevend stof en saliniteit) en hydrodynamiek (golven, waterstanden) in het Waddengebied gebruikt in de rapportage. Een groot deel van de in hoofdstuk \@ref(hydro) en \@ref(Waterkwaliteit) gepresenteerde parameters is afkomstig van deze stations."}
+```{r kaartAbiotieklocaties, cache=F, fig.cap = '(ref:kaartAbiotieklocatiesLabel)'}
 
 mijnShape <- st_read(file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.geojson")), quiet = T)
 mijnCatalogus <- read_delim(file = file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.csv")), delim = ";")
