@@ -16,3 +16,6 @@ before_chapter_script: _common.R
 language:
   ui:
     chapter_name: "Hoofdstuk "
+  label:
+    fig: "Figuur "
+    tab: "Tabel "

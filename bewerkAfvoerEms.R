@@ -109,7 +109,7 @@ LedaAfvoer <- readxl::read_excel(file.path(datadir, "NLWKN", "afvoeren", "raw", 
     maand == "Nov" ~ "Nov",
     maand == "Dez" ~ "Dec"
   )) %>%
-  mutate(datum = as.Date(paste(jaar, maand, "15"), format = "%Y %h %d")) %>%
+  mutate(datum = as_date(paste(jaar, maand, "15"))) %>%
   select(-jaar, -maand) %>%
   pivot_longer(cols = -datum, names_to = "locatie.origineel", values_to = "numeriekewaarde") %>% 
   mutate(
@@ -129,7 +129,7 @@ LedaAfvoer <- readxl::read_excel(file.path(datadir, "NLWKN", "afvoeren", "raw", 
 
 savepath = file.path(datadir, "NLWKN", "afvoeren", "standard")
 if(!dir.exists(savepath)) dir.create(savepath)
-write_delim(EmsAfvoer, file.path(savepath, "Leda-discharge_bewerkt.csv"))
+write_delim(LedaAfvoer, file.path(savepath, "Leda-discharge_bewerkt.csv"))
 
 
 metadata = c("Leda discharge gegevens bij Leer ",
