@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 library(reticulate)
-source("r/runThisFirst.R")
 
 py_install("pandas")
 
@@ -23,27 +22,27 @@ py_install("hatyan", pip = T)
 # reticulate::py_run_file("hatyanExample.py")
 
 
-filenames <- c(
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/eemshaven.dia",
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/harlingen.dia",
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/holwerd.dia",
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/huibertgat.dia",
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/lauwersoog.dia",
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/nes.dia",
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/schiermon.dia",
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/terschel.dia",
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/texel.dia",
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/westter.dia",
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/wierumerg.dia",
-  "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/denhelder.dia"
-  )
+# filenames <- c(
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/eemshaven.dia",
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/harlingen.dia",
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/holwerd.dia",
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/huibertgat.dia",
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/lauwersoog.dia",
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/nes.dia",
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/schiermon.dia",
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/terschel.dia",
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/texel.dia",
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/westter.dia",
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/wierumerg.dia",
+#   "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/hoogLaagWaters/denhelder.dia"
+#   )
 
 ```
 
 
 ## Read Dia file using hatyan package
 
-```{python  init, echo = T, include = F}
+```{python init, eval=FALSE, include=FALSE}
 import datetime as dt
 import pandas as pd
 import hatyan
@@ -72,11 +71,14 @@ for files in os.listdir(dir):
         diablocks_pd = hatyan.get_diablocks(dir + files)
         stat_code = diablocks_pd['station'].unique()[0] #this assumes there is only one station in the file, since it uses the first unique station
         data = hatyan.readts_dia(filename=dir +files, station=stat_code, block_ids="allstation", get_status = True)
+        data['station'] = stat_code
         data = data.reset_index(drop=False) # tijd index als kolom maken
         new_name = files.replace (".dia", ".csv") #change extension
         data.to_csv(save + new_name, sep=';') #edit to save as csv
     else:
         continue
+      
+      
 ```
 
 

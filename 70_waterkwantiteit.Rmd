@@ -607,7 +607,8 @@ knitr::include_graphics(path = file.path(datadir, "NLWKN/afvoeren/raw/2022_07_06
 
 
 
-```{r eemsafvoertijdserie, fig.cap = ""}
+
+```{r eemsafvoertijdserie, fig.cap = "Jaargemiddelde afvoer vanuit de Eems en Leda per etmaal naar de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). "}
 
 EmsAfvoer <- read_delim(file.path(datadir, "NLWKN", "afvoeren", "standard", "Ems-discharge_bewerkt.csv"))
 LedaAfvoer <- read_delim(file.path(datadir, "NLWKN", "afvoeren", "standard", "Leda-discharge_bewerkt.csv"))
