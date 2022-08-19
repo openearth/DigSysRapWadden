@@ -602,6 +602,7 @@ parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>%
 De afvoer vanuit de Eems wordt weergegeven als geschatte afvoer bij Hebrum, het meest stroomafwaartse gedeelte van de rivier waar nog getij-invloed is. De waarde is berekend als 1.1 \* de afvoer bij Versen. De gegevens zijn beschikbaar gemaakt door Federal Institut of Hydrology en komen uit de hydrological database HYDABA1. Voor metingen bij Versen is tot 2019 het station "Versen_gesamt" gebruikt, daarna is overgegaan op station "versen_wehr_durchstich" (zie kaart \@ref(fig:kaartHydrologischeStationsNLWKN)).
 
 ```{r kaartHydrologischeStationsNLWKN, out.width="70%", fig.cap="Overzichtskaart van hydrologische meetstations in het stroomgebied van de Eems en West-Duitse Waddenzee."}
+
 knitr::include_graphics(path = file.path(datadir, "NLWKN/afvoeren/raw/2022_07_06_Discharges Ems.jpg"))
 ```
 
@@ -612,8 +613,6 @@ knitr::include_graphics(path = file.path(datadir, "NLWKN/afvoeren/raw/2022_07_06
 
 EmsAfvoer <- read_delim(file.path(datadir, "NLWKN", "afvoeren", "standard", "Ems-discharge_bewerkt.csv"))
 LedaAfvoer <- read_delim(file.path(datadir, "NLWKN", "afvoeren", "standard", "Leda-discharge_bewerkt.csv"))
-
-EmsAfvoer %>% bind_rows(LedaAfvoer)
 
 parlabel = "jaargemiddelde afvoer "
 xlabel = "jaar"
