@@ -5,7 +5,6 @@ rmd_files: [
   "10_meteorologieenklimaat.Rmd",
   "20_waterkwaliteit.Rmd",
   "060_Bathymetrie_en_morfodynamiek.Rmd",
-  "070_Geologie.Rmd",
   "90_Meetbehoefte.Rmd",
   "200-references.Rmd",
   "Appendix.Rmd"] 
