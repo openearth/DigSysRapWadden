@@ -71,8 +71,11 @@ Delfzijl %>%
   theme(legend.position = "bottom")
 ```
 
+### Gemiddeld laag laag water (GLLW) en gemiddeld hoog hoog water (GHHW) {}
 
-### Getijcomponenten en -asymmetrie
+GLLW en GHHW worden berekend als de maandminima en -maxima van het berekend getij per station. Het berekend getij wordt bepaald uit de getijcomponenten, zie sectie \@ref(getijcomponenten).
+
+### Getijcomponenten en -asymmetrie {#getijcomponentenmethode}
 Op basis van de gemeten waterstanden wordt met het python package 'hatyan' de amplitude en fase van de verschillende getijcomponenten bepaald. Op basis van deze amplitudes en fases kan de amplitudeverhouding M~4~/M~2~ en het faseverschil ($2 \phi M_{2} - \phi M_{4}$) worden berekend [https://github.com/Deltares/hatyan](https://github.com/Deltares/hatyan).  Voor uitgebreide documentatie wordt verwezen naar [de gebruikershandleiding](https://github.com/Deltares/hatyan/blob/main/docs/11205257-013-DSC-0006_v1.0-Gebruikershandleiding%20hatyan.pdf).
 
 ### Stormopzet en Stormvloedhoogte

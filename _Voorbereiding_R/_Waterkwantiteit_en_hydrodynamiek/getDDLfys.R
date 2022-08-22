@@ -338,6 +338,23 @@ save(df_all_WATHTE, file = file.path(datadir, "ddl", "standard", paste0("waterho
 # write_delim(df_all, file.path(datadir, "ddl", "standard", paste0("waterhoogte", today(), ".csv")), delim = ";")
 
 
+#===== berekende astronomische waterhoogten ===============================================
+
+
+# van Jelmer:
+# Hoi Willem, de indicators GLLWS en GHHWS plots staan hier:
+#   p:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\calculated\tidal_indicators\
+# 
+# De componenten (en data beschikbaarheid) plots, incl getij asymmetrie staan hier:
+#   p:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\calculated\tidal_asymmetry\
+# 
+# De tijdreeksen van getijpredicties staan hier:
+#   p:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\calculated\waterstand_berekend_m\
+# 
+
+
+
+
 
 install.packages("RSQLite")
 install.packages("dbplyr") # moet nog gebeuren
@@ -354,18 +371,52 @@ df_all_WATHTE %>% group_split(locatie.naam) %>%
 
 #==== maandelijkse waterhoogte  =======
 
+
+# inlezen berekende waterhoogten
+
+# inlezen metadata uit filenamen
+
+path <- file.path(datadir, "ddl", "calculated", "waterstand_berekend_m")
+files_berekend <- list.files(file.path(path), pattern = "WATHTASTRO")
+
+metadata =  tibble(filelocatie = files_berekend) %>%
+  mutate(metadata = str_replace(filelocatie, ".csv", "")) %>%
+  mutate(eenheid.code = "m") %>%
+  separate(col = metadata, into = c("code", "info", "locatie.code", "compartiment.code", "grootheid.code", "jaar"), sep = "_")
+  
+
+berekend <- lapply(files_berekend, function(x) 
+  read_csv(file.path(path, x)) %>%
+    mutate(
+      metadata = str_replace(x, ".csv", ""),
+      eenheid.code = "m"
+    ) %>%
+    separate(metadata, c("code", "info", "locatie.code", "compartiment.code", "grootheid.code", "jaar"), sep = "_") %>%
+    select(tijdstip = time,
+           numeriekewaarde = values,
+           locatie.code,
+           grootheid.code)
+)
+
+df.berekend <- rbindlist(berekend)
+
+
 # berekenen van maandelijkse statistiek
-load(file.path(datadir, "ddl", "standard", paste0("waterhoogteberekend", "2021-07-26", ".Rdata")))
+# load(file.path(datadir, "ddl", "standard", paste0("waterhoogteberekend", "2021-07-26", ".Rdata")))
 load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-26", ".Rdata")))
-df_all = data.table::rbindlist(list(data.table(df_all_WATHTBRKD), data.table(df_all_WATHTE)))
-df_all = unique(df_all)[grootheid.code != "WATOZT"]
+df_all_WATHTE <- unique(df_all_WATHTE)[grootheid.code != "WATOZT"]
+
+stations <- df_all_WATHTE %>% distinct(locatie.code, locatie.naam)
+
+df_all = data.table::rbindlist(list(data.table(df.berekend), data.table(df_all_WATHTE)), fill = T)
 
 # df.h.d <- dcast(df.h, locatie.naam + tijdstip + eenheid.code + hoedanigheid.code ~ grootheid.code, value.var = "numeriekewaarde")
 
-df.h.d <- dcast(df_all, locatie.naam + tijdstip + eenheid.code + hoedanigheid.omschrijving ~ grootheid.code, value.var = "numeriekewaarde", fun.aggregate = mean, na.rm = T)
+df.h.d <- dcast(df_all, locatie.code + tijdstip + eenheid.code + hoedanigheid.omschrijving ~ grootheid.code, value.var = "numeriekewaarde", fun.aggregate = mean, na.rm = T)
 
 monthlyStat <- df.h.d[hoedanigheid.omschrijving == "t.o.v. Normaal Amsterdams Peil", .(
-  opzet = WATHTE - WATHTBRKD,
+  # opzet = WATHTE - WATHTBRKD,
+  opzet = WATHTE - WATHTASTRO,
   month = lubridate::month(tijdstip) , 
   year = lubridate::year(tijdstip),
   station = locatie.naam

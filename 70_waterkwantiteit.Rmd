@@ -96,7 +96,7 @@ De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix 
 De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde periode van 1985 tot heden. Ook de ruimtelijke verschillen over de Waddenzee zijn duidelijk terug te zien in de grafieken.
 
 
-ref:HoogwatersLabel  Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een linaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
+ref:HoogwatersLabel  Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een lineaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
 
 ```{r Hoogwaters, fig.height=6, fig.width=6, fig.cap='(ref:HoogwatersLabel)'}
 
@@ -250,7 +250,17 @@ leaflet(gemGetijslag) %>%
 
 ## Gemiddeld Laag LaagWater en Gemiddeld Hoog HoogWater bij Springtij (GLLWS & GHHWS) {#gllws-ghhws}
 
-De GLLWS en GHHWS moet nog worden uitgewerkt.
+
+<!-- hieronder de nieuw berekende figuren. Deze zijn berekend door Jelmer met Hyatan op basis herberekend astronomisch getij. Uitgangsdata zijn DDL waterhoogten, gedownload juli 2022. -->
+
+Todo: Tekst toevoegen 
+
+```{r, fig.cap="Gemiddeld hoog hoogwater (boven) en gemiddeld laag laagwater (onder) voor stations in de Waddenzee. "}
+path = file.path(datadir, "ddl", "calculated", "tidal_indicators", "GHHWS_GLLWS_10min.png")
+knitr::include_graphics(path)
+```
+
+
 
 ## Getijcomponenten en -asymmetrie
 
@@ -259,19 +269,27 @@ De M~2~-component van het getij heeft de grootste amplitude en ontstaat door aan
 De M~4~/M~2~ amplitudeverhouding en het relatief faseverschil $2 \phi M_{2} - \phi M_{4}$ kunnen worden gebruikt voor de kwantificatie van de getijasymmetrie die belangrijk is voor het netto sedimenttransport (Friedrichs en Aubrery, 1988). Het relatieve faseverschil bepaalt de aard van de asymmetrie: de pieksnelheid is vloeddominant als het tussen 0 en 180 graden is en ebdominant als het tussen 180 en 360 graden is. De grootte van de amplitudeverhouding (M~4~/M~2~) is een indicator voor de sterkte van de asymmetrie.
 
 ```{r tsM2, fig.cap="Amplitude en fase van de M~2~-component voor alle stations"}
-knitr::include_graphics("images/ts_M2.png")
+
+path = file.path(datadir, "ddl", "calculated", "tidal_asymmetry", "ts_M2.png")
+knitr::include_graphics(path)
 ```
 
 ```{r tsS2, fig.cap="Amplitude en fase van de S~2~-component voor alle stations"}
-knitr::include_graphics("images/ts_S2.png")
+path = file.path(datadir, "ddl", "calculated", "tidal_asymmetry", "ts_S2.png")
+knitr::include_graphics(path)
 ```
 
 ```{r tsM4, fig.cap="Amplitude en fase van de M~4~-component voor alle stations"}
-knitr::include_graphics("images/ts_M4.png")
+
+path = file.path(datadir, "ddl", "calculated", "tidal_asymmetry", "ts_M4.png")
+knitr::include_graphics(path)
 ```
 
 ```{r M4divM2, fig.cap="Amplitude en fase van de mate van getij-asymmetrie M~4~/M~2~ en het relatieve faseverschil 2M2-M4 voor alle stations"}
-knitr::include_graphics("images/ts_M4divM2.png")
+
+path = file.path(datadir, "ddl", "calculated", "tidal_asymmetry", "ts_M4divM2.png")
+knitr::include_graphics(path)
+
 ```
 
 ## Waterhoogte bij storm {#waterhoogte-bij-storm}
