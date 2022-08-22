@@ -20,7 +20,7 @@ laagwaterlijn = -2
 ```
 
 ## Afbakening, definitie en herkomst
-De noemer 'Morfologie' wordt in deze rapportage gebruikt om een aantal geomorfologische indicatoren onder te scharen: Ten eerste de bodemligging zelf, die sterk bepalend is voor stromingen, golven, waterstanden, scheepvaart en ecologie. Om veranderingen in bodemligging beter te kunnen duiden zijn een aantal afgeleide morfologische indicatoren opgenomen, namelijk de hypsometrie (de verdeling van de hoogteligging naar gelang oppervlakte), de arealen geul/subtidaal/intratidaal/supratidaal, plaathoogte en -volume en geuldiepte en -volume. 
+De noemer 'Morfologie' wordt in deze rapportage gebruikt om een aantal geomorfologische indicatoren onder te scharen: Ten eerste de bodemligging of bathymetrie zelf, die sterk bepalend is voor stromingen, golven, waterstanden, scheepvaart en ecologie. Om veranderingen in bodemligging beter te kunnen duiden zijn een aantal afgeleide morfologische indicatoren opgenomen, namelijk de hypsometrie (de verdeling van de hoogteligging naar gelang oppervlakte), de arealen geul/subtidaal/intratidaal/supratidaal, plaathoogte en -volume en geuldiepte en -volume. 
 Ook is de lengte van de laagwaterlijn opgenomen. Deze geeft aan of er veel kleine platen en geulen zijn, of juist vooral grotere en is indicatief voor het beschikbare foerageergebied voor steltlopers: hoe langer de laagwaterlijn, hoe meer gebied beschikbaar is.  
 Naast kwantitatieve informatie over de bodem bevat deze systeemrapportage ook kwalitatieve bodeminformatie over het bodemslibgehalte -relevant voor het voorkomen van biota en de erosiesnelheid van de bodem- en erosieresistente lagen. Deze lagen bestaan over het algemeen uit geconsolideerde klei, veen of Holocene afzettingen en vertragen geulmigratie door hun moeilijke erodeerbaarheid. Ze zijn dus mede bepalend voor de lange-termijn kustontwikkeling.
 Tot slot is de Ecotopenkaart (2017) van de Waddenzee opgenomen. Deze is eigenlijk een aggregatie van elders in deze rapportage opgenomen of nog op te nemen kaarten. 
@@ -505,6 +505,18 @@ leaflet(slib) %>%
     radius = ~sign(slibgehalte) * 30, label = ~trunc(slibgehalte)) %>%
   leaflet::addLegend(position = "bottomright", pal = pal, values = slib$slibgehalte, opacity = 1)
 ```
+## Erosie-resistente lagen
+
+<!-- Dit stuk verwijst naar een geo-applicatie die als standa-alone website werkt. De app is gemaakt door Erik van Onselen en staat op de p schijf (p:\1204421-kpp-benokust\2021\3-MorfologieKust\3A1 - Geologie\Kaart\Concept Webgis\ERL kaart NL v1.0\). Voor de systeemrapportage wordt deze app in zijn geheel op de webserver gezet en wordt er hieronder naar gelinkt.  -->
+
+In de Waddenzee zitten op vele plekken erosieresistente lagen in de bodem, of wordt het bestaan daarvan vermoed op basis van ontwikkelingen in de bodem. De ligging hiervan is weergegeven in figuur \@ref(fig:sedimentatlasSlib). 
+
+[Schermvullende versie](https://www.testsysteemrapportage.nl/ERL kaart NL v1.0/index.html#10/53.2167/5.6978)
+
+```{r, fig.cap= "Interactieve kaart van erosie-resistente lagen in het Waddengebied. Klikken op een (mogelijke) ERL laat de verandering in dwarsdoorsnede in de loop van de tijd zien. "}
+knitr::include_url("../ERL kaart NL v1.0/index.html#10/53.2167/5.6978", height = "600px")
+```
+
 ##	Ecotopenkaart
 
 Hieronder is de ecotopenkaart weergegeven zoals opgenomen in het [Nationaal Georegister](https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search;jsessionid=0B4745908C502557E461385BDB69FE9F#/metadata/291d329a-a421-41f4-b219-a904756e7aa5).
