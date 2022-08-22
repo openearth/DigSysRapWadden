@@ -346,5 +346,5 @@ In \@ref(title) wordt de versie van de systeemrapportage vermeld.
 
 ## Versiebeheer van de code
 
-De code wordt bewaard op SVN onder versiebeheer (adres).
+De code wordt bewaard op SVN onder versiebeheer (https://repos.deltares.nl/repos/DigSysRapWadden/). Om bij te dragen is het nodig om geregistreerd te zijn. Mensen buiten Deltares hebben bovendien een OpenEarth account nodig. 
 

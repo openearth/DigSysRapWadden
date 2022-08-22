@@ -256,8 +256,12 @@ leaflet(gemGetijslag) %>%
 Todo: Tekst toevoegen 
 
 ```{r, fig.cap="Gemiddeld hoog hoogwater (boven) en gemiddeld laag laagwater (onder) voor stations in de Waddenzee. "}
+
 path = file.path(datadir, "ddl", "calculated", "tidal_indicators", "GHHWS_GLLWS_10min.png")
-knitr::include_graphics(path)
+
+file.copy(path, "images/GHHWS_GLLWS_10min.png", overwrite = T)
+
+knitr::include_graphics("images/GHHWS_GLLWS_10min.png")
 ```
 
 
@@ -271,24 +275,29 @@ De M~4~/M~2~ amplitudeverhouding en het relatief faseverschil $2 \phi M_{2} - \p
 ```{r tsM2, fig.cap="Amplitude en fase van de M~2~-component voor alle stations"}
 
 path = file.path(datadir, "ddl", "calculated", "tidal_asymmetry", "ts_M2.png")
-knitr::include_graphics(path)
+file.copy(path, "images/ts_M2.png", overwrite = T)
+
+knitr::include_graphics("images/ts_M2.png")
 ```
 
 ```{r tsS2, fig.cap="Amplitude en fase van de S~2~-component voor alle stations"}
 path = file.path(datadir, "ddl", "calculated", "tidal_asymmetry", "ts_S2.png")
-knitr::include_graphics(path)
+file.copy(path, "images/ts_S2.png", overwrite = T)
+knitr::include_graphics("images/ts_S2.png")
 ```
 
 ```{r tsM4, fig.cap="Amplitude en fase van de M~4~-component voor alle stations"}
 
 path = file.path(datadir, "ddl", "calculated", "tidal_asymmetry", "ts_M4.png")
-knitr::include_graphics(path)
+file.copy(path, "images/ts_M4.png", overwrite = T)
+knitr::include_graphics("images/ts_M4.png")
 ```
 
 ```{r M4divM2, fig.cap="Amplitude en fase van de mate van getij-asymmetrie M~4~/M~2~ en het relatieve faseverschil 2M2-M4 voor alle stations"}
 
 path = file.path(datadir, "ddl", "calculated", "tidal_asymmetry", "ts_M4divM2.png")
-knitr::include_graphics(path)
+file.copy(path, "images/ts_M4divM2.png", overwrite = T)
+knitr::include_graphics("images/ts_M4divM2.png")
 
 ```
 
@@ -621,7 +630,9 @@ De afvoer vanuit de Eems wordt weergegeven als geschatte afvoer bij Hebrum, het 
 
 ```{r kaartHydrologischeStationsNLWKN, out.width="70%", fig.cap="Overzichtskaart van hydrologische meetstations in het stroomgebied van de Eems en West-Duitse Waddenzee."}
 
-knitr::include_graphics(path = file.path(datadir, "NLWKN/afvoeren/raw/2022_07_06_Discharges Ems.jpg"))
+file.copy(file.path(datadir, "NLWKN", "afvoeren", "raw", "2022_07_06_Discharges Ems.jpg"), "images/2022_07_06_Discharges Ems.jpg", overwrite = T)
+
+knitr::include_graphics(path = file.path("images/2022_07_06_Discharges Ems.jpg"))
 ```
 
 

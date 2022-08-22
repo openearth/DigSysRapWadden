@@ -1,6 +1,6 @@
 ---
 title: "Systeemrapportage Abiotiek Wadden, concept 0.51"
-author: "Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren"
+author: "Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren, Jasper Dijkstra"
 date: '`r Sys.Date()`'
 site: bookdown::bookdown_site
 bibliography: "references/wadden.bib"
