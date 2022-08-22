@@ -20,7 +20,7 @@ dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 # paste(unique(dtwind$station), collapse = ", ")
 ```
 
-## Afbakening en definitie
+## Afbakening, definitie en herkomst
 
 In een ondiep systeem zoals de Waddenzee heeft de meteorologie -wind, luchtdruk, temperatuur, instraling en neerslag- een sterke invloed op zowel biotische als abiotische processen. Meteorologie is dus een belangrijke verklarende parameter voor het beschrijven en verklaren van trends in zowel de biotiek als abiotiek. Biotische processen zoals algen- en plantengroei worden direct beïnvloed door temperatuur en instraling van zonlicht. Via de abiotiek is naast de saliniteit (mede bepaald door neerslag) vooral de wind van groot belang voor ecologische processen: Het grootse deel van de golven (voor het belang daarvan zie \@ref(hydrodynamiek)) in de Waddenzee wordt namelijk lokaal door de wind gegenereerd. Daarnaast is de wind, in combinatie met de luchtdruk, bepalend voor de opzet (of afzet) van waterhoogtes tijdens stormen \@ref(waterhoogte-bij-storm). Zo kan wind ook voor transporten over de wantijen zorgen, wat van belang is voor de connectiviteit tussen de verschillende kombergingsgebieden.  
 

@@ -27,9 +27,18 @@ ZS <- read_delim(file.path(datadir, "RWS", "standard", "ZS_all.csv"), delim = ";
 WQ <- WQ %>% bind_rows(ZS)
 
 ```
-De fysische waterkwaliteit (watertemperatuur, saliniteit en concentratie zwevende stof) is mede bepalend voor het wel of niet voorkomen van biota, en de groei ervan. Een hogere watertemperatuur zorgt bijvoorbeeld voor snelle groei van organismen zoals algen, maar een te hoge temperatuur is nadelig voor het zuurstofgehalte van het water. Saliniteitsverschillen zorgen voor dichtheidsverschillen die stromingen aandrijven, en saliniteit is een belangrijke factor voor het wel of niet voorkomen van veel biota. Voor sommige soorten zijn veschillen in saliniteit stressvol, andere soorten hebben juist een (geleidelijke) overgang van zout naar zoet nodig om succesvol te kunnen paren of ontkiemen. De concentratie zwevende stof is, in combinatie met de stroomsnelheid en waterdiepte , een cruciale factor in het transport van slib en organisch materiaal. De concentratie zwevende stof is tevens een indicator voor de hoeveelheid licht die beschikbaar is voor fotosynthese, en is ook (beperkt) indicatief voor de zuurstofvraag van het water. Daarnaast kunnen erg hoge concentraties nadelig zijn voor filterfeeders zoals schelpdieren, terwijl enige troebelheid juist bescherming kan bieden tegen zichtjagers. 
+
+## Afbakening, definitie en herkomst
+
+De fysische waterkwaliteit (watertemperatuur, saliniteit en concentratie zwevende stof) is mede bepalend morfologische veranderingen en voor het wel of niet voorkomen van biota, en de groei ervan. Een hogere watertemperatuur zorgt bijvoorbeeld voor snelle groei van organismen zoals algen, maar een te hoge temperatuur is nadelig voor het zuurstofgehalte van het water. Ook is de viscositeit ('stroperigheid') van het water temperatuursafhankelijk, waardoor de temperatuur ook stromingspatronen beïnvloedt. Saliniteitsverschillen zorgen voor dichtheidsverschillen die stromingen aandrijven, en saliniteit is een belangrijke factor voor het wel of niet voorkomen van veel biota. Voor sommige soorten zijn verschillen in saliniteit stressvol, andere soorten hebben juist een (geleidelijke) overgang van zout naar zoet nodig om succesvol te kunnen paren of ontkiemen. De concentratie zwevende stof is, in combinatie met de stroomsnelheid en waterdiepte , een cruciale factor in het transport van slib en organisch materiaal. De concentratie zwevende stof is tevens een indicator voor de hoeveelheid licht die beschikbaar is voor fotosynthese, en is ook (beperkt) indicatief voor de zuurstofvraag van het water. Daarnaast kunnen erg hoge concentraties nadelig zijn voor filterfeeders zoals schelpdieren, terwijl enige troebelheid juist bescherming kan bieden tegen zichtjagers. 
+
+Naast de fysische, is ook de chemische waterkwaliteit van belang voor biota. Die is niet in deze rapportage opgenomen omdat hiervoor nog verdere uitwerking nodig is in het deelproduct waterkwaliteit/ecologie. Ook een aantal meteorologische parameters -zoninstraling, luchttemperatuur en bewolkingsgraad- die de watertemperatuur mede bepalen zijn niet afzonderlijk opgenomen in deze systeemrapportage; de watertemperatuur als resultante en meest direct bepalende wél.
 
 Deze fysische waterkwaliteitsparameters worden tweewekelijks tot maandelijks bemeten vanaf een schip op 1 m onder het wateroppervlak via het meetnet Monitoring Waterstaatkundige Toestand des Lands (MWTL). De MWTL metingen zijn beschikbaar op locaties in de Waddenzee, Noordzee en het Eems estuarium zoals aangegeven in figuur \@ref(fig:kaartDDLlocaties). Vroeger werd op veel meer locaties de waterkwaliteit bemeten. Voor deze systeemrapportage is ervoor gekozen om alleen de nog actieve meetpunten op te nemen. De locaties Bocht van Watum en Rotummerplaat 3 km uit de kust zijn in het verleden verplaatst en daarom tweemaal terug te vinden in de kaart.
+
+Bovengenoemde MWTL metingen zijn puntmetingen en bieden dus geen gebiedsdekkende informatie die wel belangrijk kan zijn in het duiden van lokale veranderingen in biotiek en morfologie. Gebiedsdekkende informatie kan wel gegenereerd worden met modellen. Dan rijst echter de vraag welke statistische grootheid (bijvoorbeeld het minimum, maximum of gemiddelde per getij, seizoen of jaar) van belang is, wat sterk afhankelijk is van de exacte vraag. Vanwege deze vraagafhankelijkheid, in combinatie met het belang van modelinstellingen en -onzekerheden, is er voor gekozen dergelijke informatie niet op te nemen in deze rapportage. Vaak is deze informatie wel beschikbaar in specifieke studies, zoals KRW Slib [Slib en primaire productie in het Eems-estuarium](https://deltalife.deltares.nl/deltares/de_nederlandse_delta/eems/160217/Slib_en_primaire_productie_in_Eems_estuarium.pdf), waar de context van vragen en passende modelopzet goed omschreven zijn.  
+
+Een andere ontoereikendheid van de MWTL metingen is de beperkte frequentie (tweewekelijks tot maandelijks), waardoor kortere fluctuaties, zoals gedurende een getijcyclus, een springtij-doodtijcyclus en bijvoorbeeld extreem weer, niet goed waargenomen kunnen worden. Deze kunnen echter wel sterk bepalend zijn voor de conditie van biota - denk aan een hittegolf- of morfologische ontwikkelingen.   
 
 ```{r kaartDDLlocaties, cache=F, fig.cap = "Locaties met MWTL metingen in het oppervlaktewater in de relevante delen van de Noordzee, de Waddenzee en het Eems estuarium die nog steeds worden bemeten."}
 
@@ -57,10 +66,7 @@ leaflet::leaflet(WQlocations) %>%
 
 ## Watertemperatuur {#watertemperatuur}
 
-De watertemperatuur wordt opgenomen als indicator omdat deze direct van invloed is op veel ecologische processen en indirect op de waterbeweging (viscositeit). De zoninstraling, luchttemperatuur en bewolkingsgraad hebben invloed op de watertemperatuur en zijn niet afzonderlijk opgenomen in de systeemrapportage, maar de watertemperatuur als resultante wel.
-
-Figuur \@ref(fig:jaargemiddeldeTemp) toont de jaargemiddelde watertemperatuur in rood, de maandgemiddelden als zwarte punten en de individuele metingen als grijze punten. De punten laten de seizoensdynamiek zien met hogere waarden in de zomer (tot 20-25 graden Celcius). De locaties die dieper in de bekkens liggen tonen daarbij iets hogere piektemperaturen dan de meetpunten in dieper water, nabij de zeegaten en in de Noordzee.
-
+Figuur \@ref(fig:jaargemiddeldeTemp) toont de jaargemiddelde watertemperatuur in rood, de maandgemiddelden als zwarte punten en de individuele metingen als grijze punten. De punten laten de seizoensdynamiek zien met hogere waarden in de zomer (tot 20-25 graden Celcius). De locaties die verder in de bekkens liggen tonen daarbij iets hogere piektemperaturen dan de meetpunten in dieper water, nabij de zeegaten en in de Noordzee.
 
 ```{r jaargemiddeldeTemp, fig.height=12, fig.width=8, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). Jaargemiddelden zijn alleen berekend wanneer er voor minstens 11 maanden gegevens waren. "}
 
@@ -79,7 +85,7 @@ parData <- WQ %>%
   mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties))
 
 p =   ggplot() +
-    geom_point(data = parData, aes(as.Date(tijdstip), numeriekewaarde, color = "metingen"), alpha = 1, size = 0.65) +
+    geom_point(data = parData, aes(as.Date(tijdstip), numeriekewaarde, color = "individuele metingen"), alpha = 1, size = 0.65) +
     geom_point(data = parData %>%
                  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
                aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
@@ -112,9 +118,9 @@ p
 
 ```
 
-De zomer- en wintergemiddelden (figuur \@ref(fig:seizoensgemiddeldenWatertemperatuur)) laten een stijging in de watertemperatuur zien, waarbij vooral de watertemperatuur in de zomer toeneemt. Het zomergemiddelde (tussen 1 april en 30 september) ligt voor de meeste locaties rond de 15 graden en het wintergemiddelde (tussen 1 oktober en 31 maart) rond de 7 graden. In de winter tonen de Noordzeestations hogere temperaturen, en in de zomer juist lagere temperaturen dan de stations die dieper in de bekkens liggen.
+De zomer- en wintergemiddelden (figuur \@ref(fig:seizoensgemiddeldenWatertemperatuur)) laten een stijging in de watertemperatuur over de periode 1972-2020 zien. Op alle stations is de gemiddelde watertemperatuur in de zomer (tussen 1 april en 30 september) toegenomen, van net onder de 15 graden in de jaren zeventig tot net boven de 16 graden in recente jaren. Voor de wintertemperaturen (bepaald over de periode tussen 1 oktober en 31 maart) laten niet alle stations een duidelijke toename zien; deze ligt over het het algemeen rond de 7 graden. In de winter tonen de Noordzeestations hogere temperaturen, en in de zomer juist lagere temperaturen dan de stations die verder in de bekkens liggen.
 
-```{r seizoensgemiddeldenWatertemperatuur, fig.width=8, fig.height=15, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) watertemperatuur in de Waddenzee, met regressielijnen. Seizoensgemiddelden zijn alleen berekend en meegenomen in de grafiek wanneer er 5 of meer metingen per seizoen beschikbaar waren. "}
+```{r seizoensgemiddeldenWatertemperatuur, fig.width=8, fig.height=15, fig.cap = "Zomer- (1 apr-30 sep; rood) en wintergemiddelde (1 okt-31 maart; groen) watertemperatuur in de Waddenzee, met regressielijnen. Seizoensgemiddelden zijn alleen berekend en meegenomen in de grafiek wanneer er 5 of meer metingen per seizoen beschikbaar waren. "}
 
 parData <- WQ %>% 
   filter(parameter.code == par, grootheid.code == gro, as.numeric(kwaliteitswaarde.code) == "0") %>%
