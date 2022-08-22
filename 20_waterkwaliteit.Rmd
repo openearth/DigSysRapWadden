@@ -254,11 +254,9 @@ ggsave(file.path(datadir, "RWS", "producten", "SaliniteitAnomalie.pdf"))
 
 ## Zwevend stof  {#zwevendstof}
 
-Zwevende stof is direct van belang voor de ecologie omdat deze de lichtdoordringing in de waterkolom bepaald. Slib in de bodem is ook van belang voor de ecologie, omdat algen en bodemdieren voedingsstoffen opnemen die aan het slib zijn gehecht. Door golven en stroming wordt slib vanaf de bodem in suspensie gebracht en getransporteerd om elders weer afgezet te worden. Als het slib zich afzet in vaargeulen en daarmee de toegankelijkheid wordt beperkt, moet dit worden gebaggerd. De concentraties van zwevende stof laten zien of er veranderingen optreden in de slibdynamiek, die kunnen leiden tot negatieve effecten voor de ecologie (te weinig lichtdoordringing in de waterkolom). Slib vormt eveneens een belangrijk aandeel in de netto sedimentatie in de Waddenzee, wat op de middellange termijn invloed heeft op de morfologie en daarmee de debieten en evenwichtsdieptes van de getijgeulen en op de langere termijn ook van belang is voor het meegroeien met (versnelde) zeespiegelstijging. 
+Figuur \@ref(fig:ZSdataplot) toont de individuele metingen (kleine grijze punten) en de maandgemiddelden (zwarte punten) voor zwevende stof voor alle actieve MWTL stations. Uit deze data kan zowel de fluctuatie in zwevende stof worden afgelezen als de ruimtelijke variatie. In de Noordzee zijn de concentraties veel lager dan verder landwaarts in de Waddenzee. De rode lijn geeft de jaargemiddelden weer, daaruit blijken ook grote fluctuaties maar geen duidelijke langjarige trends.
 
-Figuur \@ref(fig:ZSdataplot) toont de individuele metingen (grijze punten) en de maandgemiddelden (zwarte punten) voor zwevende stof voor alle actieve MWTL stations. Uit deze data kan zowel de fluctuatie in zwevende stof worden afgelezen als de ruimtelijke variatie. In de Noordzee zijn de concentraties veel lager dan dieper in de Waddenzee. De rode lijn geeft de jaargemiddelden weer, daaruit blijken ook grote fluctuaties maar geen duidelijke langjarige trends.
-
-```{r ZSdataplot, fig.height=20, fig.width=10, fig.cap="Concentratie van zwevend stof in de Waddenzee en Eems estuarium. Jaargemiddeld (lijn), maandgemiddeld (zwarte punten), en individuele metingen (kleine punten). "}
+```{r ZSdataplot, fig.height=20, fig.width=10, fig.cap="Concentratie van zwevend stof in de Waddenzee en Eems estuarium. Jaargemiddeld (lijn), maandgemiddeld (zwarte punten), en individuele metingen (kleine grijze punten). "}
 locaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep", "Terschelling 10 km uit de kust","Rottumerplaat 3 km uit de kust", "Huibertgat oost", "Bocht van Watum", "Groote Gat noord")
 
 plotlocaties = WQ %>% ungroup() %>% 
@@ -358,7 +356,7 @@ parData <- WQ %>%
 Indien het zwevende stofgehalte wordt gelogtransformeerd en het maandgemiddelde wordt uitgedrukt als relatieve afwijking ten opzichte van het langjarig gemiddelde (figuur \@ref(fig:plotZSanomalie)), dan zijn de fluctuaties veel beter zichtbaar. De tijdseries vertonen gelijke patronen, met pieken rond 2008 en 2012, maar geen langjarige trends. Hoewel de absolute concentraties van zwevende stof sterk verschillend zijn (figuur \@ref(fig:ZSdataplot)), is de relatieve afwijking van het langjarig gemiddelde vergelijkbaar. In Herman et al. (2018) zijn de karakteristieken van zwevende stof tijdseries in meer detail beschreven.
 
 
-```{r plotZSanomalie, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Anomalie van gesuspendeerd zwevend stof voor de gehele meetperiode"}
+```{r plotZSanomalie, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Anomalie van gesuspendeerd zwevend stof voor de gehele meetperiode. De grootte van de anomalie (blauwe lijn; log maandgemiddelde - gemiddelde log maandgemiddelde) staat op de verticale as. De gekleurde punten geven de maandgemiddelde zwevende stof concentratie aan."}
 
 par = "ZS"
 parlabel = "anomalie zwevend stof"
@@ -397,7 +395,7 @@ WQ %>%
   
 ```
 
-Het seizoensverloop van zwevend stof (figuur \@ref(fig:plotZSseason)) laat zien dat concentraties hoger zijn in de winter, vergeleken met zomerwaarden. Dit wordt onder andere veroorzaakt door meer opwerveling in de winter door hogere golven. Vastlegging van slib door algenmatten in de zomer en toegenomen flocculatie door algen in de zomer en daarmee bezinking van slib dragen ook bij aan de seizoensdynamiek.
+Het seizoensverloop van zwevend stof (figuur \@ref(fig:plotZSseason)) laat zien dat concentraties in de winter hoger zijn dan in de zomermaanden. Dit wordt onder andere veroorzaakt door meer opwerveling in de winter door hogere golven. Vastlegging van slib door algenmatten in de zomer en toegenomen flocculatie door algen in de zomer en daarmee bezinking van slib dragen ook bij aan de seizoensdynamiek.
 
 
 ```{r plotZSseason, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Seizoensvariatie van opgelost zwevend stof voor de periode 1989 - 2018"}

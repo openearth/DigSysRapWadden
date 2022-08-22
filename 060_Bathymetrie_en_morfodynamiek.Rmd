@@ -19,21 +19,12 @@ source("r/runThisFirst.R")
 laagwaterlijn = -2
 ```
 
-Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswijze van de getoonde indicatoren is terug te vinden in Appendix \@ref(Appmorfologie).
+## Afbakening, definitie en herkomst
+De noemer 'Morfologie' wordt in deze rapportage gebruikt om een aantal geomorfologische indicatoren onder te scharen: Ten eerste de bodemligging zelf, die sterk bepalend is voor stromingen, golven, waterstanden, scheepvaart en ecologie. Om veranderingen in bodemligging beter te kunnen duiden zijn een aantal afgeleide morfologische indicatoren opgenomen, namelijk de hypsometrie (de verdeling van de hoogteligging naar gelang oppervlakte), de arealen geul/subtidaal/intratidaal/supratidaal, plaathoogte en -volume en geuldiepte en -volume. 
+Ook is de lengte van de laagwaterlijn opgenomen. Deze geeft aan of er veel kleine platen en geulen zijn, of juist vooral grotere en is indicatief voor het beschikbare foerageergebied voor steltlopers: hoe langer de laagwaterlijn, hoe meer gebied beschikbaar is.  
+Naast kwantitatieve informatie over de bodem bevat deze systeemrapportage ook kwalitatieve bodeminformatie over het bodemslibgehalte -relevant voor het voorkomen van biota en de erosiesnelheid van de bodem- en erosieresistente lagen. Deze lagen bestaan over het algemeen uit geconsolideerde klei, veen of Holocene afzettingen en vertragen geulmigratie door hun moeilijke erodeerbaarheid. Ze zijn dus mede bepalend voor de lange-termijn kustontwikkeling.
+Tot slot is de Ecotopenkaart (2017) van de Waddenzee opgenomen. Deze is eigenlijk een aggregatie van elders in deze rapportage opgenomen of nog op te nemen kaarten. 
 
-## Bodemligging {#bodemligging}
-
-
-De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). De bodemligging is een mosaiek van de verschillende vaklodingen^[https://puc.overheid.nl/rijkswaterstaat/doc/PUC_116617_31/] door Rijkswaterstaat. In de figuur kan het tijdsinterval van de vaklodingen worden aangepast om ook oudere bodemliggingen te bekijken. Hierdoor is bijvoorbeeld de ontwikkeling van het geulensysteem te volgen. 
-
-Voor een schermvullende interactieve weergave van bathymetrie zoals getoond in figuur \@ref(fig:WaddenBathymetrieLeaflet2) verwijzen we naar deze [link](https://deltares.shinyapps.io/bathymetrywadden/).
-
-
-```{r WaddenBathymetrieLeaflet2, fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2026 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
-
-knitr::include_url("https://deltares.shinyapps.io/bathymetrywadden/", height = "600px")
-
-```
 
 De morfologische indicatoren worden meestal getoond per kombergingsgebied, ook wel bekken genoemd. Figuur \@ref(fig:gebiedenWaddenzee) toont de begrenzing en benaming van de verschillende bekkens. Deze begrenzing is overgenomen van de Geoserver van <abbr title="Wageningen Marine Research">WMR</abbr>^[https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins]. 
 De begrenzing tussen de bekkens wordt gevormd door de zogenaamde 'wantijen'. Dit zijn gebieden achter de eilanden waar de getijgolven die door de zeegaten naar binnen komen elkaar ontmoeten. De stroomsnelheden zijn daardoor lager, waardoor sediment kan worden afgezet. Deze gebieden hebben vaak een hogere bodemligging en zijn slibrijk. Door de morfologische ontwikkeling van de Waddenzee en de morfodynamiek hebben de wantijen geen vaste positie, ze kunnen bijvoorbeeld van ligging veranderen als gevolg van afsluitingen (Zuiderzee, Lauwerszee). Bovendien moeten ze ook meer worden gezien als overgangszone dan als een vaste lijn zoals gebruikt wordt voor de begrenzing. In deze rapportage wordt geen rekening gehouden met de verschuivende positie van de wantijen en wordt de indeling zoals onderstaand weergegeven gebruikt in de analyse.
@@ -55,6 +46,24 @@ leaflet(poly %>% st_transform(4326)) %>%
 
 
 ```
+
+Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswijze van de getoonde indicatoren is terug te vinden in Appendix \@ref(Appmorfologie).
+
+## Bodemligging {#bodemligging}
+
+
+De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). De bodemligging is een mozaïek van de verschillende vaklodingen^[https://puc.overheid.nl/rijkswaterstaat/doc/PUC_116617_31/] door Rijkswaterstaat. In de figuur kan het tijdsinterval van de vaklodingen worden aangepast om ook oudere bodemliggingen te bekijken. Hierdoor is bijvoorbeeld de ontwikkeling van het geulensysteem te volgen. 
+
+Voor een schermvullende interactieve weergave van bathymetrie zoals getoond in figuur \@ref(fig:WaddenBathymetrieLeaflet2) verwijzen we naar deze [link](https://deltares.shinyapps.io/bathymetrywadden/).
+
+
+```{r WaddenBathymetrieLeaflet2, fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2026 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
+
+knitr::include_url("https://deltares.shinyapps.io/bathymetrywadden/", height = "600px")
+
+```
+
+
 
 ## Hypsometrie {#hypsometrie}
 
@@ -432,64 +441,6 @@ ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
 
 
 
-##	Ecotopenkaart
-
-Hieronder is de ecotopenkaart weergegeven zoals opgenomen in het [Nationaal Georegister](https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search;jsessionid=0B4745908C502557E461385BDB69FE9F#/metadata/291d329a-a421-41f4-b219-a904756e7aa5).
-
-De ecotopenkaart is ook te bekijken in de [Datahuis Wadden Waddenviewer](https://rws-viewer.netlify.app/wadden-viewer/?layers=100230540), samen met andere kaartlagen. 
-
-
-```{r Ecotopen, fig.cap="Ecotopenkaart 2017 voor de Waddenzee."}
-#Voorbeeld hier gevonden: https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/
-library(sf)
-library(httr) 
-library(tidyverse) 
-library(ows4R)
-library(leaflet)
-library(leaflet.extras)
-
-wms_ecotopen <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/ecotopen_zout/ows"
-
-# uitgezet omdat de service op dit moment niet in de lucht is.
-bwk_client <- WFSClient$new(wms_ecotopen,
-serviceVersion = "1.3.0")
-
-#bwk_client$getFeatureTypes(pretty = TRUE)
-
-#Maak een leaflet legend request
-url_ecotopen_cyclus_4 <- parse_url(wms_ecotopen)
-url_ecotopen_cyclus_4$query <- list(service = "wms",
-                  version = "1.3.0",
-                  SLD_VERSION = "1.1.0",
-                  request = "GetLegendGraphic",
-                  FORMAT = "image/jpeg",
-                  LAYER = "ecotopenkaart_waddenzee_2017",
-                  STYLE="")
-request_ecotopen_cyclus_4 <- build_url(url_ecotopen_cyclus_4)
-
-
-#maak een figuur van de ecotopen relevant voor het VZM
-leaflet() %>% 
-  setView(lng = 6, lat = 53, zoom = 8) %>% 
-  addTiles(group = "OSM") %>%
-  addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
-  addWMSTiles(
-    wms_ecotopen,
-    layers = "ecotopenkaart_waddenzee_2017",
-    options = WMSTileOptions(format = "image/png", transparent = TRUE),
-    group = "ecotopenkaart_waddenzee_2017"
-  ) %>%
-  addWMSLegend(
-    uri = paste0(request_ecotopen_cyclus_4),
-    position = "bottomright"
-  ) %>%
-  addLayersControl(
-    baseGroups = c("OSM", "Esri.WorldImagery"),
-    overlayGroups = c("ecotopenkaart_waddenzee_2017"
-                      ),
-    options = layersControlOptions(collapsed = FALSE)
-  )
-```
 
 
 ## Bodemslibgehalte
@@ -553,6 +504,64 @@ leaflet(slib) %>%
   addCircles(color = ~pal(slibgehalte), fillOpacity = 1,
     radius = ~sign(slibgehalte) * 30, label = ~trunc(slibgehalte)) %>%
   leaflet::addLegend(position = "bottomright", pal = pal, values = slib$slibgehalte, opacity = 1)
+```
+##	Ecotopenkaart
+
+Hieronder is de ecotopenkaart weergegeven zoals opgenomen in het [Nationaal Georegister](https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search;jsessionid=0B4745908C502557E461385BDB69FE9F#/metadata/291d329a-a421-41f4-b219-a904756e7aa5).
+
+De ecotopenkaart is ook te bekijken in de [Datahuis Wadden Waddenviewer](https://rws-viewer.netlify.app/wadden-viewer/?layers=100230540), samen met andere kaartlagen. 
+
+
+```{r Ecotopen, fig.cap="Ecotopenkaart 2017 voor de Waddenzee."}
+#Voorbeeld hier gevonden: https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/
+library(sf)
+library(httr) 
+library(tidyverse) 
+library(ows4R)
+library(leaflet)
+library(leaflet.extras)
+
+wms_ecotopen <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/ecotopen_zout/ows"
+
+# uitgezet omdat de service op dit moment niet in de lucht is.
+bwk_client <- WFSClient$new(wms_ecotopen,
+serviceVersion = "1.3.0")
+
+#bwk_client$getFeatureTypes(pretty = TRUE)
+
+#Maak een leaflet legend request
+url_ecotopen_cyclus_4 <- parse_url(wms_ecotopen)
+url_ecotopen_cyclus_4$query <- list(service = "wms",
+                  version = "1.3.0",
+                  SLD_VERSION = "1.1.0",
+                  request = "GetLegendGraphic",
+                  FORMAT = "image/jpeg",
+                  LAYER = "ecotopenkaart_waddenzee_2017",
+                  STYLE="")
+request_ecotopen_cyclus_4 <- build_url(url_ecotopen_cyclus_4)
+
+
+#maak een figuur van de ecotopen relevant voor het VZM
+leaflet() %>% 
+  setView(lng = 6, lat = 53, zoom = 8) %>% 
+  addTiles(group = "OSM") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
+  addWMSTiles(
+    wms_ecotopen,
+    layers = "ecotopenkaart_waddenzee_2017",
+    options = WMSTileOptions(format = "image/png", transparent = TRUE),
+    group = "ecotopenkaart_waddenzee_2017"
+  ) %>%
+  addWMSLegend(
+    uri = paste0(request_ecotopen_cyclus_4),
+    position = "bottomright"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OSM", "Esri.WorldImagery"),
+    overlayGroups = c("ecotopenkaart_waddenzee_2017"
+                      ),
+    options = layersControlOptions(collapsed = FALSE)
+  )
 ```
 
 
