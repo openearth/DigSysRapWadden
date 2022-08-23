@@ -127,7 +127,9 @@ Voor het opstellen van deze systeemrapportage wordt dankbaar gebruik gemaakt van
 
 De systeemrapportage is bedoeld als een naslagwerk, waarin gericht snel bepaalde informatie kan worden opgezocht. De nadruk ligt daarbij in eerste instantie op de gegevens (figuren) zelf, en hoe deze geïnterpreteerd moeten worden. Voor meer uitleg over de indicatoren kunt u eenvoudig doorklikken naar de bijlagen.
 
-Een overzicht van de volledige inhoud is te vinden in de inhoudsopgave links in uw scherm. De rapportage is nog volop in ontwikkeling. Daarom zijn nog niet alle indicatoren opgenomen in deze versie.
+Een overzicht van de volledige inhoud is te vinden in de inhoudsopgave links in uw scherm. Daar vind u ook de zoekfunctie, instellingen voor lettergrootte (ook te wijzigen met [CRTL +/-] in uw browser, en een knop voor het maken van een pdf van de actuele versie. Deze is nog niet actief vanwege kleine technische zaken; de rapportage is nog in ontwikkeling. De werking is getest in Firefox (103.02) en beperkter in Chrome en Edge.  
+
+Daarom zijn nog niet alle indicatoren opgenomen in deze versie.
 
 Wij streven ernaar deze rapportage zo volledig en bruikbaar mogelijk te houden. Als u gebreken of onvolledigheden constateert horen wij dat graag via: 
 
