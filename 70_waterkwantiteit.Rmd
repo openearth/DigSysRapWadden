@@ -251,12 +251,12 @@ leaflet(gemGetijslag) %>%
 
 ## Gemiddeld Laag LaagWater en Gemiddeld Hoog HoogWater bij Springtij (GLLWS & GHHWS) {#gllws-ghhws}
 
-
 <!-- hieronder de nieuw berekende figuren. Deze zijn berekend door Jelmer met Hyatan op basis herberekend astronomisch getij. Uitgangsdata zijn DDL waterhoogten, gedownload juli 2022. -->
 
-Todo: Tekst toevoegen 
+Gemiddeld Laag Laagwater (GLLWS) en Gemiddeld Hoog Hoogwater (GHHWS) geven aan hoe sterk het getij doordringt in een bassin, en wat onder normale omstandigheden de maximale getijamplitude is. Deze kenmerkende waterstanden worden berekend als de maandminima en -maxima van het berekend getij per station. Het berekend getij wordt bepaald uit de getijcomponenten, zie sectie \@ref(getijcomponentenmethode). Hierdoor reageren GLLWS en GHHWS wel op veranderingen in het systeem, zoals ver(on)diepingen maar niet op meteorologische invloeden. 
+Figuur \@ref(fig:GLLWGHHW) laat zien dat GHHWS met ruim 30 centimeter over meer dan een eeuw toegenomen is bij Delfzijl, met een plotseling grotere toename in de jaren '70. Voor andere stations zijn de tijdreeksen korter en is een toename minder duidelijk of afwezig. Voor Delfzijl is de GLLWS, na een kleine toename in het begin van de twintigste eeuw, in de jaren '70 enkele centimeters lager geworden. GLLWS laat voor geen van de andere stations een duidelijke trend zien. 
 
-```{r, fig.cap="Gemiddeld hoog hoogwater (boven) en gemiddeld laag laagwater (onder) voor stations in de Waddenzee. ", }
+```{r, GLLWGHHW fig.cap="Gemiddeld hoog hoogwater (boven) en gemiddeld laag laagwater (onder) voor stations in de Waddenzee berekend met hatyan op basis van DataDistributieLaag waterhoogten gedownload in juli 2022. ", }
 
 path = file.path(datadir, "ddl", "calculated", "tidal_indicators", "GHHWS_GLLWS_10min.png")
 
@@ -346,11 +346,10 @@ monthlyStat %>%
 
 ```
 
-Figuur \@ref(fig:stormhoogte) laat de variatie van stormhoogte in de tijd zien. Het begin van de jaren '90 springt eruit met relatief hoge waarden.
+Figuur \@ref(fig:stormhoogte) laat de variatie van stormhoogte in de tijd zien. De locaties van de stations zijn te vinden in figuur \@ref(fig:kaartAbiotieklocaties). De piek in het jaar 1953 is duidelijk zichtbaar voor de stations Den Helder en Harlingen. Het begin van de jaren '90 kent relatief hoge waarden. De stormhoogte te Delfzijl is sinds begin jaren '70 zelden meer lager dan 200 cm, terwijl dat daarvoor wel vaak het geval was.
 
-ref:stormhoogteLabel Tijdserie van stormhoogte, berekend als 99,5-percentiel van de gemeten waterhoogte per jaar. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties). 
 
-```{r stormhoogte, fig.cap="(ref:stormhoogteLabel)", fig.width=10, fig.height=5}
+```{r stormhoogte, fig.cap="(Tijdserie van stormhoogte, berekend als 99,5-percentiel van de gemeten waterhoogte per jaar.", fig.width=10, fig.height=5}
 
 yearlyStat <-  read_delim(file.path(datadir, "ddl", "standard", paste0("yearlyStatWaterhoogte", "2021-07-28", ".csv")), delim = ";")
 
