@@ -25,13 +25,21 @@ alt_theme_hy <- theme_tufte() + theme(axis.line=element_line()) #+
 
 ## Afbakening, definitie en herkomst
 
+**Belang**
+
 Hydrodynamiek is sterk bepalend voor -en mede bepaald door- de morfologische en ecologische toestand en ontwikkeling van de Waddenzee. Waterstandsverschillen als gevolg van het getij drijven stromingen aan die voor grootschalig transport van sediment en nutriënten zorgen. Waterstanden bepalen ook de overstromings- of droogvalduur van wadplaten en kwelders, en daarmee welke soorten er wel of niet voor kunnen komen. Golven vergroten bodemschuifspanningen, vooral in ondiepe gebeiden. Daarmee beïnvloeden ze erosie en depositie van sediment, de concentraties van zwevende stof in de waterkolom (troebelheid), de korrelgrootteverdeling en verstoring van biota. Ook de hoeveelheid gespuid zoet water is, naast het directe effect op biota, mede bepalend voor de hydrodynamiek doordat het dichtheidsverschil stromingen aandrijft.
 
-In dit hoofdstuk is de beschrijving van de hydrodynamiek beperkt tot de waterstanden (getij en zeespiegelstijging), golven en de grotere zoetwaterafvoeren. Deze parameters worden continu bemeten en de meetdata zijn goed ontsloten. Metingen van bijvoorbeeld stroomsnelheden zijn schaars en worden niet continu uitgevoerd. Daarom zijn deze (nog) niet opgenomen. Bovendien worden de stroomsnelheden sterk beïnvloed door de lokale bodemligging. Veranderingen in stroomsnelheden op een bepaald punt zijn sterk gekoppeld aan (lokale) veranderingen in de morfologie. Ook de debieten door de zeegaten zouden een informatieve indicator kunnen zijn maar deze zijn evenmin consistent bemeten en daarom ook niet opgenomen. 
+**Afbakening**
+
+In dit hoofdstuk is de beschrijving van de hydrodynamiek beperkt tot de waterstanden (getij en zeespiegelstijging), golven en de grotere zoetwaterafvoeren. Deze parameters worden continu bemeten en de meetdata zijn goed ontsloten. Metingen van bijvoorbeeld stroomsnelheden zijn schaars en worden niet continu uitgevoerd. Daarom zijn deze (nog) niet opgenomen. Bovendien worden de stroomsnelheden sterk beïnvloed door de lokale bodemligging. Veranderingen in stroomsnelheden op een bepaald punt zijn sterk gekoppeld aan (lokale) veranderingen in de morfologie. Ook de debieten door de zeegaten zouden een informatieve indicator kunnen zijn maar deze zijn evenmin consistent bemeten en daarom ook niet opgenomen.
+
+**Databronnen**
 
 Een overzicht van alle voor dit hoofdstuk gebruikte brondata en rekenmethoden is te vinden in de Appendix: \@ref(Appwaterstanden)
 
-De waterstanden in de Waddenzee worden voor een groot deel bepaald door het astronomisch getij. De waterstanden worden verder beïnvloed door de wind (zie hoofdstuk \@ref(wind)) en luchtdruk. Het astronomisch getij ontstaat door de aantrekkende kracht van de maan en de zon op de aarde. De variaties in het getij ontstaan door de draaiïng van de aarde en de positie van de aarde ten opzichte van de maan en de zon en doordat de maan en de aarde zich in een baan rond de zon bewegen. Daarnaast wordt het getij vervormd door de bodemligging van zeeën en oceanen. Wiskundig gezien kan het getij worden ontleed in groot aantal gesuperponeerde sinusvormige golven met verschillende amplitudes en frequenties: de getijcomponenten. De M~2~-component ontstaat door de aantrekkingskracht van de maan en is een belangrijke getijcomponent in de Noordzee en de Waddenzee. De S~2~-component ontstaat door de aantrekkingskracht van de zon. Doordat deze een verschillende frequentie hebben onstaan periodieke variaties op verschillende tijdschalen. De belangrijkste periodieke variaties in het getij zijn de zogeheten dagelijkse ongelijkheid (een gevolg van declinatie van de maan), de springtij-doodtij cyclus (interactie tussen de M~2~ en S~2~-component; ca 14 dagen) en de 18,6-jarige cyclus (een gevolg van de hoek die de maan maakt met het equatorvlak van de aarde). Vanaf de zeegaten dringt het getij als een langgerekte golf de bekkens binnen. De geringer wordende diepte en de geometrie van het bekken vervormen het getij. Het getij wordt daardoor asymmetrisch, wat weer belangrijk is voor het residueel transport van zand en slib. De asymmetrie wordt vaak uitgedrukt met de verhouding en het faseverschil tussen de astronomische M~2~-component en de door geometrie bepaalde M~4~-component. 
+**Beschrijving opgenomen parameters**
+
+De waterstanden in de Waddenzee worden voor een groot deel bepaald door het astronomisch getij. De waterstanden worden verder beïnvloed door de wind (zie hoofdstuk \@ref(wind)) en luchtdruk. Het astronomisch getij ontstaat door de aantrekkende kracht van de maan en de zon op de aarde. De variaties in het getij ontstaan door de draaiïng van de aarde en de positie van de aarde ten opzichte van de maan en de zon en doordat de maan en de aarde zich in een baan rond de zon bewegen. Daarnaast wordt het getij vervormd door de bodemligging van zeeën en oceanen. Wiskundig gezien kan het getij worden ontleed in groot aantal gesuperponeerde sinusvormige golven met verschillende amplitudes en frequenties: de getijcomponenten. De M~2~-component ontstaat door de aantrekkingskracht van de maan en is een belangrijke getijcomponent in de Noordzee en de Waddenzee. De S~2~-component ontstaat door de aantrekkingskracht van de zon. Doordat deze een verschillende frequentie hebben onstaan periodieke variaties op verschillende tijdschalen. De belangrijkste periodieke variaties in het getij zijn de zogeheten dagelijkse ongelijkheid (een gevolg van declinatie van de maan), de springtij-doodtij cyclus (interactie tussen de M~2~ en S~2~-component; ca 14 dagen) en de 18,6-jarige cyclus (een gevolg van de hoek die de maan maakt met het equatorvlak van de aarde). Vanaf de zeegaten dringt het getij als een langgerekte golf de bekkens binnen. De geringer wordende diepte en de geometrie van het bekken vervormen het getij. Het getij wordt daardoor asymmetrisch, wat weer belangrijk is voor het residueel transport van zand en slib. De asymmetrie wordt vaak uitgedrukt met de verhouding en het faseverschil tussen de astronomische M~2~-component en de door geometrie bepaalde M~4~-component.
 
 ```{r getijVanRijn1994, fig.cap= "Getijdenniveaus plus waterbeweging in de tijd (eigen illustratie/Deltares 2022). LAT en HAT geven het laagste respectievelijk hoogste astronomisch getij aan. Meteorologische factoren kunnen tot nog lagere (laagste laagwater; LLW) of nog hogere (HHW) werkelijk optredende waterstanden leiden. GHWS is het gemiddeld hoogwater bij springtij, GHW het gemiddeld hoogwater en GHWD het gemiddeld hoogwater tijdens doodtij. Vergelijkbaar voor GLWD, GLW en GLWS. De getijslag geeft het verschil tussen GHW en GLW aan, en verschilt dus per locatie. De getijperiode, de tijd tussen twee hoogwaters is voor alle stations 12 uur 25 minuten (dubbeldaags getij). " }
 knitr::include_graphics("images/getij.png")
@@ -96,8 +104,7 @@ De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix 
 
 De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde periode van 1985 tot heden. Ook de ruimtelijke verschillen over de Waddenzee zijn duidelijk terug te zien in de grafieken.
 
-
-ref:HoogwatersLabel  Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een lineaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
+ref:HoogwatersLabel Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een lineaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
 
 ```{r Hoogwaters, fig.height=6, fig.width=6, fig.cap='(ref:HoogwatersLabel)'}
 
@@ -253,8 +260,7 @@ leaflet(gemGetijslag) %>%
 
 <!-- hieronder de nieuw berekende figuren. Deze zijn berekend door Jelmer met Hyatan op basis herberekend astronomisch getij. Uitgangsdata zijn DDL waterhoogten, gedownload juli 2022. -->
 
-Gemiddeld Laag Laagwater (GLLWS) en Gemiddeld Hoog Hoogwater (GHHWS) geven aan hoe sterk het getij doordringt in een bassin, en wat onder normale omstandigheden de maximale getijamplitude is. Deze kenmerkende waterstanden worden berekend als de maandminima en -maxima van het berekend getij per station. Het berekend getij wordt bepaald uit de getijcomponenten, zie sectie \@ref(getijcomponentenmethode). Hierdoor reageren GLLWS en GHHWS wel op veranderingen in het systeem, zoals ver(on)diepingen maar niet op meteorologische invloeden. 
-Figuur \@ref(fig:GLLWGHHW) laat zien dat GHHWS met ruim 30 centimeter over meer dan een eeuw toegenomen is bij Delfzijl, met een plotseling grotere toename in de jaren '70. Voor andere stations zijn de tijdreeksen korter en is een toename minder duidelijk of afwezig. Voor Delfzijl is de GLLWS, na een kleine toename in het begin van de twintigste eeuw, in de jaren '70 enkele centimeters lager geworden. GLLWS laat voor geen van de andere stations een duidelijke trend zien. 
+Gemiddeld Laag Laagwater (GLLWS) en Gemiddeld Hoog Hoogwater (GHHWS) geven aan hoe sterk het getij doordringt in een bassin, en wat onder normale omstandigheden de maximale getijamplitude is. Deze kenmerkende waterstanden worden berekend als de maandminima en -maxima van het berekend getij per station. Het berekend getij wordt bepaald uit de getijcomponenten, zie sectie \@ref(getijcomponentenmethode). Hierdoor reageren GLLWS en GHHWS wel op veranderingen in het systeem, zoals ver(on)diepingen maar niet op meteorologische invloeden. Figuur \@ref(fig:GLLWGHHW) laat zien dat GHHWS met ruim 30 centimeter over meer dan een eeuw toegenomen is bij Delfzijl, met een plotseling grotere toename in de jaren '70. Voor andere stations zijn de tijdreeksen korter en is een toename minder duidelijk of afwezig. Voor Delfzijl is de GLLWS, na een kleine toename in het begin van de twintigste eeuw, in de jaren '70 enkele centimeters lager geworden. GLLWS laat voor geen van de andere stations een duidelijke trend zien.
 
 ```{r, GLLWGHHW fig.cap="Gemiddeld hoog hoogwater (boven) en gemiddeld laag laagwater (onder) voor stations in de Waddenzee berekend met hatyan op basis van DataDistributieLaag waterhoogten gedownload in juli 2022. ", }
 
@@ -264,8 +270,6 @@ invisible(file.copy(path, "images/GHHWS_GLLWS_10min.png", overwrite = T))
 
 knitr::include_graphics("images/GHHWS_GLLWS_10min.png")
 ```
-
-
 
 ## Getijcomponenten en -asymmetrie
 
@@ -347,7 +351,6 @@ monthlyStat %>%
 ```
 
 Figuur \@ref(fig:stormhoogte) laat de variatie van stormhoogte in de tijd zien. De locaties van de stations zijn te vinden in figuur \@ref(fig:kaartAbiotieklocaties). De piek in het jaar 1953 is duidelijk zichtbaar voor de stations Den Helder en Harlingen. Het begin van de jaren '90 kent relatief hoge waarden. De stormhoogte te Delfzijl is sinds begin jaren '70 zelden meer lager dan 200 cm, terwijl dat daarvoor wel vaak het geval was.
-
 
 ```{r stormhoogte, fig.cap="(Tijdserie van stormhoogte, berekend als 99,5-percentiel van de gemeten waterhoogte per jaar.", fig.width=10, fig.height=5}
 
@@ -635,9 +638,6 @@ invisible(file.copy(file.path(datadir, "NLWKN", "afvoeren", "raw", "2022_07_06_D
 knitr::include_graphics(path = file.path("images/2022_07_06_Discharges Ems.jpg"))
 ```
 
-
-
-
 ```{r eemsafvoertijdserie, fig.cap = "Jaargemiddelde afvoer vanuit de Eems en Leda per etmaal naar de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). "}
 
 EmsAfvoer <- read_delim(file.path(datadir, "NLWKN", "afvoeren", "standard", "Ems-discharge_bewerkt.csv"))
@@ -680,11 +680,9 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
 
 ### Kleinere zoetwaterafvoeren
 
-De gegevens van de kleinere zoetwaterafvoeren zijn eind zomer 2022 door de betrokken waterschappen beschikbaar gesteld en zullen in de loop van dit jaar via Datahuis Wadden geharmoniseerd en ontsloten worden. 
-
+De gegevens van de kleinere zoetwaterafvoeren zijn eind zomer 2022 door de betrokken waterschappen beschikbaar gesteld en zullen in de loop van dit jaar via Datahuis Wadden geharmoniseerd en ontsloten worden.
 
 ```{r cleanupWaterkwantiteit}
 rm(df_all_WATHTE, df_all_WATHTE2, df_all, extrema, h)
 
 ```
-
