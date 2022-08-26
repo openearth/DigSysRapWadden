@@ -129,7 +129,7 @@ De systeemrapportage is bedoeld als een naslagwerk, waarin gericht snel bepaalde
 
 Een overzicht van de volledige inhoud is te vinden in de inhoudsopgave links in uw scherm. Daar vind u ook de zoekfunctie, instellingen voor lettergrootte (ook te wijzigen met [CRTL +/-] in uw browser, en een knop voor het maken van een pdf van de actuele versie. Deze is nog niet actief vanwege kleine technische zaken; de rapportage is nog in ontwikkeling. De meeste figuren zijn interactief: de gebruiker kan in-en uitzoomen op relevante gebeiden of perioden, met de cursor datapunten bevragen, en een plot exporteren als figuur voor verder gebruik. De werking is getest in Firefox (103.02) en beperkter in Chrome en Edge. De rapportage is niet getest op mobiele platforms (tablet, telefoon) en is daar ook niet voor bedoeld.  
 
-Nog niet alle indicatoren zijn daadwerkelijk opgenomen in deze versie. Om aan te geven wat er naar verwachting nog toegevoegd gaat worden, dus hoe de systeemrapportage er uiteindelijk uit zal zien,  zijn wel vast de koppen van de indicatoren toegevoegd in de inhoudsopgave. De uiteindelijke invulling kan hier nog van afwijken.
+Nog niet alle indicatoren zijn daadwerkelijk opgenomen in deze versie. Om aan te geven wat er naar verwachting nog toegevoegd gaat worden, dus hoe de systeemrapportage er uiteindelijk uit zal zien,  zijn wel vast de koppen van de indicatoren toegevoegd in de inhoudsopgave. De uiteindelijke invulling kan hier nog van afwijken naar gelang beschikbaarheid van data, budget en urgentie.
 
 Wij streven ernaar deze rapportage zo volledig en bruikbaar mogelijk te houden. Als u gebreken of onvolledigheden constateert horen wij dat graag via: 
 
