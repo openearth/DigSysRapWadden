@@ -1,8 +1,32 @@
 
 # Menselijke activiteiten 
 
+Vooralsnog zijn er geen indicatoren voor menselijke activeiten opgenomen in deze systeemrapportage omdat er 1) veel mogelijk relevante activiteiten zijn, en er 2) maar weinig in direct bruikbare vorm digitaal onstloten is. Het beschikbaar maken vraagt dus een behoorlijke inspanning met deels onbekend nut. Het is wel de bedoeling de belangrijkste indicatoren op dit gebied eind 2022 op te nemen. Om hierin beter keuzes te kunnen maken stellen wij feedback over welke indicatoren over welke periode -en waarom- zeer op prijs. 
 
-## Gesloten gebieden voor visserij
+De indicatoren die nu overwogen worden zijn: 
+
+## Baggerwerken
+Baggervolumes en -massa, locaties, sedimentsamenstelling. Deze data is niet digitaal onstsloten. 
+
+
+## Zandsuppleties
+Locaties en volumes. Beschikbaar via kustviewer.
+
+## Bodemdaling
+Volume en contouren. Ondiepe bodemdaling door gas- en zoutwinning is niet te meten wordt omdat dit aangevuld wordt met sedimentatie. Prognose kan wel, maar hoe relevant? Diepe bodemdaling kan ook, maar zwakke link met oppervlaktesysteem waar rapportage voor bedoeld is.
+
+## Zandwinning
+Volume, locaties. Wordt afgebouwd, nog wel relevant ivm historie sedimentbalans.
+
+## Schelpenwinning
+Volume, locaties. Wordt afgebouwd, nog wel relevant ivm historie.
+
+## Kunstwerken
+Locaties/arealen van dijken, dammen, bestortingen, kwelderwerken, kabelsen, leidingen en andere civiele werken. Voor zover beschikbaar in publieke webservices; een compleet overzicht vergt nog veel digitalisering door beheerders.  
+
+## Schade door nautische incidenten
+
+## Gesloten gebieden voor bodemberoerende visserij
 
 
 Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d
