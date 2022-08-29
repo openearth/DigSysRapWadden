@@ -251,11 +251,9 @@ leaflet(gemGetijslag) %>%
 
 ## Gemiddeld Laag LaagWater en Gemiddeld Hoog HoogWater bij Springtij (GLLWS & GHHWS) {#gllws-ghhws}
 
-<!-- hieronder de nieuw berekende figuren. Deze zijn berekend door Jelmer met Hyatan op basis herberekend astronomisch getij. Uitgangsdata zijn DDL waterhoogten, gedownload juli 2022. -->
-
 Gemiddeld Laag Laagwater (GLLWS) en Gemiddeld Hoog Hoogwater (GHHWS) geven aan hoe sterk het getij doordringt in een bassin, en wat onder normale omstandigheden de maximale getijamplitude is. Deze kenmerkende waterstanden worden berekend als de maandminima en -maxima van het berekend getij per station. Het berekend getij wordt bepaald uit de getijcomponenten, zie sectie \@ref(getijcomponentenmethode). Hierdoor reageren GLLWS en GHHWS wel op veranderingen in het systeem, zoals ver(on)diepingen maar niet op meteorologische invloeden. Figuur \@ref(fig:GLLWGHHW) laat zien dat GHHWS met ruim 30 centimeter over meer dan een eeuw toegenomen is bij Delfzijl, met een plotseling grotere toename in de jaren '70. Voor andere stations zijn de tijdreeksen korter en is een toename minder duidelijk of afwezig. Voor Delfzijl is de GLLWS, na een kleine toename in het begin van de twintigste eeuw, in de jaren '70 enkele centimeters lager geworden. GLLWS laat voor geen van de andere stations een duidelijke trend zien.
 
-```{r, GLLWGHHW fig.cap="Gemiddeld hoog hoogwater (boven) en gemiddeld laag laagwater (onder) voor stations in de Waddenzee berekend met hatyan op basis van DataDistributieLaag waterhoogten gedownload in juli 2022. ", }
+```{r, GLLWGHHW, fig.cap="Gemiddeld hoog hoogwater (boven) en gemiddeld laag laagwater (onder) voor stations in de Waddenzee berekend met hatyan op basis van DataDistributieLaag waterhoogten gedownload in juli 2022. "}
 
 path = file.path(datadir, "ddl", "calculated", "tidal_indicators", "GHHWS_GLLWS_10min.png")
 
