@@ -395,8 +395,6 @@ yearlyStat %>% group_by(station) %>%
 
 ## Golfhoogte {#golfhoogte}
 
-De wind, de stormopzet/-afzet en stormvloedhoogte en de golfhoogtes geven allemaal inzicht in de dynamiek in de verschillende jaren.
-
 Het 95-percentiel van de significante golfhoogte per jaar geeft de variatie van hoge golven tussen de jaren weer (figuur \@ref(fig:golfhoogte95perc)). Alleen voor de stations Schiermonnikoog Noord en Eierlandse Gat zijn langere complete tijdseries beschikbaar. De patronen van deze twee locaties zijn ongeveer gelijkvormig. In 2007 en 2011 lag het 95-percentiel hoger dan gemiddeld.
 
 ```{r leesGolfData}
