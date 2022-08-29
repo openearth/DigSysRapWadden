@@ -234,7 +234,7 @@ De waterstand wordt echter alleen gemeten op een aantal stations. Om van de geme
 
 Er is er voor deze rapportage voor gekozen om in eerste instantie uit te gaan van vaste begrenzingen van de hoogteklasses en daarmee niet de veranderingen in getijslag door de tijd of over het gebied mee te nemen. Dit betekent dat verandering in arealen alleen worden veroorzaakt door veranderingen in de bodemligging en niet door een verandering in getijvoortplanting. Daarom spreken we van een 'proxy', bijvoorbeeld voor het intergetijdengebied.
 
-Figuur \@ref(fig:arealen) toont de arealen per klasse (kolommen) en per bekken (rijen). De figuur laat zien dat het intergetijdengebied in de meeste bekkens toeneemt over de tijd. Alleen voor de Lauwers en Schild is dit niet zo. Ook neemt het areaal subgetijdengebied af (dit ligt tussen de NAP -5 m en de NAP -1 m lijn). De arealen supragetijdengebied zijn klein, ook omdat enkel de gebieden (cellen) worden meegenomen die in alle jaren opgenomen zijn. Het supragetijdengebied is niet altijd volledig opgenomen in de vaklodingen data, zeker niet in oudere opnamen. De ontwikkeling van het geulareaal verschilt per bekken.
+Figuur \@ref(fig:arealen) toont de arealen per klasse (kolommen) en per bekken (rijen). De figuur laat zien dat het intergetijdengebied in de meeste bekkens toeneemt over de tijd. Alleen voor de Lauwers en Schild is dit niet zo. Ook neemt het areaal subgetijdengebied af (dit ligt tussen de -5 m NAP en de -1 m NAP lijn). De arealen supragetijdengebied zijn klein, ook omdat enkel de gebieden (cellen) worden meegenomen die in alle jaren opgenomen zijn. Het supragetijdengebied is niet altijd volledig opgenomen in de vaklodingen data, zeker niet in oudere opnamen. De ontwikkeling van het geulareaal verschilt per bekken.
 
 
 ```{r arealen, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km2 per gebied en diepteklasse."}
@@ -267,11 +267,11 @@ De hoogte van het intergetijdengebied (plaathoogte) is afhankelijk van de hydrod
 
 Bij analyse van deelgebieden, is de ruimtelijke begrenzing zeer van belang voor het berekenen van de plaathoogte. Indien een intergetijdengebied bijvoorbeeld migreert of opschuift, kan een stuk met lagere bodemligging (of zelfs geul) binnen de polygoon schuiven en daarmee de *gemiddelde* plaathoogte beïnvloeden. Op het niveau van bekkens speelt dit minder, omdat op de wantijen weinig geulen aanwezig zijn.
 
-In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte per bekken te berekenen. Hiervoor wordt het volume tussen de NAP -1 m grens en NAP +1 m grens berekend, en gedeeld door de oppervlakte.
+In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte per bekken te berekenen. Hiervoor wordt het volume tussen de -1 m NAP en +1 m NAP grens bepaald, en gedeeld door de oppervlakte.
 
 De gemiddelde plaathoogte (figuur \@ref(fig:plaathoogte)) lijkt voor de grotere bekkens licht toe te nemen.
 
-```{r plaathoogte, fig.cap = "Plaathoogte per bekken. "}
+```{r plaathoogte, fig.cap = "Gemiddelde plaathoogte per bekken. "}
 valid.values.df %>% 
   filter(diepte >= -1 & diepte < 1) %>% #  
   group_by(naam, jaar) %>%
@@ -289,11 +289,11 @@ valid.values.df %>%
 
 ##	Geuldiepte
 
-Geuldiepte is de geintegreerde waarde voor het volume beneden 5 meter t.o.v. NAP gedeeld door het oppervlakte beneden 5 m t.o.v. NAP (zie ook vergelijking \@ref(eq:geuldiepte)). 
+Geuldiepte is de geïntegreerde waarde voor het volume beneden -5 m NAP gedeeld door het oppervlak beneden -5 m NAP (zie ook vergelijking \@ref(eq:geuldiepte)). 
 
-De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens een toename door de tijd zien (figuur \@ref(fig:geuldiepte)). Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries in sommige bekkens door worden veroorzaakt.
+De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens (Marsdiep, Eijerlandse Gat, Vlie) een toename door de tijd zien (figuur \@ref(fig:geuldiepte)). Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries in sommige bekkens door worden veroorzaakt.
 
-```{r geuldiepte, fig.cap="Geuldiepte door de jaren in de verschillende gebieden. "}
+```{r geuldiepte, fig.cap="Geuldiepte in meter door de jaren in de verschillende gebieden. Let op de verschillende verticale assen. "}
 
 valid.values.df %>% 
   filter(diepte <= -5) %>%
@@ -309,11 +309,11 @@ valid.values.df %>%
 ```
 
 
-
 ##	Plaatvolume
-Het plaatvolume is per bekken gevizualiseerd in figuur \@ref(fig:plaatvolume). 
+Het plaatvolume is per bekken gevisualiseerd in figuur \@ref(fig:plaatvolume). Het verloop is grotendeels vergelijkbaar met de plaatoppervlaktes; kleine verschillen worden verzoorzaakt door geulmigratie van het ene naar het andere bekken. In veel bekkens is het plaatvolume de afgelopen 80 jaar netto toegenomen, vaak wel met tijdelijke afnames. Lauwers, Zoutkamperlaag en Schild kennen na een piek in 2003 juist een duidelijke afname. 
+Verdere analyse is nodig om preciezer vast te stellen wat de veranderingen in de tijd heeft veroorzaakt.  
 
-```{r plaatvolume, fig.cap = "Plaatvolume in m3 per gebied over de tijd. Het volume is bepaald voor dat deel van de plaat dat tussen NAP -1 m en NAP +1 m ligt. Het volume is bepaald t.o.v. het referentievlak op NAP -1 m." }
+```{r plaatvolume, fig.cap = "Plaatvolume in  m^3^ per gebied over de tijd. Het volume is bepaald voor dat deel van de plaat dat tussen -1 m NAP en +1 m NAP  ligt. Het volume is bepaald t.o.v. het referentievlak op -1 m NAP." }
 
 valid.values.df %>% 
   filter(diepte >= -1 & diepte < 1) %>%
@@ -327,16 +327,16 @@ valid.values.df %>%
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
   facet_wrap(~ naam, scales = "free")+
   coord_cartesian(xlim = c(1940, 2020)) +
-  ylab("Plaatvolume [miljoen m3] t.o.v. NAP") + xlab("Jaar") 
+  ylab("Plaatvolume [miljoen m^3^] t.o.v. NAP") + xlab("Jaar") 
 ```
 
 
 
 ##	Geulvolume 
 
-Het geulvolume is in de westelijke bekkens toegenomen, terwijl deze in het Friesche Zeegat (Pinkegat+Zoutkamperlaag) is afgenomen (figuur \@ref(fig:geulvolume)). 
+Het geulvolume is in de westelijke bekkens (Marsdiep, Eijerlandse Gat, Vlie) toegenomen, terwijl deze in het Friesche Zeegat (Pinkegat+Zoutkamperlaag) is afgenomen (figuur \@ref(fig:geulvolume)). De scherpe afname van het volume van Zouterkamperlaag begin jaren zeventig komt door de sluiting van de Lauwerszee in 1968.
 
-```{r geulvolume, fig.cap = "Geulvolume in miljoen m3 per bekken over de tijd. Het volume is bepaald voor dat deel van de geul dat onder de NAP -5 m t.o.v. NAP ligt. " }
+```{r geulvolume, fig.cap = "Geulvolume in miljoen m3 per bekken over de tijd. Het volume is bepaald voor dat deel van de geul dat onder de NAP -5 m NAP ligt. " }
 valid.values.df %>% 
   filter(diepte < -5) %>%
   mutate(volumediepte = -(diepte+5)) %>%
