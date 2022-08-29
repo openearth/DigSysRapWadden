@@ -135,7 +135,7 @@ dtwind %>%
 
 ### Periodes met hoge windsterkte {#windperiodes}
 
-Naast de variatie in windsnelheid in de zomer en de winter, is ook inzicht in stormen of periodes met hoge windsnelheden belangrijk. Hiermee kan inzicht worden gekregen of bepaalde jaren dynamischer zijn geweest of juist kalmer dan gemiddeld. Vanaf een windsnelheid van 20,8 m/s (Windkracht 9 op de Schaal van Beaufort spreken we van storm ), maar in de Waddenzee treden al bij veel lagere windsnelheden  transporten over de wantijen en toename van de vertroebeling op. Daarom wordt in figuur \@ref(fig:consecHours) het totaal aantal uren dat de windsterkte \> 10,8 m/s (Beaufort 6) was gesommeerd per jaar uitgezet. Figuur \@ref(fig:consecHours2) is hetzelfde, maar dan met de grens op 13,9 m/s (Beaufort 7).
+Naast de variatie in windsnelheid in de zomer en de winter, is ook inzicht in stormen of periodes met hoge windsnelheden belangrijk. Hiermee kan inzicht worden gekregen of bepaalde jaren dynamischer zijn geweest of juist kalmer dan gemiddeld. Vanaf een windsnelheid van 20,8 m/s (Windkracht 9 op de Schaal van Beaufort) spreken we van storm, maar in de Waddenzee treden al bij veel lagere windsnelheden  transporten over de wantijen en toename van de vertroebeling op. Daarom wordt in figuur \@ref(fig:consecHours) het totaal aantal uren dat de windsterkte \> 10,8 m/s (Beaufort 6) was gesommeerd per jaar uitgezet. Figuur \@ref(fig:consecHours2) is hetzelfde, maar dan met de grens op 13,9 m/s (Beaufort 7).
 
 ```{r consecHours, fig.height=10, fig.width=10, fig.cap="Aantal achtereenvolgende uren dat de windsnelheid boven 10,8 m/s (>Bft 6) is geweest vanaf 2010."  }
 
