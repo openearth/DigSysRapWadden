@@ -105,7 +105,7 @@ server <- function(input, output) {
       addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
       leaflet::clearImages() %>%
       addTiles(content(res())$url, group = "bathymetrie") %>%
-      addPolygons(data = poly, label = ~name, labelOptions = labelOptions(noHide = T), group = "vakken") %>%
+      addPolygons(data = poly, fill = F, label = ~name, labelOptions = labelOptions(noHide = T), group = "vakken") %>%
       leaflet::addLayersControl(
         baseGroups = c("OSM", "ESRI worldimagery"), 
         overlayGroups = c("vakken", "bathymetrie"),
