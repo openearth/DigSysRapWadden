@@ -18,7 +18,7 @@ codes=['KGM-Q-29234', 'KGM-Q-29235', 'KGM-A-371','KGM-JF-44'  ]
 
 #-----------start fetching data
 #for loop to oop through the station codes and get the corresponding url to fetch data from
-for i in range(2,3):
+for i in range(len(codes)):
     tapi= ddapi + '/timeseries/?locationCode='+str(codes[i])
     tresponse = requests.get(tapi).json()
     #print(tapi)
@@ -29,11 +29,11 @@ for i in range(2,3):
 
             #storing the metadata in a dictornary (easy fix, could be done more neat)
             metadata= {'qualifier' : tresponse['results'][l]['qualifier'], 
-            'quantity' : tresponse['results'][l]['observationType']['quantity'], 
-            'locationName' : tresponse['results'][l]['location']['properties']['locationName'], 
-            'locationCode' :tresponse['results'][l]['location']['properties']['locationCode'],
-            'Xcoordinate' : tresponse['results'][l]['location']['geometry']['coordinates'][0],
-            'Ycoordinate' :tresponse['results'][l]['location']['geometry']['coordinates'][1]
+            'grootheid.omschrijving' : tresponse['results'][l]['observationType']['quantity'], 
+            'locatie.naam' : tresponse['results'][l]['location']['properties']['locationName'], 
+            'locatie.orgineel' :tresponse['results'][l]['location']['properties']['locationCode'],
+            'longitude' : tresponse['results'][l]['location']['geometry']['coordinates'][0],
+            'latitude' :tresponse['results'][l]['location']['geometry']['coordinates'][1]
             }
             
             #transform into df
@@ -64,4 +64,4 @@ for i in range(2,3):
                     #more advanced, can be directly stored into the database
                     df = pd.DataFrame(drespons['events'])
                     df=df.join(metadata)
-                   # df.to_csv(path+name+code+'.csv')
+                    df.to_csv(path+name+code+'.csv', index=False)
