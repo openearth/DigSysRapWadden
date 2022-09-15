@@ -23,7 +23,7 @@ for i in range(len(codes)):
     tresponse = requests.get(tapi).json()
     #print(tapi)
 
-    #for loop + if statement to select stations which only have the qualifier ' Debiet'  (so waterhoogte ect is not taken into account)
+    #for loop + if statement to select stations which only have the quantity ' Debiet'  (so waterhoogte ect is not taken into account)
     for l in range(len(tresponse['results'])):
         if tresponse['results'][l]['observationType']['quantity']== 'Debiet':
 
@@ -64,4 +64,4 @@ for i in range(len(codes)):
                     #more advanced, can be directly stored into the database
                     df = pd.DataFrame(drespons['events'])
                     df=df.join(metadata)
-                    df.to_csv(path+name+code+'.csv', index=False)
+                   # df.to_csv(path+name+code+'.csv', index=False)

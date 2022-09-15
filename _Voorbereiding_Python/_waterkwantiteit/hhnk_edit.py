@@ -22,9 +22,6 @@ desired output format for the dataframe
 etmaalgemiddelde data 
 datum locatie.origineel numeriekewaarde waardebewerkingsmethode.omschrijving grootheid.omschrijving grootheid.code eenheid.code longitude latitude locatie.naam gebied
 """
-for fname in os.listdir(dir):
-    f = os.path.join(dir, fname)
-    name=os.path.splitext(fname)[0]
 
 dir=r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\HHNK\raw'
 

@@ -1,3 +1,4 @@
+# %%
 #duitse debieten P:\11202493--systeemrap-grevelingen\1_data\Wadden\NLWKN\afvoeren\standard
 #bewerking om op te slaan in database
 import configparser
@@ -15,6 +16,7 @@ host = cf.get('Postgis', 'host')
 connstr = 'postgresql+psycopg2://'+cf.get('Postgis','user')+':'+cf.get('Postgis','pass')+'@'+cf.get('Postgis','host')+':5432/'+cf.get('Postgis','db')
 engine = create_engine(connstr,echo=False)
 
+# %%
 #read friesland file
 path=r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\Wetterskip\standard\friesland_debieten.csv'
 
@@ -33,6 +35,7 @@ engine.execute(strSql)
 strSql = """update {s}.friesland set geom = st_setsrid(st_point(longitude,latitude),28992)""".format(s=aschema)
 engine.execute(strSql)
 
+# %%
 #duitse debieten naar db
 dir=r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\NLWKN\afvoeren\standard'
 
@@ -52,3 +55,22 @@ for files in os.listdir(dir):
 
         strSql = """update {s}.{t} set geom = st_setsrid(st_point(longitude,latitude),4326)""".format(s=aschema, t=name)
         engine.execute(strSql)
+ # %%
+#read friesland file
+path=r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\Noorderzijlvest\standard\Volumes_uitw.KWK_NZV.csv'
+
+""" ----- inlezen van csv in een dataframe""" 
+df = pd.read_csv(path, delimiter=' ', low_memory=False)
+
+""" ----- converteren van dataframe naar database """ 
+aschema = 'zoetwaterafvoeren'
+df.to_sql('noorderzijlvest', engine,schema=aschema,if_exists='replace')
+
+""" ----- aanmaken colom met geometrie (in dit geval gebaseerd op lat lon coordinaten, check dit in de csv, welke EPSG/CRS dit is """ 
+strSql = """alter table {s}.noorderzijlvest add geom geometry(POINT,28992)""".format(s=aschema)  # RD_new (28992)
+engine.execute(strSql)
+
+""" ----- vullen van de kolom, gebaseerd op de velden lon en lat """ 
+strSql = """update {s}.noorderzijlvest set geom = st_setsrid(st_point(longitude,latitude),28992)""".format(s=aschema)
+engine.execute(strSql)
+# %%
