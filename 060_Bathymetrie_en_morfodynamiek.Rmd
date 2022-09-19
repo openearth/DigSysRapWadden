@@ -543,7 +543,15 @@ knitr::include_url("../ERL kaart NL v1.0/index.html#10/53.2167/5.6978", height =
 
 ##	Ecotopenkaart
 
-Hieronder is de ecotopenkaart weergegeven zoals opgenomen in het [Nationaal Georegister](https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search;jsessionid=0B4745908C502557E461385BDB69FE9F#/metadata/291d329a-a421-41f4-b219-a904756e7aa5).
+Voor een goed beheer van gebieden zoals de Waddenzee is een consistent, eenduidig en langjarig inzicht in de veranderingen van de diverse landschappelijke eenheden van groot belang. Eén van de manieren om veranderingen in ecosystemen en landschappen inzichtelijk te maken is met een ecotopenkaart. Ecotopen zijn “ruimtelijk te begrenzen ecologische eenheden, waarvan de samenstelling en ontwikkeling worden bepaald door abiotische, biotische en antropogene condities ter plaatse”. 
+
+De ecotopenkaart helpt beheerders om duidelijk te krijgen waar welke natuur zit in het Waddengebied. Zo kunnen beheerders inspelen op bepaalde situaties. Hoge zandruggen naast diepe geulen zijn bijvoorbeeld vaak een rustplaats voor zeehonden. Als in het veld blijkt dat die zeehonden daar toch niet liggen dan kan dit een indicatie zijn dat er wat aan de hand is. Daarnaast geeft de ecotopenkartering, door de regelmatige uitvoering, een goed inzicht in veranderingen van het Waddenlandschap. 
+  
+Elk kombergingsgebied wordt eens in de zes jaar geüpdatet, waardoor er elke zes jaar een volledig nieuwe ecotopenkaart wordt opgeleverd. Dit zal gedurende een langjarige periode -+ 30 jaar een duidelijke verandering van de Waddezee weergeven
+
+De arealen van de verschillende ecotopen (2017) en beschrijving van de methodieken van de verschillende ecotopen kunnen geëxtraheerd worden via de beschrijving in de [Toelichting op de zoute ecotopenkaart](https://puc.overheid.nl/rijkswaterstaat/doc/PUC_629120_31/1/).
+
+Hieronder is de ecotopenkaart (2017) weergegeven zoals opgenomen in het [Nationaal Georegister](https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search;jsessionid=0B4745908C502557E461385BDB69FE9F#/metadata/291d329a-a421-41f4-b219-a904756e7aa5).
 
 De ecotopenkaart is ook te bekijken in de [Datahuis Wadden Waddenviewer](https://rws-viewer.netlify.app/wadden-viewer/?layers=100230540), samen met andere kaartlagen. 
 
@@ -599,6 +607,7 @@ leaflet() %>%
     options = layersControlOptions(collapsed = FALSE)
   )
 ```
+
 
 
 
