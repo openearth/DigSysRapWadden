@@ -541,7 +541,7 @@ In de Waddenzee zitten op vele plekken erosieresistente lagen in de bodem, of wo
 knitr::include_url("../ERL kaart NL v1.0/index.html#10/53.2167/5.6978", height = "600px")
 ```
 
-##	Ecotopenkaart
+##	Ecotopenkaart {#ecotopenkaart}
 
 Voor een goed beheer van gebieden zoals de Waddenzee is een consistent, eenduidig en langjarig inzicht in de veranderingen van de diverse landschappelijke eenheden van groot belang. Eén van de manieren om veranderingen in ecosystemen en landschappen inzichtelijk te maken is met een ecotopenkaart. Ecotopen zijn “ruimtelijk te begrenzen ecologische eenheden, waarvan de samenstelling en ontwikkeling worden bepaald door abiotische, biotische en antropogene condities ter plaatse”. 
 
