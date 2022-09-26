@@ -10,6 +10,15 @@ import time
 
 #id van de meetreeksen
 meet_ids = pd.read_csv(r'C:\projecten\rws\2022\zoetwaterdebiet\hunze_enAas_ids.csv', sep=';') #stations and station IDS
+meet_ids['Object']=meet_ids['Object'].str.replace(' ', '_')
+meet_ids['Object']=meet_ids['Object'].str.replace('(', '')
+meet_ids['Object']=meet_ids['Object'].str.replace(')', '')
+meet_ids['Object']=meet_ids['Object'].str.replace(':', '')
+meet_ids['Object']=meet_ids['Object'].str.replace('/', '_')
+
+print(meet_ids)
+
+path= 'C:\\projecten\\rws\\2022\\zoetwaterdebiet\\hea\\'
 
 #time.sleep(60) #timer for the server
 # selecteren op debiet 
@@ -39,17 +48,18 @@ selected_stations=stations.loc[stations['station_id'].isin(station_id.iloc[:,0])
 
 
 for i in range(len(meet_ids['meetreeks_id'])):
-    time.sleep(90) #timer for the server'
+    #time.sleep(90) #timer for the server'
     print('processing :', meet_ids['Object'][i])
     t=k.get_timeseries_values(ts_id = meet_ids['meetreeks_id'][i], to = date(meet_ids['time_stop'][i],1,1), **{'from': date(meet_ids['time_start'][i],1,1)})
-    t.to_csv('C:\\projecten\\rws\\2022\\zoetwaterdebiet\\hea\\' + str(meet_ids['Object'][i]) + '.csv')
+    t.to_csv(path + str(meet_ids['Object'][i]) + '.csv')
 
 """
 #get timeseries for ts_id (timeseriesid)
 t=k.get_timeseries_values(ts_id = meet_ids['meetreeks_id'][0], to = date(meet_ids['time_stop'][0],1,1), **{'from': date(meet_ids['time_start'][0],1,1)})
-t.to_csv('C:\\projecten\\rws\\2022\\zoetwaterdebiet\\hea\\' + str(meet_ids['Object'][0]) + '.csv')
-t=k.get_timeseries_values(ts_id = meet_ids['meetreeks_id'][1], to = date(meet_ids['time_stop'][1],1,1), **{'from': date(meet_ids['time_start'][1],1,1)})
-t.to_csv('C:\\projecten\\rws\\2022\\zoetwaterdebcdiet\\hea\\' + str(meet_ids['Object'][1]) + '.csv')
-t=k.get_timeseries_values(ts_id = meet_ids['meetreeks_id'][2], to = date(meet_ids['time_stop'][2],1,1), **{'from': date(meet_ids['time_start'][2],1,1)})
-t.to_csv('C:\\projecten\\rws\\2022\\zoetwaterdebiet\\hea\\' + str(meet_ids['Object'][2]) + '.csv')
+t.to_csv( path+str(meet_ids['Object'][0]) +'.csv')
+print('saved')
+#t=k.get_timeseries_values(ts_id = meet_ids['meetreeks_id'][1], to = date(meet_ids['time_stop'][1],1,1), **{'from': date(meet_ids['time_start'][1],1,1)})
+#t.to_csv('C:\\projecten\\rws\\2022\\zoetwaterdebcdiet\\hea\\' + str(meet_ids['Object'][1]) + '.csv')
+#t=k.get_timeseries_values(ts_id = meet_ids['meetreeks_id'][2], to = date(meet_ids['time_stop'][2],1,1), **{'from': date(meet_ids['time_start'][2],1,1)})
+#t.to_csv('C:\\projecten\\rws\\2022\\zoetwaterdebiet\\hea\\' + str(meet_ids['Object'][2]) + '.csv')
 """
