@@ -14,8 +14,22 @@ bookdown::gitbook:
   includes:
     before_body: navbar/navbar.html
     in_header: clickandzoom.html
+
+bookdown::bs4_book:
+  # theme:
+  #   primary: "#982a31"
+  #   fg: "#2b2121"
+  #   bg: "#ffffff"
+  includes:
+    before_body: navbar/navbar.html
+    in_header: clickandzoom.html
   css: ["navbar/navbar.css", "style/deltares.css"]
-bookdown::pdf_document2:
-  latex_engine: pdflatex
+
+bookdown::pdf_book:
   keep_tex: true
-  always_allow_html: true
+  pandoc_args: --top-level-division=chapter
+  includes:
+    in_header: preamble.tex
+  template: deltares-report-template.tex
+  latex_engine: pdflatex
+  # citation_package: natbib # niet in combinatie met Deltares-template
