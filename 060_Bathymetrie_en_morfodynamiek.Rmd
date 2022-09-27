@@ -219,7 +219,7 @@ ggplotly(p, 900, 900) %>%
 ```
 
 
-## Arealen
+## Arealen {#arealen}
 
 Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in vier verschillende hoogteklassen:
 

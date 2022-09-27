@@ -18,3 +18,4 @@ bookdown::gitbook:
 bookdown::pdf_document2:
   latex_engine: pdflatex
   keep_tex: true
+  always_allow_html: true
