@@ -7,17 +7,27 @@ library(leaflet)
 library(httr)
 library(jsonlite)
 library(sf)
+library(tidyverse)
+library(ows4R)
 
-waddenzeeURL <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
-# friesezeegatURL <- "https://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/RWS/bathymetrie/FriescheZeegat-P-Z.geojson"
-polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33, 34)
-poly <- sf::st_read(file.path(waddenzeeURL), quiet = T) %>%
-  dplyr::filter(fid %in% polygonsInRaster) %>%
-  st_transform(4326)
+# voorbereiding. alleen draaien als andere polygoon nodig is. 
+# wfs_wmr <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows"
+# url <- parse_url(wfs_wmr)
+# url$query <- list(service = "wfs",
+#                   #version = "2.0.0", # optional
+#                   request = "GetFeature",
+#                   typename = "WS3shp:ws3_tidalbasins",
+#                   srsName = "EPSG:4326",
+#                   outputFormat = "application/json"
+# )
+# request <- build_url(url)
+# polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33, 34)
+# poly <- read_sf(request) %>%
+#   st_simplify() %>% #Lambert2008
+# dplyr::filter(fid %in% polygonsInRaster)
+# st_write(poly, "apps/bathymetrywadden/vakken.geojson")
 
-
-
-
+poly <- st_read("vakken.geojson")
 
 ui <- fluidPage(title = "Wadden Sea Bathymetry",
                 tags$style("
@@ -90,8 +100,6 @@ server <- function(input, output) {
     # run request
     
     leaflet() %>% 
-      # addTiles(group = "OSM") %>%
-      # addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
       setView(5.0, 53.0, zoom = 12) 
   })
   
@@ -105,7 +113,19 @@ server <- function(input, output) {
       addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
       leaflet::clearImages() %>%
       addTiles(content(res())$url, group = "bathymetrie") %>%
-      addPolygons(data = poly, fill = F, label = ~name, labelOptions = labelOptions(noHide = T), group = "vakken") %>%
+      # addWMSTiles(baseUrl = "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/wms",
+      #             layers = "WS3shp:ws3_tidalbasins",
+      #             options = WMSTileOptions(format = "image/png", transparent = TRUE),
+      #             group = "vakken"
+      # ) %>%
+      # !!!! werkt niet netjes. de polygonen zijn niet zichtbaar bovenop de bathymetrie
+      addPolygons(
+        data = poly,
+        fill = F,
+        label = ~name,
+        labelOptions = labelOptions(noHide = T),
+        group = "vakken",
+        color = "red") %>%
       leaflet::addLayersControl(
         baseGroups = c("OSM", "ESRI worldimagery"), 
         overlayGroups = c("vakken", "bathymetrie"),
