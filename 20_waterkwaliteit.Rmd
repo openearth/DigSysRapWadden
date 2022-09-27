@@ -1,18 +1,8 @@
+\newpage
+
 # Fysische waterkwaliteit  {#Waterkwaliteit}
 
 ```{r setupWaterkwaliteit, include = FALSE}
-knitr::opts_chunk$set(
-	message = FALSE,
-	warning = FALSE,
-	echo = FALSE,
-	out.width = "100%"
-)
-require(sf)
-require(leaflet)
-require(lubridate)
-require(tidyverse)
-require(zoo)
-source("r/runThisFirst.R")
 
 theme_wq = theme_bw()
 ```

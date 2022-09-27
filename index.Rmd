@@ -3,27 +3,21 @@ title: "Systeemrapportage Abiotiek Wadden, concept 0.61"
 author: "Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren, Vincent van Zelst, Jasper Dijkstra"
 date: '`r Sys.Date()`'
 site: bookdown::bookdown_site
-bibliography: "references/wadden.bib"
-biblio-style: "apalike"
-link-citations: yes
-cover-image: images/voorplaat.png
+# bibliography: "references/wadden.bib"
+# biblio-style: "apalike"
+# link-citations: yes
+# number_sections: true
+# cover-image: images/voorplaat.png
 subtitle: "Natuurmonitoring, onderdeel morfologie"
+
 ---
 
-```{r, message=FALSE, warning=FALSE, include=FALSE}
 
-knitr::opts_chunk$set(
-	echo = FALSE,
-	message = FALSE,
-	warning = FALSE
-)
-source("r/runThisFirst.R")
-```
 
-#  {.unnumbered}
+# Voorwoord {- #voorwoord}
 
-```{r voorplaat, fig.cap="Luchtfoto van Rottumeroog in 2011. (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)"}
-knitr::include_graphics("images/voorplaat.png")
+```{r voorplaat, width = "100%", fig.cap="Luchtfoto van Rottumeroog in 2011. (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)"}
+knitr::include_graphics("images/voorplaat.png", )
 ```
 </br>
 </br>
@@ -37,10 +31,8 @@ This website is a test version. Nothing from this website may be used.
 Deze watersysteemrapportage is een initiatief van:
 
 -   Rijkswaterstaat
-
     -   Noord-Nederland
     -   WVL
-
 -   Deltares
 
 Deze digitale Systeemrapportage van de Wadden is opgezet als een naslagwerk, om te voldoen aan de eerste informatiebehoefte voor beheerders, gebruikers en onderzoekers van de Waddenzee. Het bevat indicatoren die de toestand en trends van het natuurlijke abiotische systeem beschrijven, en die invloed hebben op de natuurlijkheid van het Waddensysteem. Dat maakt dat ze relevant zijn voor de verschillende beheer- en beleidsdoelen in het Waddengebied.

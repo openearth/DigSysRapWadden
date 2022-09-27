@@ -1,16 +1,10 @@
+\newpage
+
 # Bodemkwaliteit
 
 Het slibgehalte in de bodem misschien bij de morfologie nemen. Ik vind bodemkwaliteit niet zo'n mooie term.
 
 ```{r setupBodem, include=FALSE}
-knitr::opts_chunk$set(
-	echo = FALSE,
-	message = FALSE,
-	warning = FALSE,
-	fig.width = 8,
-	out.width = "100%"
-)
-source("r/runThisFirst.R")
 
 ```
 

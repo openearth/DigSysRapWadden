@@ -1,21 +1,8 @@
+\newpage
+
 # Hydrodynamiek {#hydro}
 
 ```{r setupWaterkwantiteit, include = FALSE}
-knitr::opts_chunk$set(
-	message = FALSE,
-	warning = FALSE,
-	echo = FALSE,
-	comment = FALSE,
-	out.width = "100%"
-)
-require(sf)
-require(leaflet)
-require(tidyverse)
-require(data.table)
-require(oce)
-require(ggthemes)
-source("r/runThisFirst.R")
-
 
 theme_hy <- theme_bw()
 
@@ -53,8 +40,9 @@ In de Waddenzee wordt veel zoetwater gespuid, waarmee saliniteits- en dichtheids
 
 In deze rapportage is de jaargemiddelde waterstand voor de zes hoofdstations langs de Nederlandse kust overgenomen uit de Zeespiegelmonitor (figuur \@ref(fig:zeespiegelstijging)). De zeespiegelstijding bij Delfzijl is sneller dan bij Harlingen en Den Helder. Den Helder kent de langzaamste zeespiegelstijging.
 
+(ref:zeespiegelstijgingLabel) Huidige zeespiegelstijging volgens het lineaire model met correctie voor wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP. De zwarte lijn is het gemiddelde over de 6 stations. 
 
-```{r zeespiegelstijging, fig.cap='Huidige zeespiegelstijging volgens het lineaire model met correctie voor wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP. De zwarte lijn is het gemiddelde over de 6 stations.' }
+```{r zeespiegelstijging, fig.cap='(ref:zeespiegelstijgingLabel)' }
 
 # knitr::include_graphics("images/zeespiegelmonitor.png")
 
@@ -82,7 +70,7 @@ sealevelAllStations <- read_csv(sealevelAllStationsurl,
     geom_line(aes(year, `predicted_linear_with_wind in cm`, color = StationName)) +
     geom_line(data = sealevel, aes(x = year, y = predicted_linear_with_wind/10), color = "black") +
     theme_hy
-  
+  if(knitr::is_html_output()){
   ggplotly(p) %>% 
     layout(
       legend = list(
@@ -91,7 +79,8 @@ sealevelAllStations <- read_csv(sealevelAllStationsurl,
         y = 0.95
       ),
       yaxis = list(hoverformat = '.2f')
-    ) 
+    ) } else
+      p
 
 ```
 
@@ -131,7 +120,8 @@ p <- df.extrema %>%
   theme_hy +
   xlab("Jaar") + ylab("Jaargemiddelde gemeten hoogwater in cm")
 
-ggplotly(p, height = 550, width = 700)
+if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else
+  p
 ```
 
 ## Gemiddeld Laagwater (GLW) {#gemiddeld-laagwater-glw}
@@ -186,7 +176,8 @@ p <- df.extrema %>%
   theme_hy +
   xlab("Jaar") + ylab("Jaargemiddelde gemeten laagwater in cm")
 
-ggplotly(p, width = 700, height = 550)
+if(knitr::is_html_output()){ggplotly(p, width = 700, height = 550)} else
+  p
 ```
 
 ## Getijslag {#getijslag}
@@ -212,7 +203,8 @@ p <- df.extrema %>%
   # facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
   theme_hy
 
-ggplotly(p, height = 550, width = 700)
+if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else
+  p
 
 ```
 
@@ -368,7 +360,8 @@ ggplot(aes(year, p995)) +
     strip.text.y = element_text(angle = 0)) +
   xlab("Jaar") + ylab("99,5-percentiel van gemeten waterhoogte (cm) per jaar")
 
-  ggplotly(p, height = 550)
+  if(knitr::is_html_output()){ggplotly(p, height = 550)} else
+    p
 ```
 
 Het maximum van alle 99,5-percentielen voor de verschillende jaren in de tijdreeks is ook op de kaart ingetekend (figuur \@ref(fig:kaartjeMaximaleStormhoogte)). Bij Harlingen en Delfzijl zijn de grootste waarden gemeten, dat zijn de pieken rond 1960 uit figuur \@ref(fig:stormhoogte). Maar ook in recentere jaren treden de maximale stormhoogtes op bij Harlingen en Delfzijl, vanwege hun ligging achterin de bekkens.
@@ -541,7 +534,9 @@ ggplot() +
   facet_grid(tydstp ~ locatie)
 ```
 
-```{r jaargemiddeldeAfvoer, fig.height=8, fig.width=10, fig.cap="Afvoer vanuit de Rijkswateren (IJsselmeer en Lauwersmeer) naar de Waddenzee De rode lijn is het jaargemiddeld op basis van metingen per etmaal. De zwarte punten zijn maandgemiddeleden en de kleinere grijze punten geven de individuele metingen weer. De individuele maxima gaan tot 2000 m^3^/s maar zijn niet weergegeven in deze figuur vanwege de leesbaarheid."}
+(ref:jaargemiddeldeAfvoerLabel) Afvoer vanuit de Rijkswateren (IJsselmeer en Lauwersmeer) naar de Waddenzee De rode lijn is het jaargemiddeld op basis van metingen per etmaal. De zwarte punten zijn maandgemiddeleden en de kleinere grijze punten geven de individuele metingen weer. De individuele maxima gaan tot 2000 m^3^/s maar zijn niet weergegeven in deze figuur vanwege de leesbaarheid.
+
+```{r jaargemiddeldeAfvoer, fig.height=8, fig.width=10, fig.cap="(ref:jaargemiddeldeAfvoerLabel)"}
 
 parlabel = "jaargemiddelde afvoer "
 xlabel = "jaar"
@@ -668,6 +663,15 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
 ### Kleinere zoetwaterafvoeren
 
 De gegevens van de kleinere zoetwaterafvoeren zijn eind zomer 2022 door de betrokken waterschappen beschikbaar gesteld en zullen in de loop van dit jaar via Datahuis Wadden geharmoniseerd en ontsloten worden.
+
+```{r, include=F}
+# testje Friese afvoeren
+fries <- read_delim(file.path(datadir,"Wetterskip/standard/friesland_debieten.csv"))
+ggplot(fries, aes(datum, numeriekewaarde)) +
+  geom_point(aes(color = locatie.naam))
+```
+
+
 
 ```{r cleanupWaterkwantiteit}
 rm(df_all_WATHTE, df_all_WATHTE2, df_all, extrema, h)

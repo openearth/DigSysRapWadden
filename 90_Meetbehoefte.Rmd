@@ -1,14 +1,11 @@
 
+\newpage
+
 # Informatiebehoefte {#Informatiebehoefte}
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 
-knitr::opts_chunk$set(
-	echo = FALSE,
-	message = FALSE,
-	warning = FALSE,
-	out.width = "100%"
-)
+
 ```
 
 

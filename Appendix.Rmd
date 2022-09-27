@@ -1,3 +1,5 @@
+\newpage
+
 # (APPENDIX) Appendix {-} 
 
 ```{r setupAppendix, include = FALSE}
@@ -338,7 +340,7 @@ theme_hy <- theme_bw()
 
 ## Versies van het rapport
 
-In \@ref(title) wordt de versie van de systeemrapportage vermeld. 
+De versie van het rapport staat op het titelblad. 
 
 
 ## Versies van de data

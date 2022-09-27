@@ -1,16 +1,8 @@
+\newpage
+
 # Meteorologie {#meteo}
 
 ```{r setupMeteo, include=FALSE}
-source("r/runThisFirst.R")
-
-knitr::opts_chunk$set(
-	echo = FALSE,
-	message = FALSE,
-	warning = FALSE,
-	fig.width = 8,
-	out.width = "100%"
-)
-
 
 theme_met <- theme_bw()
 ```
