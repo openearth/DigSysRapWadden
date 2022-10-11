@@ -1,6 +1,7 @@
 #read in friesland debieten
 #debieten zijn miljoen m3 per etmaal, worden omgerekend naar m3 per seconde
 #processing to dataformat of eems
+# %%
 from datetime import date
 import pandas as pd
 import numpy as np
@@ -16,9 +17,9 @@ xy_harlingen=[157210,576940]
 xy_ropta=[158487,580303]
 xy_hgmiedema=[170898,591438]
 
-debieten['Harlingen']=1000000*debieten['Harlingen'].div(24*60)
-debieten[ 'Ropta']=1000000*debieten['Ropta'].div(24*60)
-debieten['H.G. Miedema']=1000000*debieten['H.G. Miedema'].div(24*60)
+debieten['Harlingen']=1000000*debieten['Harlingen']
+debieten[ 'Ropta']=1000000*debieten['Ropta']
+debieten['H.G. Miedema']=1000000*debieten['H.G. Miedema']
 
 #make new df and drop nans
 h=debieten[['Datum', 'Harlingen']].copy().dropna()
@@ -34,7 +35,7 @@ h = h.join(pd.DataFrame(
         'waardebewerkingsmethode.omschrijving': 'Etmaalgemiddelde',
         'grootheid.omschrijving': 'Debiet',
         'grootheid.code': 'Q', 
-        'eenheid.code':'m3/s',
+        'eenheid.code':'m3/d',
         'longitude': xy_harlingen[0],
         'latitude':xy_harlingen[1],
         'locatie.naam':'Harlingen',
@@ -51,7 +52,7 @@ r = r.join(pd.DataFrame(
         'waardebewerkingsmethode.omschrijving': 'Etmaalgemiddelde',
         'grootheid.omschrijving': 'Debiet',
         'grootheid.code': 'Q', 
-        'eenheid.code':'m3/s',
+        'eenheid.code':'m3/d',
         'longitude': xy_ropta[0],
         'latitude':xy_ropta[1],
         'locatie.naam':'Ropta',
@@ -68,7 +69,7 @@ m = m.join(pd.DataFrame(
         'waardebewerkingsmethode.omschrijving': 'Etmaalgemiddelde',
         'grootheid.omschrijving': 'Debiet',
         'grootheid.code': 'Q', 
-        'eenheid.code':'m3/s',
+        'eenheid.code':'m3/d',
         'longitude': xy_hgmiedema[0],
         'latitude':xy_hgmiedema[1],
         'locatie.naam':'H.G. Miedema',
@@ -82,6 +83,8 @@ m.columns = m.columns.str.replace('Datum','datum')
 all=pd.concat([h,r,m])
 all=all.sort_values(by='datum')
 
-
+# %%
 all.to_csv(r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\Wetterskip\standard\friesland_debieten.csv', sep=' ', index=False)
 
+
+# %%

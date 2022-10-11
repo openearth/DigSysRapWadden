@@ -10,7 +10,7 @@ import os
 cf = configparser.ConfigParser()
 
 online=r'C:\projecten\rws\2022\zoetwaterdebiet\connection_online.txt'
-local=r'C:\projecten\rws\2022\scripts\_waterkwantiteit\connection_local.txt'
+local=r'C:\projecten\rws\2022\scripts\connection_local.txt'
 cf.read(online)
 
 host = cf.get('Postgis', 'host')
@@ -18,10 +18,8 @@ host = cf.get('Postgis', 'host')
 connstr = 'postgresql+psycopg2://'+cf.get('Postgis','user')+':'+cf.get('Postgis','pass')+'@'+cf.get('Postgis','host')+'/'+cf.get('Postgis','db')
 engine = create_engine(connstr,echo=True)
 
-print(engine)
-
 # %%
-#read friesland file
+#read noorderijlvest file
 path=r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\Noorderzijlvest\standard\Volumes_uitw.KWK_NZV_edit.csv'
 
 """ ----- inlezen van csv in een dataframe""" 

@@ -16,7 +16,8 @@ for col in df.columns:
 
 #df=df.loc[mask]
 t=pd.to_datetime(df['CET/CEST']['Unnamed: 0_level_1']['Unnamed: 0_level_2']['Unnamed: 0_level_3'],format='%d-%m-%Y %H:%S')
-#print(t.agg(['max']))
+t=t.dt.date
+
 
 #print(t)
 
@@ -110,4 +111,6 @@ dr = dr.join(pd.DataFrame(
 
 all=pd.concat([cl, no ,sp, dr])
 print(all['datum'].agg('max'))
+# %%
 all.to_csv(r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\Noorderzijlvest\standard\Volumes_uitw.KWK_NZV_edit.csv', sep=' ', index=False)
+# %%
