@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
   message = F,
   echo = F,
   cache = T,
-  out.width = "100%",
+  out.width = "90%",
   cache.lazy = FALSE
   )
 

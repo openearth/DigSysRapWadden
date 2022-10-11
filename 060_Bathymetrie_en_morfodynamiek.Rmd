@@ -360,7 +360,9 @@ knitr::include_graphics("images/Wangetal2018_Fig2BathyChange.png")
 ## Sedimentbalans
 In alle Waddenzeebekkens is over de periode 1935-2005 netto sedimentatie opgetreden volgens Wang et al. (2018; figuur \@ref(fig:Wang2018Sedbalans)). De gemiddelde aangroeisnelheden per bekken over deze periode zijn allemaal beduidend hoger dan de relatieve zeespiegelstijging. De import van sediment is sterk beïnvloed door menselijke activiteiten (zie Elias et al., 2012 voor meer informatie). Texel en Vlie (met 4.69 mm/jaar) laten een reactie zien op de sluiting van de Zuiderzee in 1932, en het Friese Gat (6.66 mm/jaar) reageert op de sluiting van de Lauwerszee in 1969. Het bekken bij Ameland kent geen ingrepen en laat de laagste sedimentatiesnelheid (2.52 mm/jaar) zien. Langs de Noordzeekust, dus buiten de bekkens, vindt juist erosie plaats in dezelfde periode. Het totale volume hiervan is ongeveer gelijk aan de totale sedimentatie in de bekkens. 
 
-```{r Wang2018Sedbalans, fig.cap= "Sedimentatie (+) en erosie (-) snelheden over de periode 1935-2005, gebaseerd op de resultaten van Elias et al. (2012), uitgedrukt in miljoen m^3^/jaar (het eerste getal in een polygoon). Het tweede getal geeft de verticale aangroeisnelheid (in mm/jaar) in de bekkens of erosiesnelheden aan de Noordzee-zijde van de eilanden weer (uitgaande van 20 meter morfologisch actieve diepte). De bekkens van Texel en Vlie staan in werkelijkheid in verbinding met elkaar en hun ontwikkeling moet dus ook gezamenlijk beschouwd worden. " }
+(\ref:Wang2018Sedmalans-label) Sedimentatie (+) en erosie (-) snelheden over de periode 1935-2005, gebaseerd op de resultaten van Elias et al. (2012), uitgedrukt in miljoen m^3^/jaar (het eerste getal in een polygoon). Het tweede getal geeft de verticale aangroeisnelheid (in mm/jaar) in de bekkens of erosiesnelheden aan de Noordzee-zijde van de eilanden weer (uitgaande van 20 meter morfologisch actieve diepte). De bekkens van Texel en Vlie staan in werkelijkheid in verbinding met elkaar en hun ontwikkeling moet dus ook gezamenlijk beschouwd worden.
+
+```{r Wang2018Sedbalans, fig.cap= "(\ref:Wang2018Sedmalans-label)" }
 knitr::include_graphics("images/Wangetal2018_Fig4SedBalance1935-2005.png")
 ```
 
@@ -535,6 +537,68 @@ De ecotopenkaart helpt beheerders om duidelijk te krijgen waar welke natuur zit 
 Elk kombergingsgebied wordt eens in de zes jaar geüpdatet, waardoor er elke zes jaar een volledig nieuwe ecotopenkaart wordt opgeleverd. Dit zal gedurende een langjarige periode -+ 30 jaar een duidelijke verandering van de Waddezee weergeven
 
 De arealen van de verschillende ecotopen (2017) en beschrijving van de methodieken van de verschillende ecotopen kunnen geëxtraheerd worden via de beschrijving in de [Toelichting op de zoute ecotopenkaart](https://puc.overheid.nl/rijkswaterstaat/doc/PUC_629120_31/1/).
+
+### Ecotopen 2022 - onderliggende kaartlagen
+
+In 2022 wordt een nieuwe ecotopenkaart gemaakt. In deze rapportage laten we de lagen zien die als basis worden gebruikt voor deze ecotopenkaart. 
+
+**Gemiddelde saliniteit**
+
+```{r EcotopenBasis, fig.cap="Basiskaarten voor ecotopenkaart 2022 voor de Waddenzee."}
+#Voorbeeld hier gevonden: https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/
+library(sf)
+library(httr) 
+library(tidyverse) 
+library(ows4R)
+library(leaflet)
+library(leaflet.extras)
+
+example <- "https://datahuiswadden.openearth.nl/geoserver/ecotopenkaart/wms?service=WMS&version=1.1.0&request=GetMap&layers=ecotopenkaart%3Asaliniteit_200m_gemiddeld&bbox=89900.0%2C539900.0%2C280100.0%2C640100.0&width=768&height=404&srs=EPSG%3A28992&styles=&format=application/openlayers"
+
+wms_ecotopen_2022 <- "https://datahuiswadden.openearth.nl/geoserver/ecotopenkaart/wms?"
+
+# uitgezet omdat de service op dit moment niet in de lucht is.
+bwk_client <- WFSClient$new(wms_ecotopen_2022,
+serviceVersion = "1.3.0")
+
+#bwk_client$getFeatureTypes(pretty = TRUE)
+
+#Maak een leaflet legend request
+url_ecotopen_2022 <- parse_url(wms_ecotopen_2022)
+url_ecotopen_2022$query <- list(service = "wms",
+                  version = "1.3.0",
+                  SLD_VERSION = "1.1.0",
+                  request = "GetLegendGraphic",
+                  FORMAT = "image/jpeg",
+                  LAYER = "ecotopenkaart:saliniteit_200m_gemiddeld",
+                  STYLE="")
+request_ecotopen_2022 <- build_url(url_ecotopen_2022)
+
+
+#maak een figuur van de ecotopen relevant voor het VZM
+leaflet() %>% 
+  setView(lng = 6, lat = 53, zoom = 8) %>% 
+  addTiles(group = "OSM") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
+  addWMSTiles(
+    wms_ecotopen_2022,
+    layers = "ecotopenkaart:saliniteit_200m_gemiddeld",
+    options = WMSTileOptions(format = "image/png", transparent = TRUE),
+    group = "gemiddeld saliniteit 2022"
+  ) %>%
+  addWMSLegend(
+    uri = paste0(request_ecotopen_2022),
+    position = "bottomright"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OSM", "Esri.WorldImagery"),
+    overlayGroups = c("gemiddeld saliniteit 2022"
+                      ),
+    options = layersControlOptions(collapsed = FALSE)
+  )
+```
+
+### Ecotopenkaart 2017
 
 Hieronder is de ecotopenkaart (2017) weergegeven zoals opgenomen in het [Nationaal Georegister](https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search;jsessionid=0B4745908C502557E461385BDB69FE9F#/metadata/291d329a-a421-41f4-b219-a904756e7aa5).
 

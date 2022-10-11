@@ -113,13 +113,29 @@ De anomalie is berekend aan de hand van de volgende stappen:
 
 ### Brondata
 
-De daggemiddelde waarden van de drie grote afvoeren (Den Oever, Kornwerderzand en Lauwersoog) zijn opgevraagd via Servicedesk Data van RWS. De 10-minuutwaarden bevatten veel gaten in de tijdreeksen en zijn daarom niet gebruikt. De data van kleinere afvoeren zijn niet goed bekend en niet ontsloten.
+De daggemiddelde waarden van de drie grote afvoeren vanaf Rijkswateren (Den Oever, Kornwerderzand en Lauwersoog) zijn opgevraagd via Servicedesk Data van RWS. De 10-minuutwaarden bevatten veel gaten in de tijdreeksen en zijn daarom niet gebruikt. 
 
-### Gemiddelde afvoeren
+Afvoeren van de Eems en Leda zijn opgevraagd bij NLWKN en toegevoegd aan de [Datahuis Wadden Geoserver](https://datahuiswadden.openearth.nl/geoserver/web/wicket/bookmarkable/org.geoserver.web.demo.MapPreviewPage?1&filter=false). De data kunnen ook via onderstaande links direct worden gedownloadt als csv. Om niet ongewild grote datasets te downloaden is deze nu nog beperkt tot de eerste 50 records. Wanneer alle data gewenst zijn, moet "&maxFeatures=50" verwijderd worden uit de URL:
+
+Voor de polderafvoeren van de waterschappen zijn gegevens opgevraagd bij het desbetreffende waterschap en voor deze rapportage beschikbaar gemaakt via de [Datahuis Wadden Geoserver](https://datahuiswadden.openearth.nl/geoserver/web/wicket/bookmarkable/org.geoserver.web.demo.MapPreviewPage?1&filter=false). Directe links naar de afvoerdata staan hieronder.
+
+
+*   [Eems afvoer](https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aems_discharge_bewerkt&outputFormat=csv&maxFeatures=50)
+
+*   [Leda afvoer](https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aleda_discharge_bewerkt&outputFormat=csv&maxFeatures=50)
+
+*   [Wetterskip Friesland afvoeren](https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland&outputFormat=csv&maxFeatures=50)
+
+
+
+REST VOLGT 2e HELFT 2022
+
+
+### Bewerking van afvoeren
 
 In de systeemrapportage worden de daggemiddelde, maandgemiddelde en jaargemiddelde afvoeren weergegeven. 
 
-Daarnaast worden ook de gemiddelde zomerafvoer en de gemiddelde winterafvoer gebruikt. Voor de zomer wordt daarbij gemiddeld over de periode 1 april tot en met 30 september. En voor de winter wordt gemiddeld over de periode van 1 oktober tot en met 31 maart.
+Daarnaast wordt voor de grotere afvoeren ook de gemiddelde zomerafvoer en de gemiddelde winterafvoer berekend. Voor de zomer wordt daarbij gemiddeld over de periode 1 april tot en met 30 september. En voor de winter wordt gemiddeld over de periode van 1 oktober tot en met 31 maart.
 
 
 ## Meteorologie (wind) {#Appwind}
