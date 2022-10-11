@@ -12,7 +12,7 @@ bookdown::gitbook:
       collapsed: false
       smooth_scroll: false
   includes:
-    before_body: navbar/navbar.html
+    # before_body: navbar/navbar.html
     in_header: clickandzoom.html
 
 bookdown::bs4_book:

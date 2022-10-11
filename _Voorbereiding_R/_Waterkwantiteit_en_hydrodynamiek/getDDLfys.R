@@ -399,6 +399,7 @@ berekend <- lapply(files_berekend, function(x)
 )
 
 df.berekend <- rbindlist(berekend)
+save(df.berekend, file = datadir, ddl, standard, paste0("waterhoogteHyatan", today(), ".Rdata"))
 
 
 # berekenen van maandelijkse statistiek
