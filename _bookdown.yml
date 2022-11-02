@@ -11,9 +11,9 @@ rmd_files: [
   "200-references.Rmd",
   "Appendix.Rmd"
   ] 
-bibliography: ["references/wadden.bib", "references/WillemsReferences.bib"]
-biblio-style: "apalike"
-link-citations: yes
+# bibliography: ["references/wadden.bib", "references/WillemsReferences.bib"]
+# biblio-style: "apalike"
+# link-citations: yes
 before_chapter_script: _common.R
 language:
   ui:

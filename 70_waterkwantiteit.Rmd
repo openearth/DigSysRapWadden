@@ -79,8 +79,7 @@ sealevelAllStations <- read_csv(sealevelAllStationsurl,
         y = 0.95
       ),
       yaxis = list(hoverformat = '.2f')
-    ) } else
-      p
+    ) } else p
 
 ```
 
@@ -120,8 +119,9 @@ p <- df.extrema %>%
   theme_hy +
   xlab("Jaar") + ylab("Jaargemiddelde gemeten hoogwater in cm")
 
-if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else
-  p
+if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else  p
+
+
 ```
 
 ## Gemiddeld Laagwater (GLW) {#gemiddeld-laagwater-glw}
@@ -176,8 +176,7 @@ p <- df.extrema %>%
   theme_hy +
   xlab("Jaar") + ylab("Jaargemiddelde gemeten laagwater in cm")
 
-if(knitr::is_html_output()){ggplotly(p, width = 700, height = 550)} else
-  p
+if(knitr::is_html_output()){ggplotly(p, width = 700, height = 550)} else p
 ```
 
 ## Getijslag {#getijslag}
@@ -203,8 +202,7 @@ p <- df.extrema %>%
   # facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
   theme_hy
 
-if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else
-  p
+if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else p
 
 ```
 
@@ -360,8 +358,7 @@ ggplot(aes(year, p995)) +
     strip.text.y = element_text(angle = 0)) +
   xlab("Jaar") + ylab("99,5-percentiel van gemeten waterhoogte (cm) per jaar")
 
-  if(knitr::is_html_output()){ggplotly(p, height = 550)} else
-    p
+  if(knitr::is_html_output()){ggplotly(p, height = 550)} else p
 ```
 
 Het maximum van alle 99,5-percentielen voor de verschillende jaren in de tijdreeks is ook op de kaart ingetekend (figuur \@ref(fig:kaartjeMaximaleStormhoogte)). Bij Harlingen en Delfzijl zijn de grootste waarden gemeten, dat zijn de pieken rond 1960 uit figuur \@ref(fig:stormhoogte). Maar ook in recentere jaren treden de maximale stormhoogtes op bij Harlingen en Delfzijl, vanwege hun ligging achterin de bekkens.
@@ -498,34 +495,87 @@ Doordat er wordt gespuid onder vrij verval, kan er een deel van de tijd (tijdens
 
 
 ```{r leesRWSAfvoerData}
-afvoerDir <- file.path(datadir, "RWS", "afvoeren")
+
+nieuweAfvoerData = F
+
+if(nieuweAfvoerData){
+
+afvoerDir <- file.path(datadir, "RWS", "afvoeren", "raw")
 afvoerFiles <- list.files(afvoerDir, pattern = "csv", full.names = T)
 names <- gsub(pattern = ".csv", replacement = "", list.files(afvoerDir, pattern = "csv"))
 
-afvoer.lst <- map(afvoerFiles, function(x) read_delim(x, delim = ";", locale=locale(decimal_mark = ",")) #%>%
-  # select(paroms, ehdcod, crdtyp, loc_xcrdgs, loc_ycrdgs, anaoms, bewoms, rks_begdat, waarde, kwlcod, rkssta)
+afvoer.lst <- map(afvoerFiles, 
+                  function(x) read_delim(x, 
+                                         delim = ";", 
+                                         locale=locale(decimal_mark = ","),
+                                         col_select = c('paroms', 'ehdcod', 'crdtyp', 'loc_xcrdgs', 'loc_ycrdgs',  'datum', 'anaoms', 'bewoms', 'rks_begdat', 'waarde', 'kwlcod', 'rkssta', 'tydstp',
+                                                        'locoms', 'loccod', 'gbdoms')) %>%
+                    filter(tydstp == 1440)
 )
-names(afvoer.lst) <- names
-afvoer.df <- rbindlist(afvoer.lst, idcol = "locatie.naam") %>%
-  mutate(locatie = case_when(
-    locatie.naam == "Denover" ~ "Den Oever",
-    locatie.naam == "Kornwer" ~ "Kornwerderzand",
-    locatie.naam == "Lauwers" ~ "Lauwersoog"
+# names(afvoer.lst) <- names
+afvoer.df <- bind_rows(afvoer.lst) %>%
+  mutate(locatie.naam = case_when(
+    loccod == "DENOVBTN" ~ "Den Oever",
+    loccod == "KORNWDZBTN" ~ "Kornwerderzand",
+    loccod == "LAUWOG" ~ "Lauwersoog"
   )) %>%
   mutate(datum = as.Date(datum, "%d %m %Y")) %>%
   filter(kwlcod == 0)
+
+afvoer.df %>%
+  rename(grootheid.omschrijving =  paroms,
+         eenheid.code = ehdcod,
+         coordinatensoort = crdtyp,
+         geometriepunt.x = loc_xcrdgs,
+         geometriepunt.y = loc_ycrdgs,
+         waardebewerkingsmethode.omschrijving = bewoms,
+         numeriekewaarde = waarde,
+         kwaliteitswaarde.code = kwlcod,
+         locatie.omschrijving = locoms,
+         locatie.code = loccod,
+         gebied = gbdoms
+         ) %>% 
+  mutate(geometriepunt.x = geometriepunt.x/100,
+         geometriepunt.y = geometriepunt.y/100,
+         coordinatensoort = "EPSG:28992") %>% 
+  select(
+    "grootheid.omschrijving", 
+    "eenheid.code",           
+    "coordinatensoort",       
+    "geometriepunt.x",        
+    "geometriepunt.y",        
+    "datum",                  
+    "waardebewerkingsmethode.omschrijving",
+    "numeriekewaarde",        
+    "kwaliteitswaarde.code", 
+    "locatie.omschrijving",   
+    "locatie.code" ,          
+    "gebied"                 
+  ) %>% 
+  write_delim(file.path(afvoerDir, "../", "standard", "etmaalgemiddelden.csv"), delim = ";")
+}  
+
+# Deze moet worden opgenomen in Datahuis Wadden. Daarna weer inlezen vanuit Geoserver
+
+url <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aafvoeren_rijkswateren&outputFormat=csv"
+afvoer.df <- read_csv(url)
 
 ```
 
 
 ```{r kaartAfvoerLocaties, fig.cap="Locaties van alle gerapporteerde afvoeren."}
 
+###### veranderenb in laag geoserver wanneer deze gereed is. 
+url2 <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aafvoeren_rijkswateren_location&maxFeatures=50&outputFormat=application%2Fjson"
+RWSlocations <- sf::st_read(url2) %>%
+  sf::st_transform(4326)
+  
+  # afvoer.df %>% distinct(loccod, locoms, gbdoms, loc_xcrdgs, loc_ycrdgs) %>%
+  # mutate(loc_xcrdgs = loc_xcrdgs/100, loc_ycrdgs = loc_ycrdgs/100) %>%
+  # rename(locatie.code = loccod, gebied = gbdoms) %>%
+  # st_as_sf(coords = c("loc_xcrdgs", "loc_ycrdgs"), crs = 28992) %>%
+  # st_transform(4326)
 
-RWSlocations <- afvoer.df %>% distinct(loccod, locoms, gbdoms, loc_xcrdgs, loc_ycrdgs) %>%
-  mutate(loc_xcrdgs = loc_xcrdgs/100, loc_ycrdgs = loc_ycrdgs/100) %>%
-  rename(locatie.naam = locoms, locatie.code = loccod, gebied = gbdoms) %>%
-  st_as_sf(coords = c("loc_xcrdgs", "loc_ycrdgs"), crs = 28992) %>%
-  st_transform(4326)
 
 EmsLocations <- st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aems_discharge_bewerkt_location&outputFormat=application/json", quiet = T) %>%
   filter(locatie.origineel == "q_hebrum_berekend_m3_s") %>%
@@ -564,39 +614,47 @@ leaflet(allLocations) %>%
 
 (ref:jaargemiddeldeAfvoer-Label) Afvoer vanuit de Rijkswateren (IJsselmeer en Lauwersmeer) naar de Waddenzee De rode lijn is het jaargemiddeld op basis van metingen per etmaal. De zwarte punten zijn maandgemiddeleden en de kleinere grijze punten geven de individuele metingen weer. De individuele maxima gaan tot 2000 $m^3/s$ maar zijn niet weergegeven in deze figuur vanwege de leesbaarheid.
 
-```{r jaargemiddeldeAfvoer, fig.height=8, fig.width=10, fig.cap="(ref:jaargemiddeldeAfvoer-Label)"}
+```{r jaargemiddeldeAfvoer, eval=F, fig.height=8, fig.width=10, fig.cap="(ref:jaargemiddeldeAfvoer-Label)"}
+
+######## lees data uit geoserver wanneer deze klaar is. 
+### dit script werkt op dit moment niet. kolomnamen aanpassen
 
 parlabel = "jaargemiddelde afvoer "
 xlabel = "jaar"
 
 plotlocaties = c("Den Oever", "Kornwerderzand", "Lauwersoog")
 
-parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>% #distinct(tydstp)
-  filter(tydstp == 1440) %>% #View # ga alleen uit van uurgemiddelden
+parData <- afvoer.df %>%  
+  mutate(locatie.naam = case_when(
+    locatie.code == "DENOVBTN" ~ "Den Oever",
+    locatie.code == "KORNWDZBTN" ~ "Kornwerderzand",
+    locatie.code == "LAUWOG" ~ "Lauwersoog"
+  )) %>%
+  select(locatie.naam, datum, numeriekewaarde) %>% #distinct(tydstp)
   mutate(jaar = year(datum), maand = month(datum)) %>%
-  mutate(locatie = factor(locatie, levels = plotlocaties)) %>%
-  group_by(locatie, jaar, maand, datum) %>% summarize(`Q daggemiddeld` = mean(waarde))
+  mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>%
+  group_by(locatie.naam, jaar, maand, datum) %>% summarize(`Q daggemiddeld` = mean(numeriekewaarde))
 
   ggplot() +
-    geom_point(data = parData, aes(datum, `Q daggemiddeld`, color = "metingen"), alpha = 1, size = 0.65) + #
+    geom_point(data = parData, aes(datum, `Q daggemiddeld`, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
     geom_point(data = parData %>%
-                 group_by(locatie, jaar, maand) %>% summarize(maandgemiddelde = mean(`Q daggemiddeld`), n = n()),
+                 group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(`Q daggemiddeld`), n = n()),
                aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
     ) +
     geom_line(data = parData %>%
-                group_by(locatie, jaar, maand) %>% summarize(maandgemiddelde = mean(`Q daggemiddeld`), n = n()) %>% ungroup() %>%
-                group_by(locatie, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
+                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(`Q daggemiddeld`), n = n()) %>% ungroup() %>%
+                group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
               aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
     ) +
     coord_cartesian(ylim = c(NA,1000)) +
     ylab('Q daggemiddeld  m^3^/s') + xlab('jaar') +
-    facet_wrap(~ locatie, ncol = 1, scales = "free_y") +  #scales = "free",
+    facet_wrap(~ locatie.naam, ncol = 1, scales = "free_y") +  #scales = "free",
     theme_hy +
     theme(legend.position = "bottom") +
     scale_colour_manual(name = "",
                         values = c("maandgemiddelde" = "black", 
                                    "jaargemiddelde" = "red",
-                                   "metingen" = "darkgrey")) +
+                                   "daggemiddelde" = "darkgrey")) +
     guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
 
 ```
@@ -605,11 +663,16 @@ In figuur \@ref(fig:seizoensgemiddeldenAfvoer) is de afvoer gemiddeld per zomerp
 
 ```{r seizoensgemiddeldenAfvoer, fig.width=10, fig.height=8, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) waterafvoer naar de Waddenzee. "}
 
-parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>% 
-  filter(tydstp == 1440) %>%  # ga alleen uit van uurgemiddelden
+parData <- afvoer.df %>%  
+  mutate(locatie.naam = case_when(
+    locatie.code == "DENOVBTN" ~ "Den Oever",
+    locatie.code == "KORNWDZBTN" ~ "Kornwerderzand",
+    locatie.code == "LAUWOG" ~ "Lauwersoog"
+  )) %>%
+  select(locatie.naam, datum, numeriekewaarde) %>% #distinct(tydstp)
   mutate(jaar = year(datum), maand = month(datum)) %>%
-  mutate(locatie = factor(locatie, levels = plotlocaties))%>%
-  group_by(locatie, jaar, maand, datum) %>% summarize(`Q daggemiddeld` = mean(waarde)) %>%
+  mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties))%>%
+  group_by(locatie.naam, jaar, maand, datum) %>% summarize(`Q daggemiddeld` = mean(numeriekewaarde)) %>%
   mutate(
     seizoen = case_when(
       maand %in% summermonths ~ "zomer",
@@ -620,17 +683,17 @@ parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>%
 
   ggplot() +
     geom_point(data = parData %>%
-                 group_by(locatie, jaar, maand, seizoen) %>% summarize(maandgemiddelde = mean(`Q daggemiddeld`), n = n()),
+                 group_by(locatie.naam, jaar, maand, seizoen) %>% summarize(maandgemiddelde = mean(`Q daggemiddeld`), n = n()),
                aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = seizoen), size = 1
     ) +
     geom_line(data = parData %>%
-                group_by(locatie, jaar, maand, seizoen) %>% summarize(maandgemiddelde = mean(`Q daggemiddeld`), n = n()) %>% ungroup() %>%
-                group_by(locatie, jaar, seizoen) %>% summarize(seizoensgemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
+                group_by(locatie.naam, jaar, maand, seizoen) %>% summarize(maandgemiddelde = mean(`Q daggemiddeld`), n = n()) %>% ungroup() %>%
+                group_by(locatie.naam, jaar, seizoen) %>% summarize(seizoensgemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>%
                 filter(`n/jaar` > 4),
               aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), seizoensgemiddelde, color = seizoen), size = 1.5, alpha = 0.8
     ) +
     ylab('Maandgemiddelde afvoer m^3^/s') + xlab(xlabel) +
-    facet_wrap(~ locatie, ncol = 1, scales = "free_y") +  #scales = "free",
+    facet_wrap(~ locatie.naam, ncol = 1, scales = "free_y") +  #scales = "free",
     theme_hy +
     theme(legend.position = "bottom") #+
 
@@ -640,13 +703,6 @@ parData <- afvoer.df %>%  select(locatie, tijd, datum, tydstp, waarde) %>%
 ### Eems
 
 De afvoer vanuit de Eems wordt weergegeven als geschatte afvoer bij Hebrum, het meest stroomafwaartse gedeelte van de rivier waar nog getij-invloed is. De waarde is berekend als 1.1 \* de afvoer bij Versen. De gegevens zijn beschikbaar gemaakt door Federal Institut of Hydrology en komen uit de hydrological database HYDABA1. Voor metingen bij Versen is tot 2019 het station "Versen_gesamt" gebruikt, daarna is overgegaan op station "versen_wehr_durchstich" (zie kaart \@ref(fig:kaartHydrologischeStationsNLWKN)).
-
-```{r kaartHydrologischeStationsNLWKN, out.width="70%", fig.cap="Overzichtskaart van hydrologische meetstations in het stroomgebied van de Eems en West-Duitse Waddenzee."}
-
-invisible(file.copy(file.path(datadir, "NLWKN", "afvoeren", "raw", "2022_07_06_Discharges Ems.jpg"), "images/2022_07_06_Discharges Ems.jpg", overwrite = T))
-
-knitr::include_graphics(path = file.path("images/2022_07_06_Discharges Ems.jpg"))
-```
 
 ```{r eemsafvoertijdserie, fig.cap = "Jaargemiddelde afvoer vanuit de Eems en Leda per etmaal naar de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). "}
 
@@ -667,7 +723,7 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
   group_by(locatie.naam, gebied, jaar, maand, datum) %>% summarize(`Q daggemiddeld` = mean(numeriekewaarde))
 
   ggplot() +
-    geom_point(data = parData, aes(datum, `Q daggemiddeld`, color = "metingen"), alpha = 1, size = 0.65) + #
+    geom_point(data = parData, aes(datum, `Q daggemiddeld`, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
     geom_point(data = parData %>%
                  group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(`Q daggemiddeld`), n = n()),
                aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
@@ -685,7 +741,7 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
     scale_colour_manual(name = "",
                         values = c("maandgemiddelde" = "black", 
                                    "jaargemiddelde" = "red",
-                                   "metingen" = "darkgrey")) +
+                                   "daggemiddelde" = "darkgrey")) +
     guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
 
 ```
@@ -699,7 +755,7 @@ De gegevens van de kleinere zoetwaterafvoeren (poldergemalen) worden beheerd bij
 - [Noorderzijlvest](http://www.noorderzijlvest.nl/)
 - [Hunze en Aas](http://www.hunzeenaas.nl/)
 
-De gegevens zijn opgevraagd bij de desbetreffende waterschappen en ontsloten via Datahuis Wadden. Zie voor details paragraaf \@ref:Appzoetwaterafvoer. De locaties van de afvoeren zijn aangegeven in figuur \@ref(fig:kaartAfvoerLocaties)
+De gegevens zijn opgevraagd bij de desbetreffende waterschappen en ontsloten via Datahuis Wadden. Zie voor details paragraaf \@ref(Appzoetwaterafvoer). De locaties van de afvoeren zijn aangegeven in figuur \@ref(fig:kaartAfvoerLocaties)
 
 #### Hollands Noorderkwartier
 
@@ -731,7 +787,7 @@ parlabel = paste(unique(friesDat$grootheid.code), unique(friesDat$eenheid.code))
 xlabel = "jaar"
 
 ggplot() +
-  geom_point(data = friesDat2, aes(datum, numeriekewaarde, color = "metingen"), alpha = 1, size = 0.65) + #
+  geom_point(data = friesDat2, aes(datum, numeriekewaarde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
   geom_point(data = friesDat2 %>%
                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
              aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
@@ -749,7 +805,7 @@ ggplot() +
   scale_colour_manual(name = "",
                       values = c("maandgemiddelde" = "black", 
                                  "jaargemiddelde" = "red",
-                                 "metingen" = "darkgrey")) +
+                                 "daggemiddelde" = "darkgrey")) +
   guides(colour = guide_legend(override.aes = list(shape = 1, size = 3))) +
   theme(strip.text.y = element_text(angle = 0))
 
@@ -772,7 +828,7 @@ parlabel = paste(unique(NoorderzijlDat$grootheid.code), unique(NoorderzijlDat$ee
 xlabel = "jaar"
 
 ggplot() +
-  geom_point(data = NoorderzijlDat2, aes(datum, numeriekewaarde, color = "metingen"), alpha = 1, size = 0.65) + #
+  geom_point(data = NoorderzijlDat2, aes(datum, numeriekewaarde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
   geom_point(data = NoorderzijlDat2 %>%
                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
              aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
@@ -790,7 +846,7 @@ ggplot() +
   scale_colour_manual(name = "",
                       values = c("maandgemiddelde" = "black", 
                                  "jaargemiddelde" = "red",
-                                 "metingen" = "darkgrey")) +
+                                 "daggemiddelde" = "darkgrey")) +
   guides(colour = guide_legend(override.aes = list(shape = 1, size = 3))) +
   theme(strip.text.y = element_text(angle = 0))
 

@@ -3,9 +3,9 @@ title: "Systeemrapportage Abiotiek Wadden, concept 0.61"
 author: "Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren, Vincent van Zelst, Jasper Dijkstra"
 date: '`r Sys.Date()`'
 site: bookdown::bookdown_site
-# bibliography: "references/wadden.bib"
-# biblio-style: "apalike"
-# link-citations: yes
+bibliography: "references/wadden.bib"
+biblio-style: "apalike"
+link-citations: yes
 # number_sections: true
 # cover-image: images/voorplaat.png
 subtitle: "Natuurmonitoring, onderdeel morfologie"
