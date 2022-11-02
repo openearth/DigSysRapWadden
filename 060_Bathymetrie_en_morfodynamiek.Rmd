@@ -204,8 +204,7 @@ p <- valid.values.df %>%
 if(knitr::is_html_output()) {ggplotly(p, 900, 900) %>%
   config(displayModeBar = F) %>%
   layout(xaxis=list(fixedrange=TRUE)) %>% 
-  layout(yaxis=list(fixedrange=TRUE))} else
-    p
+  layout(yaxis=list(fixedrange=TRUE))} else p
 
 
 ```
@@ -592,7 +591,7 @@ leaflet() %>%
   ) %>%
   addLayersControl(
     baseGroups = c("OSM", "Esri.WorldImagery"),
-    overlayGroups = c("gemiddeld saliniteit 2022"
+    overlayGroups = c("gemiddelde saliniteit 2022"
                       ),
     options = layersControlOptions(collapsed = FALSE)
   )

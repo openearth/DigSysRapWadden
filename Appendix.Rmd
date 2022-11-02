@@ -119,6 +119,11 @@ Afvoeren van de Eems en Leda zijn opgevraagd bij NLWKN en toegevoegd aan de [Dat
 
 Voor de polderafvoeren van de waterschappen zijn gegevens opgevraagd bij het desbetreffende waterschap en voor deze rapportage beschikbaar gemaakt via de [Datahuis Wadden Geoserver](https://datahuiswadden.openearth.nl/geoserver/web/wicket/bookmarkable/org.geoserver.web.demo.MapPreviewPage?1&filter=false). Directe links naar de afvoerdata staan hieronder.
 
+Rijkswaterstaat
+
+De etmaalgemiddelde afvoeren die in deze rapportage zijn gebruikt zijn opgevraagd bij de servicedesk data van Rijkswaterstaat. Deze gegevens zijn lokaal opgeslagen als bevroren versie voor deze rapportage en te downloaden via onderstaande link. 
+
+*   [Etmaalgemiddelde afvoeren van de Rijkswateren IJsselmeer en Lauwersmeer](https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aafvoeren_rijkswateren&outputFormat=csv&maxFeatures=50)
 
 NLWKN
 
@@ -134,6 +139,8 @@ knitr::include_graphics(path = file.path("images/2022_07_06_Discharges Ems.jpg")
 *   [Eems afvoer](https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aems_discharge_bewerkt&outputFormat=csv&maxFeatures=50)
 
 *   [Leda afvoer](https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aleda_discharge_bewerkt&outputFormat=csv&maxFeatures=50)
+
+Kleine afvoeren
 
 *   [Wetterskip Friesland afvoeren](https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland&outputFormat=csv&maxFeatures=50)
 
