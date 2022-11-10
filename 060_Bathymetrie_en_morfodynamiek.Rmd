@@ -201,10 +201,11 @@ p <- valid.values.df %>%
   coord_cartesian(ylim = c(-5, 3)) +
   theme(legend.position = "bottom")
 
-if(knitr::is_html_output()) {ggplotly(p, 900, 900) %>%
-  config(displayModeBar = F) %>%
-  layout(xaxis=list(fixedrange=TRUE)) %>% 
-  layout(yaxis=list(fixedrange=TRUE))} else p
+# if(knitr::is_html_output()) {ggplotly(p, 900, 900) %>%
+#   config(displayModeBar = F) %>%
+#   layout(xaxis=list(fixedrange=TRUE)) %>% 
+#   layout(yaxis=list(fixedrange=TRUE))} else 
+    p
 
 
 ```
