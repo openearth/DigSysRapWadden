@@ -1,0 +1,60 @@
+---
+title: "Verhaal van de Wadden"
+author: "Rijkswaterstaat / Deltares"
+date: "2022-11-29"
+output:
+  slidy_presentation: default
+  # ioslides_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, out.width="100%")
+```
+
+#
+
+```{r pressure}
+knitr::include_graphics(knitr::include_graphics("Het-verhaal-van-de-wadden-v1/Slide1.png"))
+```
+
+#
+
+```{r pressure2}
+knitr::include_graphics(knitr::include_graphics("Het-verhaal-van-de-wadden-v1/Slide2.png"))
+```
+
+#
+
+```{r pressure3}
+knitr::include_graphics(knitr::include_graphics("Het-verhaal-van-de-wadden-v1/Slide3.png"))
+```
+
+#
+
+```{r pressure4}
+knitr::include_graphics(knitr::include_graphics("Het-verhaal-van-de-wadden-v1/Slide4.png"))
+```
+
+#
+
+```{r pressure5}
+knitr::include_graphics(knitr::include_graphics("Het-verhaal-van-de-wadden-v1/Slide5.png"))
+```
+
+#
+
+```{r pressure6}
+knitr::include_graphics(knitr::include_graphics("Het-verhaal-van-de-wadden-v1/Slide6.png"))
+```
+
+#
+
+```{r pressure7 }
+knitr::include_graphics(knitr::include_graphics("Het-verhaal-van-de-wadden-v1/Slide7.png"))
+```
+
+# 
+
+[Terug naar Systeemrapportage Wadden](https://www.testsysteemrapportage.nl/wadden/)
+
+
