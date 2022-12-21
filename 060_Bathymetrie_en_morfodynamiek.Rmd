@@ -163,10 +163,10 @@ valid.data <- lapply(croppedRasters, function(x) which(!is.na(getValues(max(x, n
 valid.values <- map2(croppedRasters, valid.data, raster::extract)
 valid.values.df <- map(valid.values, as_tibble) %>%
   map(pivot_longer, everything(), names_to = "jaar", values_to = "diepte") %>%
-  set_names("Marsdiep","Vlie","Borndiep","Eilanderbalg","Pinkegat","Zoutkamperlaag","Schild","Eijerlandse Gat","Lauwers")%>%
+  set_names("Marsdiep","Vlie","Borndiep","Eilanderbalg","Pinkegat","Zoutkamperlaag","Schild","Eierlandse Gat","Lauwers")%>%
   rbindlist(idcol = "naam") %>%
   mutate(jaar = as.integer(str_replace(jaar, "mosaic_", ""))) %>%
-  mutate(naam = factor(naam, levels = c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild")))
+  mutate(naam = factor(naam, levels = c("Marsdiep","Eierlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild")))
 
 rm(valid.data,valid.values)
 
@@ -283,7 +283,7 @@ valid.values.df %>%
 
 Geuldiepte is de geïntegreerde waarde voor het volume beneden -5 m NAP gedeeld door het oppervlak beneden -5 m NAP (zie ook vergelijking \@ref(eq:geuldiepte)). 
 
-De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens (Marsdiep, Eijerlandse Gat, Vlie) een toename door de tijd zien (figuur \@ref(fig:geuldiepte)). Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries in sommige bekkens door worden veroorzaakt.
+De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens (Marsdiep, Eierlandse Gat, Vlie) een toename door de tijd zien (figuur \@ref(fig:geuldiepte)). Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries in sommige bekkens door worden veroorzaakt.
 
 ```{r geuldiepte, fig.cap="Geuldiepte in meter door de jaren in de verschillende gebieden. Let op de verschillende verticale assen. "}
 
@@ -328,7 +328,7 @@ valid.values.df %>%
 
 ##	Geulvolume 
 
-Het geulvolume is in de westelijke bekkens (Marsdiep, Eijerlandse Gat, Vlie) toegenomen, terwijl deze in het Friesche Zeegat (Pinkegat+Zoutkamperlaag) is afgenomen (figuur \@ref(fig:geulvolume)). De scherpe afname van het volume van Zouterkamperlaag begin jaren zeventig komt door de sluiting van de Lauwerszee in 1968.
+Het geulvolume is in de westelijke bekkens (Marsdiep, Eierlandse Gat, Vlie) toegenomen, terwijl deze in het Friesche Zeegat (Pinkegat+Zoutkamperlaag) is afgenomen (figuur \@ref(fig:geulvolume)). De scherpe afname van het volume van Zouterkamperlaag begin jaren zeventig komt door de sluiting van de Lauwerszee in 1968.
 
 (ref:geulvolumeLabel) Geulvolume in miljoen m^3^ per bekken over de tijd. Het volume is bepaald voor dat deel van de geul dat onder de NAP -5 m NAP ligt. 
 
@@ -421,7 +421,7 @@ contour.df <- read_delim(file.path(datadir, "RWS", "bathymetrie", "products", "l
 
 contour.df %>%
   mutate(`laagwaterlijnlengte (km)` = laagwaterlijnlengte_m/1000) %>%
-    mutate(gebied = factor(gebied, levels = c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild"))) %>%
+    mutate(gebied = factor(gebied, levels = c("Marsdiep","Eierlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild"))) %>%
 ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
   ggtitle("Laagwaterlijn in km") +
   geom_area(aes(fill = gebied)) +
@@ -447,7 +447,7 @@ ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
 
 contour.df %>%
   mutate(`laagwaterlijnlengte (km)` = laagwaterlijnlengte_m/1000) %>%
-    mutate(gebied = factor(gebied, levels = c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild"))) %>%
+    mutate(gebied = factor(gebied, levels = c("Marsdiep","Eierlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild"))) %>%
 ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
   ggtitle("Laagwaterlijn in km") +
   geom_line() +

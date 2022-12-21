@@ -56,8 +56,6 @@ sealevelAllStationsurl <- "https://raw.githubusercontent.com/openearth/sealevel/
 
 stations <- read_delim("https://raw.githubusercontent.com/openearth/sealevel/master/data/psmsl/NLstations.csv", delim = ";")
 
-
-
 sealevelAllStations <- read_csv(sealevelAllStationsurl,
                      comment = "#")
 
@@ -70,16 +68,20 @@ sealevelAllStations <- read_csv(sealevelAllStationsurl,
     geom_line(aes(year, `predicted_linear_with_wind in cm`, color = StationName)) +
     geom_line(data = sealevel, aes(x = year, y = predicted_linear_with_wind/10), color = "black") +
     theme_hy
-  if(knitr::is_html_output()){
-  ggplotly(p) %>% 
-    layout(
-      legend = list(
-        orientation = 'v',
-        x = 0.05,
-        y = 0.95
-      ),
-      yaxis = list(hoverformat = '.2f')
-    ) } else p
+  
+  # if(knitr::is_html_output()){
+  # ggplotly(p) %>%
+  #   layout(
+  #     legend = list(
+  #       orientation = 'v',
+  #       x = 0.05,
+  #       y = 0.95
+  #     ),
+  #     yaxis = list(hoverformat = '.2f')
+  #   ) 
+  # } else{
+      p
+  #     }
 
 ```
 
@@ -119,7 +121,8 @@ p <- df.extrema %>%
   theme_hy +
   xlab("Jaar") + ylab("Jaargemiddelde gemeten hoogwater in cm")
 
-if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else  p
+# if(knitr::is_html_output()){ggplotly(p)} else  
+  p
 
 
 ```
@@ -176,7 +179,9 @@ p <- df.extrema %>%
   theme_hy +
   xlab("Jaar") + ylab("Jaargemiddelde gemeten laagwater in cm")
 
-if(knitr::is_html_output()){ggplotly(p, width = 700, height = 550)} else p
+# if(knitr::is_html_output()){ggplotly(p, width = 700, height = 550)} else 
+  p
+
 ```
 
 ## Getijslag {#getijslag}
@@ -202,7 +207,8 @@ p <- df.extrema %>%
   # facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
   theme_hy
 
-if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else p
+# if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else 
+  p
 
 ```
 
@@ -358,7 +364,8 @@ ggplot(aes(year, p995)) +
     strip.text.y = element_text(angle = 0)) +
   xlab("Jaar") + ylab("99,5-percentiel van gemeten waterhoogte (cm) per jaar")
 
-  if(knitr::is_html_output()){ggplotly(p, height = 550)} else p
+  # if(knitr::is_html_output()){ggplotly(p, height = 550)} else 
+    p
 ```
 
 Het maximum van alle 99,5-percentielen voor de verschillende jaren in de tijdreeks is ook op de kaart ingetekend (figuur \@ref(fig:kaartjeMaximaleStormhoogte)). Bij Harlingen en Delfzijl zijn de grootste waarden gemeten, dat zijn de pieken rond 1960 uit figuur \@ref(fig:stormhoogte). Maar ook in recentere jaren treden de maximale stormhoogtes op bij Harlingen en Delfzijl, vanwege hun ligging achterin de bekkens.
@@ -485,6 +492,56 @@ rm(df_all)
 
 De zoetwaterafvoer leidt tot saliniteits- en dichtheidsverschillen tussen het zoute zeewater en de zoetwaterbel, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in hoofdstuk \@ref(Waterkwaliteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen.
 
+
+```{r kaartAfvoerLocaties, fig.cap = "Locaties van alle gerapporteerde afvoeren."}
+
+url2 <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aafvoeren_rijkswateren_location&outputFormat=application%2Fjson"
+RWSlocations <- sf::st_read(url2, quiet = T) %>%
+  sf::st_transform(4326)
+
+EmsLocations <- st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aems_discharge_bewerkt_location&outputFormat=application/json", quiet = T) %>%
+  filter(locatie.origineel == "q_hebrum_berekend_m3_s") %>%
+  sf::st_transform(4326)
+
+LedaLocations <- st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aleda_discharge_bewerkt_location&outputFormat=application/json", quiet = T)%>%
+  filter(locatie.origineel == "qo_leer_leda_m_3_s") %>%
+  sf::st_transform(4326)
+
+NoorderzijlvestLocations <- st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Anoorderzijlvest_location&outputFormat=application/json", quiet = T)%>%
+  sf::st_transform(4326)
+
+frieslandLocations <- sf::st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland_location&outputFormat=application/json", quiet = T) %>%
+  sf::st_transform(4326)
+
+allLocations <- list(RWSlocations, EmsLocations, LedaLocations, frieslandLocations, NoorderzijlvestLocations) %>%
+  bind_rows() %>%
+  mutate(gebied = as.factor(gebied))
+  
+# allLocations <- do.call(bind_rows, allLocationsList)
+
+pal <- leaflet::colorFactor("Accent", allLocations$gebied)
+
+map <- leaflet(allLocations) %>% 
+  addTiles(group = "OSM") %>%
+  addCircleMarkers(
+    fillColor = ~pal(gebied), 
+    stroke = F, 
+    fillOpacity = 1,
+    label = ~locatie.naam, 
+    labelOptions = labelOptions(noHide = T, textOnly = T)
+  ) %>%
+  leaflet::addLegend(
+    position = "bottomright", 
+    pal = pal, 
+    values = ~gebied,
+    title = "Gebieden",
+    opacity = 1
+  )
+
+map
+
+```
+
 ### Rijkswateren - IJsselmeer en Lauwersmeer
 
 De data van de grootste afvoeren vanuit Rijkswateren (Den Oever, Kornwerderzand, Lauwersoog) zijn ontsloten door Rijkswaterstaat en worden hier getoond. Andere/kleinere afvoeren zijn zeer nuttig om te ontsluiten, maar deze gegevens zijn via de verschillende waterschappen te verkrijgen (deze gegevens zullen in de loop van 2022 via Datahuis Wadden geharmoniseerd en ontsloten worden). Naar verwachting volgen de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval of droogte) en daarmee kan voor het volgen van trends eerst met deze grotere afvoeren worden volstaan. De afvoeren bij Den Oever en Kornwerderzand worden beïnvloed door het peilbeheer in het IJsselmeer. Daarom worden ook zomer- en wintergemiddelde afvoeren gevisualiseerd.
@@ -563,58 +620,11 @@ afvoer.df <- read_csv(url)
 ```
 
 
-```{r kaartAfvoerLocaties, fig.cap="Locaties van alle gerapporteerde afvoeren."}
-
-###### veranderenb in laag geoserver wanneer deze gereed is. 
-url2 <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aafvoeren_rijkswateren_location&maxFeatures=50&outputFormat=application%2Fjson"
-RWSlocations <- sf::st_read(url2) %>%
-  sf::st_transform(4326)
-  
-  # afvoer.df %>% distinct(loccod, locoms, gbdoms, loc_xcrdgs, loc_ycrdgs) %>%
-  # mutate(loc_xcrdgs = loc_xcrdgs/100, loc_ycrdgs = loc_ycrdgs/100) %>%
-  # rename(locatie.code = loccod, gebied = gbdoms) %>%
-  # st_as_sf(coords = c("loc_xcrdgs", "loc_ycrdgs"), crs = 28992) %>%
-  # st_transform(4326)
-
-
-EmsLocations <- st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aems_discharge_bewerkt_location&outputFormat=application/json", quiet = T) %>%
-  filter(locatie.origineel == "q_hebrum_berekend_m3_s") %>%
-  sf::st_transform(4326)
-
-LedaLocations <- st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aleda_discharge_bewerkt_location&outputFormat=application/json", quiet = T)%>%
-  filter(locatie.origineel == "qo_leer_leda_m_3_s") %>%
-  sf::st_transform(4326)
-
-NoorderzijlvestLocations <- st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Anoorderzijlvest_location&outputFormat=application/json", quiet = T)%>%
-  sf::st_transform(4326)
-
-frieslandLocations <- sf::st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland_location&outputFormat=application/json", quiet = T) %>%
-  sf::st_transform(4326)
-
-allLocations <- list(RWSlocations, EmsLocations, LedaLocations, frieslandLocations, NoorderzijlvestLocations) %>%
-  bind_rows() %>%
-  mutate(gebied = as.factor(gebied))
-  
-# allLocations <- do.call(bind_rows, allLocationsList)
-
-pal <- leaflet::colorFactor("Accent", allLocations$gebied)
-
-leaflet(allLocations) %>% 
-  addTiles(group = "OSM") %>%
-  addCircleMarkers(fillColor = ~pal(gebied), stroke = F, fillOpacity = 1,
-                   label = ~ locatie.naam, labelOptions = labelOptions(noHide = T, textOnly = T)
-  ) %>%
-  leaflet::addLegend("bottomright", pal = pal, values = ~gebied,
-            title = "Gebieden",
-            opacity = 1
-  )
-
-```
 
 
 (ref:jaargemiddeldeAfvoer-Label) Afvoer vanuit de Rijkswateren (IJsselmeer en Lauwersmeer) naar de Waddenzee De rode lijn is het jaargemiddeld op basis van metingen per etmaal. De zwarte punten zijn maandgemiddeleden en de kleinere grijze punten geven de individuele metingen weer. De individuele maxima gaan tot 2000 $m^3/s$ maar zijn niet weergegeven in deze figuur vanwege de leesbaarheid.
 
-```{r jaargemiddeldeAfvoer, eval=F, fig.height=8, fig.width=10, fig.cap="(ref:jaargemiddeldeAfvoer-Label)"}
+```{r jaargemiddeldeAfvoer, fig.height=8, fig.width=10, fig.cap="(ref:jaargemiddeldeAfvoer-Label)"}
 
 ######## lees data uit geoserver wanneer deze klaar is. 
 ### dit script werkt op dit moment niet. kolomnamen aanpassen
@@ -662,6 +672,8 @@ parData <- afvoer.df %>%
 In figuur \@ref(fig:seizoensgemiddeldenAfvoer) is de afvoer gemiddeld per zomerperiode (1 april - 30 september) en winterperiode (1 oktober - 31 maart). Hieruit is duidelijk te zien dat de zomerafvoer 2 tot 3 keer zo laag is als de winterafvoer. Ook de droge zomers van 2018, 2019 en 2020 zijn terug te zien in de figuur. Bij Den Oever lijkt zowel de zomergemiddelde als de wintergemiddelde afvoer de laatste twee decennia langzaam af te nemen.
 
 ```{r seizoensgemiddeldenAfvoer, fig.width=10, fig.height=8, fig.cap = "Zomer- (1 apr-30 sep) en wintergemiddelde (1 okt-31 maart) waterafvoer naar de Waddenzee. "}
+
+xlabel = "jaar"
 
 parData <- afvoer.df %>%  
   mutate(locatie.naam = case_when(

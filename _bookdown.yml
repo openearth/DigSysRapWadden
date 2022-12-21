@@ -1,5 +1,6 @@
 rmd_files: [
   "index.Rmd",
+  "verhaal_van_de_wadden.Rmd",
   "05_introductie.Rmd",
   "70_waterkwantiteit.Rmd",
   "10_meteorologieenklimaat.Rmd",

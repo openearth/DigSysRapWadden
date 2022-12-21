@@ -30,7 +30,7 @@ ref:kaartAbiotieklocatiesLabel Overzicht van vaste meetstations voor fysische wa
 
 ```{r kaartAbiotieklocaties, cache=F, fig.cap = '(ref:kaartAbiotieklocatiesLabel)'}
 
-mijnShape <- st_read(file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.geojson")), quiet = T)
+# mijnShape <- st_read(file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.geojson")), quiet = T)
 mijnCatalogus <- read_delim(file = file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.csv")), delim = ";")
 
 golfCatalogus <- mijnCatalogus  %>%
