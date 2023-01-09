@@ -1,0 +1,114 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Werkwijze bijdragen
+
+## Inleiding
+
+Het rapport is een [Bookdown](https://bookdown.org/yihui/bookdown/) project, bestaande uit een Rmarkdown file per hoofdstuk. Een Rmarkdown file bestaat uit geformateerde tekst (markdown, md) en code. De code kan in blokken staan gescheiden door rijtjes van 3 ticks (```) of in-line (`r print("dit is code")  `)
+
+## Filestructuur
+
+
+## Versiebeheer
+
+Deze rapportage staat op svn (https://repos.deltares.nl/repos/DigSysRapWadden/)
+
+## Edit
+
+Iedere teksteditor kan gebruikt worden om de tekst te editen. Gebruik liever geen Word.
+
+Syntax: Markdown 
+
+Voor hulp:
+
+menu: Help - Cheat sheets - Rmarkdown cheatsheet & Rmarkdown reference guide
+
+Veelgebruikte tips:
+
+- nieuw paragraaf --> twee returns, of twee spaties aan het eind van de regel.
+
+
+## Literatuurreferenties
+
+Er zijn twee *.bib files met referenties. Ze staan in folder references. Als er niet tussen zit wat je zoekt, maak dan een nieuwe file aan met jouw toevoegingen (uit EndNote, Mendeley, of Googlde Scholar)
+
+Een referentie wordt genoteerd als @Laane1980 (de eerste referentie in Wadden.bib). Je 
+
+Zie ook: https://bookdown.org/yihui/bookdown/citations.html
+
+## Figuur- of tabelreferenties
+
+Een verwijzing wordt gemaakt naar het codeblock waar de figuur/tabel geproduceerd wordt. 
+
+\@ref(fig:codeblockcode)
+\@ref(tab:codeblockcode)
+
+## 
+
+## Rstudio
+
+Rstudio is de ontwikkelomgeving voor R projecten. Het heeft allerlei handige voorzieningen die het werken met Rmarkdown files vergemakkelijken. Het heeft een geintegreerde svn functionaliteit.
+
+- Installeer Rstudio
+- Installeer R
+- Installeer Rtools (https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html)
+- Installeer het project
+  +   File - New Project - Version Control - SVN - Vul adres svn repos in (https://repos.deltares.nl/repos/DigSysRapWadden/) en maak een naam en pad voor je lokale folder
+  +   Installeer de environment door
+    + install.packages("Renv")
+    + Renv::renv::restore()
+
+Problemen:
+Als SVN niet als optie verschijnt: Installeer TortoiseSVN, zorg er voor dat je een checkbox aantikt bij installatie die command line (https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN)
+
+Als alles goed is gegaan heb je een checkout gemaakt van het svn repos. Nu kun je files gaan aanpassen.
+
+## Commit
+
+svn-commit   vul simpel commentaar in
+
+svn update voordat je begint met maken van veranderingen
+
+## Klaar met edit - build book
+
+Menu: Build - Configure build tools: Vul in: Website, Root, Gitbook. 
+
+Tab (rechtsboven): Build - build book - Gitbook
+
+Hierdoor wordt de HTML website opgebouwd, standaard in de folder "_book".
+
+Alles wat hier eerder stond wordt overschreven.
+
+## Upload naar webserver
+
+De webserver kan via bijv totalcommander aangesloten worden
+
+In Totalcommander
+
+Net- ftp connection - 
+
+Host: testsysteemrapportage.nl
+Username:	zkstestsysrap
+Password:	xxxxxxxxxxxxxxx 
+Domain:		testsysteemrapportage.nl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
