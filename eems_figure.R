@@ -58,6 +58,8 @@ p <- df.extrema %>%
   group_by(locatie.naam, jaar) %>% 
   summarise(jaargemiddelde = mean(h, na.rm = T)) %>%
   # filter(jaar != 2021 & jaar > 1970) %>%
+  filter(locatie.naam == "Delfzijl" | locatie.naam == "Eemshaven") %>%
+  #filter(jaar > 1985) %>%
   ggplot() +
   geom_point(aes(x = jaar, y = jaargemiddelde, color = locatie.naam), size = 1) +
   geom_smooth(aes(jaar, jaargemiddelde, color = locatie.naam), method = "lm", 
@@ -68,7 +70,7 @@ p <- df.extrema %>%
   # scale_x_continuous(limits = c(1970, 2020)) +
   # coord_cartesian(ylim = c(-175, 0)) +
   theme_hy +
-  xlab("Jaar") + ylab("Jaargemiddelde gemeten hoogwater in cm")
+  xlab("Jaar") + ylab("Jaargemiddelde hoogwater in cm t.o.v. NAP")
 
 # if(knitr::is_html_output()){ggplotly(p)} else  
 p
@@ -85,6 +87,8 @@ p <- df.extrema %>%
   group_by(locatie.naam, jaar) %>% 
   summarise(jaargemiddelde = mean(h, na.rm = T)) %>%
   # filter(jaar != 2021 & jaar > 1970) %>%
+  filter(locatie.naam == "Delfzijl" | locatie.naam == "Eemshaven") %>%
+  filter(jaar > 1985) %>%
   ggplot() +
   geom_point(aes(x = jaar, y = jaargemiddelde, color = locatie.naam), size = 1) +
   geom_smooth(aes(jaar, jaargemiddelde, color = locatie.naam), method = "lm", 
@@ -95,7 +99,31 @@ p <- df.extrema %>%
   # scale_x_continuous(limits = c(1970, 2020)) +
   # coord_cartesian(ylim = c(-175, 0)) +
   theme_hy +
-  xlab("Jaar") + ylab("Jaargemiddelde gemeten laagwater in cm")
+  xlab("Jaar") + ylab("Jaargemiddelde laagwater in cm t.o.v. NAP")
 
 # if(knitr::is_html_output()){ggplotly(p, width = 700, height = 550)} else 
+p
+
+# getijslag
+
+p <- df.extrema %>%
+  # filter(HL == "L") %>%
+  mutate(jaar = year(time)) %>% 
+  filter(jaar > 1985) %>%
+  group_by(locatie.naam, jaar, HL) %>% summarise(mean = mean(h)) %>%
+  filter(locatie.naam == "Delfzijl" | locatie.naam == "Eemshaven") %>%
+  pivot_wider(id_cols = c(locatie.naam, jaar), names_from = HL, values_from = mean) %>%
+  mutate(`getijslag in cm` = H-L) %>%
+  ggplot() +
+  geom_point(aes(jaar, `getijslag in cm`, color = locatie.naam)) +
+  geom_smooth(aes(jaar, `getijslag in cm`, color = locatie.naam), method = "lm", 
+              formula = y ~ x ) +
+  geom_smooth(aes(jaar, `getijslag in cm`, color = locatie.naam), method = "lm", 
+              formula = y ~ x + I(cos(2 * pi * x / (18.6))) + I(sin(2 * pi * (x) / (18.6)))) +
+  
+  #geom_line(aes(x = jaar, y=zoo::rollmean(`getijslag in cm`, 19, na.pad=TRUE))) + # poging om rolling average toe te voegen. Ziet er lelijk uit
+  # facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
+  theme_hy
+
+# if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else 
 p
