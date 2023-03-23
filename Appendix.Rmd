@@ -26,7 +26,16 @@ alt_theme_hy <- theme_tufte() + theme(axis.line=element_line()) #+
 
 In de DSR Wadden is de jaargemiddelde waterstand voor de zes hoofdstations langs de Nederlandse kust overgenomen uit de Zeespiegelmonitor. In deze studie is de stijging van de zeespiegel nauwkeurig onderzocht en berekend. De berekening en aanvullende en interactieve figuren kunnen worden ingezien via de [Jupyter Notebook Zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb).
 
-
+```{r}
+download_link(
+  link = "https://raw.githubusercontent.com/openearth/sealevel/master/data/deltares/results/dutch-sea-level-monitor-export-stations-2021-11-26.csv",
+  button_label = "Jaargemiddelde zeespiegel hoofdstations als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
 
 ## Getij en Waterstanden {#Appwaterstanden}
 
@@ -36,13 +45,24 @@ Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordz
 
 De recente waterstandsmetingen, vanaf 1984, hebben een tijdstap van 10 minuten op alle stations. Voor 1984 is met een lagere frequentie gemeten, met een tijdstap van 1 uur, en voor 1966 is dit zelfs een tijdstap van 3 uur, zie figuur \@ref(fig:tijdstap)). Voor deze lagere frequenties is de hieronder beschreven methode voor het afleiden van de waterstanden te onnauwkeurig. Voor die periode beschikt RWS wel over een dataset van hoog- en laagwaterstanden, die hiervoor kunnen worden gebruikt. Daarvan kan dan het jaarlijkse gemiddelde worden bepaald. Deze data zijn momenteel nog niet online beschikbaar.
 
+```{r}
+download_link(
+  link = file.path(projectDataPath, mijnGebied, "RWS", "standard", paste0("extremaHLLL", "yearlyaverages.csv")),
+  button_label = "Download jaargemiddelde extrema als .csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
 (ref:tijdstapCaption) Gebruikte tijdstap in de dataset voor alle stations. Vanaf 1984 is voor alle stations data op elke 10 minuten beschikbaar. Tussen 1966 en 1984 (variërend per station), is dit een tijdstap van een uur. In de jaren voor 1966 is dit zelfs 3 uur.
 
 ```{r tijdstap, out.width="80%", fig.cap= "(ref:tijdstapCaption)"  }
 knitr::include_graphics("images/tsTimestep.png")
 ```
 
-De getijcomponenten zijn berekend op basis van de waterstationsmeetseries van de OPeNDAP server van Deltares.
+De getijcomponenten zijn berekend op basis van de waterstationsmeetseries van Deltares.
 
 
 ### Berekening GHW, GLW en Getijslag
@@ -77,8 +97,32 @@ Delfzijl %>%
 
 GLLW en GHHW worden berekend als de maandminima en -maxima van het berekend getij per station. Het berekend getij wordt bepaald uit de getijcomponenten, zie sectie \@ref(getijcomponentenmethode).
 
+```{r}
+download_link(
+  link = "http://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/ddl/calculated/tidal_indicators/GHHWS_10min.csv",
+  button_label = "Download GHHW als .csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+```{r}
+download_link(
+  link = "http://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/ddl/calculated/tidal_indicators/GLLWS_10min.csv",
+  button_label = "Download GLLW als .csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
 ### Getijcomponenten en -asymmetrie {#getijcomponentenmethode}
 Op basis van de gemeten waterstanden wordt met het python package 'hatyan' de amplitude en fase van de verschillende getijcomponenten bepaald. Op basis van deze amplitudes en fases kan de amplitudeverhouding M~4~/M~2~ en het faseverschil ($2 \phi M_{2} - \phi M_{4}$) worden berekend [https://github.com/Deltares/hatyan](https://github.com/Deltares/hatyan).  Voor uitgebreide documentatie wordt verwezen naar [de gebruikershandleiding](https://github.com/Deltares/hatyan/blob/main/docs/11205257-013-DSC-0006_v1.0-Gebruikershandleiding%20hatyan.pdf).
+
+Getijcomponenten zijn berekend per station en jaar, en kunnen gedownloadt worden vanaf [dit adres](https://watersysteemdata.deltares.nl/thredds/catalog/watersysteemdata/Wadden/ddl/calculated/TA_filtersurge/catalog.html).
 
 ### Stormopzet en Stormvloedhoogte
 
@@ -86,12 +130,26 @@ De stormopzet (en -afzet) wordt berekend als de gemeten waterstand, verminderd m
 
 Voor de stormvloedhoogte gebruiken we het 99,5-percentiel per jaar van de gemeten waterstand (dus inclusief het getij). 
 
+De astronomische waterstand is berekend per station en jaar, en kan gedownloadt worden vanaf [dit adres](https://watersysteemdata.deltares.nl/thredds/catalog/watersysteemdata/Wadden/ddl/calculated/waterstand_berekend_m/catalog.html).
 
 ## Golven {#Appgolfhoogte}
 
 ### Brondata
 
-Significante golfhoogte, golfperiode (Tm02) en golfrichting worden eveneens rechtstreeks ingelezen uit de Data DistributieLaag. 
+Significante golfhoogte, golfperiode (Tm02) en golfrichting worden eveneens rechtstreeks ingelezen uit de Data DistributieLaag. De ingelezen set die gebruikt is voor deze rapportage is beschikbaar via onderstaande download link. 
+
+```{r}
+download_link(
+  link = "http://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/ddl/standard/golven2021-07-08.csv",
+  button_label = "Download golfdata als .csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+
 
 
 ### Anomalie van de maandgemiddelde golfhoogte
@@ -119,13 +177,22 @@ Afvoeren van de Eems en Leda zijn opgevraagd bij NLWKN en toegevoegd aan de [Dat
 
 Voor de polderafvoeren van de waterschappen zijn gegevens opgevraagd bij het desbetreffende waterschap en voor deze rapportage beschikbaar gemaakt via de [Datahuis Wadden Geoserver](https://datahuiswadden.openearth.nl/geoserver/web/wicket/bookmarkable/org.geoserver.web.demo.MapPreviewPage?1&filter=false). Directe links naar de afvoerdata staan hieronder.
 
-Rijkswaterstaat
+**Rijkswaterstaat**
 
 De etmaalgemiddelde afvoeren die in deze rapportage zijn gebruikt zijn opgevraagd bij de servicedesk data van Rijkswaterstaat. Deze gegevens zijn lokaal opgeslagen als bevroren versie voor deze rapportage en te downloaden via onderstaande link. 
 
-*   [Etmaalgemiddelde afvoeren van de Rijkswateren IJsselmeer en Lauwersmeer](https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aafvoeren_rijkswateren&outputFormat=csv&maxFeatures=50)
+```{r}
+download_link(
+  link = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aafvoeren_rijkswateren&outputFormat=csv",
+  button_label = "Etmaalgemiddelde afvoeren IJsselmeer en Lauwersmeer als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
 
-NLWKN
+**NLWKN (Eems en Leda) **
 
 Locaties en stroomgebied: 
 
@@ -136,18 +203,53 @@ invisible(file.copy(file.path(datadir, "NLWKN", "afvoeren", "raw", "2022_07_06_D
 knitr::include_graphics(path = file.path("images/2022_07_06_Discharges Ems.jpg"))
 ```
 
-*   [Eems afvoer](https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aems_discharge_bewerkt&outputFormat=csv&maxFeatures=50)
-
-*   [Leda afvoer](https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aleda_discharge_bewerkt&outputFormat=csv&maxFeatures=50)
-
-Kleine afvoeren
-
-*   [Wetterskip Friesland afvoeren](https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland&outputFormat=csv&maxFeatures=50)
 
 
+```{r}
+download_link(
+  link = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aems_discharge_bewerkt&outputFormat=csv",
+  button_label = "Eems afvoer als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
 
-REST VOLGT 2e HELFT 2022
+```{r}
+download_link(
+  link = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aleda_discharge_bewerkt&outputFormat=csv",
+  button_label = "Leda afvoer als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
 
+**Waterschappen**
+
+```{r}
+download_link(
+  link = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland&outputFormat=csv",
+  button_label = "Wetterskip Friesland afvoeren als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+```{r}
+download_link(
+  link = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Anoorderzijlvest&outputFormat=csv",
+  button_label = "Noorderzijlvest afvoeren als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
 
 ### Bewerking van afvoeren
 
@@ -159,8 +261,8 @@ Daarnaast wordt voor de grotere afvoeren ook de gemiddelde zomerafvoer en de gem
 ## Meteorologie (wind) {#Appwind}
 
 
-```{r readMeteodata2, cache=T}
-dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
+```{r readMeteodata2, eval=F}
+dtwind <- data.table::fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 # paste(unique(dtwind$station), collapse = ", ")
 ```
 
@@ -174,7 +276,16 @@ Als indicatoren voor de windsterkte worden de windrozen per station van de volle
 
 Voor het bepalen van de periodes met hoge windsterkte wordt gekeken naar het aantal achtereenvolgende uren dat de windsnelheid boven een bepaalde grenswaarde komt. In de systeemrapportage worden de grenswaardes >10,8 m/s (Beaufort 6) en >13,9 m/s (Beaufort 7) gebruikt. Dit aantal uren wordt uitgezet in de tijd voor alle windrichtingen en uitgesplitst per kwadrant. Daarnaast wordt ook het aantal uren gesommeerd per jaar weergegeven met onderverdeling per kwadrant, zodat de jaren onderling beter vergeleken kunnen worden.
 
-
+```{r}
+download_link(
+  link = "http://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/KNMI/raw/uurgegevenswind.csv",
+  button_label = "Gebruikte uurgegevens wind als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
 
 ## Waterkwaliteit {#Appwaterkwaliteit}
 
@@ -187,6 +298,19 @@ Zwevend stof was tijdens de samenstelling van dit rapport niet beschikbaar uit d
 De MWTL data hebben een frequentie van eens per maand in de winter en twee keer per maand in de zomer.
 
 Ook is bekend dat er continue metingen van temperatuur en saliniteit plaatsvinden bij de NIOZ steiger op Texel, en continue metingen van temperatuur, saliniteit en zwevende stof bij meetpaal Eemshaven. Deze zijn vooralsnog buiten beschouwing gelaten, omdat deze data nog niet goed ontsloten en/of gevalideerd zijn.
+
+```{r}
+download_link(
+  file.path("http://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden", "RWS", "standard", "ZS_all.csv"),
+  button_label = "Zwevend stofgegevens als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+
 
 
 ### Gemiddelde watertemperatuur (maand, jaar en zomer/winter)
@@ -215,6 +339,17 @@ De anomalie van de saliniteit is de afwijking van de maandgemiddelde saliniteit 
 1)  De afwijking uitzetten tegen de tijd. 
 
 
+```{r}
+download_link(
+  file.path("http://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden", "RWS", "standard", "WQ_TS_trendstations_allyears.csv"),
+  button_label = "Temperatuur en saliniteitgegevens als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
 ### Gemiddelde zwevende stof gehalte (maand, jaar) en anomalie
 
 Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de 'maandgemiddelden' te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden beinvloed door de hogere meetfrequentie in de zomer. (Het woord 'maandgemiddelden' staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar 1 meting per maand is.)
@@ -231,10 +366,7 @@ Voor zwevende stof is de anomalie, de afwijking ten opzichte van het langjarig g
 
 1)  De afwijking uitzetten tegen de tijd, zowel voor de gehele meetperiode als per maand. De kleurenschaal geeft de absolute waarde van de zwevend stofconcentratie aan. Bij het figuur met de gehele meetperiode achter elkaar is een lijn toegevoegd op basis van het 13-maanden (dus minstens 1 jaar) lopend gemiddelde.
 
-
-
 ## Morfologie {#Appmorfologie}
-
 
 ### Brondata bodemligging
 
@@ -257,7 +389,9 @@ Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstruer
 
 Voor de (morfologische) zonering van de ondiepe gebieden is er voor gekozen om in eerste instantie uit te gaan van vaste begrenzingen van de hoogteklasses. Daarmee worden niet de veranderingen in getijslag door de tijd of over het gebied meegenomen. Dit betekent dat verandering in arealen alleen worden veroorzaakt door veranderingen in de bodemligging, en niet door een verandering in getijvoortplanting. Een indeling aan de hand van dergelijke begrenzingen geeft weliswaar niet het exacte intergetijdengebied weer, maar levert wel een bruikbare proxy hiervoor.
 
+### Vakken
 
+Voor de opdeling in kombergingen is een indeling van "tidal basins" gebruikt. De polygonen van de vakken zijn te downloaden van de [Wageningen Marine Research Geoserver]("https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json")
 
 ### Hypsometrische curves
 
@@ -327,6 +461,19 @@ Voor het geulvolume wordt het volume onder de NAP -1 m grens berekend:
 ### Lengte van de laagwaterlijn
 
 Voor de berekening van de lengte van de laagwaterlijn is in eerste instantie de totale lengte berekend van de -1 m NAP contourlijnen binnen elk bekken. 
+
+```{r}
+download_link(
+  file.path("http://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/RWS/bathymetrie/products/laagwaterlijnlengte.csv"),
+  button_label = "Laagwaterlijnlengte als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+
 
 
 ## Bodemslibgehalte {#Appbodemkwaliteit}

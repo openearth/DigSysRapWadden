@@ -1,5 +1,4 @@
 
-# still to be finalised
 
 runonline = F
 local = F

@@ -35,6 +35,8 @@ getPackage("tidync")
 getPackage("ggthemes")
 getPackage("leaflet.extras")
 getPackage("oce")
+getPackage("downloadthis")
+
 
 select <- dplyr::select
 addLegend <- leaflet::addLegend

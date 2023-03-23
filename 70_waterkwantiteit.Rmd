@@ -8,6 +8,8 @@ theme_hy <- theme_bw()
 
 alt_theme_hy <- theme_tufte() + theme(axis.line=element_line()) #+ 
     # scale_x_continuous(limits=c(10,35)) + scale_y_continuous(limits=c(0,400))
+
+require(magrittr)
 ```
 
 ## Afbakening, definitie en herkomst
@@ -91,6 +93,32 @@ In de studie Zeespiegelmonitor is de stijging van de zeespiegel nauwkeurig onder
 
 De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix \@ref(Appwaterstanden).
 
+```{r readExtremaData}
+
+df.extrema <- read_delim(file.path(datadir, "RWS", "standard", paste0("extremaHLLL", "latest", ".csv")), delim = ";") %>%
+  mutate(h = h * 100) # van meter naar cm
+
+pad <- file.path(projectDataPath, mijnGebied, "RWS", "standard", paste0("extremaHLLL", "yearlyaverages.csv"))
+
+# check
+# df.extrema %>%
+#   mutate(jaar = year(time)) %>%
+#   group_by(jaar, locatie.naam, HL, status) %>%
+#   summarize(n = n()) %>%
+#   ggplot(aes(jaar, n)) +
+#     geom_point(aes(color = status)) +
+#   facet_wrap(~locatie.naam)
+
+df.extrema.jaar <- df.extrema %>%
+  mutate(jaar = year(time)) %>% 
+  # group_by(locatie.naam) %>%
+  # mutate(across(h, remove_outliers)) %>%
+  group_by(locatie.naam, jaar, HL) %>% 
+  summarise(jaargemiddelde = mean(h, na.rm = T)) %T>%
+  write_csv(pad)
+
+```
+
 De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde periode van 1985 tot heden. Ook de ruimtelijke verschillen over de Waddenzee zijn duidelijk terug te zien in de grafieken. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
 
 ```{r Hoogwaters, fig.height=6, fig.width=6, fig.cap='Jaargemiddeld hoogwater (GHW) per station. De doorgetrokken lijn is een lineaire regressie door de alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel.'}
@@ -98,34 +126,36 @@ De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde p
 df.extrema <- read_delim(file.path(datadir, "RWS", "standard", paste0("extremaHLLL", "latest", ".csv")), delim = ";") %>%
   mutate(h = h * 100) # van meter naar cm
 
-
+require(magrittr)
 
 p <- df.extrema %>%
   filter(HL == "H") %>%
     mutate(
       jaar = year(time)
     ) %>% 
-  group_by(locatie.naam) %>% mutate(across(h, remove_outliers)) %>%
+  group_by(locatie.naam) %>%
+  mutate(across(h, remove_outliers)) %>%
   group_by(locatie.naam, jaar) %>% 
-  summarise(jaargemiddelde = mean(h, na.rm = T)) %>%
-    # filter(jaar != 2021 & jaar > 1970) %>%
+  summarise(jaargemiddelde = mean(h, na.rm = T)) %T>%
+  write_csv(file.path(projectDataPath, mijnGebied, "RWS", "standard", paste0("extremaHLLL", "yearlyaverages.csv"))) %>%
     ggplot() +
   geom_point(aes(x = jaar, y = jaargemiddelde, color = locatie.naam), size = 1) +
-  geom_smooth(aes(jaar, jaargemiddelde, color = locatie.naam), method = "lm", 
-              formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6))) + I(sin(2 * pi * as.numeric(x) / (18.6))),
-              size = 1) +
-    # coord_cartesian(ylim = c(-160, -100)) +
-    # facet_wrap(~locatie.naam, ncol = 2, scales = "free") + 
-  # scale_x_continuous(limits = c(1970, 2020)) +
-  # coord_cartesian(ylim = c(-175, 0)) +
+  geom_smooth(
+    aes(jaar, jaargemiddelde, color = locatie.naam), 
+    method = "lm", 
+    formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6))) + I(sin(2 * pi * as.numeric(x) / (18.6))),
+    size = 1) +
   theme_hy +
   xlab("Jaar") + ylab("Jaargemiddelde gemeten hoogwater in cm")
 
 # if(knitr::is_html_output()){ggplotly(p)} else  
   p
 
-
 ```
+
+
+
+
 
 ## Gemiddeld Laagwater (GLW) {#gemiddeld-laagwater-glw}
 
@@ -134,29 +164,6 @@ De berekeningswijze van de Gemiddelde Laag Waterstanden is vergelijkbaar met die
 De Gemiddelde Laag Waterstanden (figuur \@ref(fig:Laagwaters)) laten voor de meeste stations ook een stijging zien. Ook is te zien hoe de laagwaterniveaus variëren over de Waddenzee. Daarnaast vallen enkele veranderingen in de tijd op waar de trendlijnen niet goed recht aan doen: Vooral het GLW te Harlingen is na de sluiting van de Zuiderzee begin jaren 1930 plotseling fors gedaald maar heeft sindsdien weer een licht stijgende trend. Ook West-Terschelling (eind jaren 1950) en Delfzijl (eind jaren 1970) laten een vrij plotselinge daling zien die waarschijnlijk het gevolg is van geulverdieping of -verlegging.
 
 ```{r Laagwaters, fig.height=8, fig.width=8, fig.cap="Jaargemiddeld laagwater (GLW) per station. De lijn is een linaire regressie door alle data rekening houdend met een cyclus van 18.6 jaar; de grijze band is het 95% predictie-interval van het regressiemodel."}
-
-# versie waarbij de lijn door ALLE punten wordt bepaald, niet alleen door jaargemiddelden. 
-# df.extrema %>%
-#   filter(HL == "L") %>%
-#     mutate(
-#       jaar = year(time)
-#     ) %>%
-#     filter(jaar != 2021 & jaar > 1970) %>%
-#   group_by(locatie.naam, jaar) %>% mutate(across(h, remove_outliers)) %>%
-#     ggplot() +
-#   geom_point(aes(time, h), alpha = 0.2) +
-#   geom_point(
-#     data = . %>% group_by(locatie.naam, jaar) %>% summarise(jaargemiddelde = mean(h)),
-#     aes(
-#       x = as_datetime(paste(jaar, "07", "01")),
-#       y = jaargemiddelde)
-#   ) +
-#     geom_smooth(aes(time, h), method = "lm",
-#                 formula = y ~ x + I(cos(2 * pi * as.numeric(x) / (18.6*31556995))) + I(sin(2 * pi * as.numeric(x) / (18.6*31556995)))) +
-#     # coord_cartesian(ylim = c(-160, -100)) +
-#     facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
-#   theme_hy +
-#   xlab("Jaar") + ylab("Jaargemiddelde gemeten waterstand in cm")
 
 p <- df.extrema %>%
   filter(HL == "L") %>%
