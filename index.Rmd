@@ -9,7 +9,7 @@ link-citations: yes
 # number_sections: true
 # cover-image: images/voorplaat.png
 subtitle: "Natuurmonitoring, onderdeel morfologie"
-
+always_allow_html: true
 ---
 
 
@@ -22,11 +22,11 @@ knitr::include_graphics("images/voorplaat.png", )
 </br>
 </br>
 
-**Disclaimer**
+<!-- **Disclaimer** -->
 
-De informatie op deze website is nog volop in ontwikkeling en is bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden.
+<!-- De informatie op deze website is nog volop in ontwikkeling en is bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden. -->
 
-This website is a test version. Nothing from this website may be used.
+<!-- This website is a test version. Nothing from this website may be used. -->
 
 Deze watersysteemrapportage is een initiatief van:
 
