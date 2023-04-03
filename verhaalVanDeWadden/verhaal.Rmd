@@ -9,6 +9,10 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, out.width="90%")
+
+# invoke with
+# rmarkdown::render(file.path("verhaalVanDeWadden", "verhaal.Rmd"), rmarkdown::slidy_presentation())
+
 ```
 
 #
@@ -55,6 +59,6 @@ knitr::include_graphics(knitr::include_graphics("Het-verhaal-van-de-wadden-v1/Sl
 
 # 
 
-[Terug naar Systeemrapportage Wadden](https://www.testsysteemrapportage.nl/wadden/)
+[Terug naar Systeemrapportage Wadden](https://www.systeemrapportage.nl/wadden/)
 
 
