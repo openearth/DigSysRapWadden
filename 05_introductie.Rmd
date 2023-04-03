@@ -94,8 +94,8 @@ rm(WQcatalogus, waterhoogteCatalogus, golfCatalogus)
 pal = colorFactor("Dark2", levels = unique(plotCatalogus$groep))
 
 leaflet(data = plotCatalogus) %>%
-  # addTiles() %>%
-  addProviderTiles(providers$Esri.WorldTopoMap) %>%
+  addTiles() %>%
+  # addProviderTiles(providers$Esri.WorldTopoMap) %>%
   addCircleMarkers(color = ~pal(groep), opacity = 1, radius = 3, fill = T, label = ~ locatie.naam, labelOptions = labelOptions(textsize = 12)) %>%
   leaflet::addLegend(pal = pal, values = unique(plotCatalogus$groep), opacity = 1)
 ```
