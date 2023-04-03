@@ -4,31 +4,30 @@
 
 ## Basismonitoring Wadden
 
-Deze Digitale Systeemrapportage (DSR) is opgezet als onderdeel van het project Natuurmonitoring Wadden - Morfologie van Rijkswaterstaat. Dit valt vervolgens weer onder de [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/), en heeft betrekking op de niet-levende (abiotische) kenmerken van de Waddenzee. Basismonitoring Wadden houdt de ontwikkelingen in het Waddengebied in de gaten, met de volgende hoofddoelen:.
+Deze Digitale Systeemrapportage (DSR) is opgezet als onderdeel van het project Natuurmonitoring Wadden - onderdeel Morfologie van Rijkswaterstaat. Dit valt vervolgens weer onder de [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/), en heeft betrekking op de niet-levende (abiotische) kenmerken van de Waddenzee. Basismonitoring Wadden houdt de ontwikkelingen in het Waddengebied in de gaten, met de volgende hoofddoelen:.
 
--   inzicht geven in de toestand en trends in het Waddengebied voor beheerders en gebruikers;
--   het komen tot een effectieve en efficiënte systeemgerichte monitoring;
--   het toegankelijk maken van alle beschikbare informatie en monitoringgegevens over het Waddengebied, waardoor de gebruiker zicht heeft op het volledige Waddensysteem.
+1. inzicht geven in de toestand en trends in het Waddengebied voor beheerders en gebruikers;
+2. het komen tot een effectieve en efficiënte systeemgerichte monitoring;
+3. het toegankelijk maken van alle beschikbare informatie en monitoringgegevens over het Waddengebied, waardoor de gebruiker zicht heeft op het volledige Waddensysteem.
 
-Basismonitoring Wadden richt zich daarbij op bepaalde kernwaarden, te weten: Landschappelijke kwaliteiten; Natuurlijke Waddenzee Abiotisch (niet-levende natuur); Natuurlijke Waddenzee Biotisch (levende natuur); en Menselijk Medegebruik. Aan elk van deze kernwaarden, of thema's, zijn beleid- en beheerdoelen gekoppeld. Voor meer informatie hierover verwijzen we naar de [Ambitie van Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf).
+Basismonitoring Wadden richt zich daarbij op de zogenaamde kernwaarden: Landschappelijke kwaliteiten; Natuurlijke Waddenzee Abiotisch (niet-levende natuur); Natuurlijke Waddenzee Biotisch (levende natuur); en Menselijk Medegebruik. Aan elk van deze kernwaarden, of thema's, zijn beleid- en beheerdoelen gekoppeld. Voor meer informatie hierover verwijzen we naar de [Ambitie van Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf).
 
 Voor de abiotische (niet-levende) natuur van de Waddenzee geldt als belangrijke doelstelling:
 
-> een zo natuurlijk mogelijke ontwikkeling van waterbewegingen en hiermee gepaard gaande geomorfologische en bodemkundige processen.' ([Structuurvisie Waddenzee](https://www.noordzeeloket.nl/publish/pages/122066/brein-herziening-2021-structuurvisie-waddenzee-id-28.pdf))
+> *'een zo natuurlijk mogelijke ontwikkeling van waterbewegingen en hiermee gepaard gaande geomorfologische en bodemkundige processen.'
+- [Structuurvisie Waddenzee](https://www.noordzeeloket.nl/publish/pages/122066/brein-herziening-2021-structuurvisie-waddenzee-id-28.pdf)*
 
 ## Doel Digitale Systeemrapportage
 
-Het doel van de Digitale Systeemrapportage Wadden is om te komen tot actuele, transparante en consistente reeksen van indicatoren, en om deze op een toegankelijke manier te ontsluiten. De digitale rapportage maakt het bovendien mogelijk om de informatie gemakkelijk te actualiseren en bij te houden. Daarmee draagt het al direct bij aan het eerste en derde doel van Basismonitoring Wadden.
+Het doel van de Digitale Systeemrapportage Wadden is om te komen tot actuele, transparante en consistente reeksen van indicatoren, en om deze op een toegankelijke manier te ontsluiten. De digitale rapportage maakt het bovendien mogelijk om de informatie gemakkelijk te actualiseren. Daarmee draagt het al direct bij aan het eerste en derde doel van Basismonitoring Wadden.
 
-Door het toegankelijk maken van de relevante informatie, kunnen trends en ontwikkelingen snel worden opgespoord, en verder worden geanalyseerd. Dit kan weer bijdragen aan een efficiëntere en effectievere uitvoering van het beheer, bijvoorbeeld bij het verklaren van bepaalde waargenomen ontwikkelingen in de natuurdoelen, of wanneer men de invloed van bepaalde menselijke activiteiten in beeld wil brengen. Dit maakt het vervolgens weer makkelijker om kennisleemtes en aanvullende monitoringsbehoeften te identificeren, waardoor het indirect ook bijdraagt aan het tweede doel van Basismonitoring Wadden: de systeemgerichte monitoring.
+Door het toegankelijk maken van de relevante informatie kunnen trends en ontwikkelingen snel worden opgespoord, en verder worden geanalyseerd. Dit draagt bij aan efficiënter en effectiever beheer, bijvoorbeeld bij het verklaren van waargenomen ontwikkelingen in de natuurdoelen, of invloed van menselijke activiteiten. Hierbij worden ook kennisleemtes en aanvullende monitoringsbehoeften geïdentificeerd, waardoor de DSR indirect bijdraagt aan het tweede doel van Basismonitoring Wadden: de systeemgerichte monitoring.
 
 ## Informatiebehoefte en indicatoren
 
-Indicatoren zijn meetbare (of uit metingen af te leiden) grootheden die een signaalfunctie hebben, en bijvoorbeeld informatie geven over de kwaliteit van iets. In deze systeemrapportage beperken we ons tot de informatiebehoefte die voorkomt uit de beleids- en beheerdoelen voor de abiotische natuur van de Waddenzee. Daarbij gaat het om alle abiotische kenmerken die invloed hebben op de natuurlijkheid van het Waddensysteem, zoals ook sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc. De benodigde data is deels afkomstig van ruimtelijke metingen (bijvoorbeeld bodemligging), deels van vaste meetstations zoals weergegeven in figuur \@ref(fig:kaartAbiotieklocaties).
+Indicatoren zijn meetbare (of uit metingen af te leiden) grootheden die een signaalfunctie hebben, en bijvoorbeeld informatie geven over de kwaliteit van iets. In deze systeemrapportage beperken we ons tot de informatiebehoefte die voorkomt uit de beleids- en beheerdoelen voor de abiotische natuur van de Waddenzee. Daarbij gaat het om alle abiotische kenmerken die invloed hebben op de natuurlijkheid van het Waddensysteem, zoals sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc. De benodigde data is deels afkomstig van ruimtelijke metingen (bijvoorbeeld bodemligging), en deels van meetstations en -locaties zoals weergegeven in figuur \@ref(fig:kaartAbiotieklocaties).
 
-ref:kaartAbiotieklocatiesLabel Overzicht van vaste meetstations voor fysische waterkwaliteit (temperatuur, zwevend stof en saliniteit) en hydrodynamiek (golven, waterstanden) in het Waddengebied gebruikt in de rapportage. Een groot deel van de in hoofdstuk \@ref(hydro) en \@ref(Waterkwaliteit) gepresenteerde parameters is afkomstig van deze stations.
-
-```{r kaartAbiotieklocaties, cache=F, fig.cap = '(ref:kaartAbiotieklocatiesLabel)'}
+```{r kaartAbiotieklocaties, cache=F, fig.cap = 'Overzicht van meetstations en -locaties voor fysische waterkwaliteit (temperatuur, zwevend stof en saliniteit) en hydrodynamiek (golven, waterstanden) in het Waddengebied. Een groot deel van de in hoofdstuk \@ref(hydro) en \@ref(Waterkwaliteit) gepresenteerde parameters wordt op deze posities gemeten.'}
 
 # mijnShape <- st_read(file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.geojson")), quiet = T)
 mijnCatalogus <- read_delim(file = file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.csv")), delim = ";")
@@ -100,31 +99,22 @@ leaflet(data = plotCatalogus) %>%
   leaflet::addLegend(pal = pal, values = unique(plotCatalogus$groep), opacity = 1)
 ```
 
-De fysische kenmerken van de Waddenzee zijn een waarde op zich. Zij worden hier beschouwd als losstaand van de ecologie of biologie. Dit betekent dat abiotische indicatoren niet direct informatie geven over de biotische (levende) natuur. Maar omdat de biota wel afhangen van de abiotiek, zijn deze indicatoren wel indirect van belang voor de biotische natuur.
+De fysische kenmerken van de Waddenzee zijn een waarde op zich. Zij worden hier beschouwd als losstaand van de ecologie of biologie. Abiotische indicatoren geven niet direct informatie over de biotische (levende) natuur, maar de biota hangen wel af van de abiotiek. Daarmee zijn deze indicatoren indirect van belang voor de biotische natuur.
 
-De informatiebehoefte is nergens formeel vastgelegd. De indicatoren in deze systeemrapportage zijn afkomstig uit een inventarisatie vanuit verschillende documenten, waarin aandacht is besteed aan indicatoren in relatie tot de doelstelling. Daarbij moet gezegd worden dat de systeemrapportage nog in ontwikkeling is, en daarom nog niet compleet is. Het is ook mogelijk om in de toekomst de rapportage uit te breiden naar indicatoren die behoren bij de andere thema's van Basismonitoring, voor een optimale bundeling van alle relevante informatie van het Waddengebied.
+De informatiebehoefte is nergens formeel vastgelegd. De indicatoren in deze systeemrapportage zijn afkomstig uit een inventarisatie vanuit verschillende documenten, waarin aandacht is besteed aan indicatoren in relatie tot de doelstelling. Meer informatie over de indicatoren voor morfologie is terug te vinden in het [Analysedocument Morfologie](https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/analysedoc/pdf/Morfologie_20191231_Analysedocument_Morfologie-concept_extern.pdf). De systeemrapportage wordt in consultatie met stakeholders en experts ontwikkeld. We volgen een iteratieve werkwijze, waarmee toegewerkt wordt naar een bruikbaar en hoogwaardig product voor belanghebbenden in het Waddengebied. Er wordt dankbaar gebruik gemaakt van de ervaringen van de Evaluatiemethodiek en de Eerstelijnsrapportages van de Westerschelde, en de [(digitale) systeemrapportages](https://www.testsysteemrapportage.nl/) die voor de zuidwestelijke delta (Grevelingen, Oosterschelde, Volkerak-Zoommeer) worden gemaakt. De systeemrapportage is nog niet compleet. Om aan te geven wat er naar verwachting nog toegevoegd gaat worden, dus hoe de systeemrapportage er uiteindelijk uit zal zien, zijn wel vast de koppen van de indicatoren toegevoegd in de inhoudsopgave. De uiteindelijke invulling kan hier nog van afwijken naar gelang beschikbaarheid van data, budget en urgentie. Wij streven ernaar deze rapportage zo volledig en bruikbaar mogelijk te houden. 
 
-Meer informatie over de indicatoren voor morfologie is terug te vinden in het [Analysedocument Morfologie](https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/analysedoc/pdf/Morfologie_20191231_Analysedocument_Morfologie-concept_extern.pdf).
+Het is ook mogelijk om in de toekomst de rapportage uit te breiden naar indicatoren die behoren bij de andere thema's van Basismonitoring, voor een optimale bundeling van alle relevante informatie van het Waddengebied. 
 
-## Proces
 
-De Digitale Systeemrapportage Wadden wordt door Deltares in consultatie met stakeholders en experts ontwikkeld. We volgen een iteratieve werkwijze, waarmee toegewerkt wordt naar een bruikbaar en hoogwaardig product voor belanghebbenden in het Waddengebied.
+## Handleiding voor gebruik
 
-Voor het opstellen van deze systeemrapportage wordt dankbaar gebruik gemaakt van de ervaringen van de Evaluatiemethodiek en de Eerstelijnsrapportages van de Westerschelde, en de [(digitale) systeemrapportages](https://www.testsysteemrapportage.nl/) die voor de zuidwestelijke delta (Grevelingen, Oosterschelde, Volkerak-Zoommeer) worden gemaakt.
+De systeemrapportage is bedoeld als een naslagwerk, waarin gericht en snel actuele informatie kan worden opgezocht. De nadruk ligt daarbij op de gegevens (figuren) zelf, en hoe deze geïnterpreteerd moeten worden. Dit wordt voorafgegaan door een korte uitleg waarom bepaalde indicatoren zijn opgenomen en andere niet, en wat de herkomst van de gegevens is. Deze systeemrapportage is nadrukkelijk niet bedoeld als een evaluatie van de toestand en trends van de abiotiek in de Waddenzee; daarvoor is verdere analyse noodzakelijk. Voor meer uitleg over hoe de indicatoren bepaald zijn kunt u doorklikken naar de bijlagen.
 
-## Leeswijzer
-
-De systeemrapportage is bedoeld als een naslagwerk, waarin gericht snel bepaalde informatie kan worden opgezocht. De nadruk ligt daarbij in eerste instantie op de gegevens (figuren) zelf, en hoe deze geïnterpreteerd moeten worden. Dit wordt voorafgegaan door een korte uitleg waarom bepaalde indicatoren zijn opgenomen en andere niet, en wat de herkomst van de gegevens is. Deze systeemrapportage is nadrukkelijk niet bedoeld als een evaluatie van de toestand en trends van de abiotiek in de Waddenzee; daarvoor is verdere analyse noodzakelijk. Voor meer uitleg over hoe de indicatoren bepaald zijn kunt u eenvoudig doorklikken naar de bijlagen.
-
-Een overzicht van de volledige inhoud is te vinden in de inhoudsopgave links in uw scherm. Daar vind u ook de zoekfunctie, instellingen voor lettergrootte (ook te wijzigen met [CRTL +/-] in uw browser, en een knop voor het maken van een pdf van de actuele versie. Deze is nog niet actief vanwege kleine technische zaken; de rapportage is nog in ontwikkeling. De meeste figuren zijn interactief: de gebruiker kan in-en uitzoomen op relevante gebeiden of perioden, met de cursor datapunten bevragen, en een plot exporteren als figuur voor verder gebruik. De werking is getest in Firefox (103.02) en beperkter in Chrome en Edge. De rapportage is niet getest op mobiele platforms (tablet, telefoon) en is daar ook niet voor bedoeld.
-
-Nog niet alle indicatoren zijn daadwerkelijk opgenomen in deze versie. Om aan te geven wat er naar verwachting nog toegevoegd gaat worden, dus hoe de systeemrapportage er uiteindelijk uit zal zien, zijn wel vast de koppen van de indicatoren toegevoegd in de inhoudsopgave. De uiteindelijke invulling kan hier nog van afwijken naar gelang beschikbaarheid van data, budget en urgentie.
-
-Wij streven ernaar deze rapportage zo volledig en bruikbaar mogelijk te houden. Als u gebreken of onvolledigheden constateert horen wij dat graag via: jasper.dijkstra -at- deltares.nl en/of falco.van.bakel -at- rws.nl.
+Een overzicht van de volledige inhoud is te vinden in de inhoudsopgave links in uw scherm. Daar vind u ook de zoekfunctie, instellingen voor lettergrootte (ook te wijzigen met [CRTL +/-] in uw browser, en een knop voor het maken van een pdf van de actuele versie. De meeste figuren zijn interactief: de gebruiker kan in-en uitzoomen op relevante gebeiden of perioden, met de cursor datapunten bevragen, en een plot exporteren als figuur voor verder gebruik. Door op een figuur te klikken wordt deze groter. Door nogmaals op het figuur te klikken wordt deze weer kleiner. De werking is getest in Firefox (103.02) en beperkter in Chrome en Edge. De rapportage is niet getest op mobiele platforms (tablet, telefoon) en is daar ook niet voor bedoeld.
 
 ## Wettelijke kaders
 
-Sommige indicatoren zijn gekoppeld aan (al dan niet wettelijke) doelstellingen, vanuit verschillende kaders. Via de koppelingen in tabel \@ref(tab:kadertabel), is het mogelijk om snel de juiste selectie indicatoren te vinden, behorend bij een bepaald kader. De wettelijke kaders zelf zijn niet opgenomen in deze digitale systeemrapportage. Deze zijn elders vermeld; zo is bijvoorbeeld het areaal kwelders te vinden op de helpdesk water.
+Sommige indicatoren zijn gekoppeld aan (wettelijke) doelstellingen, vanuit verschillende kaders. Via de koppelingen in tabel \@ref(tab:kadertabel) is het mogelijk om snel de juiste selectie indicatoren te vinden, behorend bij een bepaald kader. De wettelijke kaders zelf zijn niet opgenomen in deze systeemrapportage. Deze zijn elders vermeld; zo is bijvoorbeeld het areaal kwelders te vinden op de helpdesk water.
 
 ```{r kadertabel}
 
@@ -137,6 +127,6 @@ kadertabel <- readxl::read_excel(file.path(datadir, "RWS/Indicatoren behorend bi
 
 # \@ref(sec:FirstSection)
 
-knitr::kable(kadertabel, caption = "Beheerskaders en, waar passend, koppelingen naar de verschillende onderdelen in de systeemrapportage.")
+knitr::kable(kadertabel, caption = "Beheerskaders en beschikbare koppelingen naar de verschillende onderdelen in de systeemrapportage.")
 
 ```

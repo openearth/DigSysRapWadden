@@ -1,25 +1,24 @@
 ---
-title: "Systeemrapportage Abiotiek Wadden, concept 0.9"
-author: "Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren, Vincent van Zelst, Jasper Dijkstra"
-date: '`r Sys.Date()`'
+title: "Digitale Systeemrapportage van de Waddenzee"
+# author: "Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren, Vincent van Zelst, Jasper Dijkstra"
+# date: '`r Sys.Date()`'
 site: bookdown::bookdown_site
 bibliography: "references/wadden.bib"
 biblio-style: "apalike"
 link-citations: yes
 # number_sections: true
 # cover-image: images/voorplaat.png
-subtitle: "Natuurmonitoring, onderdeel morfologie"
+subtitle: "Abiotische indicatoren"
 always_allow_html: true
 ---
 
 
 
-# Voorwoord {- #voorwoord}
+<!-- # Voorwoord {- #voorwoord} -->
 
-```{r voorplaat, width = "100%", fig.cap="Luchtfoto van Rottumeroog in 2011. (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)"}
+```{r voorplaat, width = "100%", fig.cap="Luchtfoto van Rottumeroog in 2011 (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)."}
 knitr::include_graphics("images/voorplaat.png", )
 ```
-</br>
 </br>
 
 <!-- **Disclaimer** -->
@@ -36,3 +35,7 @@ Deze watersysteemrapportage is een initiatief van:
 -   Deltares
 
 Deze digitale Systeemrapportage van de Wadden is opgezet als een naslagwerk, om te voldoen aan de eerste informatiebehoefte voor beheerders, gebruikers en onderzoekers van de Waddenzee. Het bevat indicatoren die de toestand en trends van het natuurlijke abiotische systeem beschrijven, en die invloed hebben op de natuurlijkheid van het Waddensysteem. Dat maakt dat ze relevant zijn voor de verschillende beheer- en beleidsdoelen in het Waddengebied.
+
+Informatie uit deze Digitale Systeemrapportage kan als volgt geciteerd worden: "Stolte, W., Vroom, J., Santinelli, G., Veenstra, J., Van Oeveren, C., Van Zelst, V. and Dijkstra, J. (2023). Digitale Systeemrapportage van de Waddenzee, versie 1.0. https://systeemrapportage.nl/wadden/".
+
+Als u gebreken of onvolledigheden constateert horen wij dat graag via: jasper.dijkstra -at- deltares.nl en/of falco.van.bakel -at- rws.nl.

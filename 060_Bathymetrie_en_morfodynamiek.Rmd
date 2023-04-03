@@ -12,18 +12,17 @@ laagwaterlijn = -2
 
 **Belang**
 
-De noemer 'Morfologie' wordt in deze rapportage gebruikt om een aantal geomorfologische indicatoren onder te scharen: Ten eerste de bodemligging of bathymetrie zelf, die sterk bepalend is voor stromingen, golven, waterstanden, scheepvaart en ecologie. Om veranderingen in bodemligging beter te kunnen duiden zijn een aantal afgeleide morfologische indicatoren opgenomen, namelijk de hypsometrie (de verdeling van de hoogteligging naar gelang oppervlakte), de arealen geul/subtidaal/intratidaal/supratidaal, plaathoogte en -volume en geuldiepte en -volume. Ook de netto erosie- of sedimentatie en de bijbehorende sedimentbalans zijn weergegeven ter informatie, om te kunnen zien welke kombergingsgebieden het snelst sedimenteren.
+De noemer 'Morfologie' wordt in deze rapportage gebruikt om een aantal geomorfologische indicatoren onder te scharen: ten eerste de bodemligging of bathymetrie zelf, die sterk bepalend is voor stromingen, golven, waterstanden, scheepvaart en ecologie. Om veranderingen in bodemligging beter te kunnen duiden zijn een aantal afgeleide morfologische indicatoren opgenomen, namelijk de hypsometrie (de verdeling van de hoogteligging naar oppervlakte), de arealen geul/subtidaal/intratidaal/supratidaal, plaathoogte en -volume en geuldiepte en -volume. Ook de netto erosie- en sedimentatie en de bijbehorende sedimentbalans zijn weergegeven. 
 
 Ook is de lengte van de laagwaterlijn opgenomen. Deze geeft aan of er veel kleine platen en geulen zijn, of juist vooral grotere en is indicatief voor het beschikbare foerageergebied voor steltlopers: hoe langer de laagwaterlijn, hoe meer gebied beschikbaar is.  
 
-Naast kwantitatieve informatie over de bodem bevat deze systeemrapportage ook kwalitatieve bodeminformatie over het bodemslibgehalte -relevant voor het voorkomen van biota en de erosiesnelheid van de bodem- en erosieresistente lagen. Deze lagen bestaan over het algemeen uit geconsolideerde klei, veen of Holocene afzettingen en vertragen geulmigratie door hun moeilijke erodeerbaarheid. Ze zijn dus mede bepalend voor de lange-termijn kustontwikkeling.
+Het bodemslibgehalte (relevant voor het voorkomen van biota en de erosiesnelheid van de bodem) en erosieresistente lagen zijn eveneens opgenomen. Erosieresistente of harde lagen bestaan over het algemeen uit geconsolideerde klei, veen of Holocene afzettingen en vertragen geulmigratie door hun moeilijke erodeerbaarheid. Ze zijn dus mede bepalend voor de lange-termijn morfologische ontwikkeling.
 
-Tot slot is tijdelijk de Ecotopenkaart (2017) van de Waddenzee opgenomen ter illustratie. Deze is eigenlijk een aggregatie van elders in deze rapportage opgenomen of nog op te nemen kaarten en derhalve geen data. 
+Tot slot is de Ecotopenkaart (2017) van de Waddenzee opgenomen. Deze is een aggregatie van elders in deze rapportage opgenomen of nog op te nemen kaarten. 
 
 **Afbakening**
 
-De morfologische indicatoren worden meestal getoond per kombergingsgebied, ook wel bekken genoemd. Figuur \@ref(fig:gebiedenWaddenzee) toont de begrenzing en benaming van de verschillende bekkens. Deze begrenzing is overgenomen van de Geoserver van <abbr title="Wageningen Marine Research">WMR</abbr>^[https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins]. 
-De begrenzing tussen de bekkens wordt gevormd door de zogenaamde 'wantijen'. Dit zijn gebieden achter de eilanden waar de getijgolven die door de zeegaten naar binnen komen elkaar ontmoeten. De stroomsnelheden zijn daardoor lager, waardoor sediment kan worden afgezet. Deze gebieden hebben vaak een hogere bodemligging en zijn slibrijk. Door de morfologische ontwikkeling van de Waddenzee en de morfodynamiek hebben de wantijen geen vaste positie, ze kunnen bijvoorbeeld van ligging veranderen als gevolg van afsluitingen (Zuiderzee, Lauwerszee). Bovendien moeten ze ook meer worden gezien als overgangszone dan als een vaste lijn zoals gebruikt wordt voor de begrenzing. In deze rapportage wordt geen rekening gehouden met de verschuivende positie van de wantijen en wordt de indeling zoals onderstaand weergegeven gebruikt in de analyse. Omdat een dergelijke analyse complex is, en nog niet afgerond is (verwachting: 2025, zijn de opgenomen netto erosie/sedimentatie en de sedimentbalans gebaseerd op een eerdere studie van Wang et al. (2018); de resultaten zijn daarom slechts als figuren beschikbaar en niet interactief bevraagbaar.
+De morfologische indicatoren worden meestal getoond per kombergingsgebied, ook wel bekken genoemd. Figuur \@ref(fig:gebiedenWaddenzee) toont de begrenzing en benaming van de verschillende bekkens. Deze begrenzing is overgenomen van de Geoserver van <abbr title="Wageningen Marine Research">WMR</abbr>^[https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins]. De begrenzing van de bekkens is relevant, omdat er evenwichtsrelaties bekend zijn voor de verhouding tussen geulen en platen afhankelijk van de bekkenoppervlakte. De begrenzing tussen de bekkens wordt gevormd door de zogenaamde 'wantijen'. Dit zijn gebieden achter de eilanden waar de getijgolven die door de zeegaten naar binnen komen elkaar ontmoeten. De stroomsnelheden zijn daar lager, waardoor sediment kan worden afgezet. Deze gebieden hebben vaak een hogere bodemligging en zijn slibrijk. Door de morfologische ontwikkeling van de Waddenzee en de morfodynamiek hebben de wantijen geen vaste positie, ze kunnen bijvoorbeeld van ligging veranderen als gevolg van afsluitingen (Zuiderzee, Lauwerszee). Bovendien moeten ze ook meer worden gezien als overgangszone dan als een vaste lijn zoals gebruikt wordt voor de begrenzing. In deze rapportage wordt geen rekening gehouden met de verschuivende positie van de wantijen en wordt onderstaande indeling gebruikt. 
 
 
 ```{r gebiedenWaddenzee, fig.cap="Indeling van de Waddenzee in verschillende kombergingsgebieden of bekkens voor het gebruik in morfologische indicatoren. "}
@@ -48,24 +47,29 @@ Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswij
 ## Bodemligging {#bodemligging}
 
 
-De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). De bodemligging is een mozaïek van de verschillende vaklodingen^[https://puc.overheid.nl/rijkswaterstaat/doc/PUC_116617_31/] door Rijkswaterstaat. In de figuur kan het tijdsinterval van de vaklodingen worden aangepast om ook oudere bodemliggingen te bekijken. Hierdoor is bijvoorbeeld de ontwikkeling van het geulensysteem te volgen. 
+De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). De bodemligging is een mozaïek van de verschillende vaklodingen^[https://puc.overheid.nl/rijkswaterstaat/doc/PUC_116617_31/]. In de figuur kan het tijdsinterval van de vaklodingen worden aangepast om ook oudere bodemliggingen te bekijken. Hiermee is de ontwikkeling van het geulensysteem te volgen. 
 
-Voor een schermvullende interactieve weergave van bathymetrie zoals getoond in figuur \@ref(fig:WaddenBathymetrieLeaflet2) verwijzen we naar deze [link](https://deltares.shinyapps.io/bathymetrywadden/).
+Voor een schermvullende interactieve weergave van bathymetrie zoals getoond in figuur \@ref(fig:WaddenBathymetrieLeaflet2) verwijzen we naar deze [viewer](https://deltares.shinyapps.io/bathymetrywadden/).
 
 
-```{r WaddenBathymetrieLeaflet2, fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 2026 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
+```{r WaddenBathymetrieLeaflet2, fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 1926 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
 
 knitr::include_url("https://deltares.shinyapps.io/bathymetrywadden/", height = "600px")
 
 ```
 
+## Netto erosie en sedimentatie
+Figuur \@ref(fig:Wang2018Sedero) laat zien dat de grootste bodemveranderingen over de periode 1927-2016 hebben plaatsgevonden in de Westelijke Waddenzee. Hier is de invloed van de afsluiting van de Zuiderzee dominant: de snelle opvulling van afgesloten geulen en sedimentatie langs de vastelandskust. Deze sedimentatie verloopt tot nu toe sneller dan de zeespiegelstijging. 
 
+```{r Wang2018Sedero, fig.cap= "Veranderingen in platen en geulen in de Waddenzee over de periode 1927-2016. Boven: Bodemligging voor de sluiting van de Zuiderzee (1027-1935). Midden: Recente bodemligging, gebaseerd op surveys tussen 2011-2016. Onder: Sedimentatie-erosiepatroon over de periode 1927-2016. Bron: [Wang et al., 2018](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/43109B1810D68CF36D1C91405EA37F0A/S0016774618000082a.pdf/div-class-title-sediment-budget-and-morphological-development-of-the-dutch-wadden-sea-impact-of-accelerated-sea-level-rise-and-subsidence-until-2100-div.pdf)." }
+knitr::include_graphics("images/Wangetal2018_Fig2BathyChange.png")
+```
 
 ## Hypsometrie {#hypsometrie}
 
 De hypsometrische curve geeft de verdeling van de hoogteligging in een bepaald gebied weer. Op de verticale as wordt de bodemhoogte uitgezet, en daarbij op de horizontale as het totale areaal met een bodemligging lager of gelijk aan die bodemhoogte. Voor kombergingsgebieden in de Waddenzee hebben hypsometrische curves een vergelijkbare vorm, omdat er relatief weinig diepe geulen zijn en relatief veel intergetijdengebied. Indien een bepaalde hoogteligging weinig aanwezig is, zal de hypsometrische curve hier een steil verloop laten zien, en indien een bepaalde hoogteligging veel voorkomt wordt de curve bijna vlak. Door in eenzelfde figuur de hypsometrische curve voor verschillende jaren (bodemopnames) te tonen, kan in één oogslag worden bekeken welk areaal (bijvoorbeeld geulareaal) er door de tijd is bijgekomen of verdwenen. In de Appendix \@ref(Appmorfologie) staan de brondata en berekeningswijze beschreven.
 
-Figuur \@ref(fig:hypsometriePerGebied) toont de hypsometrische curves voor de bekkens in de Waddenzee. Voor de meeste bekkens (voor afbakening, zie figuur \@ref(fig:gebiedenWaddenzee)) is de zien dat de recente jaren een curve hebben met een hogere ligging, wat betekent dat de bodem is opgehoogd.
+Figuur \@ref(fig:hypsometriePerGebied) toont de hypsometrische curves voor de bekkens in de Waddenzee. Voor de meeste bekkens (voor afbakening, zie figuur \@ref(fig:gebiedenWaddenzee)) is de zien dat de recente jaren een curve hebben met een hogere ligging, wat betekent dat de bodem omhoog is gekomen.
 
 
 ```{r prepareHypsometriearealen, eval = F}
@@ -176,7 +180,7 @@ save(valid.values.df, file = file.path(datadir, "RWS", "bathymetrie", "valid_val
 
 
 
-```{r hypsometriePerGebied, fig.cap="Hypsometrische curven voor verschillende gebieden in de Waddenzee en voor een selectie van bathymetrieën. "}
+```{r hypsometriePerGebied, fig.cap="Hypsometrische curven voor verschillende bekkens in de Waddenzee en voor een selectie van bathymetrieën. "}
 
 load(file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
 
@@ -197,7 +201,7 @@ p <- valid.values.df %>%
   ggplot() +
   geom_line(aes(x = oppervlakte, y = diepte, color = jaar)) +
   facet_wrap(~ naam, scales = "free_x", ncol = 3) +
-  xlab("Oppervlakte [km2]") + ylab("Diepte [m] t.o.v. NAP") +
+  xlab("Oppervlakte [km^2^]") + ylab("Bodemligging t.o.v. NAP [m]") +
   coord_cartesian(ylim = c(-5, 3)) +
   theme(legend.position = "bottom")
 
@@ -229,7 +233,7 @@ Er is er voor deze rapportage voor gekozen om in eerste instantie uit te gaan va
 Figuur \@ref(fig:arealen) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:gebiedenWaddenzee)). De figuur laat zien dat het intergetijdengebied in de meeste bekkens toeneemt over de tijd. Alleen voor de Lauwers en Schild is dit niet zo. Ook neemt het areaal subgetijdengebied af (dit ligt tussen de -5 m NAP en de -1 m NAP lijn). De arealen supragetijdengebied zijn klein, ook omdat enkel de gebieden (cellen) worden meegenomen die in alle jaren opgenomen zijn. Het supragetijdengebied is niet altijd volledig opgenomen in de vaklodingen data, zeker niet in oudere opnamen. De ontwikkeling van het geulareaal verschilt per bekken.
 
 
-```{r arealen, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km2 per gebied en diepteklasse."}
+```{r arealen, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse."}
 
 valid.values.df  %>%
   mutate(class=case_when(
@@ -248,20 +252,20 @@ valid.values.df  %>%
   # facet_grid(naam ~ class, scales = "free") + #free_y facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free_y") + #
   facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free") +
   theme(strip.text.y = element_text(angle = 0)) +
-  ylab("Oppervlakte [km2]") + xlab("Jaar") +
-  coord_cartesian(xlim = c(1940, 2020)) +
-  ggtitle("Areaal in km2 per bekken en diepteklasse")
+  ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
+  coord_cartesian(xlim = c(1920, 2020)) +
+  ggtitle("Areaal in km^2^ per bekken en diepteklasse")
 
 ```
 ##	Plaathoogte
 
-De hoogte van het intergetijdengebied (plaathoogte) is afhankelijk van de hydrodynamiek en het aanbod van sediment. Het getij voert sediment aan, dat kan worden afgezet op de platen. Golfwerking leidt tot erosie van de platen. De balans tussen erosie en sedimentatie resulteert in een bepaalde plaathoogte. Indien er veranderingen optreden in het getij, kan dit leiden tot veranderingen in de stroomsnelheden, met andere sedimentbeschikbaarheid tot gevolg. Veranderingen in GHW (bijvoorbeeld door zeespiegelstijging) leiden tot andere overstromingsduur en kunnen leiden tot veranderende invloed van de golven. Voor platen die in evenwicht zijn, zijn er evenwichtsrelaties afgeleid door Eysink (1992). 
+De hoogte van het intergetijdengebied (plaathoogte) is afhankelijk van de hydrodynamiek en het aanbod van sediment. Het getij voert sediment aan, dat kan worden afgezet op de platen. Golfwerking leidt tot erosie van de platen. De balans tussen erosie en sedimentatie resulteert in een bepaalde plaathoogte. Indien er veranderingen optreden in het getij, kan dit leiden tot veranderingen in de stroomsnelheden, met andere sedimentbeschikbaarheid tot gevolg. Veranderingen in GHW (bijvoorbeeld door zeespiegelstijging) leiden tot andere overstromingsduur en kunnen leiden tot veranderende invloed van de golven. Voor platen die in evenwicht zijn, zijn er evenwichtsrelaties afgeleid door [Eysink & Biegel (1992)](https://repository.tudelft.nl/islandora/object/uuid%3A3a321491-a1c9-4eb2-b536-d35cb81302d8). 
 
-Bij analyse van deelgebieden, is de ruimtelijke begrenzing zeer van belang voor het berekenen van de plaathoogte. Indien een intergetijdengebied bijvoorbeeld migreert of opschuift, kan een stuk met lagere bodemligging (of zelfs geul) binnen de polygoon schuiven en daarmee de *gemiddelde* plaathoogte beïnvloeden. Op het niveau van bekkens speelt dit minder, omdat op de wantijen weinig geulen aanwezig zijn.
+Bij analyse van deelgebieden is de ruimtelijke begrenzing zeer van belang voor het berekenen van de plaathoogte. Indien een intergetijdengebied bijvoorbeeld migreert of opschuift, kan een stuk met lagere bodemligging (of zelfs geul) binnen de polygoon schuiven en daarmee de *gemiddelde* plaathoogte beïnvloeden. Op het niveau van bekkens speelt dit minder, omdat op de wantijen weinig geulen aanwezig zijn.
 
 In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte per bekken te berekenen. Hiervoor wordt het volume tussen de -1 m NAP en +1 m NAP grens bepaald, en gedeeld door de oppervlakte.
 
-De gemiddelde plaathoogte (figuur \@ref(fig:plaathoogte)) lijkt voor de grotere bekkens licht toe te nemen.
+De gemiddelde plaathoogte (figuur \@ref(fig:plaathoogte)) lijkt voor de grotere bekkens licht toe te nemen. Voor de Eilanderbalg, Lauwers en Schild zijn pas in de jaren '70 de eerste bodems opgenomen, en vertonen om die reden voor die tijd een horizontale lijn.
 
 ```{r plaathoogte, fig.cap = "Gemiddelde plaathoogte per bekken. "}
 valid.values.df %>% 
@@ -273,19 +277,19 @@ valid.values.df %>%
   geom_line(aes()) +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
   facet_wrap(~ naam, scales = "free") +
-  coord_cartesian(xlim = c(1940, 2020)) +
-  ylab("Plaathoogte [m] t.o.v. NAP") + xlab("Jaar") +
+  coord_cartesian(xlim = c(1920, 2020)) +
+  ylab("Plaathoogte t.o.v. NAP [m]") + xlab("Jaar") +
   ggtitle("Plaathoogte in m per bekken")
 ```
 
 
 ##	Geuldiepte
 
-Geuldiepte is de geïntegreerde waarde voor het volume beneden -5 m NAP gedeeld door het oppervlak beneden -5 m NAP (zie ook vergelijking \@ref(eq:geuldiepte)). 
+Geuldiepte is het volume beneden -5 m NAP gedeeld door het oppervlak beneden -5 m NAP (zie ook vergelijking \@ref(eq:geuldiepte)). 
 
-De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens (Marsdiep, Eierlandse Gat, Vlie) een toename door de tijd zien (figuur \@ref(fig:geuldiepte)). Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries in sommige bekkens door worden veroorzaakt.
+De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens (Marsdiep, Eierlandse Gat en Vlie) een toename door de tijd zien (figuur \@ref(fig:geuldiepte)). Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries in sommige bekkens door worden veroorzaakt. Voor de Eilanderbalg, Lauwers en Schild zijn pas in de jaren '70 de eerste bodems opgenomen, en vertonen om die reden voor die tijd een horizontale lijn.
 
-```{r geuldiepte, fig.cap="Geuldiepte in meter door de jaren in de verschillende gebieden. Let op de verschillende verticale assen. "}
+```{r geuldiepte, fig.cap="Geuldiepte door de jaren in de verschillende gebieden. Let op de verschillende verticale assen. "}
 
 valid.values.df %>% 
   filter(diepte <= -5) %>%
@@ -296,7 +300,7 @@ valid.values.df %>%
   geom_line(aes()) +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
   facet_wrap(~ naam, scales = "free")+
-  coord_cartesian(xlim = c(1940, 2020)) +
+  coord_cartesian(xlim = c(1920, 2020)) +
   ylab("Geuldiepte [m] t.o.v. NAP") + xlab("Jaar") 
 ```
 
@@ -305,9 +309,7 @@ valid.values.df %>%
 Het plaatvolume is per bekken gevisualiseerd in figuur \@ref(fig:plaatvolume). Het verloop is grotendeels vergelijkbaar met de plaatoppervlaktes; kleine verschillen worden verzoorzaakt door geulmigratie van het ene naar het andere bekken. In veel bekkens is het plaatvolume de afgelopen 80 jaar netto toegenomen, vaak wel met tijdelijke afnames. Lauwers, Zoutkamperlaag en Schild kennen na een piek in 2003 juist een duidelijke afname. 
 Verdere analyse is nodig om preciezer vast te stellen wat de veranderingen in de tijd heeft veroorzaakt.  
 
-(ref:plaatvolumeLabel) Plaatvolume in  m^3^ per gebied over de tijd. Het volume is bepaald voor dat deel van de plaat dat tussen -1 m NAP en +1 m NAP  ligt. Het volume is bepaald t.o.v. het referentievlak op -1 m NAP.
-
-```{r plaatvolume, fig.cap = "(ref:plaatvolume)" }
+```{r plaatvolume, fig.cap = "Plaatvolume in  m^3^ per gebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. " }
 
 valid.values.df %>% 
   filter(diepte >= -1 & diepte < 1) %>%
@@ -316,23 +318,19 @@ valid.values.df %>%
   mutate(volume = plaathoogte*400/1e6) %>% # elk rastersegment is 20x20 m
   summarize(plaatvolume = sum(volume)) %>%
   ggplot(aes(jaar, plaatvolume)) +
-  ggtitle("Plaatvolume in miljoen m^3") +
+  ggtitle("Plaatvolume in miljoen m^3^") +
   geom_line(aes()) +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
   facet_wrap(~ naam, scales = "free")+
-  coord_cartesian(xlim = c(1940, 2020)) +
-  ylab("Plaatvolume [miljoen m^3^] t.o.v. NAP") + xlab("Jaar") 
+  coord_cartesian(xlim = c(1920, 2020)) +
+  ylab("Plaatvolume [miljoen m^3^]") + xlab("Jaar") 
 ```
 
 
-
 ##	Geulvolume 
+Het geulvolume is in de westelijke bekkens (Marsdiep, Eierlandse Gat, Vlie) toegenomen, terwijl deze in het Friesche Zeegat (Pinkegat en Zoutkamperlaag) is afgenomen (figuur \@ref(fig:geulvolume)). De scherpe afname van het volume van Zouterkamperlaag begin jaren zeventig komt door de sluiting van de Lauwerszee in 1968, waardoor er sterke sedimentatie in de geulen optrad.
 
-Het geulvolume is in de westelijke bekkens (Marsdiep, Eierlandse Gat, Vlie) toegenomen, terwijl deze in het Friesche Zeegat (Pinkegat+Zoutkamperlaag) is afgenomen (figuur \@ref(fig:geulvolume)). De scherpe afname van het volume van Zouterkamperlaag begin jaren zeventig komt door de sluiting van de Lauwerszee in 1968.
-
-(ref:geulvolumeLabel) Geulvolume in miljoen m^3^ per bekken over de tijd. Het volume is bepaald voor dat deel van de geul dat onder de NAP -5 m NAP ligt. 
-
-```{r geulvolume, fig.cap = "(geulvolumeLabel)" }
+```{r geulvolume, fig.cap = "Geulvolume in miljoen m^3^ per bekken over de tijd. Het volume is bepaald voor dat deel van het bekken dat onder de NAP -5 m NAP ligt. " }
 valid.values.df %>% 
   filter(diepte < -5) %>%
   mutate(volumediepte = -(diepte+5)) %>%
@@ -344,29 +342,23 @@ valid.values.df %>%
   geom_line(aes()) +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
   facet_wrap(~ naam, scales = "free")+
-  coord_cartesian(xlim = c(1940, 2020)) +
-  ylab("Geulvomume [miljoen m3] onder NAP -5 m vlak") + xlab("Jaar") 
-```
-
-## Netto erosie en sedimentatie
-Figuur \@ref(fig:Wang2018Sedero) (uit Wang et al., 2018) laat zien dat de grootste volumeveranderingen over de periode 1927-2016 hebben plaatsgevonden in de Westelijke Waddenzee. Hier zijn de invloeden van menselijke ingrepen dominant, en de snelle opvulling van afgelosten geulen en langs de randen van de Friese- en Noord-Hollandse kust in plaats van een geleidelijke toename van plaathoogtes, maken het aannemelijk dat deze sedimentatie een reactie is op de aflsuiting van de Zuiderzee en niet op zeespiegelstijging. The intergetijdegbieden laten wel in elk bekken een toename zien, zie ook \@ref:(hypsometrie). 
-De sedimentatie in de Texel en Vlie bekkens heeft vooral plaatsgevonden in de ondiepe delen (boven -6m NAP), terwijl de sedimentatie in het bekken van het Friese Gat (Zoutkamperlaag) over het hele subtidaal plaatsvond. 
-
-```{r Wang2018Sedero, fig.cap= "Veranderingen in platen en geulen in de Waddenzee over de periode 1927-2016. Boven: Bodemligging voor de sluiting van de Zuiderzee (1027-1935). Midden: Recente bodemligging, gebaseerd op surveys tussen 2011-2016. Onder: Sedimentatie-erosiepatroon over de periode 1927-2016." }
-knitr::include_graphics("images/Wangetal2018_Fig2BathyChange.png")
+  coord_cartesian(xlim = c(1920, 2020)) +
+  ylab("Geulvomume [miljoen m^3^]") + xlab("Jaar") 
 ```
 
 
 ## Sedimentbalans
-In alle Waddenzeebekkens is over de periode 1935-2005 netto sedimentatie opgetreden volgens Wang et al. (2018; figuur \@ref(fig:Wang2018Sedbalans)). De gemiddelde aangroeisnelheden per bekken over deze periode zijn allemaal beduidend hoger dan de relatieve zeespiegelstijging. De import van sediment is sterk beïnvloed door menselijke activiteiten (zie Elias et al., 2012 voor meer informatie). Texel en Vlie (met 4.69 mm/jaar) laten een reactie zien op de sluiting van de Zuiderzee in 1932, en het Friese Gat (6.66 mm/jaar) reageert op de sluiting van de Lauwerszee in 1969. Het bekken bij Ameland kent geen ingrepen en laat de laagste sedimentatiesnelheid (2.52 mm/jaar) zien. Langs de Noordzeekust, dus buiten de bekkens, vindt juist erosie plaats in dezelfde periode. Het totale volume hiervan is ongeveer gelijk aan de totale sedimentatie in de bekkens. 
+Omdat een dergelijke analyse complex is, en nog niet afgerond is (verwachting: 2025), zijn de opgenomen netto erosie/sedimentatie en de sedimentbalans gebaseerd op een eerdere studie van [Wang et al. (2018)](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/43109B1810D68CF36D1C91405EA37F0A/S0016774618000082a.pdf/div-class-title-sediment-budget-and-morphological-development-of-the-dutch-wadden-sea-impact-of-accelerated-sea-level-rise-and-subsidence-until-2100-div.pdf); de resultaten zijn daarom slechts als figuren beschikbaar en niet interactief bevraagbaar.
 
-(ref:Wang2018Sedmalans-label) Sedimentatie (+) en erosie (-) snelheden over de periode 1935-2005, gebaseerd op de resultaten van Elias et al. (2012), uitgedrukt in miljoen m^3^/jaar (het eerste getal in een polygoon). Het tweede getal geeft de verticale aangroeisnelheid (in mm/jaar) in de bekkens of erosiesnelheden aan de Noordzee-zijde van de eilanden weer (uitgaande van 20 meter morfologisch actieve diepte). De bekkens van Texel en Vlie staan in werkelijkheid in verbinding met elkaar en hun ontwikkeling moet dus ook gezamenlijk beschouwd worden.
+In alle Waddenzeebekkens is over de periode 1926-2005 netto sedimentatie opgetreden ([Wang et al. (2018)](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/43109B1810D68CF36D1C91405EA37F0A/S0016774618000082a.pdf/div-class-title-sediment-budget-and-morphological-development-of-the-dutch-wadden-sea-impact-of-accelerated-sea-level-rise-and-subsidence-until-2100-div.pdf); figuur \@ref(fig:Wang2018Sedbalans)). De gemiddelde aangroeisnelheden per bekken over deze periode zijn allemaal beduidend hoger dan de relatieve zeespiegelstijging. De import van sediment is sterk beïnvloed door menselijke activiteiten (zie [Elias et al., 2012](https://d1wqtxts1xzle7.cloudfront.net/36002145/Elias_et_al_2012_development_and_budget_Dutch_Wadden_Sea-libre.pdf?1418983436=&response-content-disposition=inline%3B+filename%3DMorphodynamic_development_and_sediment_b.pdf&Expires=1680536267&Signature=KRo-ouBWTph9Vph3e4OtMYlej6tu8a3t5x9FGNQ16fOERdI0Zgf7ALP02yQMpMlv5i~zTqnEiEE-piME3pig-3H~HwshnlmPzMcz65TQCV2iY41SrdANMO5Ei2vzdIVYQfZCH0Jyrna53E7GfZiGbn3ZqDBWBV9Rg5pbjEWPMiH~LxWopsm41rlXRrcaE9CAhSkW5dYLwV2cnxLGh1bLWgZFGVSEVQPli~dO7nTHAtFbuWhpEhGSwi6dMJNpT9jNlyP2QdpTrWOLdwtVotL5Js4rBps-r4z1bHtr~mNSNzZdvbJIp72M4IZlJ3hrQ3XqzjBgCI-DTQEndcS0-VJnnA__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA) voor meer informatie). Texel en Vlie (met 4.69 mm/jaar) laten een reactie zien op de sluiting van de Zuiderzee in 1932, en het Friese Gat (6.66 mm/jaar) reageert op de sluiting van de Lauwerszee in 1969. Het bekken bij Ameland kent geen ingrepen en laat de laagste sedimentatiesnelheid (2.52 mm/jaar) zien. Langs de Noordzeekust, dus buiten de bekkens, vindt juist erosie plaats in dezelfde periode. Het totale volume hiervan is ongeveer gelijk aan de totale sedimentatie in de bekkens. 
+
+(ref:Wang2018Sedmalans-label) Sedimentatie (+) en erosie (-) snelheden over de periode 1935-2005, gebaseerd op de resultaten van Elias et al. (2012), uitgedrukt in miljoen m^3^/jaar (het eerste getal in een polygoon). Het tweede getal geeft de verticale aangroeisnelheid (in mm/jaar) in de bekkens of erosiesnelheden aan de Noordzee-zijde van de eilanden weer (begrensd door de -20 m NAP contour). Bron: [Wang et al. (2018)](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/43109B1810D68CF36D1C91405EA37F0A/S0016774618000082a.pdf/div-class-title-sediment-budget-and-morphological-development-of-the-dutch-wadden-sea-impact-of-accelerated-sea-level-rise-and-subsidence-until-2100-div.pdf).
 
 ```{r Wang2018Sedbalans, fig.cap= "(ref:Wang2018Sedmalans-label)" }
 knitr::include_graphics("images/Wangetal2018_Fig4SedBalance1935-2005.png")
 ```
 
-NB Zoals al opgemerkt in de inleiding van deze sectie Morfologie, is het bepalen van bruto- en netto erosie en een sedimentbalans geen sinecure vanwege onder meer de verschuiving van geulen en bekkens in de tijd. Volgens plan start in 2023 een sedimentbalansonderzoek voor de gehele Waddenzee volgens een nieuwe methode die daar beter recht aan doet. Deze methode is in pilotvorm al toegepast rondom Ameland maar niet hier opgenomen vanwege de beperkte ruimtelijke dekking. 
+NB Zoals al opgemerkt in de inleiding van deze sectie Morfologie, is het bepalen van bruto- en netto erosie en een sedimentbalans geen sinecure vanwege onder meer de verschuiving van geulen en bekkens in de tijd. Volgens plan start in 2023 een sedimentbalansonderzoek voor de gehele Waddenzee volgens een nieuwe methode die daar beter recht aan doet in het NWO perspectief project WadSED. Deze methode is in pilotvorm al toegepast rondom Ameland. 
 
 ## Lengte Laagwaterlijn
 
@@ -403,10 +395,10 @@ cowplot::plot_grid(plotlist = maps, labels = labels, label_size = 10, ncol = 2)
 ```
 
 
-De totale lengte van de laagwaterlijnen is bepaald voor dezelfde jaren als de andere indicatoren, en weer voor elk bekken. in figuur \@ref(fig:plotAllregions) is de cumulatieve lengte voor de hele Waddenzee (minus Eems-Dollard) te zien. Voor de afzonderlijke bekkens geldt dat de lengte in de meeste gevallen is toegenomen over de tijd, of op zijn minst ongeveer gelijk gebleven \@ref(fig:lengteLaagwaterLijn) . 
+De totale lengte van de laagwaterlijnen is bepaald voor dezelfde jaren als de andere indicatoren, en weer voor elk bekken. In figuur \@ref(fig:plotAllregions) is de cumulatieve lengte voor de hele Waddenzee (excl. Eems-estuarium) te zien. Voor de afzonderlijke bekkens geldt dat de lengte in de meeste gevallen is toegenomen over de tijd, of op zijn minst ongeveer gelijk gebleven (figuur \@ref(fig:lengteLaagwaterLijn)). 
 
 
-(ref:plotAllregions-label) Ontwikkeling van de laagwaterlijn, bepaald op een vaste diepte van `r laagwaterlijn`` m NAP, voor de gehele Waddenzee minus het Eems estuarium.
+(ref:plotAllregions-label) Ontwikkeling van de laagwaterlijn, bepaald op een vaste diepte van `r laagwaterlijn`m NAP, voor de gehele Waddenzee exclusief het Eems-estuarium.
 
 ```{r plotAllregions, eval=T, fig.height=4, fig.width=7, fig.align='center', fig.cap="(ref:plotAllregions-label)"}
 
@@ -434,7 +426,7 @@ ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
   # geom_line(data = waterlijn_all) +
   # geom_point(aes(), shape = 21, fill = "white", size = 3) +
   # facet_wrap(~ gebied, scales = 'free') +
-  coord_cartesian(xlim = c(1940, 2020)) +
+  coord_cartesian(xlim = c(1920, 2020)) +
   scale_y_continuous(limits = c(0, NA)) +
   ylab(paste("Laagwaterlijn [km] berekend aan NAP", laagwaterlijn, "m vlak")) + xlab("Jaar") 
 
@@ -442,9 +434,7 @@ ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
 ```
 
 
-
-
-(ref:lengteLaagwaterLijn-label) Ontwikkeling (tijdreeks) van de lengte van de laagwaterlijn, geschat uit de contour op `r laagwaterlijn`` m NAP. 
+(ref:lengteLaagwaterLijn-label) Ontwikkeling van de lengte van de laagwaterlijn door de tijd, berekend uit de contour op `r laagwaterlijn`m NAP. 
 
 ```{r lengteLaagwaterLijn, fig.cap="(ref:lengteLaagwaterLijn-label)" }
 
@@ -465,13 +455,8 @@ ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
 ```
 
 
-
-
-
 ## Bodemslibgehalte
-
-
-Er zijn verschillende historische kaarten met het bodemslibgehalte beschikbaar (Lely ~1890, De Glopper ~1960, Sedimentatlas ~1989, SIBES/SUBES sinds 2008/2019). De sedimentatlas is digitaal beschikbaar en geeft een volledig dekkende kaart van de bodemsamenstelling in de Waddenzee inclusief het Eems estuarium. Het bodemslibgehalte op basis van deze sedimentatlas is getoond in figuur \@ref(fig:sedimentatlasSlib).
+Er zijn verschillende historische kaarten met het bodemslibgehalte beschikbaar (Lely ~1890, De Glopper ~1960, Sedimentatlas ~1989, SIBES/SUBES sinds 2008/2019). De sedimentatlas is digitaal beschikbaar en geeft een volledig dekkende kaart van de bodemsamenstelling in de Waddenzee inclusief het Eems-estuarium. Het bodemslibgehalte op basis van deze sedimentatlas is getoond in figuur \@ref(fig:sedimentatlasSlib).
 
 Sinds 2008 zijn door het NIOZ monsters gestoken van het intergetijdengebied en is ook de korrelgrootteverdeling bepaald. Deze data wordt aangeduid met SIBES. De data is niet vrij beschikbaar en daarom vooralsnog niet opgenomen in deze rapportage. In ongeveer 2019 is de SIBES dataset gecomplementeerd met data van monsters die zijn genomen in de diepe delen van de Waddenzee, waarmee een ruimtelijk volledig dekkende kaart van de Waddenzee kan worden gemaakt. De data uit de diepe delen worden aangeduid met SUBES. Ook deze data is (nog) niet vrij beschikbaar.
 
@@ -537,75 +522,12 @@ Voor een goed beheer van gebieden zoals de Waddenzee is een consistent, eenduidi
 
 De ecotopenkaart helpt beheerders om duidelijk te krijgen waar welke natuur zit in het Waddengebied. Zo kunnen beheerders inspelen op bepaalde situaties. Hoge zandruggen naast diepe geulen zijn bijvoorbeeld vaak een rustplaats voor zeehonden. Als in het veld blijkt dat die zeehonden daar toch niet liggen dan kan dit een indicatie zijn dat er wat aan de hand is. Daarnaast geeft de ecotopenkartering, door de regelmatige uitvoering, een goed inzicht in veranderingen van het Waddenlandschap. 
   
-Elk kombergingsgebied wordt eens in de zes jaar geüpdatet, waardoor er elke zes jaar een volledig nieuwe ecotopenkaart wordt opgeleverd. Dit zal gedurende een langjarige periode -+ 30 jaar een duidelijke verandering van de Waddezee weergeven
+Elk kombergingsgebied wordt eens in de zes jaar geüpdatet, waardoor er elke zes jaar een volledig nieuwe ecotopenkaart wordt opgeleverd. Dit zal gedurende een langjarige periode (+/- 30 jaar) een duidelijke verandering van de Waddenzee weergeven.
 
 De arealen van de verschillende ecotopen (2017) en beschrijving van de methodieken van de verschillende ecotopen kunnen geëxtraheerd worden via de beschrijving in de [Toelichting op de zoute ecotopenkaart](https://puc.overheid.nl/rijkswaterstaat/doc/PUC_629120_31/1/).
 
-### Ecotopen 2022 - onderliggende kaartlagen
-
-In 2022 wordt een nieuwe ecotopenkaart gemaakt. In deze rapportage laten we de lagen zien die als basis worden gebruikt voor deze ecotopenkaart. 
-
-**Gemiddelde saliniteit**
-
-```{r EcotopenBasis, fig.cap="Basiskaarten voor ecotopenkaart 2022 voor de Waddenzee."}
-#Voorbeeld hier gevonden: https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/
-library(sf)
-library(httr) 
-library(tidyverse) 
-library(ows4R)
-library(leaflet)
-library(leaflet.extras)
-
-example <- "https://datahuiswadden.openearth.nl/geoserver/ecotopenkaart/wms?service=WMS&version=1.1.0&request=GetMap&layers=ecotopenkaart%3Asaliniteit_200m_gemiddeld&bbox=89900.0%2C539900.0%2C280100.0%2C640100.0&width=768&height=404&srs=EPSG%3A28992&styles=&format=application/openlayers"
-
-wms_ecotopen_2022 <- "https://datahuiswadden.openearth.nl/geoserver/ecotopenkaart/wms?"
-
-# uitgezet omdat de service op dit moment niet in de lucht is.
-bwk_client <- WFSClient$new(wms_ecotopen_2022,
-serviceVersion = "1.3.0")
-
-#bwk_client$getFeatureTypes(pretty = TRUE)
-
-#Maak een leaflet legend request
-url_ecotopen_2022 <- parse_url(wms_ecotopen_2022)
-url_ecotopen_2022$query <- list(service = "wms",
-                  version = "1.3.0",
-                  SLD_VERSION = "1.1.0",
-                  request = "GetLegendGraphic",
-                  FORMAT = "image/jpeg",
-                  LAYER = "ecotopenkaart:saliniteit_200m_gemiddeld",
-                  STYLE="")
-request_ecotopen_2022 <- build_url(url_ecotopen_2022)
-
-
-#maak een figuur van de ecotopen relevant voor het VZM
-leaflet() %>% 
-  setView(lng = 6, lat = 53, zoom = 8) %>% 
-  addTiles(group = "OSM") %>%
-  addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
-  addWMSTiles(
-    wms_ecotopen_2022,
-    layers = "ecotopenkaart:saliniteit_200m_gemiddeld",
-    options = WMSTileOptions(format = "image/png", transparent = TRUE),
-    group = "gemiddeld saliniteit 2022"
-  ) %>%
-  addWMSLegend(
-    uri = paste0(request_ecotopen_2022),
-    position = "bottomright"
-  ) %>%
-  addLayersControl(
-    baseGroups = c("OSM", "Esri.WorldImagery"),
-    overlayGroups = c("gemiddelde saliniteit 2022"
-                      ),
-    options = layersControlOptions(collapsed = FALSE)
-  )
-```
-
 ### Ecotopenkaart 2017
-
-Hieronder is de ecotopenkaart (2017) weergegeven zoals opgenomen in het [Nationaal Georegister](https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search;jsessionid=0B4745908C502557E461385BDB69FE9F#/metadata/291d329a-a421-41f4-b219-a904756e7aa5).
-
-De ecotopenkaart is ook te bekijken in de [Datahuis Wadden Waddenviewer](https://rws-viewer.netlify.app/wadden-viewer/?layers=100230540), samen met andere kaartlagen. 
+Hieronder is de ecotopenkaart (2017) weergegeven zoals opgenomen in het [Nationaal Georegister](https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search;jsessionid=0B4745908C502557E461385BDB69FE9F#/metadata/291d329a-a421-41f4-b219-a904756e7aa5). De ecotopenkaart is ook te bekijken in de [Datahuis Wadden Waddenviewer](https://rws-viewer.netlify.app/wadden-viewer/?layers=100230540), samen met andere kaartlagen. Voor de Ecotopenkaart is ruimtelijk dekkend informatie van de stroomsnelheden, orbitaalsnelheden, droogvalduren en saliniteit berekend op basis van metingen en numerieke modellen. De onderliggende kaartlagen in de Waddenviewer geven onder andere deze informatie. De basislaag voor saliniteit is opgenomen in paragraaf \@ref(saliniteit).
 
 
 ```{r Ecotopen, fig.cap="Ecotopenkaart 2017 voor de Waddenzee."}
@@ -659,7 +581,4 @@ leaflet() %>%
     options = layersControlOptions(collapsed = FALSE)
   )
 ```
-
-
-
 

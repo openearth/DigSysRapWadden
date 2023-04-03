@@ -8,7 +8,7 @@
 
 ## Erosie-resistente lagen
 
-In de Waddenzee zitten op vele plekken erosieresistente lagen in de bodem, of wordt het bestaan daarvan vermoed op basis van ontwikkelingen in de bodem. De ligging hiervan is weergegeven in figuur \@ref(fig:sedimentatlasSlib). Voor meer informatie over deze kaart zie [@Onselen2021].
+In de Waddenzee zitten op vele plekken erosieresistente lagen in de bodem, of wordt het bestaan daarvan vermoed op basis van ontwikkelingen in de bodem. De ligging hiervan is weergegeven in figuur \@ref(fig:sedimentatlasSlib). Voor meer informatie over deze kaart [zie @Onselen2021].
 
 [Schermvullende versie](https://www.testsysteemrapportage.nl/ERL%20kaart%20NL%20v1.0/index.html#10/53.2167/5.6978)
 
@@ -20,4 +20,7 @@ if(knitr::is_html_output())knitr::include_url("../ERL kaart NL v1.0/index.html#1
 
 \newpage
 
-## Bodemdaling
+## Bodemdaling {#bodemdaling}
+De bodemdalingsschotels als gevolg van gas- en zoutwinning moeten nog worden toegevoegd.
+
+

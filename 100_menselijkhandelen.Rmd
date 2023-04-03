@@ -3,37 +3,30 @@
 
 # Menselijke activiteiten 
 
-Vooralsnog zijn er geen indicatoren voor menselijke activeiten opgenomen in deze systeemrapportage omdat er 1) veel mogelijk relevante activiteiten zijn, en er 2) maar weinig in direct bruikbare vorm digitaal onstloten is. Het beschikbaar maken vraagt dus een behoorlijke inspanning met deels onbekend nut. Het is wel de bedoeling de belangrijkste indicatoren op dit gebied eind 2022 op te nemen. Om hierin beter keuzes te kunnen maken stellen wij feedback over welke indicatoren over welke periode -en waarom- zeer op prijs. 
+Vooralsnog zijn er geen indicatoren voor menselijke activeiten opgenomen in deze systeemrapportage omdat er maar weinig in direct bruikbare vorm digitaal ontsloten is. De indicatoren die in 2023 toegevoegd gaan worden worden aangegeven door de paragrafen in dit hoofdstuk.
 
-De indicatoren die nu overwogen worden zijn: 
-
-## Baggerwerken
-Baggervolumes en -massa, locaties, sedimentsamenstelling. Deze data is niet digitaal onstsloten. 
-
+## Bagger- en verspreidingswerken
+Baggervolumes en -massa, locaties, sedimentsamenstelling. Deze data is niet digitaal ontsloten. 
 
 ## Zandsuppleties
-Locaties en volumes. Beschikbaar via kustviewer.
+Locaties en volumes. Data is al beschikbaar via de [kustviewer](https://www.openearth.nl/coastviewer-static/).
 
 ## Bodemdaling
-Volume en contouren. Ondiepe bodemdaling door gas- en zoutwinning is niet te meten wordt omdat dit aangevuld wordt met sedimentatie. Prognose kan wel, maar hoe relevant? Diepe bodemdaling kan ook, maar zwakke link met oppervlaktesysteem waar rapportage voor bedoeld is.
+Hier wordt verwezen naar paragraaf \@ref(bodemdaling).
 
 ## Zandwinning
-Volume, locaties. Wordt afgebouwd, nog wel relevant ivm historie sedimentbalans.
+Volume, locaties. Zandwinning is gestopt, maar de data is nog wel relevant voor het begrijpen van de historische ontwikkeling.
 
 ## Schelpenwinning
-Volume, locaties. Wordt afgebouwd, nog wel relevant ivm historie.
+Volume, locaties. Schelpwinning wordt afgebouwd, maar de data is nog wel relevant voor het begrijpen van de historische ontwikkeling.
 
 ## Kunstwerken
-Locaties/arealen van dijken, dammen, bestortingen, kwelderwerken, kabelsen, leidingen en andere civiele werken. Voor zover beschikbaar in publieke webservices; een compleet overzicht vergt nog veel digitalisering door beheerders.  
-
-## Schade door nautische incidenten
+Locaties/arealen van dijken, dammen, bestortingen, kwelderwerken, kabels en leidingen en andere civiele werken. Voor zover beschikbaar in publieke webservices.  
 
 ## Gesloten gebieden voor bodemberoerende visserij
+In de Waddenzee is in het Groninger Wad een gebied gesloten voor bodemberoerende visserij. Dit is nog niet opgenomen op onderstaande kaart.
 
-
-Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d
-
-```{r geslotenGebiedenVisserij, out.height="450px", fig.cap="Gesloten gebiedenvoor de visserij in de buurt van de Waddenzee.", out.width = "100%"}
+```{r geslotenGebiedenVisserij, out.height="450px", fig.cap="Gesloten gebieden voor bodemberoerende visserij in de Noordzee. Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
 
 library(sf)
 library(httr) 
