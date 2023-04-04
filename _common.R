@@ -2,17 +2,21 @@
 
 # options(width = 60)
 
-source("r/runThisFirst.R")
+# source("r/runThisFirst.R")
+source("r/installeerPackages.R")
+source("r/waterSystemSpecificSettings.R")
+source("r/plotfuncties.r")
+source("r/Breakpoints_functions.r")
 
 # example chunk options set globally
 knitr::opts_chunk$set(
   comment = "#>",
-  collapse = TRUE,
+  # collapse = TRUE,
   warning = F,
   message = F,
   echo = F,
-  cache = T,
-  out.width = "90%",
+  # cache = T,
+  out.width = "100%",
   cache.lazy = FALSE
   )
 

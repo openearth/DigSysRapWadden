@@ -2,6 +2,7 @@
 require(tidyverse)
 require(mblm)
 require(scales)
+require(plotly)
 
 # common plot style
 mystyle <- list(theme_bw(), 

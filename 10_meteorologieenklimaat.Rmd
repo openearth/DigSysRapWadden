@@ -16,7 +16,7 @@ dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 
 **Belang**
 
-In een ondiep systeem zoals de Waddenzee heeft de meteorologie (wind, luchtdruk, temperatuur, instraling en neerslag) een sterke invloed op zowel biotische als abiotische processen. Meteorologie is dus belangrijk voor het beschrijven en verklaren van trends en fluctuaties. Biotische processen zoals algen- en plantengroei worden direct beïnvloed door temperatuur en instraling van zonlicht. Via de abiotiek is naast de saliniteit (mede bepaald door neerslag) vooral de wind van groot belang voor hydromorfologische en ecologische processen: het grootse deel van de golven (zie hoofdstuk \@ref(hydro)) in de Waddenzee wordt namelijk lokaal door de wind gegenereerd. Daarnaast is de wind, in combinatie met de luchtdruk, bepalend voor de opzet (of afzet) van waterhoogtes tijdens stormen (zie paragraaf \@ref(waterhoogte-bij-storm)). Zo kan wind ook voor transporten over de wantijen zorgen, wat van belang is voor de connectiviteit tussen de verschillende kombergingsgebieden.  
+In een ondiep systeem zoals de Waddenzee heeft de meteorologie (wind, luchtdruk, temperatuur, instraling en neerslag) een sterke invloed op zowel biotische als abiotische processen. Meteorologie is dus belangrijk voor het beschrijven en verklaren van trends en fluctuaties. Biotische processen zoals algen- en plantengroei worden direct beïnvloed door temperatuur en instraling van zonlicht. Via de abiotiek is naast de saliniteit (mede bepaald door neerslag) vooral de wind van groot belang voor hydromorfologische en ecologische processen: het grootse deel van de golven (zie hoofdstuk \@ref(hydro)) in de Waddenzee wordt namelijk lokaal door de wind gegenereerd. Daarnaast is de wind, in combinatie met de luchtdruk, bepalend voor de opzet (of afzet) van waterhoogtes tijdens stormen (zie paragraaf \@ref(waterhoogte-bij-storm)). Zo kan wind ook voor transporten over de wantijen zorgen, wat van belang is voor de connectiviteit tussen de verschillende kombergingsgebieden.
 
 **Afbakening**
 
@@ -94,10 +94,10 @@ dtwind %>%
     y25 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.25, na.rm = T),
     y50 = median(`Windsnelheid in 0.1 m/s`/10, na.rm = T),
     y75 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.75, na.rm = T),
-    y95 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.95, na.rm = T),
-    y98 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.995, na.rm = T)
+    y95 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.95, na.rm = T)#,
+    # y98 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.995, na.rm = T)
   ) %>% ungroup() %>% 
-  pivot_longer(c(y25, y50, y75, y95), "percentiel", values_to = "value") %>%
+  pivot_longer(cols = c(y25, y50, y75, y95), names_to = "percentiel", values_to = "value") %>%
   mutate(percentiel = as.factor(percentiel)) %>%
   mutate(percentiel = fct_reorder(percentiel, -value)) %>%
 ggplot(aes(year, value)) +
@@ -113,7 +113,7 @@ ggplot(aes(year, value)) +
 
 ### Seizoensvariatie {#windseizoen}
 
-Hogere windsnelheden komen vaker voor in de winter dan in de zomer. Dit is te zien in een heatmap  van de maandgemiddelde windsnelheden, uitgezet tegen jaren (horizontale as) en maanden (verticale as) in figuur \@ref(fig:windHeatmapWaddenzee). Hierin is zowel de lange termijn variatie te zien (horizontaal) als de seizoensvariatie (verticaal). Over het geheel gesproken bevestigt dit het beeld dat de windsnelheid in de wintermaanden (de onderste en bovenste banden) hoger is dan in de zomer (de middelste banden). Er lijkt geen structurele trend in de tijd te zijn wat betreft gemiddelde windsnelheid of de variatie per seizoen.
+Hogere windsnelheden komen vaker voor in de winter dan in de zomer. Dit is te zien in een heatmap van de maandgemiddelde windsnelheden, uitgezet tegen jaren (horizontale as) en maanden (verticale as) in figuur \@ref(fig:windHeatmapWaddenzee). Hierin is zowel de lange termijn variatie te zien (horizontaal) als de seizoensvariatie (verticaal). Over het geheel gesproken bevestigt dit het beeld dat de windsnelheid in de wintermaanden (de onderste en bovenste banden) hoger is dan in de zomer (de middelste banden). Er lijkt geen structurele trend in de tijd te zijn wat betreft gemiddelde windsnelheid of de variatie per seizoen.
 
 ```{r windHeatmapWaddenzee, fig.height=6, fig.width = 8, fig.cap="Variatie van windsnelheden over de lange termijn (horizontaal) en over het jaar (verticaal) over de periode 1998 - 2018. Grijze vlakken zijn maanden zonder data. "}
 dtwind %>% 
@@ -178,7 +178,7 @@ dtwind %>% filter(year > 2010) %>%
 
 Voor de opwekking van golven en de windopzet en -afzet is niet alleen de windsterkte, maar ook de windrichting van belang. Als de wind uit het zuidwesten komt, strijkt deze vanaf de Afsluitdijk over een lange afstand over de Waddenzee, waardoor er een veel groter verhang kan ontstaan dan bij bijvoorbeeld zuidenwind. In figuur \@ref(fig:consecHoursPerDirection) zijn de dynamische condities (windsnelheid\>10,8 m/s) uitgezet per kwadrant. De meeste energetische condities treden op bij zuidwesten wind, logischerwijs omdat deze wind het vaakst en het hardst uit deze richting waait. Ook uit het noordoosten komt af en toe krachtige wind.
 
-Door het aantal uren te sommeren per jaar (figuur \@ref(fig:jaarAggregatiePlot)), kunnen de verschillende jaren onderling beter vergeleken worden. Zo is 2015 een energetisch jaar gebleken, maar ook 2011 en 2020 waren voor alle locaties energetischer dan gemiddeld. Voor de meeste stations zijn winden uit zuidwestelijke richting dominant (zoals de windrozen in figuur \@ref(fig:windroos)) ook laten zien, maar voor Lauwersoog zijn ook noordwesten winden van vergelijkbaar of groter belang. Vlieland is verreweg de meest dynamische locatie. 
+Door het aantal uren te sommeren per jaar (figuur \@ref(fig:jaarAggregatiePlot)), kunnen de verschillende jaren onderling beter vergeleken worden. Zo is 2015 een energetisch jaar gebleken, maar ook 2011 en 2020 waren voor alle locaties energetischer dan gemiddeld. Voor de meeste stations zijn winden uit zuidwestelijke richting dominant (zoals de windrozen in figuur \@ref(fig:windroos)) ook laten zien, maar voor Lauwersoog zijn ook noordwesten winden van vergelijkbaar of groter belang. Vlieland is verreweg de meest dynamische locatie.
 
 ```{r consecHoursPerDirection, fig.height=10, fig.width=10, fig.cap="Aantal uren dat de windsnelheid aanhoudend boven 10,8 m/s (>Bft 6) is geweest per richting (kwadrant) vanaf 2010."  }
 

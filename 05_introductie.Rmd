@@ -4,6 +4,22 @@
 
 ## Basismonitoring Wadden
 
+```{r nice-fig2, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Plot with connected points showing that vapor pressure of mercury increases exponentially as temperature increases.'}
+
+
+p <- ggplot(mtcars %>% mutate(cyl = as.factor(cyl)), aes(hp, mpg, color = cyl)) +
+  geom_point()
+
+if(knitr::is_html_output()){
+  ggplotly(p) %>%
+    layout(
+      margin = list(),
+      legend = list(),
+      yaxis = list(hoverformat = '.2f')
+    )
+  } else  p
+```
+
 Deze Digitale Systeemrapportage (DSR) is opgezet als onderdeel van het project Natuurmonitoring Wadden - onderdeel Morfologie van Rijkswaterstaat. Dit valt vervolgens weer onder de [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/), en heeft betrekking op de niet-levende (abiotische) kenmerken van de Waddenzee. Basismonitoring Wadden houdt de ontwikkelingen in het Waddengebied in de gaten, met de volgende hoofddoelen:.
 
 1. inzicht geven in de toestand en trends in het Waddengebied voor beheerders en gebruikers;
@@ -27,7 +43,9 @@ Door het toegankelijk maken van de relevante informatie kunnen trends en ontwikk
 
 Indicatoren zijn meetbare (of uit metingen af te leiden) grootheden die een signaalfunctie hebben, en bijvoorbeeld informatie geven over de kwaliteit van iets. In deze systeemrapportage beperken we ons tot de informatiebehoefte die voorkomt uit de beleids- en beheerdoelen voor de abiotische natuur van de Waddenzee. Daarbij gaat het om alle abiotische kenmerken die invloed hebben op de natuurlijkheid van het Waddensysteem, zoals sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc. De benodigde data is deels afkomstig van ruimtelijke metingen (bijvoorbeeld bodemligging), en deels van meetstations en -locaties zoals weergegeven in figuur \@ref(fig:kaartAbiotieklocaties).
 
-```{r kaartAbiotieklocaties, cache=F, fig.cap = 'Overzicht van meetstations en -locaties voor fysische waterkwaliteit (temperatuur, zwevend stof en saliniteit) en hydrodynamiek (golven, waterstanden) in het Waddengebied. Een groot deel van de in hoofdstuk \@ref(hydro) en \@ref(Waterkwaliteit) gepresenteerde parameters wordt op deze posities gemeten.'}
+(ref:kaartAbiotieklocaties-label) Overzicht van meetstations en -locaties voor fysische waterkwaliteit (temperatuur, zwevend stof en saliniteit) en hydrodynamiek (golven, waterstanden) in het Waddengebied. Een groot deel van de in hoofdstuk \@ref(hydro) en \@ref(Waterkwaliteit) gepresenteerde parameters wordt op deze posities gemeten.
+
+```{r kaartAbiotieklocaties, cache=F, fig.cap = "(ref:kaartAbiotieklocaties-label)"}
 
 # mijnShape <- st_read(file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.geojson")), quiet = T)
 mijnCatalogus <- read_delim(file = file.path(datadir, "ddl/metadata", paste0(mijnGebied, "_metadata.csv")), delim = ";")

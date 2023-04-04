@@ -9,6 +9,21 @@ theme_hy <- theme_bw()
 alt_theme_hy <- theme_tufte() + theme(axis.line=element_line()) #+ 
     # scale_x_continuous(limits=c(10,35)) + scale_y_continuous(limits=c(0,400))
 
+# plotly margins
+m = list(
+        l = 40,
+        r = 40,
+        b = 40,
+        t = 50,
+        pad = 0
+      )
+# plotly legend position
+l = list(
+        orientation = 'v',
+        x = 0.05,
+        y = 0.95
+      )
+
 require(magrittr)
 ```
 
@@ -72,19 +87,16 @@ sealevelAllStations <- read_csv(sealevelAllStationsurl,
     theme_hy +
     xlab("Jaar") + ylab("Gemiddeld zeeniveau in cm")
   
-  # if(knitr::is_html_output()){
-  # ggplotly(p) %>%
-  #   layout(
-  #     legend = list(
-  #       orientation = 'v',
-  #       x = 0.05,
-  #       y = 0.95
-  #     ),
-  #     yaxis = list(hoverformat = '.2f')
-  #   ) 
-  # } else{
+  if(knitr::is_html_output()){
+  ggplotly(p) #%>%
+    # layout(
+    #   margin = m,
+    #   legend = l,
+    #   yaxis = list(hoverformat = '.2f')
+    # )
+  } else{
       p
-  #     }
+      }
 
 ```
 
@@ -94,7 +106,7 @@ In de Zeespiegelmonitor is de stijging van de zeespiegel nauwkeurig onderzocht e
 
 De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix \@ref(Appwaterstanden). De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties). 
 
-```{r readExtremaData}
+```{r readExtremaData, cache=TRUE}
 
 df.extrema <- read_delim(file.path(datadir, "RWS", "standard", paste0("extremaHLLL", "latest", ".csv")), delim = ";") %>%
   mutate(h = h * 100) # van meter naar cm
@@ -147,7 +159,7 @@ p <- df.extrema %>%
   theme_hy +
   xlab("Jaar") + ylab("Jaargemiddeld gemeten hoogwater in cm")
 
-# if(knitr::is_html_output()){ggplotly(p)} else  
+if(knitr::is_html_output()){ggplotly(p)} else
   p
 
 ```
@@ -186,7 +198,7 @@ p <- df.extrema %>%
   theme_hy +
   xlab("Jaar") + ylab("Jaargemiddeld gemeten laagwater in cm")
 
-# if(knitr::is_html_output()){ggplotly(p, width = 700, height = 550)} else 
+if(knitr::is_html_output()){ggplotly(p, width = 700, height = 550)} else
   p
 
 ```
@@ -215,7 +227,7 @@ p <- df.extrema %>%
   # facet_wrap(~locatie.naam, scales = "free_y", ncol = 2) +
   theme_hy
 
-# if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else 
+if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else
   p
 
 ```
@@ -376,7 +388,7 @@ ggplot(aes(year, p995)) +
     strip.text.y = element_text(angle = 0)) +
   xlab("Jaar") + ylab("99,5-percentiel van gemeten waterhoogte (cm) per jaar")
 
-  # if(knitr::is_html_output()){ggplotly(p, height = 550)} else 
+  if(knitr::is_html_output()){ggplotly(p, height = 550)} else
     p
 ```
 
@@ -406,7 +418,7 @@ yearlyStat %>% group_by(station) %>%
 
 Het 95-percentiel van de significante golfhoogte per jaar geeft de variatie van hoge golven tussen de jaren weer (figuur \@ref(fig:golfhoogte95perc)). Alleen voor de stations Schiermonnikoog Noord en Eierlandse Gat zijn langere complete tijdseries beschikbaar. De patronen van deze twee locaties zijn ongeveer gelijkvormig. In 2007 en 2011 lag het 95-percentiel hoger dan gemiddeld.
 
-```{r leesGolfData}
+```{r leesGolfData, cache=TRUE}
 golf.df <- "golven2021-07-08.csv"
 golf.pad <- file.path(datadir, "ddl", "standard")
 gdf <- read_delim(file.path(golf.pad, golf.df), delim = ";")
