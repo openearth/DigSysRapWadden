@@ -25,6 +25,7 @@ datum locatie.origineel numeriekewaarde waardebewerkingsmethode.omschrijving gro
 dir=r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\HHNK\raw\20221205_deltares_debieten_uitwisselpunten'
 locations=r'C:\projecten\rws\2022\zoetwaterdebiet\hhnk\csv\locations.csv'
 loc=pd.read_csv(locations)
+loc=loc.drop([5,7,8,9,10])
 
 #%%
 def join_tables(dfs,loc):
@@ -61,7 +62,7 @@ for fname in os.listdir(dir):
             df=df.drop(df.columns[8:20], axis=1)
             df=df.iloc[1: , :]
            # print(df)
-            hels=(loc.loc[loc['locatie.orgineel'].str.match('KGM-Q-29234')])
+            hels=(loc[loc['locatie.orgineel'] == "KGM-Q-29234"] )
             hels2=(loc.loc[loc['locatie.orgineel'].str.match('KGM-Q-29234_debiet_berekend_spuien')])
            # print(hels)
             df['datum'] = df['Unnamed: 0'] 
@@ -86,7 +87,7 @@ for fname in os.listdir(dir):
             dfz=dfz.iloc[1: , :]
            # print(df)
             lee=(loc.loc[loc['locatie.orgineel'].str.match('KGM-A-371')])
-            lee=lee.loc[6]
+
            # print(hels)
             dfz['datum'] = dfz['Unnamed: 0'] 
 
@@ -102,7 +103,7 @@ for fname in os.listdir(dir):
             dfx=dfx.drop(dfz.columns[8:20], axis=1)
             dfx=dfx.iloc[1: , :]
             #print(dfx)
-            oost=(loc.loc[loc['locatie.orgineel'].str.match('KGM-Q-29235')]oost)
+            oost=(loc.loc[loc['locatie.orgineel'].str.match('KGM-Q-29235')])
             
            # print(hels)
             dfx['datum'] = dfx['Unnamed: 0'] 

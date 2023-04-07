@@ -95,3 +95,21 @@ engine.execute(strSql)
 strSql = """update {s}.afvoeren_rijkswateren set geom = st_setsrid(st_point("geometriepunt.x","geometriepunt.y"),28992)""".format(s=aschema)
 engine.execute(strSql)
 # %%
+path=r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\HHNK\standard\hhnk_processed.csv'
+
+""" ----- inlezen van csv in een dataframe""" 
+df = pd.read_csv(path, delimiter=',', low_memory=False)
+df = df.drop(columns=['Unnamed: 0'])
+
+""" ----- converteren van dataframe naar database """ 
+aschema = 'zoetwaterafvoeren'
+df.to_sql('hhnk', engine,schema=aschema,if_exists='replace')
+
+""" ----- aanmaken colom met geometrie (in dit geval gebaseerd op lat lon coordinaten, check dit in de csv, welke EPSG/CRS dit is """ 
+strSql = """alter table {s}.hhnk add geom geometry(POINT,4326)""".format(s=aschema)  # RD_new (28992)
+engine.execute(strSql)
+
+""" ----- vullen van de kolom, gebaseerd op de velden lon en lat """ 
+strSql = """update {s}.hhnk set geom = st_setsrid(st_point(longitude,latitude),4326)""".format(s=aschema)
+engine.execute(strSql)
+# %%

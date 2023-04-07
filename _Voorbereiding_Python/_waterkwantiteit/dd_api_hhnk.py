@@ -1,7 +1,7 @@
 #Nathalie Dees
 #nathalie.dees@deltares.nl
 #reading raw hhnk dd-api infomation and storing it to csv files
-
+#%%
 import os
 import pandas as pd
 import requests
@@ -75,3 +75,4 @@ for i in range(len(codes)):
                     df = pd.DataFrame(drespons['events'])
                     df=df.join(metadata)
                    # df.to_csv(path+name+code+'.csv', index=False)
+# %%
