@@ -8,6 +8,7 @@ import requests
 from datetime import datetime
 
 path='P:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\HHNK\\raw\\'
+path_csv=r'C:\projecten\rws\2022\zoetwaterdebiet\hhnk\csv'
 
 #path of api
 ddapi = 'https://hhnk.lizard.net/dd/api/v2'
@@ -15,6 +16,8 @@ ddapi = 'https://hhnk.lizard.net/dd/api/v2'
 #names and codes of stations needed in analysis
 names= ['Helsdeur', 'Oostoever', 'Leemans'] 
 codes=['KGM-Q-29234', 'KGM-Q-29235', 'KGM-A-371','KGM-JF-44'  ]
+
+mdata = []
 
 #-----------start fetching data
 #for loop to oop through the station codes and get the corresponding url to fetch data from
@@ -27,15 +30,22 @@ for i in range(len(codes)):
     for l in range(len(tresponse['results'])):
         if tresponse['results'][l]['observationType']['quantity']== 'Debiet':
 
-            #storing the metadata in a dictornary (easy fix, could be done more neat)
-            metadata= {'qualifier' : tresponse['results'][l]['qualifier'], 
-            'grootheid.omschrijving' : tresponse['results'][l]['observationType']['quantity'], 
-            'locatie.naam' : tresponse['results'][l]['location']['properties']['locationName'], 
+            #storing the metadata in a dictonary (easy fix, could be done more neat)
+            metadata= {'locatie.naam' : tresponse['results'][l]['location']['properties']['locationName'], 
             'locatie.orgineel' :tresponse['results'][l]['location']['properties']['locationCode'],
             'longitude' : tresponse['results'][l]['location']['geometry']['coordinates'][0],
             'latitude' :tresponse['results'][l]['location']['geometry']['coordinates'][1]
             }
-            
+
+            mdata.append(metadata)
+            #'qualifier' : tresponse['results'][l]['qualifier'], 
+            #'grootheid.omschrijving' : tresponse['results'][l]['observationType']['quantity'], 
+
+            df = pd.DataFrame(mdata)
+
+            df.to_csv(os.path.join(path_csv, 'locations.csv'))
+
+
             #transform into df
             metadata=pd.DataFrame([metadata])
             #save name + code for later
