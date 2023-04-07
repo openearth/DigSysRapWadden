@@ -360,7 +360,7 @@ knitr::include_graphics("images/Wangetal2018_Fig4SedBalance1935-2005.png")
 
 NB Zoals al opgemerkt in de inleiding van deze sectie Morfologie, is het bepalen van bruto- en netto erosie en een sedimentbalans geen sinecure vanwege onder meer de verschuiving van geulen en bekkens in de tijd. Volgens plan start in 2023 een sedimentbalansonderzoek voor de gehele Waddenzee volgens een nieuwe methode die daar beter recht aan doet in het NWO perspectief project WadSED. Deze methode is in pilotvorm al toegepast rondom Ameland. 
 
-## Lengte Laagwaterlijn
+## Lengte laagwaterlijn
 
 De lengte van de laagwaterlijn geeft een indruk van de lengte van de plaatrand. Deze is hier bepaald aan de hand van de `r laagwaterlijn` m NAP contourlijn (zie figuur \@ref(fig:laagwaterlijnen)). 
 
