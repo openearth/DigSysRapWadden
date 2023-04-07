@@ -19,12 +19,11 @@ alt_theme_hy <- theme_tufte() + theme(axis.line=element_line()) #+
 
 
 
-# Brondata en post-processing
+# Brondata, bewerking en download {#data}
 
 
 ## Zeespiegelstijging {#Appzeespiegelstijging}
-
-In de DSR Wadden is de jaargemiddelde waterstand voor de zes hoofdstations langs de Nederlandse kust overgenomen uit de Zeespiegelmonitor. In deze studie is de stijging van de zeespiegel nauwkeurig onderzocht en berekend. De berekening en aanvullende en interactieve figuren kunnen worden ingezien via de [Jupyter Notebook Zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb).
+In de DSR Waddenzee is de jaargemiddelde waterstand voor de zes hoofdstations langs de Nederlandse kust overgenomen uit de Zeespiegelmonitor. In deze studie is de stijging van de zeespiegel nauwkeurig onderzocht en berekend. De berekening en aanvullende en interactieve figuren kunnen worden ingezien via de [Jupyter Notebook Zeespiegelmonitorberekening](https://nbviewer.jupyter.org/github/openearth/sealevel/blob/master/notebooks/dutch-sea-level-monitor.ipynb).
 
 ```{r}
 download_link(
@@ -37,7 +36,7 @@ download_link(
 )
 ```
 
-## Getij en Waterstanden {#Appwaterstanden}
+## Waterstanden {#Appwaterstanden}
 
 ### Brondata
 
@@ -62,14 +61,13 @@ download_link(
 knitr::include_graphics("images/tsTimestep.png")
 ```
 
-De getijcomponenten zijn berekend op basis van de waterstationsmeetseries van Deltares.
+De getijcomponenten zijn berekend op basis van de waterstationsmeetseries, zoals ontsloten via [Open Earth Data](https://publicwiki.deltares.nl/display/OET/Dataset+documentation+MWTL).
 
 
-### Berekening GHW, GLW en Getijslag
+### GHW, GLW en getijslag
 
-De berekening van GHW en GLW is gedaan door in de tijdseries van gemeten waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld2) is daarvan een voorbeeld te zien. Vervolgens wordt hiervan het jaargemiddelde bepaald. 
-
-De gemiddelde getijslag wordt berekend door het verschil tussen GHW en GLW te nemen over de te middelen periode.
+De jaargemiddelde hoog- en laagwaters (GHW en GLW) zijn bepaald door in de tijdseries van gemeten waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld2) is daarvan een voorbeeld te zien. Vervolgens wordt hiervan het jaargemiddelde bepaald. 
+De jaargemiddelde getijslag wordt berekend door het verschil tussen het jaargemiddelde GHW en GLW.
 
 Om trends te kunnen bepalen is vervolgens een lineaire trendlijn toegevoegd die varieert met de 18,6-jarige cyclus. Doordat de frequentie van de 18,6-jarige cyclus bekend is en de tijdserie voldoende lang, kan de software zelf de amplitude en de fase van de 18,6-jarige cyclus fitten.
 
@@ -93,8 +91,12 @@ Delfzijl %>%
   theme(legend.position = "bottom")
 ```
 
-### Gemiddeld laag laag water (GLLW) en gemiddeld hoog hoog water (GHHW) {}
+### Getijcomponenten en -asymmetrie {#getijcomponentenmethode}
+Op basis van de gemeten waterstanden wordt met het python package 'hatyan' de amplitude en fase van de verschillende getijcomponenten bepaald. Op basis van deze amplitudes en fases kan de amplitudeverhouding M~4~/M~2~ en het faseverschil ($2 \phi M_{2} - \phi M_{4}$) worden berekend [https://github.com/Deltares/hatyan](https://github.com/Deltares/hatyan).  Voor uitgebreide documentatie wordt verwezen naar [de gebruikershandleiding](https://github.com/Deltares/hatyan/blob/main/docs/11205257-013-DSC-0006_v1.0-Gebruikershandleiding%20hatyan.pdf).
 
+Getijcomponenten zijn berekend per station en jaar, en kunnen gedownload worden vanaf [watersysteemdata.deltares.nl](https://watersysteemdata.deltares.nl/thredds/catalog/watersysteemdata/Wadden/ddl/calculated/TA_filtersurge/catalog.html).
+
+### Gemiddeld laag laag water (GLLW) en gemiddeld hoog hoog water (GHHW) {}
 GLLW en GHHW worden berekend als de maandminima en -maxima van het berekend getij per station. Het berekend getij wordt bepaald uit de getijcomponenten, zie sectie \@ref(getijcomponentenmethode).
 
 ```{r}
@@ -119,24 +121,19 @@ download_link(
 )
 ```
 
-### Getijcomponenten en -asymmetrie {#getijcomponentenmethode}
-Op basis van de gemeten waterstanden wordt met het python package 'hatyan' de amplitude en fase van de verschillende getijcomponenten bepaald. Op basis van deze amplitudes en fases kan de amplitudeverhouding M~4~/M~2~ en het faseverschil ($2 \phi M_{2} - \phi M_{4}$) worden berekend [https://github.com/Deltares/hatyan](https://github.com/Deltares/hatyan).  Voor uitgebreide documentatie wordt verwezen naar [de gebruikershandleiding](https://github.com/Deltares/hatyan/blob/main/docs/11205257-013-DSC-0006_v1.0-Gebruikershandleiding%20hatyan.pdf).
-
-Getijcomponenten zijn berekend per station en jaar, en kunnen gedownloadt worden vanaf [dit adres](https://watersysteemdata.deltares.nl/thredds/catalog/watersysteemdata/Wadden/ddl/calculated/TA_filtersurge/catalog.html).
-
-### Stormopzet en Stormvloedhoogte
+### Stormopzet en stormvloedhoogte
 
 De stormopzet (en -afzet) wordt berekend als de gemeten waterstand, verminderd met de astronomische waterstand (het getij). In de systeemrapportage worden de 99,5-percentiel per jaar en het maximum per jaar gebruikt als maat voor storm. 
 
 Voor de stormvloedhoogte gebruiken we het 99,5-percentiel per jaar van de gemeten waterstand (dus inclusief het getij). 
 
-De astronomische waterstand is berekend per station en jaar, en kan gedownloadt worden vanaf [dit adres](https://watersysteemdata.deltares.nl/thredds/catalog/watersysteemdata/Wadden/ddl/calculated/waterstand_berekend_m/catalog.html).
+De astronomische waterstand is berekend per station en jaar, en kan gedownload worden vanaf [watersysteemdata.deltares.nl](https://watersysteemdata.deltares.nl/thredds/catalog/watersysteemdata/Wadden/ddl/calculated/waterstand_berekend_m/catalog.html).
 
 ## Golven {#Appgolfhoogte}
 
 ### Brondata
 
-Significante golfhoogte, golfperiode (Tm02) en golfrichting worden eveneens rechtstreeks ingelezen uit de Data DistributieLaag. De ingelezen set die gebruikt is voor deze rapportage is beschikbaar via onderstaande download link. 
+De significante golfhoogte, golfperiode (Tm02) en golfrichting worden rechtstreeks ingelezen uit de Data DistributieLaag. De ingelezen set die gebruikt is voor deze rapportage is beschikbaar via onderstaande downloadknop: 
 
 ```{r}
 download_link(
@@ -150,19 +147,17 @@ download_link(
 ```
 
 
-
-
 ### Anomalie van de maandgemiddelde golfhoogte
 
 Als maat voor de seizoensfluctuatie van de golfhoogte wordt de afwijking (anomalie) van de maandgemiddelde golfhoogte ten opzichte van het langjarige gemiddelde gebruikt.
 
 De anomalie is berekend aan de hand van de volgende stappen:
 
-1)  Incomplete jaren verwijderen
+1)  Incomplete jaren verwijderen.
 
-1)  Langjarig gemiddelde voor elk station berekenen als gemiddelde van alle maandgemiddelden
+1)  Langjarig gemiddelde voor elk station berekenen als gemiddelde van alle maandgemiddelden.
 
-1)  De afwijking per station en maand berekenen als het verschil tussen maandgemiddelde en langjarig gemiddelde
+1)  De afwijking per station en maand berekenen als het verschil tussen maandgemiddelde en langjarig gemiddelde.
 
 1)  De afwijking uitzetten tegen de maand in het jaar, en voor alle jaren in een figuur. De kleurenschaal toont het onderscheid tussen de jaren.
 
@@ -194,17 +189,6 @@ download_link(
 
 **NLWKN (Eems en Leda) **
 
-Locaties en stroomgebied: 
-
-```{r kaartHydrologischeStationsNLWKN, out.width="70%", fig.cap="Overzichtskaart van hydrologische meetstations in het stroomgebied van de Eems en West-Duitse Waddenzee."}
-
-invisible(file.copy(file.path(datadir, "NLWKN", "afvoeren", "raw", "2022_07_06_Discharges Ems.jpg"), "images/2022_07_06_Discharges Ems.jpg", overwrite = T))
-
-knitr::include_graphics(path = file.path("images/2022_07_06_Discharges Ems.jpg"))
-```
-
-
-
 ```{r}
 download_link(
   link = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Aems_discharge_bewerkt&outputFormat=csv",
@@ -226,6 +210,16 @@ download_link(
   self_contained = FALSE
 )
 ```
+
+
+```{r kaartHydrologischeStationsNLWKN, out.width="70%", fig.cap="Overzichtskaart van hydrologische meetstations in het stroomgebied van de Eems en West-Duitse Waddenzee."}
+
+invisible(file.copy(file.path(datadir, "NLWKN", "afvoeren", "raw", "2022_07_06_Discharges Ems.jpg"), "images/2022_07_06_Discharges Ems.jpg", overwrite = T))
+
+knitr::include_graphics(path = file.path("images/2022_07_06_Discharges Ems.jpg"))
+```
+
+
 
 **Waterschappen**
 
@@ -258,7 +252,7 @@ In de systeemrapportage worden de daggemiddelde, maandgemiddelde en jaargemiddel
 Daarnaast wordt voor de grotere afvoeren ook de gemiddelde zomerafvoer en de gemiddelde winterafvoer berekend. Voor de zomer wordt daarbij gemiddeld over de periode 1 april tot en met 30 september. En voor de winter wordt gemiddeld over de periode van 1 oktober tot en met 31 maart.
 
 
-## Meteorologie (wind) {#Appwind}
+## Wind {#Appwind}
 
 
 ```{r readMeteodata2, eval=F}
@@ -268,7 +262,7 @@ dtwind <- data.table::fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.c
 
 ### Brondata
 
-In de systeemrapportage worden voor de meteorologie (vooralsnog) alleen indicatoren voor wind weergegeven. Hiervoor is gebruik gemaakt van de [KNMI uurgegevens](https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens) voor de vier stations De Kooy, Lauwersoog, Hoorn Terschelling, Vlieland. 
+De data betreffen de [KNMI uurgegevens](https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens) voor de vier stations De Kooy, Lauwersoog, Hoorn Terschelling, Vlieland. 
 
 ### Windsterkte en windrichting
 
@@ -291,13 +285,9 @@ download_link(
 
 ### Brondata
 
-MWTL metingen van Rijkswaterstaat worden beschikbaar gemaakt via Waterinfo ([link](https://waterinfo.rws.nl/)) en zijn ook direct via een webservice te downloaden uit de Datadistributielaag (DDL) ([documentatie webservice](https://www.rijkswaterstaat.nl/rws/opendata/DistributielaagWebservices-SUM-2v7.pdf)).
+MWTL metingen van Rijkswaterstaat worden beschikbaar gemaakt via [Waterinfo](https://waterinfo.rws.nl/) en zijn ook direct via een webservice te downloaden uit de Datadistributielaag (DDL) ([documentatie webservice](https://www.rijkswaterstaat.nl/rws/opendata/DistributielaagWebservices-SUM-2v7.pdf)).
 
 Zwevend stof was tijdens de samenstelling van dit rapport niet beschikbaar uit de DDL, en is daarom apart opgevraagd bij de servicedesk data van RWS. Voor het kunnen combineren van deze data met andere waterkwaliteitsdata is een aparte nabewerking nodig (mapping). 
-
-De MWTL data hebben een frequentie van eens per maand in de winter en twee keer per maand in de zomer.
-
-Ook is bekend dat er continue metingen van temperatuur en saliniteit plaatsvinden bij de NIOZ steiger op Texel, en continue metingen van temperatuur, saliniteit en zwevende stof bij meetpaal Eemshaven. Deze zijn vooralsnog buiten beschouwing gelaten, omdat deze data nog niet goed ontsloten en/of gevalideerd zijn.
 
 ```{r}
 download_link(
@@ -311,11 +301,9 @@ download_link(
 ```
 
 
-
-
 ### Gemiddelde watertemperatuur (maand, jaar en zomer/winter)
 
-Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de 'maandgemiddelden' te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden beinvloed door de hogere meetfrequentie in de zomer. (Het woord 'maandgemiddelden' staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar 1 meting per maand is.)
+Omdat de MWTL metingen een andere opnamefrequentie in de zomer en de winter hebben, is het van belang eerst de 'maandgemiddelden' te bepalen, en deze vervolgens te middelen per jaar. Anders worden de jaargemiddelden beïnvloed door de hogere meetfrequentie in de zomer. (Het woord 'maandgemiddelden' staat tussen aanhalingstekens, omdat er in de winterperiode vaak maar 1 meting per maand is.)
 
 De seizoensgemiddelden zijn alleen berekend en weergegeven als er minimaal 5 metingen in het seizoen beschikbaar waren. Het zomerseizoen wordt gerekend vanaf 1 april t/m 30 september, en het winterseizoen vanaf 1 oktober t/m 31 maart.
 
@@ -374,28 +362,37 @@ Gegevens van de bodemligging van de Waddenzee zijn opgehaald van de [Open Earth 
 
 <!-- Er is gewerkt met 1 polygoon van het Friesche Zeegat, dat wil zeggen dat voor alle jaren met hetzelfde polygoon is gerekend om de begrenzing van het bekken te bepalen. Daarnaast is er alleen data gebruikt van de cellen (20x20m tegels) die in alle opnamejaren data bevatten. Dit voorkomt dat afwijkingen ontstaan die het gevolg zijn van verschillende ruimtelijke dekking van de data. De getoonde veranderingen zijn daarmee puur het gevolg van veranderingen van de morfologie voor het geanalyseerde gebied. -->
 
-De visualisatie van de bodemligging van de Waddenzee is interactief beschikbaar gemaakt voor deze Digitale Systeemrapportage van de Wadden. De interactiveit wordt beschikbaar gemaakt met behulp van een r shiny app, die in de rapportage getoond wordt. De bathymetrie wordt hier gepresenteerd als een laag bovenop een Openstreetmap achtergrondkaart. De bathymetrielaag bevat gestapelde zgn. "tiles" van vaklodingen tussen de jaren die gekozen zijn met de slider. De bodemligging kan met en zonder "Hillshading" worden bekeken.
+De visualisatie van de bodemligging van de Waddenzee is interactief beschikbaar gemaakt voor deze Digitale Systeemrapportage. De interactiveit wordt beschikbaar gemaakt met behulp van een r shiny app, die in de rapportage getoond wordt. De bathymetrie wordt hier gepresenteerd als een laag bovenop een Openstreetmap achtergrondkaart. De bathymetrielaag bevat gestapelde zgn. "tiles" van vaklodingen tussen de jaren die gekozen zijn met de slider. De bodemligging kan met en zonder "Hillshading" worden bekeken.
 
 De oorspronkelijke data is gemeten en opgeleverd door RWS voor elk jaar^[https://waterinfo-extra.rws.nl/monitoring/morfologie/#h53b817e6-e5cd-49d1-873c-9a0f85d8e416], en opgeslagen op een thredds server van Deltares als netcdf^[https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html]. Van elke netcdf is één tiff file per jaar gemaakt door een script^[https://github.com/openearth/eo-bathymetry/blob/master/notebooks/Vaklodingen2EE.ipynb] en in een Google Cloud storage (gs) map gevat. Hierna is van gs een Google Earth Engine (gee) Image Collection van vaklodingen data gemaakt. De r shiny app gebruikt een API service^[https://github.com/openearth/hydro-engine-service/blob/master/hydroengine_service/main.py] die de Image Collection leest, op basis van de gegeven input data.
 
 Voor het berekenen van morfologische indicatoren zijn de vaklodingen als rasters (tiff) samengesteld voor elk jaar voor de hele Waddenzee. De rasters bestaan uit data van het betreffende jaar, gecombineerd met data van alle voorgaande jaren, waarbij alleen de meest recente waarde per pixel gebruikt wordt. Nadeel is dat sommige delen van een raster oudere waarden kunnen bevatten. Het voordeel is dat er voor elk jaar een gebiedsdekkend raster voorhanden is. 
 
+## Brondata bodemslibgehalte {#Appbodemkwaliteit}
+
+Er zijn verschillende historische kaarten met het bodemslibgehalte beschikbaar (Lely ~1890, De Glopper ~1960, Sedimentatlas ~1989, SIBES/SUBES sinds 2008/2019). 
+
+De sedimentatlas is digitaal beschikbaar en geeft een volledig dekkende kaart van de bodemsamenstelling in de Waddenzee inclusief het Eems estuarium. Deze data is getoond in deze digitale systeemrapportage en beschikbaar in [OpenEarthData](https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/sedimentatlas_waddenzee/catalog.html).
+
+Sinds 2008 zijn door het NIOZ monsters gestoken van het intergetijdengebied en is ook de korrelgrootteverdeling bepaald. Deze data wordt aangeduid met SIBES. De data is niet vrij beschikbaar en daarom vooralsnog niet opgenomen in deze rapportage. 
+
+In ongeveer 2019 is de SIBES dataset gecomplementeerd met data van monsters die zijn genomen in de diepe delen van de Waddenzee, waarmee een ruimtelijk volledig dekkende kaart van de Waddenzee kan worden gemaakt. De data uit de diepe delen worden aangeduid met SUBES. Ook deze data is (nog) niet vrij beschikbaar.
+
+### Brondata afbakening kombergingsgebieden
+Voor de opdeling in kombergingen zijn polygonen van de [Wageningen Marine Research Geoserver]("https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json") gebruikt. 
+
+
+### Hypsometrische curves
+
+Hypsometrische curves worden bepaald voor subgebieden (kombergingsgebieden) door de oppervlakte per diepte uit te zetten tegen de diepte. 
 
 ### Ruimtelijk dekkende waterstanden
 
 Voor de bepaling van bepaalde morfologische karakteristieken is het ook belangrijk om een ruimtelijk dekkend beeld te hebben van de waterstanden in het bekken. De gemeten waterstanden geven alleen informatie van de waterstanden op de stations (zie paragraaf \@ref(Appwaterstanden)).
 
-Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, moet rekening worden gehouden met de getijvoortplanting. Maar numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden (rekencellen), waardoor de kleinere geultjes en prielen niet in het rekenrooster zijn opgenomen. Deze geultjes hebben een belangrijke functie in de drainage van de intergetijdengebieden, en daarmee ook op de laagwaterstand in die gebieden. 
+Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, moet rekening worden gehouden met de getijvoortplanting. Numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren bij een acceptabele horizontale celresolutie. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden (rekencellen), waardoor de kleinere geultjes en prielen niet in het rekenrooster zijn opgenomen. Deze geultjes hebben een belangrijke functie in de drainage van de intergetijdengebieden, en daarmee ook op de laagwaterstand in die gebieden. 
 
-Voor de (morfologische) zonering van de ondiepe gebieden is er voor gekozen om in eerste instantie uit te gaan van vaste begrenzingen van de hoogteklasses. Daarmee worden niet de veranderingen in getijslag door de tijd of over het gebied meegenomen. Dit betekent dat verandering in arealen alleen worden veroorzaakt door veranderingen in de bodemligging, en niet door een verandering in getijvoortplanting. Een indeling aan de hand van dergelijke begrenzingen geeft weliswaar niet het exacte intergetijdengebied weer, maar levert wel een bruikbare proxy hiervoor.
-
-### Vakken
-
-Voor de opdeling in kombergingen is een indeling van "tidal basins" gebruikt. De polygonen van de vakken zijn te downloaden van de [Wageningen Marine Research Geoserver]("https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json")
-
-### Hypsometrische curves
-
-Hypsometrische curves worden bepaald voor subgebieden (kombergingsgebieden) door de oppervlakte per diepte voor elk subgebied uit te zetten tegen de diepte. 
+Voor de (morfologische) zonering van de ondiepe gebieden is er voor gekozen om in eerste instantie uit te gaan van vaste begrenzingen van de hoogteklasses. Daarmee worden niet de veranderingen in getijslag door de tijd of over het gebied meegenomen. Dit betekent dat verandering in arealen alleen worden veroorzaakt door veranderingen in de bodemligging, en niet door een verandering in getijvoortplanting. Een indeling aan de hand van dergelijke begrenzingen geeft weliswaar niet het exacte intergetijdengebied weer, maar levert wel een bruikbare proxy hiervoor. Bovendien geven de vaste waterstandsgrenzen inzicht in veranderingen louter als gevolg van bodemveranderingen, en niet als gevolg van veranderingen in de waterstanden. Voor het systeembegrip is dit een voordeel.
 
 Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, kan de hypsometrische curve worden onderverdeeld in vier verschillende diepteklassen. Omdat hierbij wordt gerekend met vaste begrenzingen van de diepteklassen, en veranderingen in getijslag door de tijd of over het gebied niet worden meegenomen, worden de (ondiepere) klassen aangeduid met 'proxy'.
 
@@ -437,10 +434,10 @@ Voor het plaatvolume wordt het volume boven de NAP -1 m grens berekend:
 
 ### Geuldiepte en -volume
 
-Voor de berekening van de geuldiepte wordt het volume onder de NAP -1 m grens berekend, en gedeeld door de oppervlakte. In formulevorm:
+Voor de berekening van de geuldiepte wordt het volume onder de NAP -5 m grens berekend, en gedeeld door de oppervlakte. In formulevorm:
 
 \begin{equation} 
-  \text{Geuldiepte} = \frac{\sum_i(h_i \cdot A_i)}{\sum_i A_i} \text{  if } h\leq -1
+  \text{Geuldiepte} = \frac{\sum_i(h_i \cdot A_i)}{\sum_i A_i} \text{  if } h\leq -5
   (\#eq:geuldiepte)
 \end{equation} 
 
@@ -451,10 +448,10 @@ waarin:
 *   i = de index van de pixels in het raster
 
 
-Voor het geulvolume wordt het volume onder de NAP -1 m grens berekend:
+Voor het geulvolume wordt het volume onder de NAP -5 m grens berekend:
 
 \begin{equation} 
-  \text{Geulvolume} = \sum_i(h_i \cdot A_i) \text{  if } h\leq -1
+  \text{Geulvolume} = \sum_i(h_i \cdot A_i) \text{  if } h\leq -5
   (\#eq:geulvolume)
 \end{equation} 
 
@@ -473,21 +470,6 @@ download_link(
 )
 ```
 
-
-
-
-## Bodemslibgehalte {#Appbodemkwaliteit}
-
-Er zijn verschillende historische kaarten met het bodemslibgehalte beschikbaar (Lely ~1890, De Glopper ~1960, Sedimentatlas ~1989, SIBES/SUBES sinds 2008/2019). 
-
-De sedimentatlas is digitaal beschikbaar en geeft een volledig dekkende kaart van de bodemsamenstelling in de Waddenzee inclusief het Eems estuarium. 
-
-Sinds 2008 zijn door het NIOZ monsters gestoken van het intergetijdengebied en is ook de korrelgrootteverdeling bepaald. Deze data wordt aangeduid met SIBES. De data is niet vrij beschikbaar en daarom vooralsnog niet opgenomen in deze rapportage. 
-
-In ongeveer 2019 is de SIBES dataset gecomplementeerd met data van monsters die zijn genomen in de diepe delen van de Waddenzee, waarmee een ruimtelijk volledig dekkende kaart van de Waddenzee kan worden gemaakt. De data uit de diepe delen worden aangeduid met SUBES. Ook deze data is (nog) niet vrij beschikbaar.
-
-
-
 ## Overzicht alle brondata
 
 ```{r dataoverzich2t}
@@ -498,17 +480,8 @@ read_excel(file.path(datadir, "dataoverzicht.xlsx")) %>%
 ```
 
 
-# Gebruikte software en packages
 
-```{r}
-pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
-```
-
-
-
-
-# Versies
-
+# Beheer van de DSR
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 # options(tinytex.verbose = TRUE)
@@ -517,17 +490,18 @@ knitr::opts_chunk$set(echo = FALSE,	message = FALSE, warning = FALSE,
 source("r/runThisFirst.R")
 theme_hy <- theme_bw()
 ```
+## Versiebeheer
+De R-code waaruit deze digitale systeemrapportage is gemaakt (tekst, scripts en figuren) wordt bewaard op SVN onder versiebeheer (https://repos.deltares.nl/repos/DigSysRapWadden/). 
 
+## Zelf aan de slag
+Wil je de code achter de digitale systeemrapportage downloaden en aanpassen voor eigen gebruik? Neem contact op met jasper.dijkstra -at- deltares.nl voor toegang tot de DSR. Vraag vervolgens een Open Earth account aan. Via het programma Tortoise kan je een lokale kopie op je computer zetten om verder te bewerken. Op de [publicwiki van Deltares](https://publicwiki.deltares.nl/display/OET/TortoiseSVN) lees je hoe je een Open Earth account kunt aanvragen en een lokale kopie op je computer kunt zetten.
 
-## Versies van het rapport
+In 2023 wordt deze systeemrapportage waarschijnlijk gemigreerd naar een Github code, waarmee de toegang tot de broncode eenvoudiger wordt.
 
-De versie van het rapport staat op het titelblad. 
+## Gebruikte software en packages
 
+```{r}
+pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
+```
 
-## Versies van de data
-
-
-## Versiebeheer van de code
-
-De code wordt bewaard op SVN onder versiebeheer (https://repos.deltares.nl/repos/DigSysRapWadden/). Om bij te dragen is het nodig om geregistreerd te zijn. Mensen buiten Deltares hebben bovendien een OpenEarth account nodig. 
 

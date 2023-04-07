@@ -1,7 +1,7 @@
 \newpage
 
 
-# Menselijke activiteiten 
+# Ingrepen door de mens 
 
 Vooralsnog zijn er geen indicatoren voor menselijke activeiten opgenomen in deze systeemrapportage omdat er maar weinig in direct bruikbare vorm digitaal ontsloten is. De indicatoren die in 2023 toegevoegd gaan worden worden aangegeven door de paragrafen in dit hoofdstuk.
 
@@ -9,7 +9,7 @@ Vooralsnog zijn er geen indicatoren voor menselijke activeiten opgenomen in deze
 Baggervolumes en -massa, locaties, sedimentsamenstelling. Deze data is niet digitaal ontsloten. 
 
 ## Zandsuppleties
-Locaties en volumes. Data is al beschikbaar via de [kustviewer](https://www.openearth.nl/coastviewer-static/).
+Zandsuppleties worden alleen uitgevoerd aan de Noordzeezijde van de eilanden en niet in de Waddenzee. Locaties en volumes zijn beschikbaar via de [kustviewer](https://www.openearth.nl/coastviewer-static/).
 
 ## Bodemdaling
 Hier wordt verwezen naar paragraaf \@ref(bodemdaling).

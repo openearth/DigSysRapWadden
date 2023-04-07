@@ -5,7 +5,7 @@ bookdown::gitbook:
     toc:
       collapse: section
       before: |
-        <li><a href="./index.html">Digitale Systeeemrapportage Wadden</a></li>
+        <li><a href="./index.html">Digitale Systeemrapportage Wadden</a></li>
       after: |
         <li><a href="https://bookdown.org/yihui/bookdown/" target="blank">Published with bookdown</a></li>
     toc_float:

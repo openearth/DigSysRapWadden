@@ -269,19 +269,6 @@ leaflet(gemGetijslag) %>%
 
 ```
 
-## Gemiddeld Laag LaagWater en Gemiddeld Hoog HoogWater bij Springtij (GLLWS & GHHWS) {#gllws-ghhws}
-
-Gemiddeld Laag Laagwater (GLLWS) en Gemiddeld Hoog Hoogwater (GHHWS) geven aan hoe sterk het getij doordringt in het getijbekken, en wat onder normale omstandigheden de maximale getijamplitude is. Deze kenmerkende waterstanden worden berekend als de maandminima en -maxima van het berekend getij per station. Het berekend getij wordt bepaald uit de getijcomponenten, zie Appendix \@ref(getijcomponentenmethode). Hierdoor reageren GLLWS en GHHWS wel op veranderingen in het systeem, zoals ver(on)diepingen maar niet op meteorologische invloeden. Figuur \@ref(fig:GLLWGHHW) laat zien dat GHHWS met ruim 30 centimeter over meer dan een eeuw toegenomen is bij Delfzijl, met een plotseling grotere toename in de jaren '70. Voor andere stations zijn de tijdreeksen korter en is een toename minder duidelijk of afwezig. Voor Delfzijl is de GLLWS, na een kleine toename in het begin van de twintigste eeuw, in de jaren '70 enkele centimeters lager geworden. GLLWS laat voor geen van de andere stations een duidelijke trend zien.
-
-```{r, GLLWGHHW, fig.cap="Gemiddeld hoog hoogwater (boven) en gemiddeld laag laagwater (onder) voor stations in de Waddenzee berekend met hatyan op basis van DataDistributieLaag waterhoogten gedownload in juli 2022. "}
-
-path = file.path(datadir, "ddl", "calculated", "tidal_indicators", "GHHWS_GLLWS_10min.png")
-
-invisible(file.copy(path, "images/GHHWS_GLLWS_10min.png", overwrite = T))
-
-knitr::include_graphics("images/GHHWS_GLLWS_10min.png")
-```
-
 ## Getijcomponenten en -asymmetrie
 
 De M~2~-component van het getij heeft de grootste amplitude en ontstaat door aantrekkingskracht van de maan. De S~2~-component wordt veroorzaakt door de aantrekkingskracht van de zon en vormt met de M~2~ component de springtij-doodtij cyclus. De M~4~-component is een hogere harmonische component en een ondiepwatereffect van M~2~ (i.e. harmonische boventoon / veelvoud van M~2~). Ondiepwatereffecten ontstaat doordat de getijgolf sneller voorplant in hoogwater dan in laagwater.
@@ -317,7 +304,20 @@ knitr::include_graphics("images/ts_M4divM2.png")
 
 ```
 
-## Waterhoogte bij storm {#waterhoogte-bij-storm}
+## Gemiddeld Laag LaagWater en Gemiddeld Hoog HoogWater bij Springtij (GLLWS & GHHWS) {#gllws-ghhws}
+
+Gemiddeld Laag Laagwater (GLLWS) en Gemiddeld Hoog Hoogwater (GHHWS) geven aan hoe sterk het getij doordringt in het getijbekken, en wat onder normale omstandigheden de maximale getijamplitude is. Deze kenmerkende waterstanden worden berekend als de maandminima en -maxima van het berekend getij per station. Het berekend getij wordt bepaald uit de getijcomponenten, zie Appendix \@ref(getijcomponentenmethode). Hierdoor reageren GLLWS en GHHWS wel op veranderingen in het systeem, zoals ver(on)diepingen maar niet op meteorologische invloeden. Figuur \@ref(fig:GLLWGHHW) laat zien dat GHHWS met ruim 30 centimeter over meer dan een eeuw toegenomen is bij Delfzijl, met een plotseling grotere toename in de jaren '70. Voor andere stations zijn de tijdreeksen korter en is een toename minder duidelijk of afwezig. Voor Delfzijl is de GLLWS, na een kleine toename in het begin van de twintigste eeuw, in de jaren '70 enkele centimeters lager geworden. GLLWS laat voor geen van de andere stations een duidelijke trend zien.
+
+```{r, GLLWGHHW, fig.cap="Gemiddeld hoog hoogwater (boven) en gemiddeld laag laagwater (onder) voor stations in de Waddenzee berekend met hatyan op basis van DataDistributieLaag waterhoogten gedownload in juli 2022. "}
+
+path = file.path(datadir, "ddl", "calculated", "tidal_indicators", "GHHWS_GLLWS_10min.png")
+
+invisible(file.copy(path, "images/GHHWS_GLLWS_10min.png", overwrite = T))
+
+knitr::include_graphics("images/GHHWS_GLLWS_10min.png")
+```
+
+## Stormopzet en stormvloedhoogte {#waterhoogte-bij-storm}
 
 Waterstanden tijdens events geven inzicht hoeveel krachtige stormen er zijn opgetreden per jaar. Er worden twee parameters opgenomen als indicator: de stormopzet of -afzet (excl. getij) en de stormvloedhoogte (incl. getij). De laatste geeft ook de afhankelijkheid weer van het moment in de getijfase dat een storm optreedt.
 
@@ -782,7 +782,7 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
 ```
 
 **Kleinere zoetwaterafvoeren**
-De gegevens van de kleinere zoetwaterafvoeren (poldergemalen) worden beheerd bij de verschillende waterschappen:
+Duran-Matute et al. (2014) geeft een (incompleet) overzicht van de ordegrootte van de zoetwaterafvoeren in de westelijke Waddenzee met de gemiddelde afvoerhoeveelheden. De gegevens van de kleinere zoetwaterafvoeren (poldergemalen) worden beheerd bij de verschillende waterschappen:
 
 - [Hollands Noorderkwartier](http://www.hhnk.nl/)
 - [Wetterskip Friesland](http://www.wetterskipfryslan.nl/)

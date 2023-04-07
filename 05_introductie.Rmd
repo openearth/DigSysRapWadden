@@ -39,6 +39,8 @@ Het doel van de Digitale Systeemrapportage Wadden is om te komen tot actuele, tr
 
 Door het toegankelijk maken van de relevante informatie kunnen trends en ontwikkelingen snel worden opgespoord, en verder worden geanalyseerd. Dit draagt bij aan efficiënter en effectiever beheer, bijvoorbeeld bij het verklaren van waargenomen ontwikkelingen in de natuurdoelen, of invloed van menselijke activiteiten. Hierbij worden ook kennisleemtes en aanvullende monitoringsbehoeften geïdentificeerd, waardoor de DSR indirect bijdraagt aan het tweede doel van Basismonitoring Wadden: de systeemgerichte monitoring.
 
+De data die met de indicatoren worden weergegeven kunnen direct worden gedownload vanaf de pagina AppendiX \@ref(data).
+
 ## Informatiebehoefte en indicatoren
 
 Indicatoren zijn meetbare (of uit metingen af te leiden) grootheden die een signaalfunctie hebben, en bijvoorbeeld informatie geven over de kwaliteit van iets. In deze systeemrapportage beperken we ons tot de informatiebehoefte die voorkomt uit de beleids- en beheerdoelen voor de abiotische natuur van de Waddenzee. Daarbij gaat het om alle abiotische kenmerken die invloed hebben op de natuurlijkheid van het Waddensysteem, zoals sedimentsamenstelling, troebelheid, temperatuur, zoutgehalte, etc. De benodigde data is deels afkomstig van ruimtelijke metingen (bijvoorbeeld bodemligging), en deels van meetstations en -locaties zoals weergegeven in figuur \@ref(fig:kaartAbiotieklocaties).
