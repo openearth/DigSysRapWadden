@@ -4,22 +4,6 @@
 
 ## Basismonitoring Wadden
 
-```{r nice-fig2, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Plot with connected points showing that vapor pressure of mercury increases exponentially as temperature increases.'}
-
-
-p <- ggplot(mtcars %>% mutate(cyl = as.factor(cyl)), aes(hp, mpg, color = cyl)) +
-  geom_point()
-
-if(knitr::is_html_output()){
-  ggplotly(p) %>%
-    layout(
-      margin = list(),
-      legend = list(),
-      yaxis = list(hoverformat = '.2f')
-    )
-  } else  p
-```
-
 Deze Digitale Systeemrapportage (DSR) is opgezet als onderdeel van het project Natuurmonitoring Wadden - onderdeel Morfologie van Rijkswaterstaat. Dit valt vervolgens weer onder de [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/), en heeft betrekking op de niet-levende (abiotische) kenmerken van de Waddenzee. Basismonitoring Wadden houdt de ontwikkelingen in het Waddengebied in de gaten, met de volgende hoofddoelen:.
 
 1. inzicht geven in de toestand en trends in het Waddengebied voor beheerders en gebruikers;
@@ -113,7 +97,7 @@ rm(WQcatalogus, waterhoogteCatalogus, golfCatalogus)
 pal = colorFactor("Dark2", levels = unique(plotCatalogus$groep))
 
 leaflet(data = plotCatalogus) %>%
-  addTiles() %>%
+  addTiles('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png') %>% 
   # addProviderTiles(providers$Esri.WorldTopoMap) %>%
   addCircleMarkers(color = ~pal(groep), opacity = 1, radius = 3, fill = T, label = ~ locatie.naam, labelOptions = labelOptions(textsize = 12)) %>%
   leaflet::addLegend(pal = pal, values = unique(plotCatalogus$groep), opacity = 1)

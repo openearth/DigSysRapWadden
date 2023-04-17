@@ -55,48 +55,48 @@ In de Waddenzee wordt zoetwater gespuid, waarmee saliniteits- en dichtheidsversc
 
 ## Zeespiegelstijging {#zeespiegelstijging}
 
-De jaargemiddelde waterstand voor de zes hoofdstations langs de Nederlandse kust zijn overgenomen uit de Zeespiegelmonitor (figuur \@ref(fig:zeespiegelstijging)). De zeespiegelstijding bij Delfzijl verloopt sneller dan bij Harlingen en Den Helder. Den Helder kent de langzaamste zeespiegelstijging.
+De jaargemiddelde waterstand voor de hoofdstations langs de Nederlandse kust zijn overgenomen uit de Zeespiegelmonitor (figuur \@ref(fig:zeespiegelstijging)). De zeespiegelstijging bij Delfzijl verloopt sneller dan bij Harlingen en Den Helder. Den Helder kent de langzaamste zeespiegelstijging.
 
-(ref:zeespiegelstijgingLabel) Huidige zeespiegelstijging volgens het lineaire model met correctie voor wind. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP. De zwarte lijn is het gemiddelde over de 6 stations. 
+(ref:zeespiegelstijgingLabel) Zeespiegel en predictie volgens het gebroken lineaire model waarbij gecorrigeerd is voor windopzet (GTSM) en nodaal getij. De trend is voor de 6 getijdestations afzonderlijk weergeven. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP. In de periode voor 1979 is gecorrigeerd voor een gemiddelde windopzet uit: [Zeespiegelmonitor 2023](https://pub.kennisbank.deltares.nl/Details/fullCatalogue/1000021208). 
 
 ```{r zeespiegelstijging, fig.cap='(ref:zeespiegelstijgingLabel)' }
 
-# knitr::include_graphics("images/zeespiegelmonitor.png")
+knitr::include_graphics(path = "https://systeemrapportage.nl/zeespiegelmonitor/zeespiegelmonitor_files/figure-html/6stations-1.png")
 
-sealevelurl <- "https://raw.githubusercontent.com/openearth/sealevel/master/data/deltares/results/dutch-sea-level-monitor-export-2022-01-14.csv"
-
-sealevel <- read_csv(sealevelurl,
-                     comment = "#")
-
-
-sealevelAllStationsurl <- "https://raw.githubusercontent.com/openearth/sealevel/master/data/deltares/results/dutch-sea-level-monitor-export-stations-2021-11-26.csv"
-
-stations <- read_delim("https://raw.githubusercontent.com/openearth/sealevel/master/data/psmsl/NLstations.csv", delim = ";")
-
-sealevelAllStations <- read_csv(sealevelAllStationsurl,
-                     comment = "#")
-
-  p <- sealevelAllStations %>% 
-    left_join(stations %>% select(ID, StationName), by = c(station = "ID")) %>%
-    mutate(`height in cm` = height / 10,
-           `predicted_linear_with_wind in cm` = predicted_linear_with_wind / 10) %>%
-    ggplot() +
-    geom_point(aes(year, `height in cm`, color = StationName)) +
-    geom_line(aes(year, `predicted_linear_with_wind in cm`, color = StationName)) +
-    geom_line(data = sealevel, aes(x = year, y = predicted_linear_with_wind/10), color = "black") +
-    theme_hy +
-    xlab("Jaar") + ylab("Gemiddeld zeeniveau in cm")
-  
-  if(knitr::is_html_output()){
-  ggplotly(p) #%>%
-    # layout(
-    #   margin = m,
-    #   legend = l,
-    #   yaxis = list(hoverformat = '.2f')
-    # )
-  } else{
-      p
-      }
+# sealevelurl <- "https://raw.githubusercontent.com/openearth/sealevel/master/data/deltares/results/dutch-sea-level-monitor-export-2022-01-14.csv"
+# 
+# sealevel <- read_csv(sealevelurl,
+#                      comment = "#")
+# 
+# 
+# sealevelAllStationsurl <- "https://raw.githubusercontent.com/openearth/sealevel/master/data/deltares/results/dutch-sea-level-monitor-export-stations-2021-11-26.csv"
+# 
+# stations <- read_delim("https://raw.githubusercontent.com/openearth/sealevel/master/data/psmsl/NLstations.csv", delim = ";")
+# 
+# sealevelAllStations <- read_csv(sealevelAllStationsurl,
+#                      comment = "#")
+# 
+#   p <- sealevelAllStations %>% 
+#     left_join(stations %>% select(ID, StationName), by = c(station = "ID")) %>%
+#     mutate(`height in cm` = height / 10,
+#            `predicted_linear_with_wind in cm` = predicted_linear_with_wind / 10) %>%
+#     ggplot() +
+#     geom_point(aes(year, `height in cm`, color = StationName)) +
+#     geom_line(aes(year, `predicted_linear_with_wind in cm`, color = StationName)) +
+#     geom_line(data = sealevel, aes(x = year, y = predicted_linear_with_wind/10), color = "black") +
+#     theme_hy +
+#     xlab("Jaar") + ylab("Gemiddeld zeeniveau in cm")
+#   
+#   if(knitr::is_html_output()){
+#   ggplotly(p) #%>%
+#     # layout(
+#     #   margin = m,
+#     #   legend = l,
+#     #   yaxis = list(hoverformat = '.2f')
+#     # )
+#   } else{
+#       p
+#       }
 
 ```
 
@@ -260,7 +260,7 @@ pal <- colorNumeric(
 
 
 leaflet(gemGetijslag) %>%
-  addTiles() %>%
+  addTiles('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png') %>% 
   addCircleMarkers(radius = 7, 
                    label = ~paste(locatie.naam, ", gemiddelde getijslag =", trunc(`gemiddelde getijslag in cm`), "cm"), 
                    color = ~ pal(`gemiddelde getijslag in cm`),
@@ -408,7 +408,7 @@ yearlyStat %>% group_by(station) %>%
   sf::st_as_sf(coords = c("x", "y"), crs = 25831) %>%
   st_transform(4326) %>%
   leaflet() %>%
-  addTiles() %>%
+  addTiles('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png') %>% 
   addCircleMarkers(radius = 7, label = ~paste(station, ", maximum =", `maximum p99,5 waterstand`), color = ~ pal(`maximum p99,5 waterstand`)) %>%
   leaflet::addLegend(pal = pal, values = yearlyStat$p995)
 
@@ -546,7 +546,7 @@ allLocations <- list(RWSlocations, EmsLocations, LedaLocations, frieslandLocatio
 pal <- leaflet::colorFactor("Accent", allLocations$gebied)
 
 map <- leaflet(allLocations) %>% 
-  addTiles(group = "OSM") %>%
+  addTiles('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', group = "OSM") %>% 
   addCircleMarkers(
     fillColor = ~pal(gebied), 
     stroke = F, 

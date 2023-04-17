@@ -13,10 +13,11 @@ always_allow_html: true
 ---
 
 
-
+# {-}
 <!-- # Voorwoord {- #voorwoord} -->
 
 ```{r voorplaat, width = "100%", fig.cap="Luchtfoto van de Zuiderduintjes in 2011 (bron: https://proxy.archieven.nl/0/DE8E9D519DFD4FC5A6BD82D0952BCF82 © Rijkswaterstaat | Joop van Houdt)."}
+```{r voorplaat, width = "100%", fig.cap="Luchtfoto van Zuiderduintjes in 2011 (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)."}
 knitr::include_graphics("images/voorplaat.png", )
 ```
 </br>

@@ -32,8 +32,9 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
+
 ```
 
 ## Waterstanden {#Appwaterstanden}
@@ -45,13 +46,13 @@ Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordz
 De recente waterstandsmetingen, vanaf 1984, hebben een tijdstap van 10 minuten op alle stations. Voor 1984 is met een lagere frequentie gemeten, met een tijdstap van 1 uur, en voor 1966 is dit zelfs een tijdstap van 3 uur, zie figuur \@ref(fig:tijdstap)). Voor deze lagere frequenties is de hieronder beschreven methode voor het afleiden van de waterstanden te onnauwkeurig. Voor die periode beschikt RWS wel over een dataset van hoog- en laagwaterstanden, die hiervoor kunnen worden gebruikt. Daarvan kan dan het jaarlijkse gemiddelde worden bepaald. Deze data zijn momenteel nog niet online beschikbaar.
 
 ```{r}
-download_link(
+downloadthis::download_link(
   link = file.path(projectDataPath, mijnGebied, "RWS", "standard", paste0("extremaHLLL", "yearlyaverages.csv")),
   button_label = "Download jaargemiddelde extrema als .csv",
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -106,7 +107,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -117,7 +118,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -142,7 +143,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -183,7 +184,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -196,7 +197,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -207,7 +208,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -230,7 +231,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -241,7 +242,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -277,7 +278,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -296,7 +297,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -334,7 +335,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -466,7 +467,7 @@ download_link(
   button_type = "primary",
   has_icon = TRUE,
   icon = "fa fa-save",
-  self_contained = FALSE
+  self_contained = TRUE
 )
 ```
 
@@ -483,13 +484,6 @@ read_excel(file.path(datadir, "dataoverzicht.xlsx")) %>%
 
 # Beheer van de DSR
 
-```{r, message=FALSE, warning=FALSE, include=FALSE}
-# options(tinytex.verbose = TRUE)
-knitr::opts_chunk$set(echo = FALSE,	message = FALSE, warning = FALSE,
-	out.width = "100%")
-source("r/runThisFirst.R")
-theme_hy <- theme_bw()
-```
 ## Versiebeheer
 De R-code waaruit deze digitale systeemrapportage is gemaakt (tekst, scripts en figuren) wordt bewaard op SVN onder versiebeheer (https://repos.deltares.nl/repos/DigSysRapWadden/). 
 

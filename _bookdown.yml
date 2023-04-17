@@ -1,15 +1,15 @@
 rmd_files: [
   "index.Rmd",
-  # "verhaal_van_de_wadden.Rmd",
+  "verhaal_van_de_wadden.Rmd",
   "05_introductie.Rmd",
-  # "70_waterkwantiteit.Rmd",
-  # "10_meteorologieenklimaat.Rmd",
-  # "20_waterkwaliteit.Rmd",
-  # "060_Bathymetrie_en_morfodynamiek.Rmd",
-  # "070_Geologie.Rmd",
-  # "100_menselijkhandelen.Rmd",
-  # "90_Meetbehoefte.Rmd",
-  # "200-references.Rmd",
+  "70_waterkwantiteit.Rmd",
+  "10_meteorologieenklimaat.Rmd",
+  "20_waterkwaliteit.Rmd",
+  "060_Bathymetrie_en_morfodynamiek.Rmd",
+  "070_Geologie.Rmd",
+  "100_menselijkhandelen.Rmd",
+  "90_Meetbehoefte.Rmd",
+  "200-references.Rmd",
   "Appendix.Rmd"
   ] 
 # bibliography: ["references/wadden.bib", "references/WillemsReferences.bib"]

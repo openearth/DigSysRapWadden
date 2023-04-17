@@ -205,11 +205,14 @@ p <- valid.values.df %>%
   coord_cartesian(ylim = c(-5, 3)) +
   theme(legend.position = "bottom")
 
-# if(knitr::is_html_output()) {ggplotly(p, 900, 900) %>%
-#   config(displayModeBar = F) %>%
-#   layout(xaxis=list(fixedrange=TRUE)) %>% 
-#   layout(yaxis=list(fixedrange=TRUE))} else 
-    p
+if(knitr::is_html_output()) {
+  ggplotly(
+    p, 900, 900) %>%
+    config(displayModeBar = F) %>%
+    layout(xaxis=list(fixedrange=TRUE)) %>%
+    layout(yaxis=list(fixedrange=TRUE)
+    )
+} else p
 
 
 ```
@@ -509,7 +512,7 @@ slib <- sedimentatlas %>%
 pal = leaflet::colorNumeric(jet.colors(n = 7), slib$slibgehalte)
 
 leaflet(slib) %>%
-  leaflet::addTiles() %>%
+  leaflet::addTiles('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png') %>% 
   # addCircleMarkers(stroke = F, fillColor = ~pal(slibgehalte), fillOpacity = 1)
   addCircles(color = ~pal(slibgehalte), fillOpacity = 1,
     radius = ~sign(slibgehalte) * 30, label = ~trunc(slibgehalte)) %>%
@@ -562,7 +565,7 @@ request_ecotopen_cyclus_4 <- build_url(url_ecotopen_cyclus_4)
 #maak een figuur van de ecotopen relevant voor het VZM
 leaflet() %>% 
   setView(lng = 6, lat = 53, zoom = 8) %>% 
-  addTiles(group = "OSM") %>%
+  addTiles('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', group = "OSM") %>% 
   addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
   addWMSTiles(
     wms_ecotopen,

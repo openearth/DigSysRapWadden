@@ -12,8 +12,9 @@ bookdown::gitbook:
       collapsed: false
       smooth_scroll: false
   includes:
-    # before_body: navbar/navbar.html
+    before_body: navbar/navbar.html
     in_header: clickandzoom.html
+  css: ["navbar/navbar.css", "style/deltares.css"]
 
 bookdown::bs4_book:
   # theme:

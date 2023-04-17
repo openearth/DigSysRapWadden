@@ -105,7 +105,7 @@ p =   ggplot() +
                                    "metingen" = "darkgrey")) +
     guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
 
-# ggplotly(p) %>% 
+# ggplotly(p) %>%
 #   layout(
 #     legend = list(orientation = "h",   # show entries horizontally
 #                   xanchor = "center",  # use center of legend as anchor
@@ -288,7 +288,7 @@ request_ecotopen_2022 <- build_url(url_ecotopen_2022)
 leaflet() %>% 
   setView(lng = 6, lat = 53, zoom = 8) %>% 
   addTiles(group = "OSM") %>%
-  addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
+  # addProviderTiles(providers$Esri.WorldImagery, group = "Esri.WorldImagery") %>%
   addWMSTiles(
     wms_ecotopen_2022,
     layers = "ecotopenkaart:saliniteit_200m_gemiddeld",

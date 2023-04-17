@@ -70,7 +70,7 @@ slib <- sedimentatlas %>%
 pal = leaflet::colorNumeric(jet.colors(n = 7), slib$slibgehalte)
 
 leaflet(slib) %>%
-  leaflet::addTiles() %>%
+  addTiles('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png') %>% 
   # addCircleMarkers(stroke = F, fillColor = ~pal(slibgehalte), fillOpacity = 1)
   addCircles(color = ~pal(slibgehalte), fillOpacity = 1, weight = 10) %>%
   leaflet::addLegend(position = "bottomright", pal = pal, values = slib$slibgehalte)
