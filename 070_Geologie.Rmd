@@ -13,6 +13,7 @@ In de Waddenzee zitten op vele plekken erosieresistente lagen in de bodem, of wo
 [Schermvullende versie](https://www.testsysteemrapportage.nl/ERL%20kaart%20NL%20v1.0/index.html#10/53.2167/5.6978)
 
 ```{r, fig.cap= "Interactieve kaart van erosie-resistente lagen in het Waddengebied. Klikken op een (mogelijke) ERL laat de verandering in dwarsdoorsnede in de loop van de tijd zien."}
+
 if(knitr::is_html_output())knitr::include_url("../ERL kaart NL v1.0/index.html#10/53.2167/5.6978", height = "600px") else{
   knitr::include_graphics(file.path(datadir, "deltares/geologie/erosieresistentelagen.png"))
 }
