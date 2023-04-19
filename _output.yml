@@ -33,5 +33,5 @@ bookdown::pdf_book:
   includes:
     in_header: preamble.tex
   template: deltares-report-template.tex
-  latex_engine: pdflatex
+  latex_engine: xelatex
   # citation_package: natbib # niet in combinatie met Deltares-template

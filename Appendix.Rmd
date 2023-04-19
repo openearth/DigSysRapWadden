@@ -45,16 +45,6 @@ Voor de beschikbare stations in de Waddenzee en aangrenzende delen van de Noordz
 
 De recente waterstandsmetingen, vanaf 1984, hebben een tijdstap van 10 minuten op alle stations. Voor 1984 is met een lagere frequentie gemeten, met een tijdstap van 1 uur, en voor 1966 is dit zelfs een tijdstap van 3 uur, zie figuur \@ref(fig:tijdstap)). Voor deze lagere frequenties is de hieronder beschreven methode voor het afleiden van de waterstanden te onnauwkeurig. Voor die periode beschikt RWS wel over een dataset van hoog- en laagwaterstanden, die hiervoor kunnen worden gebruikt. Daarvan kan dan het jaarlijkse gemiddelde worden bepaald. Deze data zijn momenteel nog niet online beschikbaar.
 
-```{r}
-downloadthis::download_link(
-  link = file.path(projectDataPath, mijnGebied, "RWS", "standard", paste0("extremaHLLL", "yearlyaverages.csv")),
-  button_label = "Download jaargemiddelde extrema als .csv",
-  button_type = "primary",
-  has_icon = TRUE,
-  icon = "fa fa-save",
-  self_contained = TRUE
-)
-```
 
 (ref:tijdstapCaption) Gebruikte tijdstap in de dataset voor alle stations. Vanaf 1984 is voor alle stations data op elke 10 minuten beschikbaar. Tussen 1966 en 1984 (variërend per station), is dit een tijdstap van een uur. In de jaren voor 1966 is dit zelfs 3 uur.
 
@@ -69,6 +59,17 @@ De getijcomponenten zijn berekend op basis van de waterstationsmeetseries, zoals
 
 De jaargemiddelde hoog- en laagwaters (GHW en GLW) zijn bepaald door in de tijdseries van gemeten waterstanden te zoeken naar het maximum en minimum per getijcyclus, met een onderlinge afstand van minimaal 4 uur. In figuur \@ref(fig:hooglaagvoorbeeld2) is daarvan een voorbeeld te zien. Vervolgens wordt hiervan het jaargemiddelde bepaald. 
 De jaargemiddelde getijslag wordt berekend door het verschil tussen het jaargemiddelde GHW en GLW.
+
+```{r}
+downloadthis::download_link(
+  link = file.path(ThreddsDataPath, mijnGebied, "RWS", "standard", paste0("extremaHLLL", "yearlyaveragesCopy.csv")),
+  button_label = "Download jaargemiddelde GHW en GLW als .csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = TRUE
+)
+```
 
 Om trends te kunnen bepalen is vervolgens een lineaire trendlijn toegevoegd die varieert met de 18,6-jarige cyclus. Doordat de frequentie van de 18,6-jarige cyclus bekend is en de tijdserie voldoende lang, kan de software zelf de amplitude en de fase van de 18,6-jarige cyclus fitten.
 

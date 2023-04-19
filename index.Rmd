@@ -16,9 +16,11 @@ always_allow_html: true
 # {-}
 <!-- # Voorwoord {- #voorwoord} -->
 
-```{r voorplaat, width = "100%", fig.cap="Luchtfoto van de Zuiderduintjes in 2011 (bron: https://proxy.archieven.nl/0/DE8E9D519DFD4FC5A6BD82D0952BCF82 © Rijkswaterstaat | Joop van Houdt)."}
-```{r voorplaat, width = "100%", fig.cap="Luchtfoto van Zuiderduintjes in 2011 (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)."}
-knitr::include_graphics("images/voorplaat.png", )
+(ref:voorplaatLabel) Luchtfoto van de Zuiderduintjes in 2011 (bron: https://proxy.archieven.nl/0/DE8E9D519DFD4FC5A6BD82D0952BCF82 © Rijkswaterstaat | Joop van Houdt).
+
+```{r voorplaat, width = "100%", fig.cap="(ref:voorplaatLabel)"}
+# ```{r voorplaat, width = "100%", fig.cap="Luchtfoto van Zuiderduintjes in 2011 (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)."}
+knitr::include_graphics("images/voorplaat.png")
 ```
 </br>
 
@@ -39,4 +41,4 @@ Deze digitale Systeemrapportage van de Wadden is opgezet als een naslagwerk, om 
 
 Informatie uit deze Digitale Systeemrapportage kan als volgt geciteerd worden: "Stolte, W., Vroom, J., Santinelli, G., Veenstra, J., Van Oeveren, C., Van Zelst, V. and Dijkstra, J. (2023). Digitale Systeemrapportage van de Waddenzee, versie 1.0. https://systeemrapportage.nl/wadden/".
 
-Als u gebreken of onvolledigheden constateert horen wij dat graag via: jasper.dijkstra -at- deltares.nl en/of falco.van.bakel -at- rws.nl.
+Als u gebreken of onvolledigheden constateert horen wij dat graag via: jasper.dijkstra -at- deltares.nl en/of martijn.kleinobbink -at- rws.nl.
