@@ -5,7 +5,8 @@
 
 ```{r setupBathymetrie, include=FALSE}
 
-laagwaterlijn = -2
+laagwaterlijn = -1 # of -2 (allebei is voorbereid)
+namen_west_oost <- c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild")
 ```
 
 ## Afbakening, definitie en herkomst
@@ -74,15 +75,7 @@ Figuur \@ref(fig:hypsometriePerGebied) toont de hypsometrische curves voor de be
 
 ```{r prepareHypsometriearealen, eval = F}
 
-polygonpath <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
-# selection of relevant polygons done by hand in QGIS
-polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33)
-
-poly <- sf::st_read(polygonpath, quiet = T) %>%
-  filter(fid %in% polygonsInRaster) %>%
-  st_transform(28992)
-
-polynames = unlist(poly$name)
+require(raster)
 
 mosaicdir <- file.path(datadir, "RWS", "bathymetrie", "processing_tiles", "mosaic")
 mosaiclist <- list.files(mosaicdir)
@@ -100,21 +93,46 @@ rasterlist <- mosaiclist[which(years %in% doeljaren)]
 
 # read bathymetry and crop to polygons
 bathymetries <- stack(file.path(mosaicdir,rasterlist))
-raster::crs(bathymetries) <- 28992
-# rm(bathymetries)
-# 1927 is not used. There is not information for all polygons
+
+polygonpath <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
+# selection of relevant polygons done by hand in QGIS
+polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33)
+
+poly <- sf::st_read(polygonpath, quiet = T) %>%
+  filter(fid %in% polygonsInRaster) %>%
+  st_transform(raster::crs(bathymetries))
+
+polynames = unlist(poly$name)
 
 contours_allregions <- lapply(as.list(bathymetries), function(x)
-  laagwaterlijn = st_as_sf(disaggregate(rasterToContour(x, level = laagwaterlijn)))
+  laagwaterlijn = st_as_sf(disaggregate(rasterToContour(x, level = laagwaterlijn)))  #%>%
+  # st_set_crs(raster::crs(bathymetries)
+             )
+
+names(contours_allregions) <- paste0("", doeljaren)
+
+Waddenpoly <- poly %>% 
+  summarize() %>% 
+  # st_buffer(10000) %>% 
+  # st_buffer(-10000) %>%
+  st_transform(raster::crs(bathymetries))
+
+contours_allregions2 <- map(contours_allregions, function(x) st_intersection(x, poly)) %>%
+  bind_rows(.id = "jaar") %>%
+  mutate(jaar = as.integer(jaar))
+
+save(
+  contours_allregions2, 
+  file = file.path(
+    datadir, "RWS", "bathymetrie", paste0(
+      "laagwater_", as.character(
+        laagwaterlijn
+      ), "mContourlijnen.Rdata"
+    )
+  )
 )
-names(contours_allregions) <- doeljaren
 
-Waddenpoly <- poly %>% summarize() %>% st_buffer(0)
-contours_allregions <- lapply(contours_allregions, function(x) st_intersection(x, Waddenpoly))
-
-save(contours_allregions, file = file.path(datadir, "RWS", "bathymetrie", "laagwater_2mContourlijnen.Rdata"))
-
-
+# save(contours_allregions, file = file.path(datadir, "RWS", "bathymetrie", "laagwater_2mContourlijnen.Rdata"))
 
 croppedRasters <- try(
   lapply(
@@ -128,22 +146,6 @@ croppedRasters <- try(
 
 
 
-## Eerste manier
-## bereken laagwaterlijn per deelraster
-## 
-# contours <- lapply(croppedRasters, function(x) 
-#   tibble(
-#     jaar = doeljaren,
-#     laagwaterlijnlengte = unlist(lapply(as.list(x), function(y)
-#       st_length(st_as_sf(rasterToContour(y, level = laagwaterlijn)))
-#     ))
-#   )
-# )
-# names(contours) <- polynames
-# contour.df <- data.table::rbindlist(contours, idcol = "gebied")
-
-
-## Tweede manier
 ## Deel totalen uit contours_allregions op per deelgebied. 
 contour.df <- map(contours_allregions, function(x) st_intersection(x, poly)) %>%
   map(
@@ -167,10 +169,10 @@ valid.data <- lapply(croppedRasters, function(x) which(!is.na(getValues(max(x, n
 valid.values <- map2(croppedRasters, valid.data, raster::extract)
 valid.values.df <- map(valid.values, as_tibble) %>%
   map(pivot_longer, everything(), names_to = "jaar", values_to = "diepte") %>%
-  set_names("Marsdiep","Vlie","Borndiep","Eilanderbalg","Pinkegat","Zoutkamperlaag","Schild","Eierlandse Gat","Lauwers")%>%
+  set_names(polynames)%>%
   rbindlist(idcol = "naam") %>%
   mutate(jaar = as.integer(str_replace(jaar, "mosaic_", ""))) %>%
-  mutate(naam = factor(naam, levels = c("Marsdiep","Eierlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild")))
+  mutate(naam = factor(naam, levels = namen_west_oost))
 
 rm(valid.data,valid.values)
 
@@ -257,7 +259,7 @@ valid.values.df  %>%
   theme(strip.text.y = element_text(angle = 0)) +
   ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
   coord_cartesian(xlim = c(1920, 2020)) +
-  ggtitle("Areaal in km^2^ per bekken en diepteklasse")
+  ggtitle("Areaal in km^2 per bekken en diepteklasse")
 
 ```
 ##	Plaathoogte
@@ -375,25 +377,32 @@ De lengte van de laagwaterlijn geeft een indruk van de lengte van de plaatrand. 
 
 doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015")
 
-load(file = file.path(datadir, "RWS", "bathymetrie", "laagwater_2mContourlijnen.Rdata"))
+load(file = file.path(datadir, "RWS", "bathymetrie", paste0("laagwater_", laagwaterlijn, "mContourlijnen.Rdata")))
 
 # convert to leaflet map with different layers, on top of bathymetries
+# 
+# labels = names(contours_allregions)
+# bbox = st_bbox(contours_allregions[[1]])
+# 
+# maps <- map2(
+#   contours_allregions, list((poly)),
+#   function(x,y)
+#     ggplot() +
+#     geom_sf(data = x) +
+#     geom_sf(data = y, fill = "transparent", color = "blue") +
+#     coord_sf(
+#       xlim = bbox[c(1,3)], ylim = bbox[c(2,4)]
+#     )
+# )
+# 
+# cowplot::plot_grid(plotlist = maps, labels = labels, label_size = 10, ncol = 2)
 
-labels = names(contours_allregions)
-bbox = st_bbox(contours_allregions[[1]])
-
-maps <- map2(
-  contours_allregions, list((poly)),
-  function(x,y)
-    ggplot() +
-    geom_sf(data = x) +
-    geom_sf(data = y, fill = "transparent", color = "blue") +
-    coord_sf(
-      xlim = bbox[c(1,3)], ylim = bbox[c(2,4)]
-    )
-)
-
-cowplot::plot_grid(plotlist = maps, labels = labels, label_size = 10, ncol = 2)
+ggplot() +
+  geom_sf(data = contours_allregions2) +
+  geom_sf(data = poly, aes(color = name), fill = "transparent", linewidth = 1) +
+  facet_wrap(~ jaar) +
+  guides(color = "none") +
+  theme_void()
 
 ```
 
@@ -407,33 +416,35 @@ De totale lengte van de laagwaterlijnen is bepaald voor dezelfde jaren als de an
 
 doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015")
 
-waterlijn_all <- tibble(
-  jaar = as.integer(doeljaren),
-  laagwaterlijnlengte = unlist(lapply(contours_allregions, function(y)
-    st_length(summarize(y))
-  ))
-)  %>%
-  mutate(`laagwaterlijnlengte (km)` = laagwaterlijnlengte /1000)
-
-contour.df <- read_delim(file.path(datadir, "RWS", "bathymetrie", "products", "laagwaterlijnlengte.csv"), delim = ";")
-
-contour.df %>%
-  mutate(`laagwaterlijnlengte (km)` = laagwaterlijnlengte_m/1000) %>%
-    mutate(gebied = factor(gebied, levels = c("Marsdiep","Eierlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild"))) %>%
-ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
+contours_allregions2 %>% 
+  mutate(laagwaterlijnlengte_m = st_length(.)) %>%
+  drop_units() %>%
+  group_by(jaar, name) %>%
+  summarize(`laagwaterlijnlengte (km)` = sum(laagwaterlijnlengte_m)/1000) %>%
+  ungroup() %>%
+  st_drop_geometry() %>%
+  mutate(gebied = factor(name, levels = namen_west_oost)) %>%
+  ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
   ggtitle("Laagwaterlijn in km") +
   geom_area(aes(fill = gebied)) +
-  geom_line(data = waterlijn_all) +
-  geom_point(data = waterlijn_all, aes(), shape = 21, fill = "white", size = 3) +
-
-  # geom_line(data = waterlijn_all) +
-  # geom_point(aes(), shape = 21, fill = "white", size = 3) +
-  # facet_wrap(~ gebied, scales = 'free') +
+  geom_line(
+    data = . %>% 
+      group_by(jaar) %>% 
+      summarize(
+        `laagwaterlijnlengte (km)` = sum(`laagwaterlijnlengte (km)`)
+      )
+  ) +
+  geom_point(
+    data = . %>% 
+      group_by(jaar) %>% 
+      summarize(
+        `laagwaterlijnlengte (km)` = sum(`laagwaterlijnlengte (km)`)
+      ),
+    shape = 21, fill = "white", size = 3
+    ) +
   coord_cartesian(xlim = c(1920, 2020)) +
   scale_y_continuous(limits = c(0, NA)) +
   ylab(paste("Laagwaterlijn [km] berekend aan NAP", laagwaterlijn, "m vlak")) + xlab("Jaar") 
-
-
 ```
 
 
@@ -441,10 +452,15 @@ ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
 
 ```{r lengteLaagwaterLijn, fig.cap="(ref:lengteLaagwaterLijn-label)" }
 
-contour.df %>%
-  mutate(`laagwaterlijnlengte (km)` = laagwaterlijnlengte_m/1000) %>%
-    mutate(gebied = factor(gebied, levels = c("Marsdiep","Eierlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild"))) %>%
-ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
+contours_allregions2 %>% 
+  mutate(laagwaterlijnlengte_m = st_length(.)) %>%
+  drop_units() %>%
+  group_by(jaar, name) %>%
+  summarize(`laagwaterlijnlengte (km)` = sum(laagwaterlijnlengte_m)/1000) %>%
+  ungroup() %>%
+  st_drop_geometry() %>%
+  mutate(gebied = factor(name, levels = namen_west_oost)) %>%
+  ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
   ggtitle("Laagwaterlijn in km") +
   geom_line() +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
@@ -452,9 +468,6 @@ ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
   coord_cartesian(xlim = c(1940, 2020)) +
   scale_y_continuous(limits = c(0, NA)) +
   ylab(paste("Laagwaterlijn [km] berekend aan NAP", laagwaterlijn, "m vlak")) + xlab("Jaar") 
-
-
-
 ```
 
 
@@ -463,8 +476,6 @@ Er zijn verschillende historische kaarten met het bodemslibgehalte beschikbaar (
 
 Sinds 2008 zijn door het NIOZ monsters gestoken van het intergetijdengebied en is ook de korrelgrootteverdeling bepaald. Deze data wordt aangeduid met SIBES. De data is niet vrij beschikbaar en daarom vooralsnog niet opgenomen in deze rapportage. In ongeveer 2019 is de SIBES dataset gecomplementeerd met data van monsters die zijn genomen in de diepe delen van de Waddenzee, waarmee een ruimtelijk volledig dekkende kaart van de Waddenzee kan worden gemaakt. De data uit de diepe delen worden aangeduid met SUBES. Ook deze data is (nog) niet vrij beschikbaar.
 
-<!-- *   JV 21/7 Willem, hierbij graag de sedimentatlas gebruiken. Of doet Giorgio die? -->
-<!--     + Dit zijn alleen DDL gegevens. er moet nog meer bij. Ik weet nog van data die is ingewonnen bij macrobenthosbemonstering (beschikbaar, maar misschien niet zelfde format) en extra metingen in Eems-Dollard in 2013 (beschikbaar). Die kan ik nog toevoegen.  -->
 
 ```{r readKorrelgrootteData}
 # korrel.df <- read_delim(file.path(datadir, "ddl", "standard", paste0("korrelgrootte", "2021-07-16", ".csv")), delim = ";")
