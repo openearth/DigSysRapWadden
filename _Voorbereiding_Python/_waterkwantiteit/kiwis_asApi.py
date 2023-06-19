@@ -2,7 +2,7 @@
 Author Nathalie Dees (nathalie.dees@deltares.nl)
 https://kiwis-pie.readthedocs.io/en/latest/index.html
 https://github.com/amacd31/kiwis_pie"""
-
+# %%
 from datetime import date
 from kiwis_pie import KIWIS
 import pandas as pd
@@ -39,19 +39,34 @@ station_id.reset_index(drop=True, inplace=True)
 
 #combining station ID with meetreeks ID and save
 combined=pd.concat([meet_ids,station_id], axis=1)
-combined.rename(columns={'0':"Meetreeks"})
-#combined.to_csv(r'C:\projecten\rws\2022\zoetwaterdebiet\hea\hunze_enAas.csv')
+combined=combined.rename(columns={0:"station_id"})
 
 #find if selected stations are in all stations
 selected_stations=stations.loc[stations['station_id'].isin(station_id.iloc[:,0])]
-#selected_stations.to_csv(r'C:\projecten\rws\2022\zoetwaterdebiet\hea\selected_stationshez.csv')#save to csv
+# Perform the join on the 'ID' column, when they are similar
+result = pd.merge(combined, selected_stations, on='station_id')
+#%%
 
-
-for i in range(len(meet_ids['meetreeks_id'])):
-    #time.sleep(90) #timer for the server'
-    print('processing :', meet_ids['Object'][i])
-    t=k.get_timeseries_values(ts_id = meet_ids['meetreeks_id'][i], to = date(meet_ids['time_stop'][i],1,1), **{'from': date(meet_ids['time_start'][i],1,1)})
-    t.to_csv(path + str(meet_ids['Object'][i]) + '.csv')
+for i in range(len(meet_ids['meetreeks_id'])-1):#the last entry does not work, so is skipped for noww
+    time.sleep(90) #timer for the server'
+    print('processing :', result['Object'][i])
+    l = meet_ids.iloc[i]
+    t=k.get_timeseries_values(ts_id = result['meetreeks_id'][i], 
+                            to = date(result['time_stop'][i],1,1), 
+                            **{'from': date(result['time_start'][i],1,1)})
+    t=t.reset_index()
+    t=t.rename(columns={'Timestamp':'datumtijd', 'Value': 'numeriekewaarde'})
+    dfx = t.join(pd.DataFrame({
+        'locatie.origineel': result['station_id'][i],
+        'grootheid.omschrijving': 'Debiet',
+        'grootheid.code': 'Q',
+        'eenheid.code':'m3/s',
+        'longitude': result['station_longitude'][i],
+        'latitude':result['station_latitude'][i],
+        'locatie.naam':result['Object'][i],
+        'gebied':'Hunze en Aas'}, index=t.index
+    ))
+    dfx.to_csv(path + str(meet_ids['Object'][i]) + '.csv')
 
 """
 #get timeseries for ts_id (timeseriesid)
@@ -63,3 +78,4 @@ print('saved')
 #t=k.get_timeseries_values(ts_id = meet_ids['meetreeks_id'][2], to = date(meet_ids['time_stop'][2],1,1), **{'from': date(meet_ids['time_start'][2],1,1)})
 #t.to_csv('C:\\projecten\\rws\\2022\\zoetwaterdebiet\\hea\\' + str(meet_ids['Object'][2]) + '.csv')
 """
+# %%
