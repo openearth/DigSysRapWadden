@@ -11,7 +11,7 @@ path='P:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\HHNK\\raw\\'
 path_csv=r'C:\projecten\rws\2022\zoetwaterdebiet\hhnk\csv'
 
 #path of api
-ddapi = 'https://hhnk.lizard.net/dd/api/v2'
+ddapi = 'https://hhnk.lizard.net/dd/api/v4'
 
 #names and codes of stations needed in analysis
 names= ['Helsdeur', 'Oostoever', 'Leemans'] 
