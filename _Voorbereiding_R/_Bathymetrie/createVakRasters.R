@@ -3,8 +3,9 @@
 csvfile <- "_Voorbereiding_R/_Bathymetrie/WaddenZeeVaklodingen.csv"
 processingpath <- "_Voorbereiding_R/_Bathymetrie/processing_tiles/"
 
-install.packages("gdalUtils")
+# install.packages("gdalUtils")
 library("gdalUtils")
+library(data.table)
 require("raster")
 
 ## define function for mosaicking
@@ -23,6 +24,17 @@ opendapdatapath <- "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaters
 vakTiles <- fread(csvfile)
 vakTiles$tiles <- paste0(opendapdatapath, vakTiles$tiles)
 stacks <- list()
+
+# download path: https://opendap.deltares.nl/thredds/fileServer/opendap/rijkswaterstaat/vaklodingen_new/vaklodingenKB139_1514.nc
+
+lapply(
+  vakTiles$tiles[7:75],
+  function(x) {
+    try(download.file(url = stringr::str_replace(x, "dodsC", "fileServer") , 
+                  destfile = file.path("_Voorbereiding_R", "_Bathymetrie", "processing_tiles", "nc", stringr::str_replace(x, "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/vaklodingen_new/", ""))))
+  }
+)
+
 
 ## create processing folder and subfolders, if they don't exist
 dir.create(processingpath)
