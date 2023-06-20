@@ -531,7 +531,7 @@ map
 
 ```
 
-**Rijkswateren - IJsselmeer en Lauwersmeer**
+### Rijkswateren - IJsselmeer en Lauwersmeer
 
 De data van de grootste afvoeren vanuit Rijkswateren (Den Oever, Kornwerderzand, Lauwersoog) zijn ontsloten door Rijkswaterstaat en worden hier getoond. De afvoeren bij Den Oever en Kornwerderzand worden beïnvloed door het peilbeheer in het IJsselmeer. Daarom worden ook zomer- en wintergemiddelde afvoeren gevisualiseerd.
 
@@ -701,7 +701,7 @@ parData <- afvoer.df %>%
 
 ```
 
-**Eems**
+### Eems
 De afvoer vanuit de Eems wordt weergegeven als geschatte afvoer bij Herbrum, het meest stroomafwaartse gedeelte van de rivier waar nog getij-invloed is en waar de stuw is gelegen. De waarde is berekend als 1.1 \* de afvoer bij Versen. De gegevens zijn beschikbaar gemaakt door Federal Institut of Hydrology en komen uit de hydrological database HYDABA1. Voor metingen bij Versen is tot 2019 het station "Versen_gesamt" gebruikt, daarna is overgegaan op station "versen_wehr_durchstich" (zie kaart \@ref(fig:kaartHydrologischeStationsNLWKN)).
 
 ```{r eemsafvoertijdserie, fig.cap = "Jaargemiddelde afvoer vanuit de Eems en Leda per etmaal naar de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). "}
@@ -746,7 +746,8 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
 
 ```
 
-**Kleinere zoetwaterafvoeren**
+### Kleinere zoetwaterafvoeren
+
 [Duran-Matute et al. (2014)](https://os.copernicus.org/articles/10/611/2014/os-10-611-2014.pdf) geeft een (incompleet) overzicht van de ordegrootte van de zoetwaterafvoeren in de westelijke Waddenzee met de gemiddelde afvoerhoeveelheden. De gegevens van de kleinere zoetwaterafvoeren (poldergemalen) worden beheerd bij de verschillende waterschappen:
 
 - [Hollands Noorderkwartier](http://www.hhnk.nl/)
@@ -756,22 +757,53 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
 
 De gegevens zijn opgevraagd bij de desbetreffende waterschappen en ontsloten via Datahuis Wadden. Zie voor details paragraaf \@ref(Appzoetwaterafvoer). De locaties van de afvoeren zijn aangegeven in figuur \@ref(fig:kaartAfvoerLocaties). Naar verwachting volgen de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval of droogte). 
 
-***Hollands Noorderkwartier***
-
-wordt toegevoegd
-
-***Wetterskip Friesland***
-
 
 
 ```{r kleineZoetwaterDataInlezen}
+
+hollandsnoorderkwartierpath <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahhnk&outputFormat=csv"
+hhnkDat <- data.table::fread(hollandsnoorderkwartierpath, na.strings = "-999")
+
+## issues
+## punten en comma's door elkaar als decimal separator. daarom worden het characters
+## 1e6 regels gedownloadt. Geoserver geeft niet meer regels. 
+
 frieslandPath <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland&outputFormat=csv"
 friesDat <- data.table::fread(frieslandPath)
+
 NoorderzijlPath <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Anoorderzijlvest&outputFormat=csv"
 NoorderzijlDat <- data.table::fread(NoorderzijlPath)
+
+hunzeenaasPath <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahunzeenaas&outputFormat=csv"
+hunzeDat <- data.table::fread(hunzeenaasPath)
+
+## issues: 1e6 regels downloadt. er zijn er vast meer. 
+
+
 ```
 
 
+***Hollands Noorderkwartier***
+
+```{r hhnkAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren Hoogheemraadschap Hollands Noorderkwartier. "}
+
+table(hhnkDat$kwaliteitsoordeel.code)
+# wat doen met onbetrouwbare waarden? 
+
+hhnkDat %>%
+  # make daily average
+  mutate(
+    dag = as_date(datum)
+  ) %>%
+  group_by(locatie.naam, dag, grootheid.code, eenheid.code) %>%
+  summarize(daggemiddelde = mean(numeriekewaarde, na.rm = F), n = n()) %>%
+  View()
+  ggplot() +
+  geom_point(color =)
+
+```
+
+***Wetterskip Friesland***
 
 ```{r friesAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren Wetterskip Friesland. "}
 
@@ -855,6 +887,30 @@ ggplot() +
 ***Hunze en Aas***
 
 wordt toegevoegd
+
+
+
+```{r}
+
+# daggemiddelden berekenen
+# tijdserie plotten
+# maandgemiddelden en jaargemiddelden toevoegen
+
+hunzeDat %>%
+  sf::st_drop_geometry() %>%
+  dplyr::mutate(dag = as_date(datumtijd)) %>%
+  dplyr::group_by(dag, locatie.naam, grootheid.code, eenheid.code) %>%
+  dplyr::summarise(daggemiddelde = mean(numeriekewaarde, na.rm = TRUE)) %>%
+  ggplot2::ggplot(aes(x = dag, y = daggemiddelde)) +
+  geom_point() +
+    facet_grid(locatie.naam ~., scales = "free_y") +  #scales = "free",
+  theme_hy +
+  theme(
+    legend.position = "bottom",
+    strip.text.y = element_text(angle = 0)
+  )
+  
+```
 
 
 
