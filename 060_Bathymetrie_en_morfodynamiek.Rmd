@@ -36,6 +36,8 @@ poly <- sf::st_read(polygonpath, quiet = T) %>%
   filter(fid %in% polygonsInRaster) %>% 
   st_transform(28992)
 
+try(sf::st_write(poly, file.path(datadir, "vakken", "wmr_vakken.geojson")))
+
 leaflet(poly %>% st_transform(4326)) %>%
   addTiles() %>%
   addPolygons(label = ~name, labelOptions = labelOptions(noHide = T))
@@ -174,7 +176,7 @@ valid.values.df <- map(valid.values, as_tibble) %>%
   mutate(jaar = as.integer(str_replace(jaar, "mosaic_", ""))) %>%
   mutate(naam = factor(naam, levels = namen_west_oost))
 
-rm(valid.data,valid.values)
+# rm(valid.data,valid.values)
 
 save(valid.values.df, file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
 
