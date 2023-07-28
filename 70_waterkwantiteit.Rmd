@@ -444,6 +444,17 @@ gdf %>%
   theme(legend.position = "bottom")
 ```
 
+## Stroming
+
+Hieronder zijn de stroomsnelheden gepresenteerd. Dit zijn modelbewerkingen die ook gebruikt zijn in het maken van de huidige ecotopenkaarten. Er zijn drie verschillende kaarten beschikbaar
+
+```{r}
+
+
+```
+
+
+
 ## Golfperiode {#golfperiode}
 
 De golfperiode is samen met de golfhoogte van belang voor de orbitaalsnelheden. De orbitaalsnelheden worden gebruikt bij het opstellen van de ecotopenkaart en geven aan hoe dynamisch een bepaald gebied is. Ook bepalen orbitaalsnelheden samen met de stroomsnelheden van het getij hoeveel zand en slib er kan eroderen en sedimenteren.
@@ -453,7 +464,6 @@ Figuur \@ref(fig:plotGolfperiode) toont de tijdserie van de golfperiode T~M02~ (
 ```{r readGolfperiodeData}
 path = file.path(datadir, "ddl", "standard", paste0("golfperiode", "2021-07-16", ".Rdata"))
 load(path)
-
 ```
 
 ```{r plotGolfperiode, fig.height=20, fig.width=10, fig.cap = "Tijdserie van 95-percentiel van de golfperiode T~M02~ per jaar (in seconden), incl metingen als losse puntjes. De metingen in deze figuur zijn een sample uit alle data (n = 100000 uit totaal van 10 miljoen datapunten)."}
@@ -502,7 +512,15 @@ NoorderzijlvestLocations <- st_read("https://datahuiswadden.openearth.nl/geoserv
 frieslandLocations <- sf::st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland_location&outputFormat=application/json", quiet = T) %>%
   sf::st_transform(4326)
 
-allLocations <- list(RWSlocations, EmsLocations, LedaLocations, frieslandLocations, NoorderzijlvestLocations) %>%
+hhnkLocations <- sf::st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahhnk_location&outputFormat=application/json", quiet = T) %>%
+  sf::st_transform(4326)
+
+hunzeLocations <- sf::st_read("https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahunzeenaas_location&outputFormat=application/json", quiet = T) %>%
+  sf::st_transform(4326)
+
+hunzeLocations$locatie.origineel <- as.character(hunzeLocations$locatie.origineel)
+
+allLocations <- list(RWSlocations, EmsLocations, LedaLocations, frieslandLocations, NoorderzijlvestLocations, hhnkLocations, hunzeLocations) %>%
   bind_rows() %>%
   mutate(gebied = as.factor(gebied))
   
@@ -761,12 +779,16 @@ De gegevens zijn opgevraagd bij de desbetreffende waterschappen en ontsloten via
 
 ```{r kleineZoetwaterDataInlezen}
 
-hollandsnoorderkwartierpath <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahhnk&outputFormat=csv"
-hhnkDat <- data.table::fread(hollandsnoorderkwartierpath, na.strings = "-999")
+#hhnkDat <- data.table::fread(hollandsnoorderkwartierpath, na.strings = "-999")
 
-## issues
-## punten en comma's door elkaar als decimal separator. daarom worden het characters
-## 1e6 regels gedownloadt. Geoserver geeft niet meer regels. 
+hhnkLoc = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahhnk&outputFormat=csv&cql_filter=%22locatie.naam%22="
+
+hhnkLocations <- hhnkLocations %>%
+         mutate(quoted_items = str_glue("'{locatie.naam}'")) %>% # Add single quotes around the items
+         mutate(quoted_items = str_replace_all(quoted_items," ", "%20"),
+         final_url = paste0(hhnkLoc, quoted_items))  # Concatenate the base URL with the quoted items
+
+hhnkData <- map_dfr(hhnkLocations$final_url, read.csv, na.strings = "-999")
 
 frieslandPath <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland&outputFormat=csv"
 friesDat <- data.table::fread(frieslandPath)
@@ -774,32 +796,65 @@ friesDat <- data.table::fread(frieslandPath)
 NoorderzijlPath <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Anoorderzijlvest&outputFormat=csv"
 NoorderzijlDat <- data.table::fread(NoorderzijlPath)
 
-hunzeenaasPath <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahunzeenaas&outputFormat=csv"
-hunzeDat <- data.table::fread(hunzeenaasPath)
+hunzeLoc<- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahunzeenaas&outputFormat=csv&cql_filter=%22locatie.naam%22="
 
-## issues: 1e6 regels downloadt. er zijn er vast meer. 
+hunzeLocations <- hunzeLocations %>%
+  mutate(quoted_items = str_glue("'{locatie.naam}'"),  # Add single quotes around the items
+         final_url = paste0(hunzeLoc, quoted_items))  # Concatenate the base URL with the quoted items
 
-
+hunzeData <- map_dfr(hunzeLocations$final_url, read.csv)
 ```
 
 
 ***Hollands Noorderkwartier***
 
-```{r hhnkAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren Hoogheemraadschap Hollands Noorderkwartier. "}
+```{r hhnkAfvoerTijdserie,eval=FALSE, fig.cap="Tijdseries van zoetwaterafvoeren Hoogheemraadschap Hollands Noorderkwartier. "}
+#that cell is still turned off the final graph is not correct
 
-table(hhnkDat$kwaliteitsoordeel.code)
-# wat doen met onbetrouwbare waarden? 
+table(hhnkData$kwaliteitsoordeel.code)
+# wat doen met onbetrouwbare waarden? voor nu alleen een filter op betrouwbaar
 
-hhnkDat %>%
+hhnkData2<-hhnkData %>%
+  filter(kwaliteitsoordeel.code == "betrouwbaar") %>%
   # make daily average
+  mutate(datum = as.POSIXct(datum, format="%d-%m-%Y %I:%M")) %>%
   mutate(
-    dag = as_date(datum)
+    dag = day(as_date(datum)),
+    jaar = year(as_date(datum)), 
+    maand = month(as_date(datum))
   ) %>%
-  group_by(locatie.naam, dag, grootheid.code, eenheid.code) %>%
-  summarize(daggemiddelde = mean(numeriekewaarde, na.rm = F), n = n()) %>%
-  View()
-  ggplot() +
-  geom_point(color =)
+  group_by(locatie.naam, dag, grootheid.code, eenheid.code, kwaliteitsoordeel.code, jaar, maand)  %>%
+  summarize(daggemiddelde = mean(numeriekewaarde, na.rm = F), count = n()) #sunmmarizing the column numeriekewaarde
+
+parlabel = paste(unique(hhnkDat$grootheid.code), unique(hhnkDat$eenheid.code))
+xlabel = "jaar"
+
+ggplot() +
+  geom_point(data = hhnkData2, aes(as.Date(lubridate::ymd(paste(jaar, maand, dag))), daggemiddelde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
+  geom_point(data = hhnkData2 %>%
+               group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()),
+             aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
+  )  +
+  geom_line(data = hhnkData2 %>%
+              group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()) %>% ungroup() %>%
+              group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
+            aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
+  ) +
+  coord_cartesian(ylim = c(NA,NA)) +
+  ylab(parlabel) + xlab(xlabel) +
+  facet_grid(locatie.naam ~., scales = "free") +  #scales = "free",
+  theme_hy +
+  theme(legend.position = "bottom") +
+  scale_colour_manual(name = "",
+                      values = c("maandgemiddelde" = "black", 
+                                 "jaargemiddelde" = "red",
+                                 "daggemiddelde" = "darkgrey")) +
+  guides(colour = guide_legend(override.aes = list(shape = 1, size = 3))) +
+  theme(strip.text.y = element_text(angle = 0))
+```
+
+
+```{r hhnkAfvoerTijdserie,eval=FALSE, fig.cap="Tijdseries van zoetwaterafvoeren Hoogheemraadschap Hollands Noorderkwartier. "}
 
 ```
 
@@ -890,25 +945,44 @@ wordt toegevoegd
 
 
 
-```{r}
+```{r hunzeAfvoerTijdserie,eval=FALSE, fig.cap="Tijdseries van zoetwaterafvoeren waterschap Hunze en Aa's. "}
+# Data ziet er gek uit -> klopt deze analyse wel? 
+# Andere optie zou andere sensoren kunnen zijn dat het anders gemeten wordt of andere frequentie. Nu lijken het non equidistante tijdreeksen te zijn. 
 
-# daggemiddelden berekenen
-# tijdserie plotten
-# maandgemiddelden en jaargemiddelden toevoegen
-
-hunzeDat %>%
+hunzeData2 <-hunzeData %>%
   sf::st_drop_geometry() %>%
-  dplyr::mutate(dag = as_date(datumtijd)) %>%
-  dplyr::group_by(dag, locatie.naam, grootheid.code, eenheid.code) %>%
-  dplyr::summarise(daggemiddelde = mean(numeriekewaarde, na.rm = TRUE)) %>%
-  ggplot2::ggplot(aes(x = dag, y = daggemiddelde)) +
-  geom_point() +
-    facet_grid(locatie.naam ~., scales = "free_y") +  #scales = "free",
+  dplyr::mutate(datum = as_date(datumtijd)) %>%
+  mutate(
+    dag = day(as_date(datum)),
+    jaar = year(as_date(datum)), 
+    maand = month(as_date(datum))
+  ) %>%
+  group_by(locatie.naam, dag, grootheid.code, eenheid.code, jaar, maand)  %>%
+  summarize(daggemiddelde = mean(numeriekewaarde, na.rm = F), count = n()) #
+
+
+ggplot() +
+  geom_point(data = hunzeData2, aes(as.Date(lubridate::ymd(paste(jaar, maand, dag))), daggemiddelde, color = "daggemiddelde"), alpha = 1, size = 0.65) +
+   geom_point(data = hunzeData2 %>%
+               group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()),
+             aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
+  )  +
+  geom_line(data = hunzeData2 %>%
+              group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()) %>% ungroup() %>%
+              group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
+            aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
+  ) +
+  coord_cartesian(ylim = c(NA,NA)) +
+  ylab(parlabel) + xlab(xlabel) +
+  facet_grid(locatie.naam ~., scales = "free") +  #scales = "free",
   theme_hy +
-  theme(
-    legend.position = "bottom",
-    strip.text.y = element_text(angle = 0)
-  )
+  theme(legend.position = "bottom") +
+  scale_colour_manual(name = "",
+                      values = c("maandgemiddelde" = "black", 
+                                 "jaargemiddelde" = "red",
+                                 "daggemiddelde" = "darkgrey")) +
+  guides(colour = guide_legend(override.aes = list(shape = 1, size = 3))) +
+  theme(strip.text.y = element_text(angle = 0))
   
 ```
 
