@@ -446,13 +446,19 @@ gdf %>%
 
 ## Stroming
 
-Hieronder zijn de stroomsnelheden gepresenteerd. Dit zijn modelbewerkingen die ook gebruikt zijn in het maken van de huidige ecotopenkaarten. Er zijn drie verschillende kaarten beschikbaar
+Hieronder zijn de gemiddelde stroomsnelheden gepresenteerd. Dit zijn modelbewerkingen die ook gebruikt zijn in het maken van de huidige ecotopenkaarten. Er zijn drie verschillende kaarten beschikbaar die in detail te bekijken zijn in de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102708,154102711,154102715&layerNames=Stroomsnelheid%20p05,Stroomsnelheid%20p50,Stroomsnelheid%20p95&folders=93790295,93793330,93793344,93795018,154102245). Voor details van het model en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
 
-```{r}
-
+```{r ecotopenStroming}
+knitr::include_graphics("images/stroomsnelheidp95.png")
 
 ```
 
+## Orbitaalsnelheid
+Hieronder zijn de orbitaalsnelheden gepresenteerd. Dit zijn modelbewerkingen die ook gebruikt zijn in het maken van de huidige ecotopenkaarten. De orbitaalsnelheden zijn in detail te bekijken zijn in de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102470&layerNames=Orbitaalsnelheid&folders=93790295,154102245). Voor details van het model en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
+
+```{r ecotopenkaartOrbitaal}
+knitr::include_graphics("images/orbitaalsnelheid.png")
+```
 
 
 ## Golfperiode {#golfperiode}
@@ -854,9 +860,6 @@ ggplot() +
 ```
 
 
-```{r hhnkAfvoerTijdserie,eval=FALSE, fig.cap="Tijdseries van zoetwaterafvoeren Hoogheemraadschap Hollands Noorderkwartier. "}
-
-```
 
 ***Wetterskip Friesland***
 
