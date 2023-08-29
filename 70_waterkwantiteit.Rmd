@@ -57,7 +57,7 @@ In de Waddenzee wordt zoetwater gespuid, waarmee saliniteits- en dichtheidsversc
 
 De jaargemiddelde waterstand voor de hoofdstations langs de Nederlandse kust zijn overgenomen uit de Zeespiegelmonitor (figuur \@ref(fig:zeespiegelstijging)). De zeespiegelstijging bij Delfzijl verloopt sneller dan bij Harlingen en Den Helder. Den Helder kent de langzaamste zeespiegelstijging.
 
-(ref:zeespiegelstijgingLabel) Zeespiegel en predictie volgens het gebroken lineaire model waarbij gecorrigeerd is voor windopzet (GTSM) en nodaal getij. De trend is voor de 6 getijdestations afzonderlijk weergeven. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP. In de periode voor 1979 is gecorrigeerd voor een gemiddelde windopzet uit: [Zeespiegelmonitor 2023](https://pub.kennisbank.deltares.nl/Details/fullCatalogue/1000021208). 
+(ref:zeespiegelstijgingLabel) Zeespiegel en predictie volgens het gebroken lineaire model waarbij gecorrigeerd is voor windopzet (GTSM) en nodaal getij. De trend is voor de 6 getijdestations afzonderlijk weergeven. De zeespiegel is uitgedrukt ten opzichte van post-2005 NAP. In de periode voor 1979 is gecorrigeerd voor een gemiddelde windopzet uit: [Zeespiegelmonitor 2023](https://pub.kennisbank.deltares.nl/Details/fullCatalogue/1000021208).
 
 ```{r zeespiegelstijging, fig.cap='(ref:zeespiegelstijgingLabel)' }
 
@@ -69,7 +69,7 @@ In de Zeespiegelmonitor is de stijging van de zeespiegel nauwkeurig onderzocht e
 
 ## Gemiddeld Hoogwater (GHW) {#gemiddeld-hoogwater-ghw}
 
-De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix \@ref(Appwaterstanden). De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties). 
+De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix \@ref(Appwaterstanden). De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
 
 ```{r readExtremaData, cache=TRUE}
 
@@ -129,12 +129,11 @@ if(knitr::is_html_output()){ggplotly(p)} else
 
 ```
 
-De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde periode en ruimtelijke verschillen over de Waddenzee. De getijslag neemt in oostwaartse richting langs de kust toe, en ook achtering de bekkens in de getijslag door opslingering hoger dan bij de zeegaten. De metingen bij Harlingen zijn beïnvloed door de afsluiting van de Zuiderzee in 1932, waardoor er in de trendlijn een sprong zou moeten worden toegevoegd.  
-
+De GHW (figuur \@ref(fig:Hoogwaters)) laten een stijging zien over de getoonde periode en ruimtelijke verschillen over de Waddenzee. De getijslag neemt in oostwaartse richting langs de kust toe, en ook achtering de bekkens in de getijslag door opslingering hoger dan bij de zeegaten. De metingen bij Harlingen zijn beïnvloed door de afsluiting van de Zuiderzee in 1932, waardoor er in de trendlijn een sprong zou moeten worden toegevoegd.
 
 ## Gemiddeld Laagwater (GLW) {#gemiddeld-laagwater-glw}
 
-De berekeningswijze van de Gemiddelde Laag Waterstanden is vergelijkbaar met die van de GHW en opgenomen in Appendix \@ref(Appwaterstanden). De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties). 
+De berekeningswijze van de Gemiddelde Laag Waterstanden is vergelijkbaar met die van de GHW en opgenomen in Appendix \@ref(Appwaterstanden). De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
 
 <!-- De meeste waterstandstations liggen in geulen, behalve Wierumerwad1 en Uithuizerwad1. Deze twee stations tonen een veel hoger gemeten laagwater omdat ze een gedeelte van de tijd droogvallen. -->
 
@@ -169,11 +168,10 @@ if(knitr::is_html_output()){ggplotly(p, width = 700, height = 550)} else
 ```
 
 ## Getijslag {#getijslag}
-De berekeningswijze van de getijslag is het verschil tussen GHW en GLW (zie Appendix \@ref(Appwaterstanden)). De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties). 
 
-De getijslag (figuur \@ref(fig:getijslag)) laat zien dat er op sommige stations een dalende trend lijkt te zijn, terwijl op andere stations een stijgende trend in de data zit. 
+De berekeningswijze van de getijslag is het verschil tussen GHW en GLW (zie Appendix \@ref(Appwaterstanden)). De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
 
-
+De getijslag (figuur \@ref(fig:getijslag)) laat zien dat er op sommige stations een dalende trend lijkt te zijn, terwijl op andere stations een stijgende trend in de data zit.
 
 ```{r getijslag, fig.height=8, fig.width=8, fig.cap= 'Jaargemiddelde getijslag per station (punten). De doorgetrokken lijn is een lineaire regressie door de alle data rekening houdend met de 18,6-jarige cyclus; de grijze band is het 95% predictie-interval van het regressiemodel.'}
 
@@ -197,7 +195,7 @@ if(knitr::is_html_output()){ggplotly(p, height = 550, width = 700)} else
 
 ```
 
-Figuur \@ref(fig:kaartGetijslag) geeft de gemiddelde getijslag over 2011-2020 weer op de kaart van de Waddenzee. De figuur toont dat de getijslag toeneemt van west naar oost, en dat bij Delfzijl de getijslag het grootst is, door opslingering van het getij in het Eems-estuarium. 
+Figuur \@ref(fig:kaartGetijslag) geeft de gemiddelde getijslag over 2011-2020 weer op de kaart van de Waddenzee. De figuur toont dat de getijslag toeneemt van west naar oost, en dat bij Delfzijl de getijslag het grootst is, door opslingering van het getij in het Eems-estuarium.
 
 <!-- De meeste waterstandstations liggen in geulen, behalve Wierumerwad1 en Uithuizerwad1. Deze twee stations tonen een kleinere getijslag omdat ze een gedeelte van de tijd droogvallen. -->
 
@@ -291,7 +289,6 @@ Als maat voor stormen wordt het 99,5-percentiel per jaar getoond, wat overeen ko
 De definities en rekenmethoden van de hier gebruikte indicatoren zijn terug te vinden in Appendix \@ref(Appwaterstanden).
 
 Figuur \@ref(fig:wateropzet) laat de variatie van de opzet in de tijd zien. Er zijn geen duidelijke trends waar te nemen. De locaties van de stations zijn te vinden in \@ref(fig:kaartAbiotieklocaties).
-
 
 ```{r wateropzet, fig.cap= "Maandelijks 99,5-percentiel voor opzet = gemeten waterstand - astronomische waterstand (rode lijn) en het jaarlijks maximum van de opzet (grijs streepje).", fig.height=30, fig.width=8}
 
@@ -389,7 +386,6 @@ golf.pad <- file.path(datadir, "ddl", "standard")
 gdf <- read_delim(file.path(golf.pad, golf.df), delim = ";")
 ```
 
-
 ```{r golfhoogte95perc, fig.cap="Tijdserie van jaarlijks 95-percentiel van de significante golfhoogte in het spectrale domein Oppervlaktewater golffrequentie tussen 30 en 500 mHz in cm. Alleen jaren met metingen in alle maanden zijn meegenomen in de het berekenen van het percentiel. NB De stations Uithuizerwad1 en Wierumerwad1 liggen hoog, op bij laag water droogvallende gebieden, waardoor de golfhoogte substantieel lager is dan bij andere stations (geen meetfout).", fig.height=4, fig.width=10}
 
 param = "Significante golfhoogte in het spectrale domein Oppervlaktewater golffrequentie tussen 30 en 500 mHz in cm"
@@ -446,20 +442,27 @@ gdf %>%
 
 ## Stroming
 
-Hieronder zijn de gemiddelde stroomsnelheden gepresenteerd. Dit zijn modelbewerkingen die ook gebruikt zijn in het maken van de huidige ecotopenkaarten. Er zijn drie verschillende kaarten beschikbaar die in detail te bekijken zijn in de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102708,154102711,154102715&layerNames=Stroomsnelheid%20p05,Stroomsnelheid%20p50,Stroomsnelheid%20p95&folders=93790295,93793330,93793344,93795018,154102245). Voor details van het model en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
+Het is belangrijk om te realiseren dat de hier weergegeven stroomsnelheden geen gemeten data betreft maar gebaseerd is op modelbewerkingen die ook gebruikt zijn voor het maken van de huidige ecotopenkaarten. Hoewel geen gemeten data, zijn deze stroomsnelheden op verzoek van veel gebruikers toch opgenomen in de digtiale systeemrapportage omdat ze een goed eerste inzicht in de ruimtelijke verdeling van stroomsnelheden geven, welke voor veel ecologische en morfologische processen van belang is. Voor sommige toepassingen is het tijdsgemiddelde maatgevend, in andere gevallen juist de meer extreem hoge of lage waarden. Daarom zijn er zijn drie verschillende kaarten beschikbaar via de Waddenviewer: de 5%, 50% en de 95% overschrijdingswaarden. Absolute minima en maxima treden gedurende zo'n korte tijd op dat deze óf niet beperkend zijn voor de biotiek óf het gevolg van kunstmatige extremen door numerieke processen bij bijvoorbeeld het onderlopen of droogvallen van platen.
 
-```{r ecotopenStroming}
+Hieronder zijn de p95 (dus gedurende 95% van de tijd overschreden, vrijwel maximale) stroomsnelheden gepresenteerd, bepaald over twee springtij-doodtij periodes van 3 februari tot 4 maart 2019. De gebruikte bodemligging is gelijk aan die in de Ecotopenkaart (opnames tussen 2018-2021 voor de verschillende gebieden) en wijkt daarmee iets af van de Baseline data. De hoogste stroomsnelheden (\> 1m/s) treden uiteraard op in de zeegaten en de hoofdgeulen. De laagste maxima treden op bij de kwelders langs de vastelandskust (Koehaol-Lauwersmeer en Pieterburen-Eemshaven), het westen van de Aflsuitdijk en Balgzand.\
+Door de resolutie van het model (100x100 m) zijn de stroomsnelheden in kleine geulen niet accuraat.
+
+Deze kaarten zijn in meer detail te bekijken zijn in de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102708,154102711,154102715&layerNames=Stroomsnelheid%20p05,Stroomsnelheid%20p50,Stroomsnelheid%20p95&folders=93790295,93793330,93793344,93795018,154102245).
+
+Voor details van het gebruikte Dutch Wadden Sea Model (DWSM) en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
+
+```{r ecotopenStroming fig.cap="Kaart van het gedurende 95% van de tijd overschreden, dus vrijwel maximale, stroomsnelheid afkomstig uit modelberekeningen gebruikt voor de Ecotopenkaart."}
 knitr::include_graphics("images/stroomsnelheidp95.png")
 
 ```
 
 ## Orbitaalsnelheid
+
 Hieronder zijn de orbitaalsnelheden gepresenteerd. Dit zijn modelbewerkingen die ook gebruikt zijn in het maken van de huidige ecotopenkaarten. De orbitaalsnelheden zijn in detail te bekijken zijn in de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102470&layerNames=Orbitaalsnelheid&folders=93790295,154102245). Voor details van het model en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
 
 ```{r ecotopenkaartOrbitaal}
 knitr::include_graphics("images/orbitaalsnelheid.png")
 ```
-
 
 ## Golfperiode {#golfperiode}
 
@@ -496,7 +499,6 @@ rm(df_all)
 ## Zoetwaterafvoeren {#zoetwaterafvoeren}
 
 De zoetwaterafvoer leidt tot saliniteits- en dichtheidsverschillen tussen het zoute zeewater en het zoetwater, die invloed hebben op de stroming en daarmee het sedimenttransport. Ook heeft de saliniteit (opgenomen in hoofdstuk \@ref(Waterkwaliteit)) van het Waddenwater direct invloed op de ecologie, omdat sommige soorten alleen zoutwater tolereren en anderen juist alleen zoetwater. Het spuien gebeurt zowel via grote als kleine spuisluizen.
-
 
 ```{r kaartAfvoerLocaties, fig.cap = "Locaties van alle gerapporteerde afvoeren."}
 
@@ -562,7 +564,6 @@ De data van de grootste afvoeren vanuit Rijkswateren (Den Oever, Kornwerderzand,
 De daggemiddelde waarden van de afvoeren (grijze punten in figuur \@ref(fig:jaargemiddeldeAfvoer)) laten de sterke fluctuaties in afvoeren zien. Er treden pieken op tot boven de 2000 m^3^/s bij Den Oever en 1500 m^3^/s bij Kornwerderzand. Ook laten de grijze punten en de zwarte punten die de maandgemiddelden voorstellen een duidelijk seizoenssignaal zien, waarbij in de zomer minder wordt gespuid dan in de winter. In de jaargemiddelden is het lastig trends te herkennen.
 
 Doordat er wordt gespuid onder vrij verval, kan er een deel van de tijd (tijdens hoogwater) niet gespuid worden. Indien de 10-minuutwaarden zouden worden gevisualiseerd, kunnen de pulsen in afvoer nog hogere debieten laten zien. Deze 10-minuutwaarden zijn alleen voor recente jaren beschikbaar, en bevatten vrij veel gaten. Daarom is ervoor gekozen hier de daggemiddelden te tonen.
-
 
 ```{r leesRWSAfvoerData}
 
@@ -631,9 +632,6 @@ url <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?serv
 afvoer.df <- read_csv(url)
 
 ```
-
-
-
 
 (ref:jaargemiddeldeAfvoer-Label) Afvoer vanuit de Rijkswateren (IJsselmeer en Lauwersmeer) naar de Waddenzee. De rode lijn is het jaargemiddeld op basis van metingen per etmaal. De zwarte punten zijn maandgemiddeleden en de kleinere grijze punten geven de individuele metingen weer. De individuele maxima gaan tot 2000 $m^3/s$ maar zijn niet weergegeven in deze figuur vanwege de leesbaarheid.
 
@@ -726,6 +724,7 @@ parData <- afvoer.df %>%
 ```
 
 ### Eems
+
 De afvoer vanuit de Eems wordt weergegeven als geschatte afvoer bij Herbrum, het meest stroomafwaartse gedeelte van de rivier waar nog getij-invloed is en waar de stuw is gelegen. De waarde is berekend als 1.1 \* de afvoer bij Versen. De gegevens zijn beschikbaar gemaakt door Federal Institut of Hydrology en komen uit de hydrological database HYDABA1. Voor metingen bij Versen is tot 2019 het station "Versen_gesamt" gebruikt, daarna is overgegaan op station "versen_wehr_durchstich" (zie kaart \@ref(fig:kaartHydrologischeStationsNLWKN)).
 
 ```{r eemsafvoertijdserie, fig.cap = "Jaargemiddelde afvoer vanuit de Eems en Leda per etmaal naar de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). "}
@@ -774,14 +773,12 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
 
 [Duran-Matute et al. (2014)](https://os.copernicus.org/articles/10/611/2014/os-10-611-2014.pdf) geeft een (incompleet) overzicht van de ordegrootte van de zoetwaterafvoeren in de westelijke Waddenzee met de gemiddelde afvoerhoeveelheden. De gegevens van de kleinere zoetwaterafvoeren (poldergemalen) worden beheerd bij de verschillende waterschappen:
 
-- [Hollands Noorderkwartier](http://www.hhnk.nl/)
-- [Wetterskip Friesland](http://www.wetterskipfryslan.nl/)
-- [Noorderzijlvest](http://www.noorderzijlvest.nl/)
-- [Hunze en Aas](http://www.hunzeenaas.nl/)
+-   [Hollands Noorderkwartier](http://www.hhnk.nl/)
+-   [Wetterskip Friesland](http://www.wetterskipfryslan.nl/)
+-   [Noorderzijlvest](http://www.noorderzijlvest.nl/)
+-   [Hunze en Aas](http://www.hunzeenaas.nl/)
 
-De gegevens zijn opgevraagd bij de desbetreffende waterschappen en ontsloten via Datahuis Wadden. Zie voor details paragraaf \@ref(Appzoetwaterafvoer). De locaties van de afvoeren zijn aangegeven in figuur \@ref(fig:kaartAfvoerLocaties). Naar verwachting volgen de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval of droogte). 
-
-
+De gegevens zijn opgevraagd bij de desbetreffende waterschappen en ontsloten via Datahuis Wadden. Zie voor details paragraaf \@ref(Appzoetwaterafvoer). De locaties van de afvoeren zijn aangegeven in figuur \@ref(fig:kaartAfvoerLocaties). Naar verwachting volgen de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval of droogte).
 
 ```{r kleineZoetwaterDataInlezen}
 
@@ -810,7 +807,6 @@ hunzeLocations <- hunzeLocations %>%
 
 hunzeData <- map_dfr(hunzeLocations$final_url, read.csv)
 ```
-
 
 ***Hollands Noorderkwartier***
 
@@ -858,8 +854,6 @@ ggplot() +
   guides(colour = guide_legend(override.aes = list(shape = 1, size = 3))) +
   theme(strip.text.y = element_text(angle = 0))
 ```
-
-
 
 ***Wetterskip Friesland***
 
@@ -941,12 +935,9 @@ ggplot() +
 
 ```
 
-
 ***Hunze en Aas***
 
 wordt toegevoegd
-
-
 
 ```{r hunzeAfvoerTijdserie,eval=FALSE, fig.cap="Tijdseries van zoetwaterafvoeren waterschap Hunze en Aa's. "}
 # Data ziet er gek uit -> klopt deze analyse wel? 
@@ -988,8 +979,6 @@ ggplot() +
   theme(strip.text.y = element_text(angle = 0))
   
 ```
-
-
 
 ```{r cleanupWaterkwantiteit}
 rm(df_all_WATHTE, df_all_WATHTE2, df_all, extrema, h)
