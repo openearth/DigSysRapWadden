@@ -20,6 +20,9 @@ golfCatalogus <- mijnCatalogus  %>%
     ),
   )
 
+#============================================
+
+
 waterhoogteCatalogus <- mijnCatalogus  %>%
   filter(
     parameter_wat_omschrijving %in% c(
@@ -259,7 +262,7 @@ save(df_all,
 
 #==== waterhoogte alle jaren  ===============================
 
-for(year in c(2019:2021)){ # done
+for(year in c(2019:2022)){ # done
   # for(year in c(1870:2021)){
   startdate <- paste0(year, "-01-01T00:00:00.000+01:00")  # hardcoded startyear
   enddate <- paste0(year+1, "-01-01T00:00:00.000+01:00")
