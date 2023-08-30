@@ -2,10 +2,7 @@
 
 # Introductie {#introductie}
 
-For the English version, please scroll down or click here \@ref(#introduction).
-Für die deutsche Fassung scrollen Sie bitte nach unten oder klicken Sie hier \@ref(#einleitung).
-
-
+For the English version, please scroll down or click here \@ref(#introduction). Für die deutsche Fassung scrollen Sie bitte nach unten oder klicken Sie hier \@ref(#einleitung).
 
 ## Basismonitoring Wadden
 
@@ -144,9 +141,9 @@ knitr::kable(kadertabel, caption = "Beheerskaders en beschikbare koppelingen naa
 
 This Digital System Report (DSR) has been set up as part of the Nature Monitoring Wadden project - Morphology section of Rijkswaterstaat. This in turn falls under the [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/), and covers the non-living (abiotic) features of the Wadden Sea. Basic Wadden Monitoring monitors developments in the Wadden area, with the following main objectives:
 
-1. providing insight into the condition and trends in the Wadden Sea area for managers and users;
-2. achieving effective and efficient system-based monitoring;
-3. making all available information and monitoring data on the Wadden Sea area accessible, giving users a view of the entire Wadden Sea system.
+1.  providing insight into the condition and trends in the Wadden Sea area for managers and users;
+2.  achieving effective and efficient system-based monitoring;
+3.  making all available information and monitoring data on the Wadden Sea area accessible, giving users a view of the entire Wadden Sea system.
 
 Basic Wadden Monitoring thereby focuses on the so-called core values: Landscape qualities; Natural Wadden Sea Abiotic (non-living nature); Natural Wadden Sea Biotic (living nature); and Human Co-use. Policy and management objectives are linked to each of these core values, or themes. For more information on these, see the [Ambition of Basic Wadden](https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf).
 
@@ -170,13 +167,13 @@ Indicators are measurable (or derivable from measurements) quantities that have 
 
 ## Basic Wadden Monitoring
 
-Dieser Digitaler Systembericht (DSR) wurde im Rahmen des Projekts Naturmonitoring Wadden - Sektion Morphologie des Rijkswaterstaat erstellt. Dieses wiederum gehört zum [Basismonitoring Wadden] (https://basismonitoringwadden.waddenzee.nl/) und umfasst die nicht lebenden (abiotischen) Merkmale des Wattenmeeres. Das Basismonitoring Wadden überwacht die Entwicklungen im Wattengebiet und verfolgt dabei folgende Hauptziele:
+Dieser Digitaler Systembericht (DSR) wurde im Rahmen des Projekts Naturmonitoring Wadden - Sektion Morphologie des Rijkswaterstaat erstellt. Dieses wiederum gehört zum [Basismonitoring Wadden] (<https://basismonitoringwadden.waddenzee.nl/>) und umfasst die nicht lebenden (abiotischen) Merkmale des Wattenmeeres. Das Basismonitoring Wadden überwacht die Entwicklungen im Wattengebiet und verfolgt dabei folgende Hauptziele:
 
-1. Bereitstellung von Informationen über den Zustand und die Trends im Wattenmeergebiet für Manager und Nutzer;
-2. eine effektive und effiziente systemgestützte Überwachung zu erreichen;
-3. alle verfügbaren Informationen und Überwachungsdaten über das Wattenmeergebiet zugänglich zu machen, damit die Nutzer einen Überblick über das gesamte Wattenmeersystem erhalten.
+1.  Bereitstellung von Informationen über den Zustand und die Trends im Wattenmeergebiet für Manager und Nutzer;
+2.  eine effektive und effiziente systemgestützte Überwachung zu erreichen;
+3.  alle verfügbaren Informationen und Überwachungsdaten über das Wattenmeergebiet zugänglich zu machen, damit die Nutzer einen Überblick über das gesamte Wattenmeersystem erhalten.
 
-Das Basis-Wattenmeer-Monitoring konzentriert sich dabei auf die so genannten Kernwerte: Landschaftsqualitäten, natürliche abiotische Wattenmeere (nicht lebende Natur), natürliche biotische Wattenmeere (lebende Natur) und menschliche Mitnutzung. Politik- und Managementziele sind mit jedem dieser Kernwerte oder Themen verbunden. Weitere Informationen zu diesen Themen finden Sie im [Ambition of Basic Wadden] (https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf).
+Das Basis-Wattenmeer-Monitoring konzentriert sich dabei auf die so genannten Kernwerte: Landschaftsqualitäten, natürliche abiotische Wattenmeere (nicht lebende Natur), natürliche biotische Wattenmeere (lebende Natur) und menschliche Mitnutzung. Politik- und Managementziele sind mit jedem dieser Kernwerte oder Themen verbunden. Weitere Informationen zu diesen Themen finden Sie im [Ambition of Basic Wadden] (<https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf>).
 
 Für die abiotische (nicht lebende) Natur des Wattenmeeres ist ein Schlüsselziel:
 
@@ -193,4 +190,3 @@ Die Daten, die durch die Indikatoren dargestellt werden, können direkt von der 
 ## Informationsbedarf und Indikatoren
 
 Indikatoren sind messbare (oder aus Messungen ableitbare) Größen, die eine Signalfunktion haben und z.B. Auskunft über die Qualität einer Sache geben. In diesem Systembericht beschränken wir uns auf den Informationsbedarf, der sich aus den Politik- und Managementzielen für die abiotische Natur des Wattenmeeres ergibt. Dazu gehören alle abiotischen Merkmale, die die Natürlichkeit des Wattenmeeres beeinflussen, wie Sedimentzusammensetzung, Trübung, Temperatur, Salzgehalt usw. Die erforderlichen Daten stammen zum Teil aus räumlichen Messungen (z. B. Bodenlage) und zum Teil aus Überwachungsstationen und -standorten, wie in der Abbildung \ref(fig:kaartAbiotieklocaties) dargestellt.
-
