@@ -2,7 +2,9 @@
 
 # Introductie {#introductie}
 
-For the English version, please scroll down or click here \@ref(#introduction). Für die deutsche Fassung scrollen Sie bitte nach unten oder klicken Sie hier \@ref(#einleitung).
+Please click here for the [English version](#introduction) or scroll down.
+
+Für die [deutsche Fassung](#einleitung) klicken Sie hier oder scrollen Sie bitte nach unten.
 
 ## Basismonitoring Wadden
 
@@ -157,11 +159,11 @@ The aim of the Digital System Report Wadden is to achieve up-to-date, transparen
 
 By making the relevant information accessible, trends and developments can be quickly detected, and further analysed. This contributes to more efficient and effective management, for example in explaining observed developments in nature targets, or influence of human activities. In the process, knowledge gaps and additional monitoring needs are also identified, thus the DSR indirectly contributes to the second goal of Basic Wadden Monitoring: system-based monitoring.
 
-The data represented by the indicators can be downloaded directly from the Appendix /ref(data) page.
+The data represented by the indicators can be downloaded directly from the Appendix \Aref(data) page.
 
 ## Information needs and indicators
 
-Indicators are measurable (or derivable from measurements) quantities that have a signalling function, providing information about the quality of something, for example. In this system report, we limit ourselves to the information needs arising from the policy and management objectives for the abiotic nature of the Wadden Sea. This includes all abiotic characteristics that influence the naturalness of the Wadden system, such as sediment composition, turbidity, temperature, salinity, etc. The required data comes partly from spatial measurements (e.g. bottom location), and partly from monitoring stations and locations as shown in figure /ref(fig:kaartAbiotieklocaties).
+Indicators are measurable (or derivable from measurements) quantities that have a signalling function, providing information about the quality of something, for example. In this system report, we limit ourselves to the information needs arising from the policy and management objectives for the abiotic nature of the Wadden Sea. This includes all abiotic characteristics that influence the naturalness of the Wadden system, such as sediment composition, turbidity, temperature, salinity, etc. The required data comes partly from spatial measurements (e.g. bottom location), and partly from monitoring stations and locations as shown in figure \@ref(fig:kaartAbiotieklocaties).
 
 # Einleitung {#einleitung}
 
@@ -189,4 +191,4 @@ Die Daten, die durch die Indikatoren dargestellt werden, können direkt von der 
 
 ## Informationsbedarf und Indikatoren
 
-Indikatoren sind messbare (oder aus Messungen ableitbare) Größen, die eine Signalfunktion haben und z.B. Auskunft über die Qualität einer Sache geben. In diesem Systembericht beschränken wir uns auf den Informationsbedarf, der sich aus den Politik- und Managementzielen für die abiotische Natur des Wattenmeeres ergibt. Dazu gehören alle abiotischen Merkmale, die die Natürlichkeit des Wattenmeeres beeinflussen, wie Sedimentzusammensetzung, Trübung, Temperatur, Salzgehalt usw. Die erforderlichen Daten stammen zum Teil aus räumlichen Messungen (z. B. Bodenlage) und zum Teil aus Überwachungsstationen und -standorten, wie in der Abbildung \ref(fig:kaartAbiotieklocaties) dargestellt.
+Indikatoren sind messbare (oder aus Messungen ableitbare) Größen, die eine Signalfunktion haben und z.B. Auskunft über die Qualität einer Sache geben. In diesem Systembericht beschränken wir uns auf den Informationsbedarf, der sich aus den Politik- und Managementzielen für die abiotische Natur des Wattenmeeres ergibt. Dazu gehören alle abiotischen Merkmale, die die Natürlichkeit des Wattenmeeres beeinflussen, wie Sedimentzusammensetzung, Trübung, Temperatur, Salzgehalt usw. Die erforderlichen Daten stammen zum Teil aus räumlichen Messungen (z. B. Bodenlage) und zum Teil aus Überwachungsstationen und -standorten, wie in der Abbildung \@ref(fig:kaartAbiotieklocaties) dargestellt.

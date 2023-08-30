@@ -161,7 +161,7 @@ parData <- WQ %>%
 ```
 
 ## Saliniteit {#saliniteit}
-**MWTL-metingen**
+### MWTL-metingen
 De metingen (figuur \@ref(fig:jaargemiddeldeSal)) laten een seizoensfluctuatie van enkele ppt zien die gekoppeld is aan de seizoensfluctuatie in de zoetwaterafvoeren. De jaargemiddelde saliniteitswaarden laten fluctuaties zien zoals de dip rond 1995, maar langjarige trends zijn niet duidelijk zichtbaar. Daartoe wordt ook de afwijking van het jaargemiddelde ten opzichte van het langjarig gemiddelde uitgezet (figuur \@ref(fig:plotSaliniteitAnomalie)). Hierin is de dip rond 1995 duidelijker terug te zien, maar lijkt de saliniteit in de Wadden sinds 2003 ook licht toe te nemen. Vooral in het Eems-estuarium zijn de relatieve afwijkingen groot, tot een factor 5. In de Waddenzee zijn de afwijkingen verder in de bekkens, op locaties dichter bij de spuilocaties, zoals te verwachten ook groter dan op de Noordzee en nabij de zeegaten. De saliniteit lijkt de laatste jaren bij station Doove Balg toe nemen, wat overeenkomt met een afname in het spuidebiet bij Den Oever (zie \@ref(zoetwaterafvoeren)).
 
 
@@ -250,7 +250,26 @@ ggsave(file.path(datadir, "RWS", "producten", "SaliniteitAnomalie.pdf"))
   
 ```
 
-**Vlakdekkende gemodelleerde saliniteit**
+### Vlakdekkende gemodelleerde saliniteit
+
+Het is belangrijk om te realiseren dat de hier weergegeven representatieve saliniteit geen gemeten data betreft maar gebaseerd is op modelbewerkingen die ook gebruikt zijn voor het maken van de huidige ecotopenkaarten. Hoewel geen gemeten data, is deze vlakdekkende saliniteit op verzoek van veel gebruikers toch opgenomen in de DSR. 
+
+Hieronder is de gemiddelde saliniteit bij hoogwater over het jaar 2019 weergegeven. 
+
+De hoogste orbitaalsnelheden treden uiteraard op direct zeewaarts van de eilanden. De laagste waarden treden op in de geulen; deze zijn immers diep. Vooral in de westelijke Waddenzee treden op de platen ook wat hogere orbitaalsnelheden op, net als op de Friese kwelders. 
+
+De orbitaalsnelheden zijn in detail te bekijken en downloaden via de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102470&layerNames=Orbitaalsnelheid&folders=93790295,154102245). 
+
+Voor details van het gebruikte SWAN-Kuststrookmodel en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
+
+```{r ecotopenkaartSaliniteit, fig.cap="Kaart van de gemiddelde saliniteit bij hoogwater (2019) afkomstig uit modelberekeningen gebruikt voor de Ecotopenkaart."}
+knitr::include_graphics("images/saliniteit_gem_200m.png")
+```
+```{r ecotopenkaartSaliniteitVar, fig.cap="Kaart van de variatie in gemiddelde saliniteit bij hoogwater (2019) afkomstig uit modelberekeningen gebruikt voor de Ecotopenkaart, bepaald als [(4 x standaarddeviatie) / gemiddelde zoutgehalte] x 100%."}
+knitr::include_graphics("images/saliniteit_gem_200m.png")
+```
+
+
 Voor de Ecotopenkaart, is ruimtelijk dekkend informatie van de stroomsnelheden, orbitaalsnelheden, droogvalduren en saliniteit berekend op basis van metingen en numerieke modellen. De gemiddelde saliniteit is berekend bij hoogwater voor het jaar 2019. Voor details van het model en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
 
 ```{r EcotopenBasis, fig.cap="Basiskaarten voor ecotopenkaart 2022 voor de Waddenzee."}

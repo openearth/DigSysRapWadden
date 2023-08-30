@@ -421,18 +421,34 @@ gdf %>%
 ```
 
 ## Stroming
+De stroming is sterk bepalend voor zowel de abiotische (morfologische) als de biotische ontwikkeling. In gebieden met hogere stroomsnelheden treedt meer morfodynamiek op, terwijl in rustiger gebieden meer geleidelijke sedimentatie plaatsvindt. Sommige soorten prefereren deze dynamiek en een ruim aanbod van vers water, terwijl andere juist goed gedijen bij rustiger omstandigheden.
 
-Hieronder zijn de gemiddelde stroomsnelheden gepresenteerd. Dit zijn modelbewerkingen die ook gebruikt zijn in het maken van de huidige ecotopenkaarten. Er zijn drie verschillende kaarten beschikbaar die in detail te bekijken zijn in de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102708,154102711,154102715&layerNames=Stroomsnelheid%20p05,Stroomsnelheid%20p50,Stroomsnelheid%20p95&folders=93790295,93793330,93793344,93795018,154102245). Voor details van het model en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
+Het is belangrijk om te realiseren dat de hier weergegeven stroomsnelheden geen gemeten data betreft maar gebaseerd is op modelbewerkingen die ook gebruikt zijn voor het maken van de huidige ecotopenkaarten. Hoewel geen gemeten data, zijn deze stroomsnelheden op verzoek van veel gebruikers toch opgenomen in de digtiale systeemrapportage omdat ze een goed eerste inzicht in de ruimtelijke verdeling van stroomsnelheden geven, welke voor veel ecologische en morfologische processen van belang is. Voor sommige toepassingen is het tijdsgemiddelde indicatief, in andere gevallen juist de meer extreem hoge of lage waarden. Daarom zijn er zijn drie verschillende kaarten beschikbaar via de Waddenviewer: de 5%, 50% en de 95% overschrijdingswaarden. Absolute minima en maxima treden gedurende zo'n korte tijd op dat deze óf niet beperkend zijn voor de biotiek óf het gevolg van kunstmatige extremen door numerieke processen bij bijvoorbeeld het onderlopen of droogvallen van platen.
 
-```{r ecotopenStroming}
+Hieronder zijn de p95 (dus gedurende 95% van de tijd overschreden, vrijwel maximale) diepte-gemiddelde stroomsnelheden gepresenteerd, bepaald over twee springtij-doodtij periodes van 3 februari tot 4 maart 2019. De gebruikte bodemligging is gelijk aan die in de Ecotopenkaart (opnames tussen 2018-2021 voor de verschillende gebieden) en wijkt daarmee iets af van de Baseline data. De hoogste stroomsnelheden (\> 1m/s) treden uiteraard op in de zeegaten en de hoofdgeulen. De laagste maxima treden op bij de kwelders langs de vastelandskust (Koehaol-Lauwersmeer en Pieterburen-Eemshaven), het westen van de Aflsuitdijk en Balgzand.
+Door de resolutie van het model (100x100 m) zijn de stroomsnelheden in kleine geulen niet accuraat.
+
+Deze kaarten zijn in meer detail te bekijken en downloaden via de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102708,154102711,154102715&layerNames=Stroomsnelheid%20p05,Stroomsnelheid%20p50,Stroomsnelheid%20p95&folders=93790295,93793330,93793344,93795018,154102245).
+
+Voor details van het gebruikte Dutch Wadden Sea Model (DWSM) en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
+
+```{r ecotopenStroming, fig.cap="Kaart van de gedurende 95% van de tijd overschreden, dus vrijwel maximale, diepte-gemiddelde stroomsnelheid afkomstig uit modelberekeningen gebruikt voor de Ecotopenkaart."}
 knitr::include_graphics("images/stroomsnelheidp95.png")
 
-```
-
 ## Orbitaalsnelheid
-Hieronder zijn de orbitaalsnelheden gepresenteerd. Dit zijn modelbewerkingen die ook gebruikt zijn in het maken van de huidige ecotopenkaarten. De orbitaalsnelheden zijn in detail te bekijken zijn in de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102470&layerNames=Orbitaalsnelheid&folders=93790295,154102245). Voor details van het model en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
+De orbitaalsnelheid aan de bodem heeft een vergelijkbare invloed als de stroomsnelheid: een hogere snelheid betekent meer dynamiek. Echter, waar hoge stroomsnelheden vooral optreden in de geulen en vooral het gevolg zijn van het getij, komen hoge orbitaalsnelheden aan de bodem juist ook voor in ondiepe gebieden en vooral in meteorologisch dynamische periodes (stormen). Gebieden met hogere orbitaalsnelheden zijn zandiger -slib kan immers niet bezinken en wordt naar elders getransporteerd- en kennen andere biota dan rustiger gebieden. De voor biota optimale orbitaalsnelheid verschilt per soort. 
 
-```{r ecotopenkaartOrbitaal}
+Het is belangrijk om te realiseren dat de hier weergegeven representatieve orbitaalsnelheden geen gemeten data betreft maar gebaseerd is op modelbewerkingen die ook gebruikt zijn voor het maken van de huidige ecotopenkaarten. Hoewel geen gemeten data, zijn deze orbitaalsnelheden op verzoek van veel gebruikers toch opgenomen in de DSR. 
+
+Hieronder zijn de rms (root-mean-square) orbitaalsnelheden aan de bodem gepresenteerd, bepaald over elk uur in de maand maart 2020. De daarbij gebruikte bodemligging is gelijk aan die in de Ecotopenkaart (opnames tussen 2018-2021 voor de verschillende gebieden) en wijkt daarmee iets af van de Baseline data. Omdat de orbitaalsnelheid niet direct door het SWAN-Kuststrookmodel berekend wordt, is deze per roostercel berekend uit de waterdiepte, de golfamplitude en de golfperiode middels lineaire golftheorie. Hierbij zijn alleen windgolven meegenomen welke dominant zijn in de Waddenzee, niet de swell die vooral een rol speelt op de Noordzee. 
+
+De hoogste orbitaalsnelheden treden uiteraard op direct zeewaarts van de eilanden. De laagste waarden treden op in de geulen; deze zijn immers diep. Vooral in de westelijke Waddenzee treden op de platen ook wat hogere orbitaalsnelheden op, net als op de Friese kwelders. 
+
+De orbitaalsnelheden zijn in detail te bekijken en downloaden via de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102470&layerNames=Orbitaalsnelheid&folders=93790295,154102245). 
+
+Voor details van het gebruikte SWAN-Kuststrookmodel en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
+
+```{r ecotopenkaartOrbitaal, fig.cap="Kaart van de gedurende 95% van de tijd overschreden, dus vrijwel maximale, diepte-gemiddelde stroomsnelheid afkomstig uit modelberekeningen gebruikt voor de Ecotopenkaart."}
 knitr::include_graphics("images/orbitaalsnelheid.png")
 ```
 
@@ -789,6 +805,7 @@ hunzeData <- map_dfr(hunzeLocations$final_url, read.csv)
 
 
 ***Hollands Noorderkwartier***
+Hier wordt nog aan gewerkt.
 
 ```{r hhnkAfvoerTijdserie,eval=FALSE, fig.cap="Tijdseries van zoetwaterafvoeren Hoogheemraadschap Hollands Noorderkwartier. "}
 #that cell is still turned off the final graph is not correct
