@@ -10,8 +10,7 @@ rmd_files: [
   "100_menselijkhandelen.Rmd",
   "90_Meetbehoefte.Rmd",
   "200-references.Rmd",
-  "Appendix.Rmd"
-  ] 
+  "Appendix.Rmd"] 
 # bibliography: ["references/wadden.bib", "references/WillemsReferences.bib"]
 # biblio-style: "apalike"
 # link-citations: yes

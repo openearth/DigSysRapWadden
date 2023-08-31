@@ -1,12 +1,11 @@
 \newpage
 
-# Fysische waterkwaliteit  {#Waterkwaliteit}
+# Fysische waterkwaliteit {#Waterkwaliteit}
 
 ```{r setupWaterkwaliteit, include = FALSE}
 
 theme_wq = theme_bw()
 ```
-
 
 ```{r readWQData}
 # ddl\standard\WQ_TS_trendstations_allyears.csv
@@ -20,27 +19,27 @@ WQ <- WQ %>% bind_rows(ZS)
 
 ## Afbakening, definitie en herkomst
 
-**Belang** 
+**Belang**
 
 De fysische waterkwaliteit (watertemperatuur, saliniteit en concentratie zwevende stof) is mede bepalend voor morfologische veranderingen en voor het wel of niet voorkomen van biota, en de groei ervan. Veranderingen in watertemperuur, saliniteit en concentratie zwevende stof kunnen ook duiden op veranderingen in zoetwaterafvoer, getijvoortplanting en/of windpatronen (zie hoofdstuk \@ref(hydro) en hoofdstuk \@ref(meteo)).
 
-Een hogere watertemperatuur zorgt voor snelle groei van organismen zoals algen, maar een te hoge temperatuur is nadelig voor het zuurstofgehalte van het water. Ook is de viscositeit ('stroperigheid') van het water temperatuursafhankelijk, waardoor de temperatuur ook stromingspatronen beïnvloedt. 
+Een hogere watertemperatuur zorgt voor snelle groei van organismen zoals algen, maar een te hoge temperatuur is nadelig voor het zuurstofgehalte van het water. Ook is de viscositeit ('stroperigheid') van het water temperatuursafhankelijk, waardoor de temperatuur ook stromingspatronen beïnvloedt.
 
-Saliniteitsverschillen zorgen voor dichtheidsverschillen die stromingen aandrijven, en saliniteit is een belangrijke factor voor het wel of niet voorkomen van veel biota. Er zijn gemeenschappen van bodemdieren die alleen kunnen overleven bij bepaalde saliniteit en die maar voor een beperkte duur een overschrijding of onderschrijding van deze waarden kunnen verdragen. Voor sommige soorten zijn verschillen in saliniteit dus stressvol, terwijl andere soorten juist een (geleidelijke) overgang van zout naar zoet nodig hebben om succesvol te kunnen paren of ontkiemen. De dichtheidsverschillen (zoet water is lichter dan zout water) drijven een gravitatiecirculatie aan, waarbij de stroming aan de bodem netto richting de zoetwaterbron (meestal landwaarts) is gericht en zeewaarts aan de wateroppervlakte. Omdat de sedimentconcentraties (zwevende stof) hoger zijn nabij de bodem dan nabij de oppervlakte, leidt dit ertoe dat er netto slib in de Waddenzee kan worden geïmporteerd. 
+Saliniteitsverschillen zorgen voor dichtheidsverschillen die stromingen aandrijven, en saliniteit is een belangrijke factor voor het wel of niet voorkomen van veel biota. Er zijn gemeenschappen van bodemdieren die alleen kunnen overleven bij bepaalde saliniteit en die maar voor een beperkte duur een overschrijding of onderschrijding van deze waarden kunnen verdragen. Voor sommige soorten zijn verschillen in saliniteit dus stressvol, terwijl andere soorten juist een (geleidelijke) overgang van zout naar zoet nodig hebben om succesvol te kunnen paren of ontkiemen. De dichtheidsverschillen (zoet water is lichter dan zout water) drijven een gravitatiecirculatie aan, waarbij de stroming aan de bodem netto richting de zoetwaterbron (meestal landwaarts) is gericht en zeewaarts aan de wateroppervlakte. Omdat de sedimentconcentraties (zwevende stof) hoger zijn nabij de bodem dan nabij de oppervlakte, leidt dit ertoe dat er netto slib in de Waddenzee kan worden geïmporteerd.
 
-De concentratie zwevende stof is, in combinatie met de stroomsnelheid en waterdiepte, een cruciale factor in het transport van slib en organisch materiaal. Sedimentatie van slib in vaargeulen en havens heeft gevolgen voor de toegankelijkheid en leidt tot baggerwerkzaamheden. Slib sedimenteert ook buiten havens en vaargeulen, wat op de middellange termijn invloed heeft op de morfologie en daarmee de debieten en evenwichtsdieptes van de getijgeulen. Op de langere termijn is slibsedimentatie ook van belang voor het meegroeien met (versnelde) zeespiegelstijging. In ecologisch opzicht is de concentratie zwevende stof ook relevant: het bepaalt de lichtdoordringing in de waterkolom en is daarmee een indicator voor de hoeveelheid licht die beschikbaar is voor fotosynthese. De zwevende stof is ook (beperkt) indicatief voor de zuurstofvraag van het water. Aan het zwevend stof zijn ook voedingsstoffen voor algen en bodemdieren gehecht. Erg hoge concentraties kunnen echter nadelig zijn voor filterfeeders zoals schelpdieren, terwijl enige troebelheid (jonge) vis juist bescherming kan bieden tegen zichtjagers. 
+De concentratie zwevende stof is, in combinatie met de stroomsnelheid en waterdiepte, een cruciale factor in het transport van slib en organisch materiaal. Sedimentatie van slib in vaargeulen en havens heeft gevolgen voor de toegankelijkheid en leidt tot baggerwerkzaamheden. Slib sedimenteert ook buiten havens en vaargeulen, wat op de middellange termijn invloed heeft op de morfologie en daarmee de debieten en evenwichtsdieptes van de getijgeulen. Op de langere termijn is slibsedimentatie ook van belang voor het meegroeien met (versnelde) zeespiegelstijging. In ecologisch opzicht is de concentratie zwevende stof ook relevant: het bepaalt de lichtdoordringing in de waterkolom en is daarmee een indicator voor de hoeveelheid licht die beschikbaar is voor fotosynthese. De zwevende stof is ook (beperkt) indicatief voor de zuurstofvraag van het water. Aan het zwevend stof zijn ook voedingsstoffen voor algen en bodemdieren gehecht. Erg hoge concentraties kunnen echter nadelig zijn voor filterfeeders zoals schelpdieren, terwijl enige troebelheid (jonge) vis juist bescherming kan bieden tegen zichtjagers.
 
 **Afbakening**
 
 Naast de fysische waterkwaliteit zijn ook de chemische en biologische waterkwaliteit (bijv. nutriënten, verontreinigingen, fytoplankton) van belang voor biota. Die zijn niet in deze rapportage opgenomen omdat we ons hier beperken tot de morfologie. Ook een aantal meteorologische parameters -zoninstraling, luchttemperatuur en bewolkingsgraad- die de watertemperatuur mede bepalen zijn niet afzonderlijk opgenomen in deze systeemrapportage; de watertemperatuur als resultante en meest direct bepalende wél.
 
 **Databronnen**
- 
+
 De fysische waterkwaliteitsparameters worden tweewekelijks tot maandelijks bemeten vanaf een schip op 1 m onder het wateroppervlak via het meetnet Monitoring Waterstaatkundige Toestand des Lands (MWTL), zie ook Appendix \@ref(Appwaterkwaliteit). De MWTL metingen zijn beschikbaar op locaties in de Waddenzee, Noordzee en het Eems-estuarium zoals aangegeven in figuur \@ref(fig:kaartDDLlocaties). Vroeger werd op veel meer locaties de waterkwaliteit bemeten. Voor deze systeemrapportage is ervoor gekozen om alleen de nog actieve meetpunten op te nemen. De locaties Bocht van Watum en Rotummerplaat 3 km uit de kust zijn in het verleden verplaatst en daarom tweemaal terug te vinden in de kaart.
 
 Bovengenoemde MWTL-metingen zijn puntmetingen en bieden geen gebiedsdekkende informatie die wel belangrijk kan zijn in het duiden van lokale veranderingen in biotiek en morfologie. Gebiedsdekkende informatie kan wel gegenereerd worden met modellen. De modeldata die ten grondslag ligt aan de Ecotopenkaart (van stroomsnelheden, orbitaalsnelheden en saliniteit) zal in de toekomst in deze systeemrapportage ontsloten worden.
 
-Een andere ontoereikendheid van de MWTL metingen is de beperkte frequentie (tweewekelijks tot maandelijks), waardoor kortere fluctuaties, zoals gedurende een getijcyclus, een springtij-doodtijcyclus en bijvoorbeeld extreem weer, niet waargenomen kunnen worden. Deze fluctuaties kunnen echter wel sterk bepalend zijn voor de conditie van biota - denk aan een hittegolf- of morfologische ontwikkelingen. De MWTL metingen zijn wel zeer waardevol voor her signaleren van trendmatige veranderingen over een langere periode.   
+Een andere ontoereikendheid van de MWTL metingen is de beperkte frequentie (tweewekelijks tot maandelijks), waardoor kortere fluctuaties, zoals gedurende een getijcyclus, een springtij-doodtijcyclus en bijvoorbeeld extreem weer, niet waargenomen kunnen worden. Deze fluctuaties kunnen echter wel sterk bepalend zijn voor de conditie van biota - denk aan een hittegolf- of morfologische ontwikkelingen. De MWTL metingen zijn wel zeer waardevol voor her signaleren van trendmatige veranderingen over een langere periode.
 
 ```{r kaartDDLlocaties, cache=F, fig.cap = "Huidige locaties met MWTL metingen in de relevante delen van de Noordzee, de Waddenzee en het Eems-estuarium."}
 
@@ -64,6 +63,7 @@ leaflet::leaflet(WQlocations) %>%
 ```
 
 ## Watertemperatuur {#watertemperatuur}
+
 Figuur \@ref(fig:jaargemiddeldeTemp) toont de jaargemiddelde watertemperatuur in rood, de maandgemiddelden als zwarte punten en de individuele metingen als grijze punten. De punten laten de seizoensdynamiek zien met hogere waarden in de zomer (tot 20-25 graden Celcius). De locaties die verder in de bekkens liggen tonen daarbij iets hogere piektemperaturen dan de meetpunten in dieper water, die gelegen zijn nabij de zeegaten en in de Noordzee.
 
 ```{r jaargemiddeldeTemp, fig.height=12, fig.width=8, fig.cap="Jaargemiddelde watertemperatuur in de Waddenzee (rode lijn), maandgemiddelden (punten) en individuele metingen (kleinste punten). Jaargemiddelden zijn alleen berekend wanneer er voor minstens 11 maanden gegevens waren. "}
@@ -161,9 +161,10 @@ parData <- WQ %>%
 ```
 
 ## Saliniteit {#saliniteit}
-### MWTL-metingen
-De metingen (figuur \@ref(fig:jaargemiddeldeSal)) laten een seizoensfluctuatie van enkele ppt zien die gekoppeld is aan de seizoensfluctuatie in de zoetwaterafvoeren. De jaargemiddelde saliniteitswaarden laten fluctuaties zien zoals de dip rond 1995, maar langjarige trends zijn niet duidelijk zichtbaar. Daartoe wordt ook de afwijking van het jaargemiddelde ten opzichte van het langjarig gemiddelde uitgezet (figuur \@ref(fig:plotSaliniteitAnomalie)). Hierin is de dip rond 1995 duidelijker terug te zien, maar lijkt de saliniteit in de Wadden sinds 2003 ook licht toe te nemen. Vooral in het Eems-estuarium zijn de relatieve afwijkingen groot, tot een factor 5. In de Waddenzee zijn de afwijkingen verder in de bekkens, op locaties dichter bij de spuilocaties, zoals te verwachten ook groter dan op de Noordzee en nabij de zeegaten. De saliniteit lijkt de laatste jaren bij station Doove Balg toe nemen, wat overeenkomt met een afname in het spuidebiet bij Den Oever (zie \@ref(zoetwaterafvoeren)).
 
+### MWTL-metingen
+
+De metingen (figuur \@ref(fig:jaargemiddeldeSal)) laten een seizoensfluctuatie van enkele ppt zien die gekoppeld is aan de seizoensfluctuatie in de zoetwaterafvoeren. De jaargemiddelde saliniteitswaarden laten fluctuaties zien zoals de dip rond 1995, maar langjarige trends zijn niet duidelijk zichtbaar. Daartoe wordt ook de afwijking van het jaargemiddelde ten opzichte van het langjarig gemiddelde uitgezet (figuur \@ref(fig:plotSaliniteitAnomalie)). Hierin is de dip rond 1995 duidelijker terug te zien, maar lijkt de saliniteit in de Wadden sinds 2003 ook licht toe te nemen. Vooral in het Eems-estuarium zijn de relatieve afwijkingen groot, tot een factor 5. In de Waddenzee zijn de afwijkingen verder in de bekkens, op locaties dichter bij de spuilocaties, zoals te verwachten ook groter dan op de Noordzee en nabij de zeegaten. De saliniteit lijkt de laatste jaren bij station Doove Balg toe nemen, wat overeenkomt met een afname in het spuidebiet bij Den Oever (zie \@ref(zoetwaterafvoeren)).
 
 ```{r jaargemiddeldeSal, fig.height=20, fig.width=10, fig.cap="Jaargemiddelde salinteit in de Waddenzee. Maandgemiddelden (punten) en individuele metingen (kleinste punten) geven het bereik aan. Jaargemiddelde is alleen berekend bij meer dan 10 metingen per jaar. "}
 
@@ -206,7 +207,6 @@ parData <- WQ %>%
     guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
 
 ```
-
 
 ```{r plotSaliniteitAnomalie, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Anomalie (afwijking van het langjarig gemiddelde) van saliniteit voor de gehele meetperiode"}
 
@@ -252,25 +252,24 @@ ggsave(file.path(datadir, "RWS", "producten", "SaliniteitAnomalie.pdf"))
 
 ### Vlakdekkende gemodelleerde saliniteit
 
-Het is belangrijk om te realiseren dat de hier weergegeven representatieve saliniteit geen gemeten data betreft maar gebaseerd is op modelbewerkingen die ook gebruikt zijn voor het maken van de huidige ecotopenkaarten. Hoewel geen gemeten data, is deze vlakdekkende saliniteit op verzoek van veel gebruikers toch opgenomen in de DSR. 
+Het is belangrijk om te realiseren dat de hier weergegeven representatieve saliniteit geen gemeten data betreft maar gebaseerd is op modelbewerkingen voor het maken van de huidige ecotopenkaarten. Hoewel geen gemeten data, is deze vlakdekkende saliniteit op verzoek van veel gebruikers toch opgenomen in de DSR.
 
-Hieronder is de gemiddelde saliniteit bij hoogwater over het jaar 2019 weergegeven. 
+Hieronder zijn de gemiddelde saliniteit bij hoogwater en de variatie op basis van een 3D simulatie over het volledige jaar 2019 weergegeven. Er zijn acht zoetwaterafvoeren en spuidebieten; de kleinere zoetwaterafvoeren uit paragraaf \@ref(kleinzoetwater) ontbreken omdat deze bij het maken van de simulaties niet beschikbaar waren. Per roostercel is het tijdsgemiddelde bepaald over de saliniteitswaarden tijdens de piek hoogwater. De variatie in saliniteit is bepaald als 4 maal de standaarddeviatie gedeeld door dit gemiddelde.
 
-De hoogste orbitaalsnelheden treden uiteraard op direct zeewaarts van de eilanden. De laagste waarden treden op in de geulen; deze zijn immers diep. Vooral in de westelijke Waddenzee treden op de platen ook wat hogere orbitaalsnelheden op, net als op de Friese kwelders. 
+Het Waddenzeebekken is duidelijk minder zout dan de Noordzee, met forse ruimtelijke verschillen in saliniteit (10-35). De laagste saliniteit (10-15) treedt op bij de zoetwaterafvoeren, vooral rondom de spuisluizen van het Ijsselmeer: Den Oever en Kornwerderzand. Ook ten oosten van Harlingen en het Lauwersmeer is de saliniteit wat lager (20-25). Ook in Eems-Dollard is de saliniteit lager (15-25). 
+De variatie is het grootst bij diezelfde spuisluizen -bij Den Oever vooral aan de westkant, inclusief Balgzand, en bij Kornwerderzand juist oostelijk, richting Harlingen en in de Eems. Opvallend is de substantiële variatie (ca. 50%) over de volledige wantijen in de Oostelijke Waddenzee, terwijl de variatie op de ondieptes in de Westelijke Waddenzee tussen circa 20% en 40% ligt. 
 
-De orbitaalsnelheden zijn in detail te bekijken en downloaden via de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102470&layerNames=Orbitaalsnelheid&folders=93790295,154102245). 
+De saliniteit en variatie daarin zijn in detail te bekijken en downloaden via de Waddenviewer van [Datahuis Wadden](https://viewer.openearth.nl/wadden-viewer/?layers=154102651&layerNames=Saliniteit%20200m%20gemiddeld&folders=93790295,93793344,107902964,107956752,93795018,154102245,93793330).
 
-Voor details van het gebruikte SWAN-Kuststrookmodel en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
+Voor details van het gebruikte model en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
 
 ```{r ecotopenkaartSaliniteit, fig.cap="Kaart van de gemiddelde saliniteit bij hoogwater (2019) afkomstig uit modelberekeningen gebruikt voor de Ecotopenkaart."}
-knitr::include_graphics("images/saliniteit_gem_200m.png")
+knitr::include_graphics("images/map_meansalinity.png")
 ```
+
 ```{r ecotopenkaartSaliniteitVar, fig.cap="Kaart van de variatie in gemiddelde saliniteit bij hoogwater (2019) afkomstig uit modelberekeningen gebruikt voor de Ecotopenkaart, bepaald als [(4 x standaarddeviatie) / gemiddelde zoutgehalte] x 100%."}
-knitr::include_graphics("images/saliniteit_gem_200m.png")
+knitr::include_graphics("images/map_variationsalinity.png")
 ```
-
-
-Voor de Ecotopenkaart, is ruimtelijk dekkend informatie van de stroomsnelheden, orbitaalsnelheden, droogvalduren en saliniteit berekend op basis van metingen en numerieke modellen. De gemiddelde saliniteit is berekend bij hoogwater voor het jaar 2019. Voor details van het model en de berekeningswijze wordt verwezen naar Van Weerdenburg (2022) [download](https://publicwiki.deltares.nl/download/attachments/137135283/11208040-011-ZKS-0001_v1.0-Modelparameters%20Ecotopenkaart%20Waddenzee%202022%20%28definitief%29.pdf?version=1&modificationDate=1670514304038&api=v2).
 
 ```{r EcotopenBasis, fig.cap="Basiskaarten voor ecotopenkaart 2022 voor de Waddenzee."}
 #Voorbeeld hier gevonden: https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/
@@ -327,6 +326,7 @@ leaflet() %>%
 ```
 
 ## Zwevend stof {#zwevendstof}
+
 Zwevende stof wordt ook wel SSC, gesuspendeerde sedimentconcentratie of sedimentconcentratie in de waterkolom genoemd. Figuur \@ref(fig:ZSdataplot) toont de individuele metingen (kleine grijze punten) en de maandgemiddelden (zwarte punten). Uit deze data kan zowel de fluctuatie in zwevende stof worden afgelezen als de ruimtelijke variatie. In de Noordzee zijn de concentraties veel lager dan verder landwaarts in de Waddenzee. De rode lijn geeft de jaargemiddelden weer, daaruit blijken ook grote fluctuaties en geen duidelijke langjarige trends.
 
 ```{r ZSdataplot, fig.height=20, fig.width=10, fig.cap="Concentratie van zwevend stof in de Waddenzee en Eems estuarium. Jaargemiddeld (lijn), maandgemiddeld (zwarte punten), en individuele metingen (kleine grijze punten). "}
@@ -376,58 +376,95 @@ parData <- WQ %>%
     guides(colour = guide_legend(override.aes = list(shape = 1, size = 3)))
   
 ```
+
+```{=html}
 <!-- Volgende deel niet gebruiken voor slib. Eventueel kan de code voor andere parameters bruikbaar zijn, zoals temperatuur. 
 
 <!-- ```{r jaargemiddeldeZS, fig.height=10, fig.width=10, fig.cap="Jaargemiddelde concentratie van zwevend stof in de Waddenzee"} -->
-
+```
 <!-- locaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep", "Terschelling 10 km uit de kust","Rottumerplaat 3 km uit de kust", "Huibertgat oost", "Bocht van Watum", "Groote Gat noord") -->
 
 <!-- plotlocaties = WQ %>% ungroup() %>%  -->
+
 <!--   filter(parameter.code == "ZS") %>% -->
+
 <!--   group_by(locatie.naam) %>% summarize(x = mean(geometriepunt.x)) %>%  -->
+
 <!--   filter(locatie.naam %in% locaties) %>%   -->
+
 <!--   arrange(x) %>% # tricky, want niet alle data heeft zelfde epsg -->
+
 <!--   select(locatie.naam) %>% unlist %>% unname -->
 
 <!-- par = "ZS" -->
+
 <!-- parlabel = "jaargemiddeld zwevend stof in mg/l" -->
 
 <!-- WQ %>% -->
+
 <!--   filter(parameter.code == par, as.numeric(kwaliteitswaarde.code) < 50, year(tijdstip) >= 1989) %>% -->
+
 <!--   filter(locatie.naam %in% plotlocaties) %>% -->
+
 <!--   arrange(geometriepunt.x) %>% -->
+
 <!--   mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>% -->
+
 <!--   group_by(locatie.naam, jaar, maand) %>% summarize(logmaandgemiddelde = mean(log(numeriekewaarde)), n = n()) %>% ungroup() %>% -->
+
 <!--   group_by(locatie.naam, jaar) %>% summarize(logjaargemiddelde = mean(logmaandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% -->
+
 <!--   mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>% -->
+
 <!--   filter(`n/jaar` > 10) %>%  -->
+
 <!--   ggplot(aes(jaar, exp(logjaargemiddelde))) +  -->
+
 <!--   geom_point(aes(size = `n/jaar`), shape = 21, fill = "white") + -->
+
 <!--   geom_line(aes(alpha = `n/jaar`)) +  # -->
+
 <!--   geom_smooth(method = "lm", formula = y ~ x, alpha = 0.3, aes(weight = `n/jaar`), size = 1, color = "darkgrey") + -->
+
 <!--   geom_smooth(data = WQ %>% -->
+
 <!--                 filter(parameter.code == par, kwaliteitswaarde.code < 50) %>% -->
+
 <!--                 filter(year(tijdstip) > 2009) %>% -->
+
 <!--                 filter(locatie.naam %in% plotlocaties) %>% -->
+
 <!--                 arrange(geometriepunt.x) %>% -->
+
 <!--                 mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>% -->
+
 <!--                 group_by(locatie.naam, jaar, maand) %>% summarize(logmaandgemiddelde = mean(log(numeriekewaarde)), n = n()) %>% ungroup() %>% -->
+
 <!--                 group_by(locatie.naam, jaar) %>% summarize(logjaargemiddelde = mean(logmaandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% -->
+
 <!--                 mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>% -->
+
 <!--                 filter(`n/jaar` > 10),  -->
+
 <!--               method = "lm", alpha = 0.3, aes(), size = 2) + -->
+
 <!--   scale_y_log10() + -->
+
 <!--   # ylim(0,NA) + -->
+
 <!--   ylab(parlabel) + -->
+
 <!--   facet_wrap(~ locatie.naam, ncol = 3) +  #scales = "free", -->
+
 <!--   theme(legend.position = "bottom") + -->
+
 <!--   theme_wq -->
 
 <!-- ggsave(file.path(datadir, "RWS", "producten", "ZStrends.pdf")) -->
+
 <!-- ``` -->
 
 Indien het zwevende stofgehalte wordt gelogtransformeerd en het maandgemiddelde wordt uitgedrukt als relatieve afwijking ten opzichte van het langjarig gemiddelde (figuur \@ref(fig:plotZSanomalie)), dan zijn de fluctuaties veel beter zichtbaar. De tijdseries vertonen gelijke patronen, met pieken rond 2008 en 2012, maar geen langjarige trends. Hoewel de absolute concentraties van zwevende stof sterk verschillend zijn (figuur \@ref(fig:ZSdataplot)), is de relatieve afwijking van het langjarig gemiddelde vergelijkbaar. In Herman et al. (2018) zijn de karakteristieken van zwevende stof tijdseries in meer detail beschreven.
-
 
 ```{r plotZSanomalie, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Anomalie van gesuspendeerd zwevend stof voor de gehele meetperiode. De grootte van de anomalie (blauwe lijn; log maandgemiddelde - gemiddelde log maandgemiddelde) staat op de verticale as. De gekleurde punten geven de maandgemiddelde zwevende stof concentratie aan."}
 
@@ -470,7 +507,6 @@ WQ %>%
 
 Het seizoensverloop van zwevend stof (figuur \@ref(fig:plotZSseason)) laat zien dat concentraties in de winter hoger zijn dan in de zomermaanden. Dit wordt onder andere veroorzaakt door meer opwerveling in de winter door hogere golven. Vastlegging van slib door algenmatten in de zomer en toegenomen flocculatie door algen in de zomer en daarmee bezinking van slib dragen ook bij aan de seizoensdynamiek.
 
-
 ```{r plotZSseason, fig.margin=TRUE, fig.height = 20, fig.width = 10, fig.cap="Seizoensvariatie van opgelost zwevend stof voor de periode 1989 - 2018."}
 
 
@@ -495,10 +531,3 @@ WQ %>%
   theme_wq +
   theme(legend.position = "bottom")
 ```
-
-
-
-
-
-
-
