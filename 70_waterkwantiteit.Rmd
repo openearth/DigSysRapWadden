@@ -434,6 +434,7 @@ Voor details van het gebruikte Dutch Wadden Sea Model (DWSM) en de berekeningswi
 
 ```{r ecotopenStroming, fig.cap="Kaart van de gedurende 95% van de tijd overschreden, dus vrijwel maximale, diepte-gemiddelde stroomsnelheid afkomstig uit modelberekeningen gebruikt voor de Ecotopenkaart."}
 knitr::include_graphics("images/stroomsnelheidp95.png")
+```
 
 ## Orbitaalsnelheid
 De orbitaalsnelheid aan de bodem heeft een vergelijkbare invloed als de stroomsnelheid: een hogere snelheid betekent meer dynamiek. Echter, waar hoge stroomsnelheden vooral optreden in de geulen en vooral het gevolg zijn van het getij, komen hoge orbitaalsnelheden aan de bodem juist ook voor in ondiepe gebieden en vooral in meteorologisch dynamische periodes (stormen). Gebieden met hogere orbitaalsnelheden zijn zandiger -slib kan immers niet bezinken en wordt naar elders getransporteerd- en kennen andere biota dan rustiger gebieden. De voor biota optimale orbitaalsnelheid verschilt per soort. 
@@ -774,67 +775,53 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
 De gegevens zijn opgevraagd bij de desbetreffende waterschappen en ontsloten via Datahuis Wadden. Zie voor details paragraaf \@ref(Appzoetwaterafvoer). De locaties van de afvoeren zijn aangegeven in figuur \@ref(fig:kaartAfvoerLocaties). Naar verwachting volgen de kleinere afvoeren de eventuele trends in de grotere afvoeren (als gevolg van toegenomen regenval of droogte). 
 
 
+```{r kleineZoetwaterDataInlezen, cache=TRUE}
 
-```{r kleineZoetwaterDataInlezen}
+hhnkURL = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahhnk&outputFormat=csv"
+hhnkDat = data.table::fread(hhnkURL, na.strings = '-999')
 
-#hhnkDat <- data.table::fread(hollandsnoorderkwartierpath, na.strings = "-999")
+wetterskipURL <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland&outputFormat=csv"
+wetterskipDat <- data.table::fread(wetterskipURL, na.strings = '-999')
 
-hhnkLoc = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahhnk&outputFormat=csv&cql_filter=%22locatie.naam%22="
+noorderzijlURL <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Anoorderzijlvest&outputFormat=csv"
+noorderzijlDat <-  data.table::fread(noorderzijlURL, na.strings = '-999')
 
-hhnkLocations <- hhnkLocations %>%
-         mutate(quoted_items = str_glue("'{locatie.naam}'")) %>% # Add single quotes around the items
-         mutate(quoted_items = str_replace_all(quoted_items," ", "%20"),
-         final_url = paste0(hhnkLoc, quoted_items))  # Concatenate the base URL with the quoted items
-
-hhnkData <- map_dfr(hhnkLocations$final_url, read.csv, na.strings = "-999")
-
-frieslandPath <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland&outputFormat=csv"
-friesDat <- data.table::fread(frieslandPath)
-
-NoorderzijlPath <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Anoorderzijlvest&outputFormat=csv"
-NoorderzijlDat <- data.table::fread(NoorderzijlPath)
-
-hunzeLoc<- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahunzeenaas&outputFormat=csv&cql_filter=%22locatie.naam%22="
-
-hunzeLocations <- hunzeLocations %>%
-  mutate(quoted_items = str_glue("'{locatie.naam}'"),  # Add single quotes around the items
-         final_url = paste0(hunzeLoc, quoted_items))  # Concatenate the base URL with the quoted items
-
-hunzeData <- map_dfr(hunzeLocations$final_url, read.csv)
+hunzeURL<- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahunzeenaas&outputFormat=csv"
+hunzeDat <- data.table::fread(hunzeURL, na.strings = '-999')
 ```
 
 
 ***Hollands Noorderkwartier***
 Hier wordt nog aan gewerkt.
 
-```{r hhnkAfvoerTijdserie,eval=FALSE, fig.cap="Tijdseries van zoetwaterafvoeren Hoogheemraadschap Hollands Noorderkwartier. "}
+```{r hhnkAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren Hoogheemraadschap Hollands Noorderkwartier. "}
 #that cell is still turned off the final graph is not correct
 
-table(hhnkData$kwaliteitsoordeel.code)
+# table(hhnkDat$kwaliteitsoordeel.code)
 # wat doen met onbetrouwbare waarden? voor nu alleen een filter op betrouwbaar
 
-hhnkData2<-hhnkData %>%
-  filter(kwaliteitsoordeel.code == "betrouwbaar") %>%
+hhnkDat2<-hhnkDat %>% 
+  dplyr::filter(kwaliteitsoordeel.code == "betrouwbaar") %>%
   # make daily average
-  mutate(datum = as.POSIXct(datum, format="%d-%m-%Y %I:%M")) %>%
-  mutate(
+  dplyr::mutate(datum = as.POSIXct(datum, format="%d-%m-%Y %I:%M")) %>%
+  dplyr::mutate(
     dag = day(as_date(datum)),
     jaar = year(as_date(datum)), 
     maand = month(as_date(datum))
   ) %>%
-  group_by(locatie.naam, dag, grootheid.code, eenheid.code, kwaliteitsoordeel.code, jaar, maand)  %>%
-  summarize(daggemiddelde = mean(numeriekewaarde, na.rm = F), count = n()) #sunmmarizing the column numeriekewaarde
+  dplyr::group_by(locatie.naam, dag, grootheid.code, eenheid.code, kwaliteitsoordeel.code, jaar, maand)  %>%
+  dplyr::summarize(daggemiddelde = mean(numeriekewaarde, na.rm = T), count = n()) #sunmmarizing the column numeriekewaarde
 
 parlabel = paste(unique(hhnkDat$grootheid.code), unique(hhnkDat$eenheid.code))
 xlabel = "jaar"
 
 ggplot() +
-  geom_point(data = hhnkData2, aes(as.Date(lubridate::ymd(paste(jaar, maand, dag))), daggemiddelde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
-  geom_point(data = hhnkData2 %>%
+  geom_point(data = hhnkDat2, aes(as.Date(lubridate::ymd(paste(jaar, maand, dag))), daggemiddelde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
+  geom_point(data = hhnkDat2 %>%
                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()),
              aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
   )  +
-  geom_line(data = hhnkData2 %>%
+  geom_line(data = hhnkDat2 %>%
               group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()) %>% ungroup() %>%
               group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
             aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
@@ -858,23 +845,23 @@ ggplot() +
 
 ```{r friesAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren Wetterskip Friesland. "}
 
-friesDat2 <- friesDat %>%
+wetterskipDat2 <- wetterskipDat %>%
   mutate(jaar = year(datum), maand = month(datum)) %>%
   mutate(
     numeriekewaarde = numeriekewaarde/(24*60*60),
     eenheid.code = "m3/s"
   )
 
-parlabel = paste(unique(friesDat$grootheid.code), unique(friesDat$eenheid.code))
+parlabel = paste(unique(wetterskipDat$grootheid.code), unique(wetterskipDat$eenheid.code))
 xlabel = "jaar"
 
 ggplot() +
-  geom_point(data = friesDat2, aes(datum, numeriekewaarde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
-  geom_point(data = friesDat2 %>%
+  geom_point(data = wetterskipDat2, aes(datum, numeriekewaarde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
+  geom_point(data = wetterskipDat2 %>%
                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
              aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
   ) +
-  geom_line(data = friesDat2 %>%
+  geom_line(data = wetterskipDat2 %>%
               group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
               group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
             aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
@@ -895,10 +882,10 @@ ggplot() +
 
 ***Noorderzijlvest***
 
-```{r}
+```{r noorderzijlAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren Noorderzijlvest. "}
 
 
-NoorderzijlDat2 <- NoorderzijlDat %>%
+noorderzijlDat2 <- noorderzijlDat %>%
   mutate(datum = as.Date(datum)) %>%
   mutate(jaar = year(datum), maand = month(datum)) %>%
   mutate(
@@ -906,16 +893,16 @@ NoorderzijlDat2 <- NoorderzijlDat %>%
     eenheid.code = "m3/s"
     )
 
-parlabel = paste(unique(NoorderzijlDat$grootheid.code), unique(NoorderzijlDat$eenheid.code))
+parlabel = paste(unique(noorderzijlDat$grootheid.code), unique(noorderzijlDat$eenheid.code))
 xlabel = "jaar"
 
 ggplot() +
-  geom_point(data = NoorderzijlDat2, aes(datum, numeriekewaarde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
-  geom_point(data = NoorderzijlDat2 %>%
+  geom_point(data = noorderzijlDat2, aes(datum, numeriekewaarde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
+  geom_point(data = noorderzijlDat2 %>%
                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
              aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
   ) +
-  geom_line(data = NoorderzijlDat2 %>%
+  geom_line(data = noorderzijlDat2 %>%
               group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
               group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
             aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
@@ -937,16 +924,14 @@ ggplot() +
 
 ***Hunze en Aas***
 
-wordt toegevoegd
 
 
-
-```{r hunzeAfvoerTijdserie,eval=FALSE, fig.cap="Tijdseries van zoetwaterafvoeren waterschap Hunze en Aa's. "}
+```{r hunzeAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren waterschap Hunze en Aa's. "}
 # Data ziet er gek uit -> klopt deze analyse wel? 
 # Andere optie zou andere sensoren kunnen zijn dat het anders gemeten wordt of andere frequentie. Nu lijken het non equidistante tijdreeksen te zijn. 
 
-hunzeData2 <-hunzeData %>%
-  sf::st_drop_geometry() %>%
+hunzeDat2 <-hunzeDat %>%
+  # sf::st_drop_geometry() %>%
   dplyr::mutate(datum = as_date(datumtijd)) %>%
   mutate(
     dag = day(as_date(datum)),
@@ -954,16 +939,16 @@ hunzeData2 <-hunzeData %>%
     maand = month(as_date(datum))
   ) %>%
   group_by(locatie.naam, dag, grootheid.code, eenheid.code, jaar, maand)  %>%
-  summarize(daggemiddelde = mean(numeriekewaarde, na.rm = F), count = n()) #
+  summarize(daggemiddelde = mean(numeriekewaarde, na.rm = T), count = n()) #
 
 
 ggplot() +
-  geom_point(data = hunzeData2, aes(as.Date(lubridate::ymd(paste(jaar, maand, dag))), daggemiddelde, color = "daggemiddelde"), alpha = 1, size = 0.65) +
-   geom_point(data = hunzeData2 %>%
+  geom_point(data = hunzeDat2, aes(as.Date(lubridate::ymd(paste(jaar, maand, dag))), daggemiddelde, color = "daggemiddelde"), alpha = 1, size = 0.65) +
+   geom_point(data = hunzeDat2 %>%
                group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()),
              aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
   )  +
-  geom_line(data = hunzeData2 %>%
+  geom_line(data = hunzeDat2 %>%
               group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()) %>% ungroup() %>%
               group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
             aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
