@@ -130,7 +130,7 @@ De berekeningswijze van de Gemiddelde Laag Waterstanden is vergelijkbaar met die
 
 De Gemiddelde Laag Waterstanden (figuur \@ref(fig:Laagwaters)) variëren over de Waddenzee en laten voor de meeste stations ook een stijging zien. Daarnaast vallen enkele veranderingen in de tijd op waar de trendlijnen niet goed recht aan doen: Vooral het GLW te Harlingen is na de sluiting van de Zuiderzee begin jaren 1930 plotseling fors gedaald maar heeft sindsdien weer een licht stijgende trend. Ook West-Terschelling (eind jaren 1950) en Delfzijl (eind jaren 1970; aanleg Zeehavenkanaal) laten een vrij plotselinge daling zien die waarschijnlijk het gevolg is van geulverdieping of -verlegging.
 
-```{r Laagwaters, fig.height=8, fig.width=8, fig.cap="Jaargemiddeld laagwater (GLW) per station (punten). De doorgetrokken lijn is een lineaire regressie door de alle data rekening houdend met de 18,6-jarige cyclus; de grijze band is het 95% predictie-interval van het regressiemodel."}
+```{r Laagwaters, fig.height=8, fig.width=8, fig.cap="Jaargemiddeld laagwater (GLW) per station (punten). De doorgetrokken lijn is het 19-jarig gemiddelde van de hoogwaters."}
 
 p <- df.extrema.jaar %>%
   filter(HL == "L") %>%
@@ -152,7 +152,7 @@ De getijslag (figuur \@ref(fig:getijslag)) laat zien dat er op sommige stations 
 
 
 
-```{r getijslag, fig.height=8, fig.width=8, fig.cap= 'Jaargemiddelde getijslag per station (punten). De doorgetrokken lijn is een lineaire regressie door de alle data rekening houdend met de 18,6-jarige cyclus; de grijze band is het 95% predictie-interval van het regressiemodel.'}
+```{r getijslag, fig.height=8, fig.width=8, fig.cap= 'Jaargemiddelde getijslag per station (punten). De doorgetrokken lijn is het 19-jarig gemiddelde van de hoogwaters.'}
 
 p <- df.extrema.jaar %>%
   pivot_wider(id_cols = c(locatie.naam, jaar), names_from = HL, values_from = jaargemiddelde) %>%
