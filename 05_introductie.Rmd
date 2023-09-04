@@ -173,28 +173,28 @@ An exception to this is the Ecotope Map and the map layers of current velocities
 
 ## Basic Wadden Monitoring
 
-Dieser Digitaler Systembericht (DSR) wurde im Rahmen des Projekts Naturmonitoring Wadden - Sektion Morphologie des Rijkswaterstaat erstellt. Dieses wiederum gehört zum [Basismonitoring Wadden] (<https://basismonitoringwadden.waddenzee.nl/>) und umfasst die nicht lebenden (abiotischen) Merkmale des Wattenmeeres. Das Basismonitoring Wadden überwacht die Entwicklungen im Wattengebiet und verfolgt dabei folgende Hauptziele:
+Der digitale Systembericht (DSR) wurde im Rahmen des Projekts Naturmonitoring Wadden - Sektion Morphologie des Rijkswaterstaat - erstellt. Dieses wiederum gehört zum [Basismonitoring Wadden] (<https://basismonitoringwadden.waddenzee.nl/>) und umfasst die nicht lebenden (abiotischen) Merkmale des Wattenmeeres. Das Basismonitoring Wadden überwacht die Entwicklungen im Wattgebiet und verfolgt dabei folgende Hauptziele:
 
-1.  Bereitstellung von Informationen über den Zustand und die Trends im Wattenmeergebiet für Manager und Nutzer;
-2.  eine effektive und effiziente systemgestützte Überwachung zu erreichen;
-3.  alle verfügbaren Informationen und Überwachungsdaten über das Wattenmeergebiet zugänglich zu machen, damit die Nutzer einen Überblick über das gesamte Wattenmeersystem erhalten.
+1.  Bereitstellung von Informationen über den Zustand und die Trends (Veränderungen) im Wattenmeergebiet für Manager und Nutzer;
+2.  Erreichung einer effektiven und effizienten systemgestützten Überwachung;
+3.  Zugang zu allen verfügbaren Informationen und Überwachungsdaten über das Wattenmeergebiet, damit die Nutzer einen Überblick über das gesamte Wattenmeersystem erhalten
 
 Das Basis-Wattenmeer-Monitoring konzentriert sich dabei auf die so genannten Kernwerte: Landschaftsqualitäten, natürliche abiotische Wattenmeere (nicht lebende Natur), natürliche biotische Wattenmeere (lebende Natur) und menschliche Mitnutzung. Politik- und Managementziele sind mit jedem dieser Kernwerte oder Themen verbunden. Weitere Informationen zu diesen Themen finden Sie im [Ambition of Basic Wadden] (<https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf>).
 
-Für die abiotische (nicht lebende) Natur des Wattenmeeres ist ein Schlüsselziel:
+Für die abiotische Natur des Wattenmeeres ist ein Schlüsselziel:
 
 > *'eine möglichst natürliche Entwicklung der Wasserbewegungen und der damit verbundenen geomorphologischen und bodenkundlichen Prozesse.' - [Strukturvision Wattenmeer](https://www.noordzeeloket.nl/publish/pages/122066/brein-herziening-2021-structuurvisie-waddenzee-id-28.pdf)*
 
-## Zweck Digitaler Systembericht
+## Zweck des DSR
 
-Das Ziel des Digitalen Systemberichts Wattenmeer ist es, aktuelle, transparente und konsistente Indikatorensätze zu erhalten und diese auf eine zugängliche Art und Weise zugänglich zu machen. Der digitale Bericht ermöglicht auch eine einfache Aktualisierung der Informationen. Damit trägt er bereits direkt zum ersten und dritten Ziel des Basic Monitoring Wadden bei.
+Das Ziel des Digitalen Systemberichts Wattenmeer ist es, aktuelle, transparente und konsistente Indikatorensätze zu erhalten und diese auf eine zugängliche Art und Weise zu präsentieren (veröffentlichen). Der digitale Bericht ermöglicht auch eine einfache Aktualisierung der Informationen. Damit trägt er bereits direkt zum ersten und dritten Ziel des Basic Monitoring Wadden bei.
 
-Indem die relevanten Informationen zugänglich gemacht werden, können Trends und Entwicklungen schnell erkannt und weiter analysiert werden. Dies trägt zu einem effizienteren und effektiveren Management bei, z. B. bei der Erklärung von beobachteten Entwicklungen bei Naturzielen oder dem Einfluss menschlicher Aktivitäten. Dabei werden auch Wissenslücken und zusätzlicher Überwachungsbedarf identifiziert, so dass das DSR indirekt zum zweiten Ziel der Basisüberwachung des Wattenmeeres beiträgt: der systembasierten Überwachung.
+Indem die relevanten Informationen zugänglich gemacht werden, können Trends und Entwicklungen schnell erkannt und weiter analysiert werden. Dies trägt zu einem effizienteren und effektiveren Management bei, z. B. bei der Erklärung von beobachteten Entwicklungen bei Naturzielen oder dem Einfluss menschlicher Aktivitäten. Dabei werden auch Wissenslücken und zusätzlicher Überwachungsbedarf identifiziert, so dass der DSR indirekt zum zweiten Ziel der Basisüberwachung des Wattenmeeres beiträgt: der systembasierten Überwachung.
 
 Die Daten, die durch die Indikatoren dargestellt werden, können direkt von der Seite AppendiX \@ref(data) heruntergeladen werden.
 
 ## Informationsbedarf und Indikatoren
 
-Indikatoren sind messbare (oder aus Messungen ableitbare) Größen, die eine Signalfunktion haben und z.B. Auskunft über die Qualität einer Sache geben. In diesem Systembericht beschränken wir uns auf den Informationsbedarf, der sich aus den Politik- und Managementzielen für die abiotische Natur des Wattenmeeres ergibt. Dazu gehören alle abiotischen Merkmale, die die Natürlichkeit des Wattenmeeres beeinflussen, wie Sedimentzusammensetzung, Trübung, Temperatur, Salzgehalt usw. Die erforderlichen Daten stammen zum Teil aus räumlichen Messungen (z. B. Bodenlage) und zum Teil aus Überwachungsstationen und -standorten, wie in der Abbildung \@ref(fig:kaartAbiotieklocaties) dargestellt.
+Indikatoren sind messbare (oder aus Messungen ableitbare) Größen, die eine Signalfunktion haben und z.B. Auskunft über die Qualität geben. In diesem Systembericht beschränken wir uns auf den Informationsbedarf, der sich aus den Politik- und Managementzielen für die abiotische Natur des Wattenmeeres ergibt. Dazu gehören alle abiotischen Merkmale, die die Natürlichkeit des Wattenmeeres beeinflussen, wie Sedimentzusammensetzung, Trübung, Temperatur, Salzgehalt usw. Die erforderlichen Daten stammen zum Teil aus räumlichen Messungen (z. B. Bodenlage) und zum Teil aus Überwachungsstationen und -standorten, wie in der Abbildung \@ref(fig:kaartAbiotieklocaties) dargestellt.
 
 Eine Ausnahme bilden die Ökotopkarte und die darunter liegenden Kartenebenen für Strömungsgeschwindigkeiten, Wellen, Salzgehalt und Trockenheitsdauer. Diese beruhen nicht direkt auf Messungen, sondern auf Modellsimulationen über bestimmte Zeiträume. Obwohl diese Karten also eigentlich nicht in den DSR gehören, wurden sie aufgenommen, weil sie für viele Nutzer viele wertvolle, indikative Rauminformationen enthalten. Die Nutzer sollten sich jedoch der Einschränkungen bewusst sein, nämlich dass es sich um Modellergebnisse handelt, die für einen bestimmten Zweck erstellt wurden und sich nicht ohne weiteres für andere Anwendungen oder allgemeine Schlussfolgerungen eignen. 
