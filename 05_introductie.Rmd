@@ -1,6 +1,6 @@
 \newpage
 
-# Introductie {#introductie}
+# Introductie - Introduction - Einleitung {#introductie}
 
 Please click here for the [English version](#introduction) or scroll down.
 
@@ -139,7 +139,7 @@ knitr::kable(kadertabel, caption = "Beheerskaders en beschikbare koppelingen naa
 
 ```
 
-# Introduction English {#introduction}
+## Introduction English {#introduction}
 
 ## Basic Wadden Monitoring
 
@@ -169,7 +169,7 @@ Indicators are measurable (or derivable from measurements) quantities that have 
 
 An exception to this is the Ecotope Map and the map layers of current velocities, waves, salinity a dryfall duration used to create it. These are not based directly on measurements but on model simulations over specific periods. Thus, although these maps do not really belong on the DSR, they are included because they contain a lot of valuable, indicative spatial information for many users. However, the user should be aware of the limitations, namely that these are model results generated for a specific purpose, which are not simply suitable for other applications or general conclusions. 
 
-# Einleitung {#einleitung}
+## Einleitung {#einleitung}
 
 ## Basic Wadden Monitoring
 

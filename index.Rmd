@@ -12,16 +12,17 @@ subtitle: "Abiotische indicatoren"
 always_allow_html: true
 ---
 
+#  {.unnumbered}
 
-# {-}
 <!-- # Voorwoord {- #voorwoord} -->
 
-(ref:voorplaatLabel) Luchtfoto van de Zuiderduintjes in 2011 (bron: https://proxy.archieven.nl/0/DE8E9D519DFD4FC5A6BD82D0952BCF82 © Rijkswaterstaat | Joop van Houdt).
+(ref:voorplaatLabel) Luchtfoto van de Zuiderduintjes in 2011 (bron: <https://proxy.archieven.nl/0/DE8E9D519DFD4FC5A6BD82D0952BCF82> © Rijkswaterstaat \| Joop van Houdt).
 
 ```{r voorplaat, width = "100%", fig.cap="(ref:voorplaatLabel)"}
 # ```{r voorplaat, width = "100%", fig.cap="Luchtfoto van Zuiderduintjes in 2011 (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)."}
 knitr::include_graphics("images/voorplaat.png")
 ```
+
 </br>
 
 ## Nederlands {-}
@@ -37,41 +38,41 @@ Deze digitale Systeemrapportage van de Wadden is opgezet als een naslagwerk, om 
 
 Let op: op dit moment is alleen de inleiding beschikbaar in het Engels en Duits. De vertaling van de delen die de indicatoren beschrijven kan niet worden geautomatiseerd en is daarom te arbeidsintensief om bij elke update te worden gecontroleerd. We hopen dat desondanks de toegang tot de informatie en een mogelijke vertaling door de gebruiker voldoende functionaliteit biedt.
 
-Informatie uit deze Digitale Systeemrapportage kan als volgt geciteerd worden: "Stolte, W., Vroom, J., Santinelli, G., Veenstra, J., Van Oeveren, C., Van Zelst, V. and Dijkstra, J. (2023). Digitale Systeemrapportage van de Waddenzee, versie 1.0. https://systeemrapportage.nl/wadden/".
+Informatie uit deze Digitale Systeemrapportage kan als volgt geciteerd worden: "Stolte, W., Vroom, J., Santinelli, G., Veenstra, J., Van Oeveren, C., Van Zelst, V. and Dijkstra, J. (2023). Digitale Systeemrapportage van de Waddenzee, versie 1.0. <https://systeemrapportage.nl/wadden/>".
 
 Als u gebreken of onvolledigheden constateert horen wij dat graag via: jasper.dijkstra -at- deltares.nl en/of martijn.kleinobbink -at- rws.nl.
 
 ## English {-}
 
+
 This water system report is an initiative of:
 
-- Rijkswaterstaat
-    - Northern Netherlands
-    - WVL
-- Deltares
+-   Rijkswaterstaat
+    -   Northern Netherlands
+    -   WVL
+-   Deltares
 
-This digital Wadden Sea System Report is designed as a reference work, to meet the initial information needs for managers, users and researchers of the Wadden Sea. It contains indicators that describe the state and trends of the natural abiotic system, and that affect the naturalness of the Wadden system. This makes them relevant for different management and policy goals in the Wadden Sea region. 
+This digital Wadden Sea System Report is designed as a reference work, to meet the initial information needs for managers, users and researchers of the Wadden Sea. It contains indicators that describe the state and trends of the natural abiotic system, and that affect the naturalness of the Wadden system. This makes them relevant for different management and policy goals in the Wadden Sea region.
 
-Please note that for now, only the Introduction is available in English and German. The translation of the sections describing the indicators cannot be automated, hence is too labour intensive to be checked with every update. We hope that despite this, the access to the information and a possible translation by the user provides sufficient functionality. 
+Please note that for now, only the Introduction is available in English and German. The translation of the sections describing the indicators cannot be automated, hence is too labour intensive to be checked with every update. We hope that despite this, the access to the information and a possible translation by the user provides sufficient functionality.
 
-Information from this Digital System Report can be quoted as follows: "Stolte, W., Vroom, J., Santinelli, G., Veenstra, J., Van Oeveren, C., Van Zelst, V. and Dijkstra, J. (2023). Digital System Report of the Wadden Sea, version 1.0. https://systeemrapportage.nl/wadden/".
+Information from this Digital System Report can be quoted as follows: "Stolte, W., Vroom, J., Santinelli, G., Veenstra, J., Van Oeveren, C., Van Zelst, V. and Dijkstra, J. (2023). Digital System Report of the Wadden Sea, version 1.0. <https://systeemrapportage.nl/wadden/>".
 
-If you notice any deficiencies or incompleteness we would be pleased to hear from you at: jasper.dijkstra -at- deltares.nl and/or martijn.kleinobbink -at- rws.nl. 
-
+If you notice any deficiencies or incompleteness we would be pleased to hear from you at: jasper.dijkstra -at- deltares.nl and/or martijn.kleinobbink -at- rws.nl.
 
 ## Deutsch {-}
 
 Dieser Bericht über das Wassersystem ist eine Initiative von:
 
-- Rijkswaterstaat
-    - Nördliche Niederlande
-    - WVL
-- Deltares
+-   Rijkswaterstaat
+    -   Nördliche Niederlande
+    -   WVL
+-   Deltares
 
 Dieser digitale Wattenmeersystembericht ist als Nachschlagewerk konzipiert, um den ersten Informationsbedarf von Managern, Nutzern und Forschern des Wattenmeeres zu decken. Er enthält Indikatoren, die den Zustand und die Trends des natürlichen abiotischen Systems beschreiben und die die Natürlichkeit des Wattenmeeres beeinflussen. Dies macht sie für verschiedene Management- und Politikziele in der Wattenmeerregion relevant.
 
 Bitte beachten Sie, dass derzeit nur die Einleitung auf Englisch und Deutsch verfügbar ist. Die Übersetzung der Abschnitte, in denen die Indikatoren beschrieben werden, kann nicht automatisiert werden und ist daher zu arbeitsintensiv, um bei jeder Aktualisierung überprüft zu werden. Wir hoffen, dass der Zugang zu den Informationen und eine mögliche Übersetzung durch den Benutzer trotzdem eine ausreichende Funktionalität bietet.
 
-Informationen aus diesem digitalen Systembericht können wie folgt zitiert werden: "Stolte, W., Vroom, J., Santinelli, G., Veenstra, J., Van Oeveren, C., Van Zelst, V. und Dijkstra, J. (2023). Digitaler Systembericht über das Wattenmeer, Version 1.0. https://systeemrapportage.nl/wadden/".
+Informationen aus diesem digitalen Systembericht können wie folgt zitiert werden: "Stolte, W., Vroom, J., Santinelli, G., Veenstra, J., Van Oeveren, C., Van Zelst, V. und Dijkstra, J. (2023). Digitaler Systembericht über das Wattenmeer, Version 1.0. <https://systeemrapportage.nl/wadden/>".
 
 Sollten Sie Unzulänglichkeiten oder Unvollständigkeiten feststellen, würden wir uns freuen, von Ihnen zu hören: jasper.dijkstra -at- deltares.nl und/oder martijn.kleinobbink -at- rws.nl.
