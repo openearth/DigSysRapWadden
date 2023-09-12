@@ -177,8 +177,9 @@ Figuur \@ref(fig:kaartGetijslag) geeft de gemiddelde getijslag over 2011-2020 we
 <!-- De meeste waterstandstations liggen in geulen, behalve Wierumerwad1 en Uithuizerwad1. Deze twee stations tonen een kleinere getijslag omdat ze een gedeelte van de tijd droogvallen. -->
 
 
+(ref:kaartGetijslagLabel) Gemiddelde getijslag per station over het meest recente jaar waar volledige gegevens beschikbaar zijn (`r endyear`).
 
-```{r kaartGetijslag, fig.height=6, fig.width=8, fig.cap="Gemiddelde getijslag per station over het meest recente jaar waar volledige gegevens beschikbaar zijn (`r endyear`)."}
+```{r kaartGetijslag, fig.height=6, fig.width=8, fig.cap="(ref:kaartGetijslagLabel)"}
 
 metadata <- read_delim(file.path(datadir, "ddl/metadata/Wadden_metadata.csv"),delim = ";") %>%
   distinct(locatie.naam, x, y)
@@ -763,7 +764,7 @@ parData <- EmsAfvoer %>% bind_rows(LedaAfvoer) %>%
 
 ```
 
-### Kleinere zoetwaterafvoeren (#kleinzoetwater)
+### Kleinere zoetwaterafvoeren {#kleinzoetwater}
 
 [Duran-Matute et al. (2014)](https://os.copernicus.org/articles/10/611/2014/os-10-611-2014.pdf) geeft een (incompleet) overzicht van de ordegrootte van de zoetwaterafvoeren in de westelijke Waddenzee met de gemiddelde afvoerhoeveelheden. De gegevens van de kleinere zoetwaterafvoeren (poldergemalen) worden beheerd bij de verschillende waterschappen:
 

@@ -25,7 +25,7 @@ knitr::include_graphics("images/voorplaat.png")
 
 </br>
 
-## Nederlands {-}
+### Nederlands {-}
 
 Deze watersysteemrapportage is een initiatief van:
 
@@ -42,7 +42,7 @@ Informatie uit deze Digitale Systeemrapportage kan als volgt geciteerd worden: "
 
 Als u gebreken of onvolledigheden constateert horen wij dat graag via: jasper.dijkstra -at- deltares.nl en/of martijn.kleinobbink -at- rws.nl.
 
-## English {-}
+### English {-}
 
 
 This water system report is an initiative of:
@@ -60,7 +60,7 @@ Information from this Digital System Report can be quoted as follows: "Stolte, W
 
 If you notice any deficiencies or incompleteness we would be pleased to hear from you at: jasper.dijkstra -at- deltares.nl and/or martijn.kleinobbink -at- rws.nl.
 
-## Deutsch {-}
+### Deutsch {-}
 
 Dieser Bericht über das Wassersystem ist eine Initiative von:
 

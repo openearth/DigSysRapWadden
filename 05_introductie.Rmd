@@ -139,9 +139,9 @@ knitr::kable(kadertabel, caption = "Beheerskaders en beschikbare koppelingen naa
 
 ```
 
-## Introduction English {#introduction}
+## Introduction English {.unnumbered #introduction}
 
-## Basic Wadden Monitoring
+### Basic Wadden Monitoring {.unnumbered}
 
 This Digital System Report (DSR) has been set up as part of the Nature Monitoring Wadden project - Morphology section of Rijkswaterstaat. This in turn falls under the [Basismonitoring Wadden](https://basismonitoringwadden.waddenzee.nl/), and covers the non-living (abiotic) features of the Wadden Sea. Basic Wadden Monitoring monitors developments in the Wadden area, with the following main objectives:
 
@@ -155,7 +155,7 @@ For the abiotic (non-living) nature of the Wadden Sea, a key objective is:
 
 > *'the most natural development of water movements and associated geomorphological and seabed processes.' - [Structure Vision Wadden Sea](https://www.noordzeeloket.nl/publish/pages/122066/brein-herziening-2021-structuurvisie-waddenzee-id-28.pdf)*
 
-## Purpose Digital System Report
+### Purpose Digital System Report {.unnumbered }
 
 The aim of the Digital System Report Wadden is to achieve up-to-date, transparent and consistent sets of indicators, and to make them accessible in an accessible way. The digital report also allows the information to be easily updated. Thus, it already directly contributes to the first and third goal of Basic Monitoring Wadden.
 
@@ -163,15 +163,15 @@ By making the relevant information accessible, trends and developments can be qu
 
 The data represented by the indicators can be downloaded directly from the Appendix \Aref(data) page.
 
-## Information needs and indicators
+### Information needs and indicators {.unnumbered}
 
 Indicators are measurable (or derivable from measurements) quantities that have a signalling function, providing information about the quality of something, for example. In this system report, we limit ourselves to the information needs arising from the policy and management objectives for the abiotic nature of the Wadden Sea. This includes all abiotic characteristics that influence the naturalness of the Wadden system, such as sediment composition, turbidity, temperature, salinity, etc. The required data comes partly from spatial measurements (e.g. bottom location), and partly from monitoring stations and locations as shown in figure \@ref(fig:kaartAbiotieklocaties).
 
 An exception to this is the Ecotope Map and the map layers of current velocities, waves, salinity a dryfall duration used to create it. These are not based directly on measurements but on model simulations over specific periods. Thus, although these maps do not really belong on the DSR, they are included because they contain a lot of valuable, indicative spatial information for many users. However, the user should be aware of the limitations, namely that these are model results generated for a specific purpose, which are not simply suitable for other applications or general conclusions. 
 
-## Einleitung {#einleitung}
+## Einleitung {.unnumbered #einleitung}
 
-## Basic Wadden Monitoring
+### Basic Wadden Monitoring {.unnumbered}
 
 Der digitale Systembericht (DSR) wurde im Rahmen des Projekts Naturmonitoring Wadden - Sektion Morphologie des Rijkswaterstaat - erstellt. Dieses wiederum gehört zum [Basismonitoring Wadden] (<https://basismonitoringwadden.waddenzee.nl/>) und umfasst die nicht lebenden (abiotischen) Merkmale des Wattenmeeres. Das Basismonitoring Wadden überwacht die Entwicklungen im Wattgebiet und verfolgt dabei folgende Hauptziele:
 
@@ -185,7 +185,7 @@ Für die abiotische Natur des Wattenmeeres ist ein Schlüsselziel:
 
 > *'eine möglichst natürliche Entwicklung der Wasserbewegungen und der damit verbundenen geomorphologischen und bodenkundlichen Prozesse.' - [Strukturvision Wattenmeer](https://www.noordzeeloket.nl/publish/pages/122066/brein-herziening-2021-structuurvisie-waddenzee-id-28.pdf)*
 
-## Zweck des DSR
+### Zweck des DSR {.unnumbered}
 
 Das Ziel des Digitalen Systemberichts Wattenmeer ist es, aktuelle, transparente und konsistente Indikatorensätze zu erhalten und diese auf eine zugängliche Art und Weise zu präsentieren (veröffentlichen). Der digitale Bericht ermöglicht auch eine einfache Aktualisierung der Informationen. Damit trägt er bereits direkt zum ersten und dritten Ziel des Basic Monitoring Wadden bei.
 
@@ -193,7 +193,7 @@ Indem die relevanten Informationen zugänglich gemacht werden, können Trends un
 
 Die Daten, die durch die Indikatoren dargestellt werden, können direkt von der Seite AppendiX \@ref(data) heruntergeladen werden.
 
-## Informationsbedarf und Indikatoren
+### Informationsbedarf und Indikatoren {.unnumbered}
 
 Indikatoren sind messbare (oder aus Messungen ableitbare) Größen, die eine Signalfunktion haben und z.B. Auskunft über die Qualität geben. In diesem Systembericht beschränken wir uns auf den Informationsbedarf, der sich aus den Politik- und Managementzielen für die abiotische Natur des Wattenmeeres ergibt. Dazu gehören alle abiotischen Merkmale, die die Natürlichkeit des Wattenmeeres beeinflussen, wie Sedimentzusammensetzung, Trübung, Temperatur, Salzgehalt usw. Die erforderlichen Daten stammen zum Teil aus räumlichen Messungen (z. B. Bodenlage) und zum Teil aus Überwachungsstationen und -standorten, wie in der Abbildung \@ref(fig:kaartAbiotieklocaties) dargestellt.
 
