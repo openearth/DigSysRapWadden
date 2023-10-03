@@ -27,11 +27,13 @@ k = KIWIS('https://meetreeksen.hunzeenaas.nl/KiWIS/KiWIS?service=kisters', stric
 #find allstations
 stations = k.get_station_list()
 #stations.to_csv(r'C:\projecten\rws\2022\zoetwaterdebiet\stationshez.csv')
-
+# %%
 #select the stations from the meetreeks
 station_ids=[]
 for i in range(len(meet_ids['meetreeks_id'])):
-    ts_id=k.get_timeseries_list(ts_id=meet_ids['meetreeks_id'][i]) #, parametertype_name = 'Q')
+    ts_id=k.get_timeseries_list(ts_id=meet_ids['meetreeks_id'][i] 
+                                ) #, parametertype_name = 'Q')
+    print(ts_id)
     station_ids.append(ts_id['station_id'])
 
 station_id = pd.DataFrame(station_ids)
@@ -47,13 +49,16 @@ selected_stations=stations.loc[stations['station_id'].isin(station_id.iloc[:,0])
 result = pd.merge(combined, selected_stations, on='station_id')
 #%%
 
-for i in range(len(meet_ids['meetreeks_id'])-1):#the last entry does not work, so is skipped for noww
-    time.sleep(90) #timer for the server'
+#for i in range(len(meet_ids['meetreeks_id'])):#the last entry does not work, so is skipped for noww
+for i in range(len(station_ids)):
+    #time.sleep(90) #timer for the server'
     print('processing :', result['Object'][i])
     l = meet_ids.iloc[i]
     t=k.get_timeseries_values(ts_id = result['meetreeks_id'][i], 
                             to = date(result['time_stop'][i],1,1), 
-                            **{'from': date(result['time_start'][i],1,1)})
+                            **{'from': date(result['time_start'][i],1,1)}
+                            )
+    print(t)
     t=t.reset_index()
     t=t.rename(columns={'Timestamp':'datumtijd', 'Value': 'numeriekewaarde'})
     dfx = t.join(pd.DataFrame({
@@ -66,6 +71,7 @@ for i in range(len(meet_ids['meetreeks_id'])-1):#the last entry does not work, s
         'locatie.naam':result['Object'][i],
         'gebied':'Hunze en Aas'}, index=t.index
     ))
+
     dfx.to_csv(path + str(meet_ids['Object'][i]) + '.csv')
 
 """

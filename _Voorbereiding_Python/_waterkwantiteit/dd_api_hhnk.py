@@ -11,7 +11,7 @@ path='P:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\HHNK\\raw\\'
 path_csv=r'C:\projecten\rws\2022\zoetwaterdebiet\hhnk\csv'
 
 #path of api
-ddapi = 'https://hhnk.lizard.net/dd/api/v4'
+ddapi = 'https://hhnk.lizard.net/api/v4/'
 
 #names and codes of stations needed in analysis
 names= ['Helsdeur', 'Oostoever', 'Leemans'] 
@@ -19,6 +19,7 @@ codes=['KGM-Q-29234', 'KGM-Q-29235', 'KGM-A-371','KGM-JF-44'  ]
 
 mdata = []
 
+# %%
 #-----------start fetching data
 #for loop to oop through the station codes and get the corresponding url to fetch data from
 for i in range(len(codes)):
@@ -75,4 +76,51 @@ for i in range(len(codes)):
                     df = pd.DataFrame(drespons['events'])
                     df=df.join(metadata)
                    # df.to_csv(path+name+code+'.csv', index=False)
+# %%
+# the url to retrieve the data from, groundwaterstation data 
+ground = "https://hhnk.lizard.net/api/v4/pumpstations/"
+#creation of empty lists to fill during retrieving process
+gdata = []
+tsv=[]
+timeurllist= []
+
+#retrieve information about the different groundwater stations, this loops through all the pages
+response = requests.get(ground).json()
+groundwater = response['results']
+while response["next"]:
+    response = requests.get(response["next"]).json()
+    groundwater.extend(response["results"])
+
+    
+# %%
+#start retrieving of the seperate timeseries per groundwaterstation
+    for i in range(len(response)):
+        geom = response['results'][i]['geometry']
+        #print( response['results'][i]['filters'][0]['code'])
+        #creation of a metadata dict to store the data
+        metadata= {
+            'locatie.naam' : response['results'][i]['filters'][0]['code'], 
+            'x' : geom["coordinates"][0],
+            'y' : geom["coordinates"][1],
+                }
+        ts = response['results'][i]['filters'][0]['timeseries'][0]
+        timeurllist.append([ts])
+        #conversion to df
+        gdata.append(metadata)
+
+        #new call to retrieve timeseries
+        tsresponse = requests.get(ts).json()
+        start = tsresponse['start']
+        end= tsresponse['end']
+
+        if start is not None or end is not None:
+            params = {'start': start, 'end': end}
+            t = requests.get(ts + 'events', params=params).json()['results']
+        #only retrieving data which has a flag below four, flags are added next to the timeseries
+        #this is why we first need to extract all timeseries before we can filter on flags... 
+        #for flags see: https://publicwiki.deltares.nl/display/FEWSDOC/D+Time+Series+Flags
+            if t[i]['flag']<4:
+                tsv.extend(t)
+        timeseries = pd.DataFrame.from_dict(tsv) #check size of timeseries to see if data is returned
+        df = pd.DataFrame(gdata)
 # %%
