@@ -787,7 +787,11 @@ wetterskipDat <- data.table::fread(wetterskipURL, na.strings = '-999')
 noorderzijlURL <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Anoorderzijlvest&outputFormat=csv"
 noorderzijlDat <-  data.table::fread(noorderzijlURL, na.strings = '-999')
 
-hunzeURL<- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahunzeenaas&outputFormat=csv"
+# hunzeURL<- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahunzeenaas&outputFormat=csv"
+
+
+hunzeURL <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahunzeenaas_daggemiddelden&outputFormat=csv"
+
 hunzeDat <- data.table::fread(hunzeURL, na.strings = '-999')
 ```
 
@@ -931,27 +935,42 @@ ggplot() +
 # Data ziet er gek uit -> klopt deze analyse wel? 
 # Andere optie zou andere sensoren kunnen zijn dat het anders gemeten wordt of andere frequentie. Nu lijken het non equidistante tijdreeksen te zijn. 
 
-hunzeDat2 <-hunzeDat %>%
-  # sf::st_drop_geometry() %>%
-  dplyr::mutate(datum = as_date(datumtijd)) %>%
+# hunzeDat2 <-hunzeDat %>%
+#   # sf::st_drop_geometry() %>%
+#   dplyr::mutate(datum = as_date(datumtijd)) %>%
+#   mutate(
+#     dag = day(as_date(datum)),
+#     jaar = year(as_date(datum)), 
+#     maand = month(as_date(datum))
+#   ) %>%
+#   group_by(locatie.naam, dag, grootheid.code, eenheid.code, jaar, maand)  %>%
+#   summarize(daggemiddelde = mean(numeriekewaarde, na.rm = T), count = n()) #
+
+
+hunzeDat %>%
+  mutate(datum = as.Date(datum, "%d-%m-%Y")) %>%
   mutate(
-    dag = day(as_date(datum)),
-    jaar = year(as_date(datum)), 
-    maand = month(as_date(datum))
-  ) %>%
-  group_by(locatie.naam, dag, grootheid.code, eenheid.code, jaar, maand)  %>%
-  summarize(daggemiddelde = mean(numeriekewaarde, na.rm = T), count = n()) #
-
-
+    jaar = lubridate::year(datum),
+    maand = lubridate::month(datum)
+  ) %>% 
 ggplot() +
-  geom_point(data = hunzeDat2, aes(as.Date(lubridate::ymd(paste(jaar, maand, dag))), daggemiddelde, color = "daggemiddelde"), alpha = 1, size = 0.65) +
-   geom_point(data = hunzeDat2 %>%
-               group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()),
-             aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
+  geom_point(aes(datum, daggemiddelde, color = "daggemiddelde"), alpha = 1, size = 0.65) +
+  geom_point(data = . %>%
+               group_by(locatie.naam, jaar, maand) %>% 
+               summarize(maandgemiddelde = mean(daggemiddelde), n = n()) %>%
+               mutate(datum = lubridate::ymd(paste(jaar, maand, "15"))),
+             aes(datum, maandgemiddelde, color = "maandgemiddelde"), 
+             size = 1
   )  +
-  geom_line(data = hunzeDat2 %>%
-              group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()) %>% ungroup() %>%
-              group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
+  geom_line(data = . %>%
+              group_by(locatie.naam, jaar, maand) %>%
+              summarize(maandgemiddelde = mean(daggemiddelde), n = n()) %>%
+              ungroup() %>%
+              group_by(locatie.naam, jaar) %>%
+              summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>%
+              ungroup() %>%
+              filter(`n/jaar` > 10) %>%
+              mutate(datum = as.Date(paste(jaar, "07", "01"), "%Y-%m-%d")),
             aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
   ) +
   coord_cartesian(ylim = c(NA,NA)) +

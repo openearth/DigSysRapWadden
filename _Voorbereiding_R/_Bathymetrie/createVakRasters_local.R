@@ -56,6 +56,7 @@ dir.create(paste0(processingpath,"mosaic"))
 
 ## list all possible years available in netcdf
 vakTiles2 <- list.files(file.path("_Voorbereiding_R", "_Bathymetrie", "processing_tiles_doeljaren", "nc"), full.names = T)
+vakTiles2 <- list.files(file.path("_Voorbereiding_R", "_Bathymetrie", "processing_tiles", "nc"), full.names = T)
 for (ii in 1:length(vakTiles2)){
   bathytile <- raster::brick(vakTiles2[ii])
   stacks <- append(stacks, names(bathytile))
