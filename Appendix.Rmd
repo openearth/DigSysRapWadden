@@ -331,7 +331,7 @@ De anomalie van de saliniteit is de afwijking van de maandgemiddelde saliniteit 
 
 ```{r}
 download_link(
-  file.path("http://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden", "RWS", "standard", "WQ_TS_trendstations_allyears.csv"),
+  file.path("http://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden", "ddl", "standard", "WQ_TS_trendstations_allyears.csv"),
   button_label = "Temperatuur en saliniteitgegevens als csv",
   button_type = "primary",
   has_icon = TRUE,
