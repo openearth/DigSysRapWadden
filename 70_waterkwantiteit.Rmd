@@ -851,7 +851,9 @@ ggplot() +
 ```{r friesAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren Wetterskip Friesland. "}
 
 wetterskipDat2 <- wetterskipDat %>%
-  mutate(jaar = year(datum), maand = month(datum)) %>%
+  mutate(jaar = year(datum), 
+         maand = month(datum)
+         ) %>%
   mutate(
     numeriekewaarde = numeriekewaarde/(24*60*60),
     eenheid.code = "m3/s"
@@ -863,12 +865,17 @@ xlabel = "jaar"
 ggplot() +
   geom_point(data = wetterskipDat2, aes(datum, numeriekewaarde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
   geom_point(data = wetterskipDat2 %>%
-               group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
+               group_by(locatie.naam, jaar, maand) %>% 
+               summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
              aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
   ) +
   geom_line(data = wetterskipDat2 %>%
-              group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
-              group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
+              group_by(locatie.naam, jaar, maand) %>% 
+              summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% 
+              ungroup() %>%
+              group_by(locatie.naam, jaar) %>% 
+              summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% 
+              ungroup() %>% filter(`n/jaar` > 10),
             aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
   ) +
   coord_cartesian(ylim = c(NA,NA)) +
@@ -891,8 +898,11 @@ ggplot() +
 
 
 noorderzijlDat2 <- noorderzijlDat %>%
-  mutate(datum = as.Date(datum)) %>%
-  mutate(jaar = year(datum), maand = month(datum)) %>%
+  mutate(datum = as.Date(datum)
+         ) %>%
+  mutate(jaar = year(datum), 
+         maand = month(datum)
+         ) %>%
   mutate(
     numeriekewaarde = numeriekewaarde/(24*60*60),
     eenheid.code = "m3/s"
@@ -904,12 +914,18 @@ xlabel = "jaar"
 ggplot() +
   geom_point(data = noorderzijlDat2, aes(datum, numeriekewaarde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
   geom_point(data = noorderzijlDat2 %>%
-               group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
+               group_by(locatie.naam, jaar, maand) %>% 
+               summarize(maandgemiddelde = mean(numeriekewaarde), n = n()),
              aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
   ) +
   geom_line(data = noorderzijlDat2 %>%
-              group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% ungroup() %>%
-              group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
+              group_by(locatie.naam, jaar, maand) %>% 
+              summarize(maandgemiddelde = mean(numeriekewaarde), n = n()) %>% 
+              ungroup() %>%
+              group_by(locatie.naam, jaar) %>% 
+              summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% 
+              ungroup() %>% 
+              filter(`n/jaar` > 10),
             aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
   ) +
   coord_cartesian(ylim = c(NA,NA)) +
@@ -928,6 +944,7 @@ ggplot() +
 
 
 ***Hunze en Aas***
+De afvoeren van Waterschap Hunze en Aas zijn onbewerkte, ongevalideerde gegevens. Hierdoor kunnen er mogelijk wat uitschieters of onregelmatigheden in de data voorkomen. Hierdoor verschillende de hoeveelheden die bij elk van de afvoeren horen. Rozema (max 45 m3/s) en Duurswold (max 28 m3/s) zijn grote gemalen waar Breebaart (max 0,5833 m3/s) een kleine afvoer is. De maximale capaciteiten variëren afhankelijk van de opvoerhoogte. 
 
 
 
