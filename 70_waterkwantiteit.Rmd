@@ -797,7 +797,8 @@ hunzeDat <- data.table::fread(hunzeURL, na.strings = '-999')
 
 
 ***Hollands Noorderkwartier***
-Hier wordt nog aan gewerkt.
+
+Hoogheemraadschap Hollands Noorderkwartier is momenteel bezig met een project om de debieten van de uitwisselpunten op orde te krijgen. Tijdens het opvragen van de data was dit proces nog in gang, hierdoor is de data die in de onderstaande grafieken wordt gepresenteerd nog niet gevalideerd. 
 
 ```{r hhnkAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren Hoogheemraadschap Hollands Noorderkwartier. "}
 #that cell is still turned off the final graph is not correct
@@ -848,6 +849,11 @@ ggplot() +
 
 ***Wetterskip Friesland***
 
+Hieronder zijn drie kleine debietlocaties van Wetterskip Friesland aangegeven. Hiervan is Harlingen een spuisluis. Hier worden per kwartier de gemiddelde waterstanden gemeten, zowel voor en achter de sluis en daar wordt het samen met de deur- of rinketstand het debiet berekend. Dit is een ijking door het Waterloopkundig laboratorium (De Voorst) van begin jaren 90.
+
+Ropta en Miedema zijn gemalen. Hier wordt debiet wordt berekend door draaiuren maal een vaste cappaciteit van de pomp. Dit is verder niet gekalibreerd of geijkt.
+
+
 ```{r friesAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren Wetterskip Friesland. "}
 
 wetterskipDat2 <- wetterskipDat %>%
@@ -893,6 +899,8 @@ ggplot() +
 ```
 
 ***Noorderzijlvest***
+
+Deze data is tot stand gekomen door bewerkingen en berekingen met formules. Met debietformules worden berekeningen uitgevoerd die de werkelijkheid versimpelen; dit gebeurt nooit helemaal correct; er is dus altijd een zekere foutmargen. Er zijn onzekerheden bij enkele gebruikte debiet-formules waar vanuit de bewerkingen zijn uitgevoerd (met name Spijksterpompen en De Drie Delfzijlen). De Spijksterpompen zijn in 2019 en 2020 vernieuwd, in die tijd waren er noodpompen actief waardoor het debiet in die tijdsperiode onbekend was. Deze debieten zijn dus niet meegenomen in de volume berekeningen. De Drie Delfzijlen bestaat uit drie pompen en een schuif. Deze schuif is vernieuwd in 2019 waardoor er nog geen goede debiet formules beschikbaar zijn. Hierdoor zit er extra onzekerheid in de waardes van de Drie Delfzijlen na 2019. 
 
 ```{r noorderzijlAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren Noorderzijlvest. "}
 
@@ -944,7 +952,8 @@ ggplot() +
 
 
 ***Hunze en Aas***
-De afvoeren van Waterschap Hunze en Aas zijn onbewerkte, ongevalideerde gegevens. Hierdoor kunnen er mogelijk wat uitschieters of onregelmatigheden in de data voorkomen. Hierdoor verschillende de hoeveelheden die bij elk van de afvoeren horen. Rozema (max 45 m3/s) en Duurswold (max 28 m3/s) zijn grote gemalen waar Breebaart (max 0,5833 m3/s) een kleine afvoer is. De maximale capaciteiten variëren afhankelijk van de opvoerhoogte. 
+
+De afvoeren van Waterschap Hunze en Aas zijn onbewerkte, ongevalideerde gegevens. Hierdoor kunnen er mogelijk wat uitschieters of onregelmatigheden in de data voorkomen. Hierdoor verschillende de hoeveelheden die bij elk van de afvoeren horen. Rozema (max 45 m3/s) en Duurswold (max 28 m3/s) zijn grote gemalen waar Breebaart (max 0,5833 m3/s) een kleine afvoer is. De maximale capaciteiten variëren afhankelijk van de opvoerhoogte. In de grafieken die hieronder gepresenteerd zijn, zitten een aantal meetfouten. Hier wordt nog aan gewerkt bij waterschap Hunze en Aa's.
 
 
 
