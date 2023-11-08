@@ -778,7 +778,7 @@ De gegevens zijn opgevraagd bij de desbetreffende waterschappen en ontsloten via
 
 ```{r kleineZoetwaterDataInlezen, cache=TRUE}
 
-hhnkURL = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahhnk&outputFormat=csv"
+hhnkURL = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahhnk_daggemiddelden&outputFormat=csv"
 hhnkDat = data.table::fread(hhnkURL, na.strings = '-999')
 
 wetterskipURL <- "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Afriesland&outputFormat=csv"
@@ -801,22 +801,18 @@ hunzeDat <- data.table::fread(hunzeURL, na.strings = '-999')
 Hoogheemraadschap Hollands Noorderkwartier is momenteel bezig met een project om de debieten van de uitwisselpunten op orde te krijgen. Tijdens het opvragen van de data was dit proces nog in gang, hierdoor is de data die in de onderstaande grafieken wordt gepresenteerd nog niet gevalideerd. 
 
 ```{r hhnkAfvoerTijdserie, fig.cap="Tijdseries van zoetwaterafvoeren Hoogheemraadschap Hollands Noorderkwartier. "}
-#that cell is still turned off the final graph is not correct
-
-# table(hhnkDat$kwaliteitsoordeel.code)
+#Er klopt iets nog niet met de daggemiddelden die in de database staan. Nathalie checkt in de database
+#
 # wat doen met onbetrouwbare waarden? voor nu alleen een filter op betrouwbaar
 
 hhnkDat2<-hhnkDat %>% 
-  dplyr::filter(kwaliteitsoordeel.code == "betrouwbaar") %>%
   # make daily average
-  dplyr::mutate(datum = as.POSIXct(datum, format="%d-%m-%Y %I:%M")) %>%
+  dplyr::mutate(datum = as.POSIXct(datum, format="%Y-%m-%d")) %>%
   dplyr::mutate(
     dag = day(as_date(datum)),
     jaar = year(as_date(datum)), 
     maand = month(as_date(datum))
-  ) %>%
-  dplyr::group_by(locatie.naam, dag, grootheid.code, eenheid.code, kwaliteitsoordeel.code, jaar, maand)  %>%
-  dplyr::summarize(daggemiddelde = mean(numeriekewaarde, na.rm = T), count = n()) #sunmmarizing the column numeriekewaarde
+  ) 
 
 parlabel = paste(unique(hhnkDat$grootheid.code), unique(hhnkDat$eenheid.code))
 xlabel = "jaar"
@@ -824,12 +820,18 @@ xlabel = "jaar"
 ggplot() +
   geom_point(data = hhnkDat2, aes(as.Date(lubridate::ymd(paste(jaar, maand, dag))), daggemiddelde, color = "daggemiddelde"), alpha = 1, size = 0.65) + #
   geom_point(data = hhnkDat2 %>%
-               group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()),
+               group_by(locatie.naam, jaar, maand) %>% 
+               summarize(maandgemiddelde = mean(daggemiddelde), n = n()),
              aes(as.Date(lubridate::ymd(paste(jaar, maand, "15"))), maandgemiddelde, color = "maandgemiddelde"), size = 1
   )  +
   geom_line(data = hhnkDat2 %>%
-              group_by(locatie.naam, jaar, maand) %>% summarize(maandgemiddelde = mean(daggemiddelde), n = n()) %>% ungroup() %>%
-              group_by(locatie.naam, jaar) %>% summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% filter(`n/jaar` > 10),
+              group_by(locatie.naam, jaar, maand) %>% 
+              summarize(maandgemiddelde = mean(daggemiddelde), n = n()) %>% 
+              ungroup() %>%
+              group_by(locatie.naam, jaar) %>% 
+              summarize(jaargemiddelde = mean(maandgemiddelde), `n/jaar` = sum(n)) %>% 
+              ungroup() %>% 
+              filter(`n/jaar` > 10),
             aes(as.Date(lubridate::ymd(paste(jaar, "07", "01"))), jaargemiddelde, color = "jaargemiddelde"), size = 1.5, alpha = 0.8
   ) +
   coord_cartesian(ylim = c(NA,NA)) +
