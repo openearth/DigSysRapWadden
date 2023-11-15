@@ -42,7 +42,7 @@ if(refreshpolygon){
   try(sf::st_write(poly, file.path(datadir, "vakken", "wmr_vakken.geojson")))
 }
 
-poly <- sf::st_read(file.path(datadir, "vakken", "wmr_vakken.geojson"))
+poly <- sf::st_read(file.path(datadir, "vakken", "wmr_vakken.geojson"), quiet = T)
 
 leaflet(poly %>% st_transform(4326)) %>%
   addTiles() %>%
