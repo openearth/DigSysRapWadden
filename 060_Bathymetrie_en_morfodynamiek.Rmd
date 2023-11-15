@@ -51,6 +51,30 @@ leaflet(poly %>% st_transform(4326)) %>%
 
 ```
 
+Daarnaast kunnen binnen deze bekkens ook nog verschillende kombergingen worden aangewezen. In deze rapportage wordt voorlopig alleen het Marsdiep onderverdeeld in verschillende deelgebieden. De volgende deelgebieden worden gehanteerd: Balgzand, Boontjes, Doovebalg, Scheurrak, Texelstroom en Zwanenbalg, zoals te zien in Figuur \@ref(fig:deelgebiedenWaddenzee). Voor de andere bekkens worden de grenzen nog bepaald.  
+
+```{r deelgebiedenWaddenzee, fig.cap="Indeling van het Marsdiep in verschillende kombergingsgebieden voor het gebruik in morfologische indicatoren. "}
+deelgebieden <- c('Balgzand', 'Boontjes', 'DooveBalg', 'Scheurrak', 'Texelstroom', 'Zwanenbalg')
+deelgebieden_df <- data.frame()
+
+for (deelgebied in deelgebieden){
+  df <- read_table(
+    paste0("N:/Projects/11209000/11209267/B. Measurements and calculations/01. Kombergingsrapportage/",
+           as.character(deelgebied),".pol"),skip = 7) %>% as.data.frame()
+  colnames(df) <- c('x', 'y')
+  sf <- df %>% st_as_sf(coords=c('x', 'y'), crs= 28992) %>% 
+    st_combine() %>% st_cast("POLYGON") 
+  sf <- data.frame(var = 1, deelgebied = deelgebied, geometry = st_geometry(sf))
+  deelgebieden_df <- rbind(deelgebieden_df, sf)
+}
+
+deelgebieden_sf <- st_as_sf(deelgebieden_df) 
+
+leaflet(deelgebieden_sf %>% st_transform(4326)) %>%
+  addTiles() %>%
+  addPolygons(label = ~deelgebied, labelOptions = labelOptions(noHide = T))
+
+```
 
 Daarnaast kunnen binnen deze bekkens ook nog verschillende kombergingen worden aangewezen. In deze rapportage wordt voorlopig alleen het Marsdiep onderverdeeld in verschillende deelgebieden. De volgende deelgebieden worden gehanteerd: Balgzand, Boontjes, Doovebalg, Scheurrak, Texelstroom en Zwanenbalg, zoals te zien in Figuur \@ref(fig:deelgebiedenWaddenzee). Voor de andere bekkens worden de grenzen nog bepaald.  
 
@@ -213,6 +237,27 @@ valid.values.df <- map(valid.values, as_tibble) %>%
 
 save(valid.values.df, file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
 
+# Now we do the same for deelgebieden (Marsdiep)
+
+croppedRastersMarsdiep <- try(
+  lapply(
+    1:nrow(deelgebieden_sf),
+    function(x)   # croppedRasters <- lapply(1:nrow(poly), function(x)
+      raster::mask(
+        raster::crop(bathymetries, extent(deelgebieden_sf[x,])), deelgebieden_sf[x,]
+      )
+  )
+)
+
+valid.data.Marsdiep <- lapply(croppedRastersMarsdiep, function(x) which(!is.na(getValues(max(x, na.rm=FALSE)))))
+
+valid.values.Marsdiep <- map2(croppedRastersMarsdiep, valid.data.Marsdiep, raster::extract)
+valid.values.Marsdiep.df <- map(valid.values.Marsdiep, as_tibble) %>%
+  map(pivot_longer, everything(), names_to = "jaar", values_to = "diepte") %>%
+  set_names(deelgebieden)%>%
+  rbindlist(idcol = "naam") %>%
+  mutate(jaar = as.integer(str_replace(jaar, "mosaic_", ""))) 
+
 ```
 
 
@@ -259,7 +304,34 @@ if(knitr::is_html_output()) {
 
 ```
 
+Figuur \@ref(fig:hypsometriePerDeelgebied) toont de hypsometrische curves voor de deelgebieden (voor afbakening, zie figuur \@ref(fig:deelgebiedenWaddenzee))in het Marsdiep. Sommige gebieden, zoals het Balgzand, Boontjes, Scheurrak en Zwanenbalg laten net als de bekkens een redelijk vlakke lijn zien, wat inhoudt dat het grooste deel van het areaal zich binnen een bepaalde range van diepte bevindt. In de DooveBalg en in mindere mate in de Texelstroom is de lijn meer lineair, wat betekent dat er een grotere variatie en eerlijkere verdeling is in het diepteprofiel. Vooral in de Boontjes en de Zwanenbalg is een duidelijke toename te zien in bodemhoogte over de jaren. 
 
+```{r hypsometriePerDeelgebied, fig.cap="Hypsometrische curven voor verschillende deelgebieden in het Marsdiep en voor een selectie van bathymetrieën. "}
+
+p <- valid.values.Marsdiep.df %>%
+  mutate(jaar = as.factor(jaar)) %>%
+  arrange(jaar, naam, diepte) %>%
+  group_by(naam, jaar) %>%
+  mutate(count = n(), cum = as.numeric(row_number())) %>%  
+  mutate(oppervlakte = 400*cum/1e6) %>% #JV: blijkbaar hier 2x delen om van m2 naar km2 te gaan...
+  sample_n(1000) %>%     # sample om de grafiek sneller te laten tekenen. heeft geen invloed op de positie, wel op de resolutie
+  ggplot() +
+  geom_line(aes(x = oppervlakte, y = diepte, color = jaar)) +
+  facet_wrap(~ naam, scales = "free_x", ncol = 3) +
+  xlab("Oppervlakte [km^2]") + ylab("Bodemligging t.o.v. NAP [m]") +
+  coord_cartesian(ylim = c(-5, 3)) +
+  theme(legend.position = "bottom")
+
+if(knitr::is_html_output()) {
+  ggplotly(
+    p, 900, 900) %>%
+    config(displayModeBar = F) %>%
+    layout(xaxis=list(fixedrange=TRUE)) %>%
+    layout(yaxis=list(fixedrange=TRUE)
+    )
+} else p
+
+```
 ## Arealen {#arealen}
 
 Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in vier verschillende hoogteklassen:
@@ -302,6 +374,7 @@ valid.values.df  %>%
   ggtitle("Areaal in km^2 per bekken en diepteklasse")
 
 ```
+
 ##	Plaathoogte
 
 De hoogte van het intergetijdengebied (plaathoogte) is afhankelijk van de hydrodynamiek en het aanbod van sediment. Het getij voert sediment aan, dat kan worden afgezet op de platen. Golfwerking leidt tot erosie van de platen. De balans tussen erosie en sedimentatie resulteert in een bepaalde plaathoogte. Indien er veranderingen optreden in het getij, kan dit leiden tot veranderingen in de stroomsnelheden, met andere sedimentbeschikbaarheid tot gevolg. Veranderingen in GHW (bijvoorbeeld door zeespiegelstijging) leiden tot andere overstromingsduur en kunnen leiden tot veranderende invloed van de golven. Voor platen die in evenwicht zijn, zijn er evenwichtsrelaties afgeleid door [Eysink & Biegel (1992)](https://repository.tudelft.nl/islandora/object/uuid%3A3a321491-a1c9-4eb2-b536-d35cb81302d8). 
