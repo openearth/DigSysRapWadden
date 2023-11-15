@@ -445,6 +445,23 @@ valid.values.df %>%
   ylab("Geuldiepte [m] t.o.v. NAP") + xlab("Jaar") 
 ```
 
+De ontwikkeling van de geuldiepte door de jaren laat voor de meeste deelgebieden, net als voor het Marsdiep bekken (figuur \@ref(fig:geuldiepte)), een sterke piek zien in 1949 en vervolgens een afname zien (figuur \@ref(fig:geuldiepteDeelgebieden)). In de Boontjes is de daling van de geuldiepte pas later ingezet. De geuldiepte van van Texelstroom ligt een stuk dieper dan de geuldiepte in de andere gebieden. Voor dit deelgebied laat de geuldiepte ook een andere trend zien, deze werd dieper tot 1971 en is vervolgens ondieper geworden.
+
+```{r geuldiepteDeelgebieden, fig.cap="Geuldiepte door de jaren in de verschillende deelgebieden. Let op de verschillende verticale assen. "}
+
+valid.values.Marsdiep.df %>% 
+  filter(diepte <= -5) %>%
+  group_by(naam, jaar) %>%
+  mutate(oppervlakte = 400/1e6, volume = diepte*400/1e6) %>%
+  summarize(geuldiepte = sum(volume)/sum(oppervlakte)) %>%
+  ggplot(aes(jaar, geuldiepte)) +
+  geom_line(aes()) +
+  geom_point(aes(), shape = 21, fill = "white", size = 3) +
+  facet_wrap(~ naam, scales = "free")+
+  coord_cartesian(xlim = c(1920, 2020)) +
+  ylab("Geuldiepte [m] t.o.v. NAP") + xlab("Jaar") 
+```
+
 ## Geuldoorsnede
 
 Van een aantal locaties, die ook gebruikt zullen worden in de kombergingrapportages, zijn geuldoorsnedes berekend. 
