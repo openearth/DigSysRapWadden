@@ -247,6 +247,29 @@ download_link(
 )
 ```
 
+
+```{r}
+download_link(
+  link = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahunzeenaas_daggemiddelden&outputFormat=csv",
+  button_label = "Hunze en Aa's daggemiddelden afvoeren als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = TRUE
+)
+```
+
+```{r}
+download_link(
+  link = "https://datahuiswadden.openearth.nl/geoserver/zoetwaterafvoeren/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=zoetwaterafvoeren%3Ahhnk_daggemiddelden&outputFormat=csv",
+  button_label = "HHNK daggemiddelden afvoeren als csv",
+  button_type = "primary",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = TRUE
+)
+```
+
 ### Bewerking van afvoeren
 
 In de systeemrapportage worden de daggemiddelde, maandgemiddelde en jaargemiddelde afvoeren weergegeven. 

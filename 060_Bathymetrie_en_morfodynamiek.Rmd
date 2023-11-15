@@ -649,3 +649,14 @@ leaflet() %>%
   )
 ```
 
+##	Bodemsamenstelling (SIBES)
+Synoptic Intertidal Benthic Surveys (SIBES) is een inventarisatie macrozoobenthos en sediment korrelgrootte in de Waddenzee. De dataset bevat beschrijvingen van de soortensamenstelling macrozoobenthische infauna van droogvallende delen in de gehele Nederlandse Waddenzee. Daarnaast bevat de dataset beschrijvingen van de sediment korrelgrootte samenstelling van droogvallende delen in de gehele Nederlandse Waddenzee. 
+
+Het doel waarvoor de data wordt verzameld is het bepalen van langetermijnverandering macrozoobenthos in de Waddenzee, consequenties voor draagkracht van het gebied draagkracht Waddenzee. Daarnaast het bepalen van de effecten van bodemdaling op het benthische ecosysteem van de Waddenzee en monitoring van exoten in het gebied. De data wordt verzameld door het NIOZ. De data is beschikbaar van 2008 tot 2019.
+
+De dataset is te bekijken en te downloaden via [Datahuis Wadden Waddenviewer](https://viewer.openearth.nl/wadden-viewer/?folders=93790295%2C93793330%2C107902964&layers=123516301&layerNames=B27%3A+SIBES%3A+Sediment+%282009-2019%29+). Meer informatie is te vinden via het [Waddenregister](https://datahuiswadden.openearth.nl/geonetwork/srv/dut/catalog.search#/metadata/123516301). 
+
+
+```{r SIBES, fig.cap="Kaart van de locaties van de sediment korrelgrootte en samenstelling van de droogvallende delen van de gehele Nederlandse Waddenzee."}
+knitr::include_graphics("images/SIBES.png")
+```
