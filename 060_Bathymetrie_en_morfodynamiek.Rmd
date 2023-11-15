@@ -28,15 +28,21 @@ De morfologische indicatoren worden meestal getoond per kombergingsgebied, ook w
 
 ```{r gebiedenWaddenzee, fig.cap="Indeling van de Waddenzee in verschillende kombergingsgebieden of bekkens voor het gebruik in morfologische indicatoren. "}
 
-polygonpath <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
-# selection of relevant polygons done by hand in QGIS
-polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33)
+refreshpolygon = F
 
-poly <- sf::st_read(polygonpath, quiet = T) %>% 
-  filter(fid %in% polygonsInRaster) %>% 
-  st_transform(28992)
+if(refreshpolygon){
+  polygonpath <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins&outputFormat=application/json"
+  # selection of relevant polygons done by hand in QGIS
+  polygonsInRaster <- c(35, 36, 37, 29, 30, 31, 32, 38, 33)
+  
+  poly <- sf::st_read(polygonpath, quiet = T) %>%
+    filter(fid %in% polygonsInRaster) %>%
+    st_transform(28992)
+  
+  try(sf::st_write(poly, file.path(datadir, "vakken", "wmr_vakken.geojson")))
+}
 
-try(sf::st_write(poly, file.path(datadir, "vakken", "wmr_vakken.geojson")))
+poly <- sf::st_read(file.path(datadir, "vakken", "wmr_vakken.geojson"))
 
 leaflet(poly %>% st_transform(4326)) %>%
   addTiles() %>%
@@ -189,6 +195,7 @@ save(valid.values.df, file = file.path(datadir, "RWS", "bathymetrie", "valid_val
 load(file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
 
 p <- valid.values.df %>%
+  # filter(naam == "Pinkegat") %>%
   # mutate(class=case_when(
   #   diepte < -5 ~ "geul",
   #   diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
@@ -196,16 +203,20 @@ p <- valid.values.df %>%
   #   diepte >= 1 ~ "supragetijdengebied"
   # )) %>%
   # mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
-  arrange(diepte, naam, jaar) %>%
   mutate(jaar = as.factor(jaar)) %>%
+  arrange(jaar, naam, diepte) %>%
+    ## in order to check total surface areas per area. 
   group_by(naam, jaar) %>%
-  mutate(count = n(), cum = cumsum(as.numeric(row_number()))) %>%  #, rowNumber = row_number()
-  mutate(oppervlakte = 400*cum/1e12) %>% #JV: blijkbaar hier 2x delen om van m2 naar km2 te gaan...
-  sample_n(100) %>%     # sample om de grafiek sneller te laten tekenen. heeft geen invloed op de positie, wel op de resolutie
+    # mutate(oppervlakte = 400/1e6) %>%  # nu in km2
+    # summarize(oppervlakte = sum(oppervlakte)) %>% distinct(naam, oppervlakte)
+
+  mutate(count = n(), cum = as.numeric(row_number())) %>%  #, rowNumber = row_number()
+  mutate(oppervlakte = 400*cum/1e6) %>% #JV: blijkbaar hier 2x delen om van m2 naar km2 te gaan...
+  sample_n(1000) %>%     # sample om de grafiek sneller te laten tekenen. heeft geen invloed op de positie, wel op de resolutie
   ggplot() +
   geom_line(aes(x = oppervlakte, y = diepte, color = jaar)) +
   facet_wrap(~ naam, scales = "free_x", ncol = 3) +
-  xlab("Oppervlakte [km^2^]") + ylab("Bodemligging t.o.v. NAP [m]") +
+  xlab("Oppervlakte [km^2]") + ylab("Bodemligging t.o.v. NAP [m]") +
   coord_cartesian(ylim = c(-5, 3)) +
   theme(legend.position = "bottom")
 
