@@ -407,6 +407,22 @@ valid.values.df %>%
   ggtitle("Plaathoogte in m per bekken")
 ```
 
+De gemiddelde plaathoogte (figuur \@ref(fig:plaathoogteDeelgebieden)) geeft een gevarieerd beeld. De plaathoogte is vrij laag voor alle deelgebieden. De plaathoogte is voor de meeste deelgebieden afgenomen tussen 1927 en 1949 of 1971, en vervolgens weer toegenomen. Het Scheurrak laat een tegenovergesteld beeld zien. Sinds 2003 is de plaathoogte redelijk stabiel, behalve in de Zwanenbalg, waar deze toeneemt. 
+
+```{r plaathoogteDeelgebieden, fig.cap = "Gemiddelde plaathoogte per bekken. "}
+valid.values.Marsdiep.df %>% 
+  filter(diepte >= -1 & diepte < 1) %>% #  
+  group_by(naam, jaar) %>%
+  mutate(oppervlakte = 400/1e6, volume = (diepte)*400/1e6) %>%
+  summarize(plaathoogte = sum(volume)/sum(oppervlakte), plaathoogte2 = mean(diepte+1)-1) %>%
+  ggplot(aes(jaar, plaathoogte)) +
+  geom_line(aes()) +
+  geom_point(aes(), shape = 21, fill = "white", size = 3) +
+  facet_wrap(~ naam, scales = "free") +
+  coord_cartesian(xlim = c(1920, 2020)) +
+  ylab("Plaathoogte t.o.v. NAP [m]") + xlab("Jaar") +
+  ggtitle("Plaathoogte in m per deelgebied")
+```
 
 ##	Geuldiepte
 
