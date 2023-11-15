@@ -51,6 +51,33 @@ leaflet(poly %>% st_transform(4326)) %>%
 
 ```
 
+
+Daarnaast kunnen binnen deze bekkens ook nog verschillende kombergingen worden aangewezen. In deze rapportage wordt voorlopig alleen het Marsdiep onderverdeeld in verschillende deelgebieden. De volgende deelgebieden worden gehanteerd: Balgzand, Boontjes, Doovebalg, Scheurrak, Texelstroom en Zwanenbalg, zoals te zien in Figuur \@ref(fig:deelgebiedenWaddenzee). Voor de andere bekkens worden de grenzen nog bepaald.  
+
+```{r deelgebiedenWaddenzee, fig.cap="Indeling van het Marsdiep in verschillende kombergingsgebieden voor het gebruik in morfologische indicatoren. "}
+deelgebieden <- c('Balgzand', 'Boontjes', 'DooveBalg', 'Scheurrak', 'Texelstroom', 'Zwanenbalg')
+deelgebieden_df <- data.frame()
+
+for (deelgebied in deelgebieden){
+  df <- read_table(
+    paste0("N:/Projects/11209000/11209267/B. Measurements and calculations/01. Kombergingsrapportage/",
+           as.character(deelgebied),".pol"),skip = 7) %>% as.data.frame()
+  colnames(df) <- c('x', 'y')
+  sf <- df %>% st_as_sf(coords=c('x', 'y'), crs= 28992) %>% 
+    st_combine() %>% st_cast("POLYGON") 
+  sf <- data.frame(var = 1, deelgebied = deelgebied, geometry = st_geometry(sf))
+  deelgebieden_df <- rbind(deelgebieden_df, sf)
+}
+
+deelgebieden_sf <- st_as_sf(deelgebieden_df) 
+
+leaflet(deelgebieden_sf %>% st_transform(4326)) %>%
+  addTiles() %>%
+  addPolygons(label = ~deelgebied, labelOptions = labelOptions(noHide = T))
+
+```
+
+
 Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswijze van de getoonde indicatoren is terug te vinden in Appendix \@ref(Appmorfologie).
 
 ## Bodemligging {#bodemligging}
