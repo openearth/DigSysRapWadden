@@ -51,7 +51,7 @@ leaflet(poly %>% st_transform(4326)) %>%
 
 ```
 
-Daarnaast kunnen binnen deze bekkens ook nog verschillende kombergingen worden aangewezen. In deze rapportage wordt voorlopig alleen het Marsdiep onderverdeeld in verschillende deelgebieden. De volgende deelgebieden worden gehanteerd: Balgzand, Boontjes, Doovebalg, Scheurrak, Texelstroom en Zwanenbalg, zoals te zien in Figuur \@ref(fig:deelgebiedenWaddenzee). Hierin is ook te zien dat de grenzen van deze gebieden niet helemaal overeen komen met het bekken Marsdiep op de Geoserver van WMR. Voor de andere bekkens worden de grenzen nog bepaald.  
+Daarnaast kunnen binnen deze bekkens ook nog verschillende kombergingen worden aangewezen. In deze rapportage wordt voorlopig alleen het Marsdiep onderverdeeld in verschillende deelgebieden. De volgende deelgebieden worden gehanteerd: Balgzand, Boontjes, Doovebalg, Scheurrak, Texelstroom en Zwanenbalg, zoals te zien in Figuur \@ref(fig:deelgebiedenWaddenzee). Hierin is ook te zien dat de grenzen van deze gebieden niet helemaal overeen komen met het bekken Marsdiep op de Geoserver van WMR (in rood). Voor overige bekkens moeten grenzen voor de deelgebieden nog bepaald worden.  
 
 ```{r deelgebiedenWaddenzee, fig.cap="Indeling van het Marsdiep in verschillende kombergingsgebieden voor het gebruik in morfologische indicatoren. "}
 deelgebieden <- c('Balgzand', 'Boontjes', 'DooveBalg', 'Scheurrak', 'Texelstroom', 'Zwanenbalg')
@@ -341,6 +341,8 @@ valid.values.df  %>%
   group_by(naam, jaar, class) %>%
   mutate(oppervlakte = 400/1e6) %>%  # nu in km2
   summarize(oppervlakte = sum(oppervlakte)) %>%
+  as.data.frame() %>% 
+  complete(naam, jaar, class, fill = list(oppervlakte = 0)) %>%
   ggplot(aes(jaar, oppervlakte)) +
   geom_line(aes()) +
   geom_point(aes(), shape = 21, fill = "white", size = 3) +
@@ -523,6 +525,24 @@ valid.values.df %>%
   ylab("Plaatvolume [miljoen m^3^]") + xlab("Jaar") 
 ```
 
+Het plaatvolume is per deelgebied in het Marsdiep is gevisualiseerd in Figuur \@ref(fig:plaatvolumeDeelgebieden). Het verloop is grotendeels vergelijkbaar met de plaatoppervlaktes en plaathoogte. In het Balgzand, de Boontjes, Doovebalg en Zwanenbalg is het plaatvolume sinds de jaren 50 toegenomen. In de Texelstroom en het Scheurrak is het plaatvolume juist afgenomen. Verdere analyse is nodig om preciezer vast te stellen wat de veranderingen in de tijd heeft veroorzaakt.  
+
+```{r plaatvolumeDeelgebieden, fig.cap = "Plaatvolume in  m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. " }
+
+valid.values.Marsdiep.df %>% 
+  filter(diepte >= -1 & diepte < 1) %>%
+  mutate(plaathoogte = diepte+1) %>%    # nu volume t.o.v NAP. Kan ook negatief zijn. 
+  group_by(naam, jaar) %>%
+  mutate(volume = plaathoogte*400/1e6) %>% # elk rastersegment is 20x20 m
+  summarize(plaatvolume = sum(volume)) %>%
+  ggplot(aes(jaar, plaatvolume)) +
+  ggtitle("Plaatvolume in miljoen m^3^") +
+  geom_line(aes()) +
+  geom_point(aes(), shape = 21, fill = "white", size = 3) +
+  facet_wrap(~ naam, scales = "free")+
+  coord_cartesian(xlim = c(1920, 2020)) +
+  ylab("Plaatvolume [miljoen m^3^]") + xlab("Jaar") 
+```
 
 ##	Geulvolume 
 Het geulvolume is in de westelijke bekkens (Marsdiep, Eierlandse Gat, Vlie) toegenomen, terwijl deze in het Friesche Zeegat (Pinkegat en Zoutkamperlaag) is afgenomen (figuur \@ref(fig:geulvolume)). De scherpe afname van het volume van Zouterkamperlaag begin jaren zeventig komt door de sluiting van de Lauwerszee in 1968, waardoor er sterke sedimentatie in de geulen optrad.
@@ -543,6 +563,23 @@ valid.values.df %>%
   ylab("Geulvomume [miljoen m^3^]") + xlab("Jaar") 
 ```
 
+Het geulvolume van de verschillende deelgebieden binnen het Marsdiep laat een eentonig beeld zien, vergelijkbaar met het geulvolume voor het gehele bekken (figuur \@ref(fig:geulvolumeDeelgebieden)). Sinds de jaren 50 of 70 is het geulvolume gestaag toegenomen.
+
+```{r geulvolumeDeelgebieden, fig.cap = "Geulvolume in miljoen m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van het deelgebied dat onder de NAP -5 m NAP ligt. " }
+valid.values.Marsdiep.df %>% 
+  filter(diepte < -5) %>%
+  mutate(volumediepte = -(diepte+5)) %>%
+  group_by(naam, jaar) %>%
+  mutate(volume = volumediepte*400) %>%
+  summarize(geulvolume = sum(volume)/1e6) %>%
+  ggplot(aes(jaar, geulvolume)) +
+  ggtitle("Geulvolume in miljoen m3") +
+  geom_line(aes()) +
+  geom_point(aes(), shape = 21, fill = "white", size = 3) +
+  facet_wrap(~ naam, scales = "free")+
+  coord_cartesian(xlim = c(1920, 2020)) +
+  ylab("Geulvomume [miljoen m^3^]") + xlab("Jaar") 
+```
 
 ## Sedimentbalans
 Omdat een dergelijke analyse complex is, en nog niet afgerond is (verwachting: 2025), zijn de opgenomen netto erosie/sedimentatie en de sedimentbalans gebaseerd op een eerdere studie van [Wang et al. (2018)](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/43109B1810D68CF36D1C91405EA37F0A/S0016774618000082a.pdf/div-class-title-sediment-budget-and-morphological-development-of-the-dutch-wadden-sea-impact-of-accelerated-sea-level-rise-and-subsidence-until-2100-div.pdf); de resultaten zijn daarom slechts als figuren beschikbaar en niet interactief bevraagbaar.
