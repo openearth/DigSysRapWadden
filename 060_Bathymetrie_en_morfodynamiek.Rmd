@@ -19,7 +19,8 @@ Ook is de lengte van de laagwaterlijn opgenomen. Deze geeft aan of er veel klein
 
 Het bodemslibgehalte (relevant voor het voorkomen van biota en de erosiesnelheid van de bodem) en erosieresistente lagen zijn eveneens opgenomen. Erosieresistente of harde lagen bestaan over het algemeen uit geconsolideerde klei, veen of Holocene afzettingen en vertragen geulmigratie door hun moeilijke erodeerbaarheid. Ze zijn dus mede bepalend voor de lange-termijn morfologische ontwikkeling.
 
-Tot slot is de Ecotopenkaart (2017) van de Waddenzee opgenomen. Deze is een aggregatie van elders in deze rapportage opgenomen of nog op te nemen kaarten. 
+Tot slot is de Ecotopenkaart (2017) van de Waddenzee opgenomen. Deze is een aggregatie van elders in deze rapportage opgenomen of nog op te nemen kaarten. Deze is een aggregatie van elders in deze rapportage opgenomen kaarten en specifieke modelstudies, en dus geen gemeten data. Daar moet men rekening mee houden bij verder gebruik. De reden om deze toch op te nemen is dat de kaart vlakdekkende informatie geeft die voor veel gebruikers zeer informatief is.   
+ 
 
 **Afbakening**
 
@@ -622,7 +623,7 @@ In alle Waddenzeebekkens is over de periode 1926-2005 netto sedimentatie opgetre
 knitr::include_graphics("images/Wangetal2018_Fig4SedBalance1935-2005.png")
 ```
 
-NB Zoals al opgemerkt in de inleiding van deze sectie Morfologie, is het bepalen van bruto- en netto erosie en een sedimentbalans geen sinecure vanwege onder meer de verschuiving van geulen en bekkens in de tijd. Volgens plan start in 2023 een sedimentbalansonderzoek voor de gehele Waddenzee volgens een nieuwe methode die daar beter recht aan doet in het NWO perspectief project WadSED. Deze methode is in pilotvorm al toegepast rondom Ameland. 
+NB Zoals al opgemerkt in de inleiding van deze sectie Morfologie, is het bepalen van bruto- en netto erosie en een sedimentbalans geen sinecure vanwege onder meer de verschuiving van geulen en bekkens in de tijd. In 2023 is een sedimentbalansonderzoek gestart voor de gehele Waddenzee volgens een nieuwe methode die daar beter recht aan doet in het NWO perspectief project WadSED. Deze methode is in pilotvorm al toegepast rondom Ameland en uitgevoerd voor de Noordzeekant van de eilanden. De balans voor het Waddenzeebekken wordt in de loop van 2024 verwacht. 
 
 ## Lengte laagwaterlijn
 
@@ -731,11 +732,20 @@ contours_allregions2 %>%
 ```
 
 
-## Bodemslibgehalte
-Er zijn verschillende historische kaarten met het bodemslibgehalte beschikbaar (Lely ~1890, De Glopper ~1960, Sedimentatlas ~1989, SIBES/SUBES sinds 2008/2019). De sedimentatlas is digitaal beschikbaar en geeft een volledig dekkende kaart van de bodemsamenstelling in de Waddenzee inclusief het Eems-estuarium. Het bodemslibgehalte op basis van deze sedimentatlas is getoond in figuur \@ref(fig:sedimentatlasSlib).
+## Bodemsamenstelling {#bodemsamenstelling}
 
-Sinds 2008 zijn door het NIOZ monsters gestoken van het intergetijdengebied en is ook de korrelgrootteverdeling bepaald. Deze data wordt aangeduid met SIBES. De data is niet vrij beschikbaar en daarom vooralsnog niet opgenomen in deze rapportage. In ongeveer 2019 is de SIBES dataset gecomplementeerd met data van monsters die zijn genomen in de diepe delen van de Waddenzee, waarmee een ruimtelijk volledig dekkende kaart van de Waddenzee kan worden gemaakt. De data uit de diepe delen worden aangeduid met SUBES. Ook deze data is (nog) niet vrij beschikbaar.
+Synoptic Intertidal Benthic Survey (SIBES) is een lange-termijn inventarisatie macrozoobenthos (wormen, schelpdieren, kreeftachtigen) en sediment korrelgrootte in de droogvallende delen van de Nederlandse Waddenzee. Deze systematische (sinds 2008), jaarlijkse, data zijn essentieel om het voorkomen, het gedrag en de gezondheid van dieren hoger in de voedselketen (vogels, vissen) te kunnen duiden en daarmee de draagkracht van de Waddenzee te kunnen bepalen. Ook kunnen hiermee invasieve exoten gesinaleerd worden. Daarnaast is de bodemsamenstelling, maar waarschijnlijk ook het bodemleven, van groot belang voor het parameteriseren en calibreren van modellen voor morfologische veranderingen. Beide aspecten zijn cruciaal om de respons op veranderingen zoals gaswinning, pierensteken of zeespiegelstijging in te schatten. 
 
+De data wordt verzameld door het NIOZ, onder financiering van NIOZ, Nederlandse Aardolie Maatschappij (NAM) en Rijkswaterstaat. De data is beschikbaar van 2008 tot 2019. De hier opgenomen data betreft alleen de abiotiek, dus de korrelgrootteverdeling: de D50 korrelgrootte en het percentage silt. Deze is in de zomer bemonsterd op een regelmatig grid van 500x500 m, met een steekbuis tot een diepte van 4 cm en geanalyseerd met een particle analyzer.  
+
+De SIBES-dataset is te bekijken en te downloaden via [Datahuis Wadden Waddenviewer](https://viewer.openearth.nl/wadden-viewer/?folders=93790295%2C93793330%2C107902964&layers=123516301&layerNames=B27%3A+SIBES%3A+Sediment+%282009-2019%29+). Meer informatie is te vinden via het [Waddenregister](https://datahuiswadden.openearth.nl/geonetwork/srv/dut/catalog.search#/metadata/123516301). 
+
+
+```{r SIBES, fig.cap="Kaart van de locaties van de sediment korrelgrootte en samenstelling van de droogvallende delen van de gehele Nederlandse Waddenzee."}
+knitr::include_graphics("images/SIBES.png")
+```
+
+Naast SIBES bestaan verschillende historische kaarten met het bodemslibgehalte (Lely ~1890, De Glopper ~1960, Sedimentatlas ~1989). De sedimentatlas is digitaal beschikbaar en geeft een volledig dekkende kaart van de bodemsamenstelling in de Waddenzee inclusief het Eems-estuarium. Het bodemslibgehalte op basis van deze sedimentatlas is getoond in figuur \@ref(fig:sedimentatlasSlib).
 
 ```{r readKorrelgrootteData}
 # korrel.df <- read_delim(file.path(datadir, "ddl", "standard", paste0("korrelgrootte", "2021-07-16", ".csv")), delim = ";")
@@ -856,14 +866,3 @@ leaflet() %>%
   )
 ```
 
-##	Bodemsamenstelling (SIBES)
-Synoptic Intertidal Benthic Surveys (SIBES) is een inventarisatie macrozoobenthos en sediment korrelgrootte in de Waddenzee. De dataset bevat beschrijvingen van de soortensamenstelling macrozoobenthische infauna van droogvallende delen in de gehele Nederlandse Waddenzee. Daarnaast bevat de dataset beschrijvingen van de sediment korrelgrootte samenstelling van droogvallende delen in de gehele Nederlandse Waddenzee. 
-
-Het doel waarvoor de data wordt verzameld is het bepalen van langetermijnverandering macrozoobenthos in de Waddenzee, consequenties voor draagkracht van het gebied draagkracht Waddenzee. Daarnaast het bepalen van de effecten van bodemdaling op het benthische ecosysteem van de Waddenzee en monitoring van exoten in het gebied. De data wordt verzameld door het NIOZ. De data is beschikbaar van 2008 tot 2019.
-
-De dataset is te bekijken en te downloaden via [Datahuis Wadden Waddenviewer](https://viewer.openearth.nl/wadden-viewer/?folders=93790295%2C93793330%2C107902964&layers=123516301&layerNames=B27%3A+SIBES%3A+Sediment+%282009-2019%29+). Meer informatie is te vinden via het [Waddenregister](https://datahuiswadden.openearth.nl/geonetwork/srv/dut/catalog.search#/metadata/123516301). 
-
-
-```{r SIBES, fig.cap="Kaart van de locaties van de sediment korrelgrootte en samenstelling van de droogvallende delen van de gehele Nederlandse Waddenzee."}
-knitr::include_graphics("images/SIBES.png")
-```
