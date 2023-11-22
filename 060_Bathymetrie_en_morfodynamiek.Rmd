@@ -210,7 +210,6 @@ valid.values.df <- map(valid.values, as_tibble) %>%
   mutate(jaar = as.integer(str_replace(jaar, "mosaic_", ""))) %>%
   mutate(naam = factor(naam, levels = namen_west_oost))
 
-
 # rm(valid.data,valid.values)
 
 save(valid.values.df, file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
@@ -236,6 +235,8 @@ valid.values.Marsdiep.df <- map(valid.values.Marsdiep, as_tibble) %>%
   rbindlist(idcol = "naam") %>%
   mutate(jaar = as.integer(str_replace(jaar, "mosaic_", ""))) 
 
+save(valid.values.Marsdiep.df, file = file.path(datadir, "RWS", "bathymetrie", "valid_values_deelgebieden_df.Rdata"))
+
 ```
 
 
@@ -243,6 +244,15 @@ valid.values.Marsdiep.df <- map(valid.values.Marsdiep, as_tibble) %>%
 ```{r hypsometriePerGebied, fig.cap="Hypsometrische curven voor verschillende bekkens in de Waddenzee en voor een selectie van bathymetrieën. "}
 
 load(file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
+
+remove_seventies_easternWadden <- TRUE #setting to remove data from until 1971 for Eilanderbalg, Lauwers and Schild, since these areas were not measured back then
+
+#If this is beneficial, move upwards before data is saved
+
+if (remove_seventies_easternWadden){
+  valid.values.df <- valid.values.df %>% 
+    filter(!(naam %in% c("Lauwers", "Eilanderbalg", "Schild") & jaar < 1972))
+}
 
 p <- valid.values.df %>%
   # filter(naam == "Pinkegat") %>%
@@ -285,6 +295,8 @@ if(knitr::is_html_output()) {
 Figuur \@ref(fig:hypsometriePerDeelgebied) toont de hypsometrische curves voor de deelgebieden (voor afbakening, zie figuur \@ref(fig:deelgebiedenWaddenzee))in het Marsdiep. Sommige gebieden, zoals het Balgzand, Boontjes, Scheurrak en Zwanenbalg laten net als de bekkens een redelijk vlakke lijn zien, wat inhoudt dat het grooste deel van het areaal zich binnen een bepaalde range van diepte bevindt. In de DooveBalg en in mindere mate in de Texelstroom is de lijn meer lineair, wat betekent dat er een grotere variatie en eerlijkere verdeling is in het diepteprofiel. Vooral in de Boontjes en de Zwanenbalg is een duidelijke toename te zien in bodemhoogte over de jaren. 
 
 ```{r hypsometriePerDeelgebied, fig.cap="Hypsometrische curven voor verschillende deelgebieden in het Marsdiep en voor een selectie van bathymetrieën. "}
+
+load(file = file.path(datadir, "RWS", "bathymetrie", "valid_values_deelgebieden_df.Rdata"))
 
 p <- valid.values.Marsdiep.df %>%
   mutate(jaar = as.factor(jaar)) %>%
@@ -330,58 +342,76 @@ Figuur \@ref(fig:arealen) toont de arealen per klasse (kolommen) en per bekken (
 
 ```{r arealen, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse."}
 
-valid.values.df  %>%
-  mutate(class=case_when(
-    diepte < -5 ~ "geul",
-    diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
-    diepte >= -1 & diepte < 1 ~ "intergetijdengebied",
-    diepte >= 1 ~ "supragetijdengebied"
-  )) %>%
-  mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
-  group_by(naam, jaar, class) %>%
-  mutate(oppervlakte = 400/1e6) %>%  # nu in km2
-  summarize(oppervlakte = sum(oppervlakte)) %>%
-  as.data.frame() %>% 
-  complete(naam, jaar, class, fill = list(oppervlakte = 0)) %>%
-  ggplot(aes(jaar, oppervlakte)) +
-  geom_line(aes()) +
-  geom_point(aes(), shape = 21, fill = "white", size = 3) +
-  # facet_grid(naam ~ class, scales = "free") + #free_y facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free_y") + #
-  facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free") +
-  theme(strip.text.y = element_text(angle = 0)) +
-  ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
-  coord_cartesian(xlim = c(1920, 2020)) +
-  ggtitle("Areaal in km^2 per bekken en diepteklasse")
+p<-valid.values.df  %>%
+    mutate(class=case_when(
+      diepte < -5 ~ "geul",
+      diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
+      diepte >= -1 & diepte < 1 ~ "intergetijdengebied",
+      diepte >= 1 ~ "supragetijdengebied"
+    )) %>%
+    mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
+    group_by(naam, jaar, class) %>%
+    mutate(oppervlakte = 400/1e6) %>%  # nu in km2
+    summarize(oppervlakte = sum(oppervlakte)) %>%
+    as.data.frame() %>% 
+    complete(naam, jaar, class, fill = list(oppervlakte = 0)) %>%
+    ggplot(aes(jaar, oppervlakte)) +
+    geom_line(aes()) +
+    geom_point(aes(), shape = 21, fill = "white", size = 3) +
+    # facet_grid(naam ~ class, scales = "free") + #free_y facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free_y") + #
+    facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free") +
+    theme(strip.text.y = element_text(angle = 0)) +
+    ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
+    coord_cartesian(xlim = c(1920, 2020)) +
+    ggtitle("Areaal in km^2 per bekken en diepteklasse")+
+  theme_bw()
+
+ggplotly(
+    p, 900, 900) %>%
+    config(displayModeBar = F) %>%
+    layout(xaxis=list(fixedrange=TRUE)) %>%
+    layout(yaxis=list(fixedrange=TRUE)
+    )
 
 ```
 
 
-Figuur \@ref(fig:arealenDeelgebieden) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:deelgebiedenWaddenzee)). 
+Figuur \@ref(fig:arealenDeelgebieden) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:deelgebiedenWaddenzee)). Het geulareaal is over de laatste decennia toegenomen in het Balgzand, de Boontjes, Texelstroom en Zwanenbalg. In het Scheurrak en Doovebalg is het geulareaal redelijk constant sinds de jaren 70. In het Balgzand, de Boontjes en Zwanenbalg neemt het totale subgetijdegebied (dus inclusief het geulareaal) af. Dit betekent dat een steeds groter deel van het subgetijdegebied uitdiept. In de Texelstroom neemt het subgetijdegebied toe. Het intertijdegebied laat een tegenovergesteld beeld zien. In het Balgzand, de Boontjes en Zwanenbalg komt er dus steeds meer intergetijdegebied in plaats van subgetijdegebied, terwijl in de Texelstroom juist intergetijdegebied ingewisseld wordt voor subgetijdegebied. Het supragetijdegebied is zeer klein, in sommige jaren en in het Scheurrak was er zelfs überhaupt geen areaal boven de +1 NAP. 
 
 ```{r arealenDeelgebieden, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per deelgebied en diepteklasse."}
 
-valid.values.Marsdiep.df  %>%
-  mutate(class=case_when(
-    diepte < -5 ~ "geul",
-    diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
-    diepte >= -1 & diepte < 1 ~ "intergetijdengebied",
-    diepte >= 1 ~ "supragetijdengebied"
-  )) %>%
-  mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
-  group_by(naam, jaar, class) %>% 
-  mutate(oppervlakte = 400/1e6) %>%  # nu in km2
-  summarize(oppervlakte = sum(oppervlakte)) %>%
-  as.data.frame() %>% 
-  complete(naam, jaar, class, fill = list(oppervlakte = 0)) %>% 
-  ggplot(aes(jaar, oppervlakte)) +
-  geom_line(aes()) +
-  geom_point(aes(), shape = 21, fill = "white", size = 3) +
-  # facet_grid(naam ~ class, scales = "free") + #free_y facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free_y") + #
-  facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free") +
-  theme(strip.text.y = element_text(angle = 0)) +
-  ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
-  coord_cartesian(xlim = c(1920, 2020)) +
-  ggtitle("Areaal in km^2 per deelgebied en diepteklasse")
+ p<-valid.values.Marsdiep.df  %>%
+      mutate(class=case_when(
+        diepte < -5 ~ "geul",
+        diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
+        diepte >= -1 & diepte < 1 ~ "intergetijdengebied",
+        diepte >= 1 ~ "supragetijdengebied"
+      )) %>%
+      mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
+      group_by(naam, jaar, class) %>% 
+      mutate(oppervlakte = 400/1e6) %>%  # nu in km2
+      summarize(oppervlakte = sum(oppervlakte)) %>%
+      as.data.frame() %>% 
+      complete(naam, jaar, class, fill = list(oppervlakte = 0)) %>% 
+      ggplot(aes(jaar, oppervlakte)) +
+      geom_line(aes()) +
+      geom_point(aes(), shape = 21, fill = "white", size = 3) +
+      # facet_grid(naam ~ class, scales = "free") + #free_y facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free_y") + #
+      facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free") +
+      theme(strip.text.y = element_text(angle = 0)) +
+      ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
+      coord_cartesian(xlim = c(1920, 2020)) +
+      ggtitle("Areaal in km^2 per deelgebied en diepteklasse")+
+  theme_bw()
+
+if(knitr::is_html_output()) {
+  ggplotly(
+    p, 900, 900) %>%
+    config(displayModeBar = F) %>%
+    layout(xaxis=list(fixedrange=TRUE)) %>%
+    layout(yaxis=list(fixedrange=TRUE)
+    )
+} else p
 
 ```
 ##	Plaathoogte
