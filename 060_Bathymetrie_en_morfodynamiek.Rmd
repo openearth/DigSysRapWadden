@@ -343,6 +343,12 @@ Figuur \@ref(fig:arealen) toont de arealen per klasse (kolommen) en per bekken (
 
 ```{r arealen, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse."}
 
+remove_seventies_easternWadden <- TRUE 
+if (remove_seventies_easternWadden){
+  valid.values.df <- valid.values.df %>% 
+    filter(!(naam %in% c("Lauwers", "Eilanderbalg", "Schild") & jaar < 1972))
+}
+
 p<-valid.values.df  %>%
     mutate(class=case_when(
       diepte < -5 ~ "geul",
