@@ -499,7 +499,11 @@ valid.values.Marsdiep.df %>%
 
 ## Geuldoorsnede
 
-Van een aantal locaties, die ook gebruikt zullen worden in de kombergingrapportages, zijn geuldoorsnedes berekend.
+Naast de meer geaggregeerde indicatoren als arealen en volumes, is voor geulen ook de daadwerkelijke diepte en ligging van belang om te kunnen beoordelen of een geul bijvoorbeeld verondiept, wat de bevaarbaarheid beïnvloedt, of migreert, wat de stabiliteit van platen of land in gevaar kan brengen. Ook kunnen verschuivingen in geulpatronen verklarend zijn voor andere morfologische veranderingen.
+
+Bovenstaande wordt beoordeeld en geduid in de kombergingsrapportages aan de hand van een aantal (bijna 200 voor de gehele Waddenzee) geuldoorsnedes (profielen) op vaste locaties, wat een vergelijking tussen verschillende jaren mogelijk maakt. Klikken op een profiellijn in Figuur \@ref(fig:geul-kaart) geeft een figuur met de geuldoorsnedes voor de vaklodingen tussen 1927 en nu.
+
+NB Het is de bedoeling de profieldata ook nog downloadbaar te maken zodat de gebruiker zelf figuren kan maken. Omdat de dataset (vaklodingen) groot is kost de berekening te veel tijd om online te doen, en de vooraf offline berekende niet-geogerefeerde profieldata past niet in de bestaande opslagstructuur; daar moet nog een oplossing voor gevonden worden.
 
 ```{r geuldoorsnedes, eval=FALSE}
 #Not working now!!
@@ -536,7 +540,7 @@ for (i in 1:length(doorsnedes$id)) {
 
 ```
 
-(ref:geul-kaartLabel) Interactieve kaart van geuldoorsnedes van profielen over de tijd in het Waddengebied. Klikken op ee profiel laat de verandering in de geuldiepte over de tijd zien. ([Link naar Schermvullende versie](https://www.testsysteemrapportage.nl/Concept_webgis_geuldoorsnedes/index.html)).
+(ref:geul-kaartLabel) Interactieve kaart van geuldoorsnedes van profielen over de tijd in het Waddengebied. Klikken op een profiel laat de verandering in de geuldiepte over de tijd zien. NB Het best te bekijken in een apart schermvullend tabblad, anders is een deel van de profielfiguur niet zichtbaar. ([Link naar Schermvullende versie](https://www.testsysteemrapportage.nl/Concept_webgis_geuldoorsnedes/index.html)).
 
 ```{r geul-kaart, fig.cap= "(ref:geul-kaartLabel)"}
 
