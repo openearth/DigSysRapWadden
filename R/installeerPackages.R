@@ -35,6 +35,8 @@ require("leaflet.extras")
 require("oce")
 require("downloadthis")
 require("rwsapi")
+require("gstat")
+require("raster")
 
 select <- dplyr::select
 addLegend <- leaflet::addLegend

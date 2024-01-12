@@ -3,9 +3,18 @@
 # Morfologie {#morfologie}
 
 ```{r setupBathymetrie, include=FALSE}
+require(raster)
+doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015", "2019")
 
 laagwaterlijn = -1 # of -2 (allebei is voorbereid)
 namen_west_oost <- c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild")
+
+remove_seventies_easternWadden <- function(df) {
+  df <- df %>% filter(!(naam %in% c("Lauwers", "Eilanderbalg", "Schild") & jaar < 1972))
+}
+
+fac = 10 
+mosaicdir = "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/bathymetrie/processing_tiles/mosaic"
 ```
 
 ## Afbakening, definitie en herkomst
@@ -123,7 +132,6 @@ sort(.)
 
 # select some years
 # jaren
-doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015")
 rasterlist <- mosaiclist[which(years %in% doeljaren)]
 
 # read bathymetry and crop to polygons
@@ -211,6 +219,8 @@ valid.values.df <- map(valid.values, as_tibble) %>%
 
 # rm(valid.data,valid.values)
 
+remove_seventies_easternWadden(valid.values.df)
+
 save(valid.values.df, file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
 
 # Now we do the same for deelgebieden (Marsdiep)
@@ -241,15 +251,6 @@ save(valid.values.Marsdiep.df, file = file.path(datadir, "RWS", "bathymetrie", "
 ```{r hypsometriePerGebied, fig.cap="Hypsometrische curven voor verschillende bekkens in de Waddenzee en voor een selectie van bathymetrieën. "}
 
 load(file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
-
-remove_seventies_easternWadden <- TRUE #setting to remove data from until 1971 for Eilanderbalg, Lauwers and Schild, since these areas were not measured back then
-
-#If this is beneficial, move upwards before data is saved
-
-if (remove_seventies_easternWadden){
-  valid.values.df <- valid.values.df %>% 
-    filter(!(naam %in% c("Lauwers", "Eilanderbalg", "Schild") & jaar < 1972))
-}
 
 p <- valid.values.df %>%
   # filter(naam == "Pinkegat") %>%
@@ -324,20 +325,203 @@ if(knitr::is_html_output()) {
 
 Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in vier verschillende hoogteklassen:
 
-1.  Geul (z \< -5 m)
-2.  Proxy subgetijdengebied (-5 m \< z \<-1 m)
-3.  Proxy intergetijdengebied (-1 \< z \<1 m)
-4.  Proxy supragetijdengebied (z \> 1 m)
+1.  Geul 
+2.  Subgetijdengebied 
+3.  Intergetijdengebied 
+4.  Supragetijdengebied 
 
-Het intergetijdengebied betreft het areaal wat een deel van de tijd droogvalt. De begrenzing van het intergetijdengebied wordt enerzijds gevormd door de bodemligging en anderszijds door de waterstandvariatie. De waterstand varieert niet alleen door de tijd, maar ook in de ruimte. Achterin de bekkens is de getijslag meestal groter dan nabij de zeegaten. Daarnaast neemt de getijslag toe van west naar oost, dus tussen Den Helder en Delfzijl. De kaart met de getijslag laat dit goed zien (figuur \@ref(fig:kaartGetijslag)).
+Het intergetijdengebied betreft het areaal dat een deel van de tijd droogvalt. De begrenzing van het intergetijdengebied wordt enerzijds gevormd door de bodemligging en anderszijds door de waterstandvariatie. De waterstand varieert niet alleen door de tijd, maar ook in de ruimte. Achterin de bekkens is de getijslag meestal groter dan nabij de zeegaten. Daarnaast neemt de getijslag toe van west naar oost, dus tussen Den Helder en Delfzijl. De kaart met de getijslag laat dit goed zien (figuur \@ref(fig:kaartGetijslag)).
 
 De waterstand wordt echter alleen gemeten op een aantal stations. Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, dient rekening te worden gehouden met de getijvoortplanting. Numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden (rekencellen), en daarmee de kleinere geultjes en prielen, die een belangrijke functie hebben in het efficient draineren van de intergetijdengebieden, niet in het rekenrooster zijn opgenomen. Voor de ecotopenkaart wordt de waterspiegel berekend middels een driehoeksinterpolatie van de gemeten waterstanden als invoer voor het berekenen van de droogvalduur.
 
-Er is er voor deze rapportage voor gekozen om in eerste instantie uit te gaan van vaste begrenzingen van de hoogteklasses en daarmee niet de veranderingen in getijslag door de tijd of over het gebied mee te nemen. Dit betekent dat verandering in arealen alleen worden veroorzaakt door veranderingen in de bodemligging en niet door een verandering in getijvoortplanting. Daarom spreken we van een 'proxy', bijvoorbeeld voor het intergetijdengebied.
+Voor deze rapportage zijn gebiedsdekkende kaarten gegenereerd voor de Waddenzee op basis van het gemiddelde jaarlijkse hoogwater en laagwater gemeten op de verschillende stations. Op basis hiervan kan aan de hand van de bathymetrie worden vastgesteld welk deel van de Waddenzee zich onder de laagwaterlijn bevindt (subgetijdengebied) en welk deel hoger ligt dan de hoogwaterlijn (supragetijdengebied). Het areaal dat tussen het gemiddelde hoogwater en laag water ligt is het intergetijdengebien. Areaal dat zich meer dan 2 meter onder de laagwaterlijn ligt wordt aangeduid als geul. De gebiedsdekkende kaarten zijn vooralsnog gegenereerd op basis van 'inverse-distance weighted (idw)' interpolatie (idp = 3). 
 
 Figuur \@ref(fig:arealen) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:gebiedenWaddenzee)). De figuur laat zien dat het intergetijdengebied in de meeste bekkens toeneemt over de tijd. Alleen voor de Lauwers en Schild is dit niet zo. Ook neemt het areaal subgetijdengebied af (dit ligt tussen de -5 m NAP en de -1 m NAP lijn). De arealen supragetijdengebied zijn klein, ook omdat enkel de gebieden (cellen) worden meegenomen die in alle jaren opgenomen zijn. Het supragetijdengebied is niet altijd volledig opgenomen in de vaklodingen data, zeker niet in oudere opnamen. De ontwikkeling van het geulareaal verschilt per bekken.
 
+```{r prepare arealen, eval=F}
+
+df.extrema <- read_delim(file.path(datadir, "RWS", "standard", paste0("extremaHLLL", "latest", ".csv")), delim = ";") 
+
+df.extrema.jaar <- df.extrema %>%
+  mutate(jaar = year(time)) %>% 
+  # group_by(locatie.naam) %>%
+  # mutate(across(h, remove_outliers)) %>%
+  group_by(locatie.naam, jaar, HL) %>% 
+  summarise(
+    jaargemiddelde = mean(h, na.rm = T),
+    n = n())
+
+#Niet voor ieder jaar is data aanwezig, dus we gaan extrapoleren voor jaren die er niet zijn
+waterstanden <- df.extrema.jaar %>% filter(jaar >1932)
+
+lmH <- lm(jaargemiddelde ~ jaar * locatie.naam, data=waterstanden %>% filter(HL== 'H'))
+
+n <- length(unique(waterstanden$locatie.naam))
+waterstanden_hw.df <- data.frame(locatie.naam = unique(waterstanden$locatie.naam),
+                                 Intercept = unname(summary(lmH)$coefficients[,1])[c(1,(3):(n+1))],
+                                 Slope = unname(summary(lmH)$coefficients[,1])[c(2,(n+2):(2*n))])
+hwDInt <- waterstanden_hw.df$Intercept[1]
+hwDSlo <- waterstanden_hw.df$Slope[1]
+
+waterstanden_hw.df$Intercept[2:n] <- hwDInt + waterstanden_hw.df$Intercept[2:n]
+waterstanden_hw.df$Slope[2:n] <- hwDSlo + waterstanden_hw.df$Slope[2:n]
+
+lmL <- lm(jaargemiddelde ~ jaar * locatie.naam, data=waterstanden %>% filter(HL== 'L'))
+
+waterstanden_lw.df <- data.frame(locatie.naam = unique(waterstanden$locatie.naam),
+                                 Intercept = unname(summary(lmL)$coefficients[,1])[c(1,(3):(n+1))],
+                                 Slope = unname(summary(lmL)$coefficients[,1])[c(2,(n+2):(2*n))])
+lwDInt <- waterstanden_lw.df$Intercept[1]
+lwDSlo <- waterstanden_lw.df$Slope[1]
+
+waterstanden_lw.df$Intercept[2:n] <- lwDInt + waterstanden_lw.df$Intercept[2:n]
+waterstanden_lw.df$Slope[2:n] <- lwDSlo + waterstanden_lw.df$Slope[2:n]
+
+# We willen output voor de volgende jaren 
+doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015", "2019")
+
+# We maken nu twee data frames. Ws bevat waterstanden op basis van de lineaire lijn 
+# over alle gemeten jaren. Extrema bevat de gemeten waardes, behalve voor de missende data, 
+# hiervoor worden de geëxtrapoleerde waterstanden uit ws gebruikt.
+
+ws <- rbind(waterstanden_hw.df %>% mutate(HL = 'H'), waterstanden_lw.df %>% mutate(HL='L')) %>% 
+  arrange(locatie.naam) 
+
+for (doeljaar in doeljaren) {
+  column_name <- doeljaar
+  ws <- ws %>% mutate(!!column_name := as.numeric(doeljaar)*Slope + Intercept)
+}
+
+extrema <- df.extrema.jaar %>% filter(jaar %in% doeljaren) %>% 
+  pivot_wider(names_from = jaar, values_from = jaargemiddelde, id_cols = c('locatie.naam', 'HL')) %>%  as.data.frame()
+extrema_full <- extrema %>% mutate(across(everything(), ~ coalesce(., ws[[cur_column()]])))
+
+# Nu voegen we de coordinaten van de verschillende locaties toe
+metadata <- read_delim(file.path(datadir, "ddl/metadata/Wadden_metadata.csv"),delim = ";") %>%
+  distinct(locatie.naam, x, y,coordinatenstelsel)
+metadata <- metadata %>% group_by(locatie.naam, coordinatenstelsel) %>% summarise(
+  x=mean(x), y= mean(y)
+)
+extrema_full_m <- as.data.frame(left_join(extrema_full, metadata, by= 'locatie.naam'))
+ws_m <- as.data.frame(left_join(ws, metadata, by= 'locatie.naam'))
+
+# We willen een lang data frame format 
+extrema_full_l <- extrema_full_m %>% 
+  pivot_longer(cols= doeljaren, names_to = 'jaar', values_to = 'level') %>% 
+  mutate(ind = paste0(jaar,HL))
+
+ws_l <- ws_m %>% 
+  pivot_longer(cols = doeljaren, names_to = 'jaar', values_to = 'level') %>% 
+  mutate(ind = paste0(jaar, HL))
+
+# Interpolatie voorbereiden 
+
+# Resolutiefactor
+fac = 10 #De bathymetrieën hebben een resolutie van 20x20 m, deze factor bepaalt waarmee deze vermenigvuldigd wordt, belangrijk voor looptijd
+
+# We gebruiken het domein en crs van één van de bathymetrische .tif bestanden die beschikbaar is
+# Resolutie in dit geval 20 *fac meter
+bathymetry1927 <- raster::raster(file.path(mosaicdir, mosaiclist[1]))
+#bathymetry1927_lowres <- aggregate(bathymetry1927, fact=10)
+r_lowres <- raster(extent(bathymetry1927), crs = crs(bathymetry1927), resolution = c(20*fac,20*fac)) 
+
+# We maken G objecten die vervolgens geinterpoleerd kunnen worden
+# De package gstat wordt hiervoor gebruikt
+spdfs <- list()
+spdfs_trans <- list()
+gobjs <- list()
+
+unique_indicators <- unique(extrema_full_l$ind) #iedere combinatie jaar+H/L-water
+
+for (indicator in unique_indicators) {
+  # Creating SpatialPointsDataFrame
+  spdfs[[indicator]] <- SpatialPointsDataFrame(
+    coords = extrema_full_l %>% filter(ind == indicator) %>% select(x, y),
+    data = extrema_full_l %>% filter(ind == indicator),
+    proj4string = CRS(paste0('+init=EPSG:', as.character(metadata$coordinatenstelsel)[1]))
+  )
+  # Coordinate Transformation
+  spdfs_trans[[indicator]] <- spTransform(spdfs[[indicator]], crs(bathymetry1927))
+  # Make Gstat objects 
+  gobjs[[indicator]] <- gstat(formula = level ~ 1, data = spdfs_trans[[indicator]], set = list(idp = 3))
+}
+
+# Interpoleren vlakken 
+
+watervlakken_lowres <- list()
+for (object in unique_indicators){
+  print(paste0('start idw for ', object))
+  watervlakken_lowres[[object]] <- interpolate(r_lowres, gobjs[[object]])
+} 
+
+# We maken eerst een lijst met de doeljaren, bathymetrieën, hoogwaterlijnen en laagwaterlijnen 
+# De bathymetriën laden we in
+bathy_lowres <- c()
+for (jaar in doeljaren) {
+  bathy <- raster::raster(file.path(mosaicdir, paste0('mosaic_', as.character(jaar), '.tif')))
+  print(paste('lowering resolution for', jaar))
+  bathy_lowres[[jaar]] <- aggregate(bathy, fact=fac)
+}
+
+lagen_lowres <- list(jaar = doeljaren, bathymetry = bathy_lowres, laagwater = watervlakken_lowres[10:18], hoogwater = watervlakken_lowres[1:9])
+
+# We voegen voor ieder jaar de areaalvlakken toe
+matrix <- cbind(from=c(-Inf,0),
+                to = c(0, Inf),
+                becomes = c(0, 1))
+matrix_inv <- cbind(from=c(-Inf,0),
+                    to = c(0, Inf),
+                    becomes = c(1, 0))
+
+for (i in 1:length(doeljaren)){
+  lagen_lowres$subtidal[[i]] <- reclassify(lagen_lowres$laagwater[[i]] - lagen_lowres$bathymetry[[i]], matrix)
+  #lagen_lowres$geul[[i]] <- reclassify(lagen_lowres$bathymetry[[i]]+5, matrix_inv)
+  lagen_lowres$geul[[i]] <- reclassify((lagen_lowres$laagwater[[i]]-2)-lagen_lowres$bathymetry[[i]],matrix)
+  lagen_lowres$supratidal[[i]] <- reclassify(lagen_lowres$bathymetry[[i]]-lagen_lowres$hoogwater[[i]], matrix)
+  lagen_lowres$intertidal[[i]] <- reclassify(reclassify(lagen_lowres$laagwater[[i]]-lagen_lowres$bathymetry[[i]], matrix_inv)-
+                                        reclassify(lagen_lowres$bathymetry[[i]]-lagen_lowres$hoogwater[[i]], matrix_inv),rcl =cbind(from = c(-Inf, -.01, .01),to = c(-.01, .01, Inf), become = c(0,1,0)))
+}
+
+save(lagen_lowres, file = file.path(datadir, "RWS", "bathymetrie", "lagen.Rdata"))
+```
+
 ```{r arealen, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse."}
+
+load(file = file.path(datadir, "RWS", "bathymetrie", "lagen.Rdata"))
+
+# Voor het croppen moeten we de sf omzetten naar sp
+poly_sp <- as(poly, 'Spatial')
+
+bekkens <- poly_sp$name
+hoogteklassen <- c('geul', 'subtidal', 'intertidal', 'supratidal')
+bekkens.df <- data.frame(jaar = integer(), naam = integer(), oppervlakte = numeric(), areaal = character())
+
+for(hoogteklasse in hoogteklassen){
+  for(i in 1:length(lagen_lowres[[hoogteklasse]])) {
+    for(j in 1:length(poly_sp)) {
+      masked <- mask(crop(lagen_lowres[[hoogteklasse]][[i]], extent(poly_sp[j,])), poly_sp[j,])
+      oppervlakte <- sum(masked@data@values, na.rm=T) *200 *200 /1000000
+      bekkens.df <- rbind(bekkens.df, data.frame(jaar = doeljaren[i], naam = bekkens[j], oppervlakte = oppervlakte, areaal=hoogteklasse))
+    }
+  }
+}
+
+ggplot(aes(jaar, oppervlakte), data= bekkens.df %>% 
+         mutate(oppervlakte = as.numeric(oppervlakte)) %>% 
+         mutate(jaar = as.numeric(jaar))) +
+    geom_line(aes()) +
+    geom_point(aes(), shape = 21, fill = "white", size = 3) +
+    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
+    facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free") +
+    theme(strip.text.y = element_text(angle = 0)) +
+    ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
+    coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2)) +
+    ggtitle("Areaal in km^2 per bekken en diepteklasse")
+
+```
+
+
+```{r arealenOld, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse.", include=FALSE}
 
 remove_seventies_easternWadden <- TRUE 
 if (remove_seventies_easternWadden){
@@ -381,6 +565,35 @@ ggplotly(
 Figuur \@ref(fig:arealenDeelgebieden) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:deelgebiedenWaddenzee)). Het geulareaal is over de laatste decennia toegenomen in het Balgzand, de Boontjes, Texelstroom en Zwanenbalg. In het Scheurrak en Doovebalg is het geulareaal redelijk constant sinds de jaren 70. In het Balgzand, de Boontjes en Zwanenbalg neemt het totale subgetijdegebied (dus inclusief het geulareaal) af. Dit betekent dat een steeds groter deel van het subgetijdegebied uitdiept. In de Texelstroom neemt het subgetijdegebied toe. Het intertijdegebied laat een tegenovergesteld beeld zien. In het Balgzand, de Boontjes en Zwanenbalg komt er dus steeds meer intergetijdegebied in plaats van subgetijdegebied, terwijl in de Texelstroom juist intergetijdegebied ingewisseld wordt voor subgetijdegebied. Het supragetijdegebied is zeer klein, in sommige jaren en in het Scheurrak was er zelfs überhaupt geen areaal boven de +1 NAP.
 
 ```{r arealenDeelgebieden, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per deelgebied en diepteklasse."}
+deelgebieden_sp <- as(deelgebieden_sf$geometry, 'Spatial')
+
+deelgebieden.df <- data.frame(jaar = integer(), gebied = integer(), oppervlakte = numeric(), areaal = character())
+
+for(hoogteklasse in hoogteklassen){
+  for(i in 1:length(lagen_lowres[[hoogteklasse]])) {
+    for(j in 1:length(deelgebieden_sp)) {
+      masked <- mask(crop(lagen_lowres[[hoogteklasse]][[i]], extent(deelgebieden_sp[j,])), deelgebieden_sp[j,])
+      oppervlakte <- sum(masked@data@values, na.rm=T) *200 *200 /1000000
+      deelgebieden.df <- rbind(deelgebieden.df, data.frame(jaar = doeljaren[i], naam = deelgebieden[j], oppervlakte = oppervlakte, areaal=hoogteklasse))
+    }
+  }
+}
+
+ggplot(aes(jaar, oppervlakte), data= deelgebieden.df %>% 
+         mutate(oppervlakte = as.numeric(oppervlakte)) %>% 
+         mutate(jaar = as.numeric(jaar))) +
+    geom_line(aes()) +
+    geom_point(aes(), shape = 21, fill = "white", size = 3) +
+    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
+    facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free") +
+    theme(strip.text.y = element_text(angle = 0)) +
+    ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
+    ggtitle("Areaal in km^2 per bekken en diepteklasse")+ 
+  coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))
+```
+
+
+```{r arealenDeelgebiedenOld, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per deelgebied en diepteklasse.", include=FALSE}
 
  p<-valid.values.Marsdiep.df  %>%
       mutate(class=case_when(
@@ -427,7 +640,89 @@ In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaat
 
 De gemiddelde plaathoogte (figuur \@ref(fig:plaathoogte)) lijkt voor de grotere bekkens licht toe te nemen. Voor de Eilanderbalg, Lauwers en Schild zijn pas in de jaren '70 de eerste bodems opgenomen, en vertonen om die reden voor die tijd een horizontale lijn.
 
-```{r plaathoogte, fig.cap = "Gemiddelde plaathoogte per bekken. "}
+```{r DataPlaaghoogteGeuldiepte, eval=FALSE, include=FALSE }
+# Eerst maken we nieuwe lagen voor de plaathoogte + plaatvolume en geuldiepte (geulvolume halen we uit geuldiepte)
+bathy_lowres <- c()
+for (jaar in doeljaren) {
+  bathy <- raster::raster(file.path(mosaicdir, paste0('mosaic_', as.character(jaar), '.tif')))
+  print(paste('lowering resolution for', jaar))
+  bathy_lowres[[jaar]] <- aggregate(bathy, fact=fac)
+}
+
+lagen_lowres$plaathoogte <- list()
+lagen_lowres$plaatvolume <- list()
+
+for (i in 1:length(lagen_lowres$intertidal)){
+  intertidal <- lagen_lowres$intertidal[[i]]
+  intertidal[intertidal == 0] <- NA
+  lagen_lowres$plaathoogte[[i]] <- intertidal*bathy_lowres[[i]]
+  lagen_lowres$plaatvolume[[i]] <- intertidal*(bathy_lowres[[i]]-lagen_lowres$laagwater[[i]])
+}
+
+lagen_lowres$geuldiepte <- list()
+
+for (i in 1:length(lagen_lowres$geul)){
+  geul <- lagen_lowres$geul[[i]]
+  geul[geul==0] <- NA
+  lagen_lowres$geuldiepte[[i]] <- geul*bathy_lowres[[i]]
+}
+
+hoogtediepte_bekkens <- data.frame(jaar = integer(), gebied = integer(), oppervlakte = numeric())
+for(i in 1:length(lagen_lowres$plaathoogte)) {
+  for(j in 1:length(poly_sp)) {
+    masked_ph <- mask(crop(lagen_lowres$plaathoogte[[i]], extent(poly_sp[j,])), poly_sp[j,])
+    plaathoogte <- mean(masked_ph@data@values, na.rm=T)
+    masked_gd <- mask(crop(lagen_lowres$geuldiepte[[i]], extent(poly_sp[j,])), poly_sp[j,])
+    geuldiepte <- mean(masked_gd@data@values, na.rm=T)
+    masked_pv <- mask(crop(lagen_lowres$plaatvolume[[i]], extent(poly_sp[j,])), poly_sp[j,])
+    plaatvolume <- sum(masked_pv@data@values, na.rm=T)*200*200/1e6
+    masked_gv <- mask(crop(lagen_lowres$geuldiepte[[i]], extent(poly_sp[j,])), poly_sp[j,])
+    geulvolume <- abs(sum(masked_gv@data@values, na.rm=T)*200*200/1e6)
+    hoogtediepte_bekkens <- rbind(hoogtediepte_bekkens, data.frame(jaar = doeljaren[i], gebied = bekkens[j], 
+                                                                  plaathoogte = plaathoogte, geuldiepte = geuldiepte, 
+                                                                  plaatvolume = plaatvolume, geulvolume = geulvolume))
+  }
+}
+
+hoogtediepte_deelgebieden <- data.frame(jaar = integer(), gebied = integer(), oppervlakte = numeric())
+for(i in 1:length(lagen_lowres$plaathoogte)) {
+  for(j in 1:length(deelgebieden_sp)) {
+    masked_ph <- mask(crop(lagen_lowres$plaathoogte[[i]], extent(deelgebieden_sp[j,])), deelgebieden_sp[j,])
+    plaathoogte <- mean(masked_ph@data@values, na.rm=T)
+    masked_gd <- mask(crop(lagen_lowres$geuldiepte[[i]], extent(deelgebieden_sp[j,])), deelgebieden_sp[j,])
+    geuldiepte <- mean(masked_gd@data@values, na.rm=T)
+    masked_pv <- mask(crop(lagen_lowres$plaatvolume[[i]], extent(deelgebieden_sp[j,])), deelgebieden_sp[j,])
+    plaatvolume <- sum(masked_pv@data@values, na.rm=T)*200*200/1e6
+    masked_gv <- mask(crop(lagen_lowres$geuldiepte[[i]], extent(deelgebieden_sp[j,])), deelgebieden_sp[j,])
+    geulvolume <- abs(sum(masked_gv@data@values, na.rm=T)*200*200/1e6)
+    hoogtediepte_deelgebieden <- rbind(hoogtediepte_deelgebieden, data.frame(jaar = doeljaren[i], gebied = deelgebieden[j], 
+                                                                   plaathoogte = plaathoogte, geuldiepte = geuldiepte, 
+                                                                   plaatvolume = plaatvolume, geulvolume = geulvolume))
+  }
+}
+
+save(hoogtediepte_bekkens, file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_bekkens.Rdata"))
+save(hoogtediepte_deelgebieden, file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_deelgebieden.Rdata"))
+
+```
+
+```{r plaathoogte, fig.cap= "Gemiddelde plaathoogte per bekken. "}
+load(file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_bekkens.Rdata"))
+
+ggplot(aes(jaar, plaathoogte), data= hoogtediepte_bekkens %>% 
+         mutate(jaar = as.numeric(jaar))) +
+    geom_line(aes()) +
+    geom_point(aes(), shape = 21, fill = "white", size = 3) +
+    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
+    facet_wrap(~ gebied, scales = "free") +
+  coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))+
+   ylab("Plaathoogte t.o.v. NAP [m]") + xlab("Jaar") +
+  ggtitle("Plaathoogte in m per bekken")
+
+```
+
+
+```{r plaathoogteOld, fig.cap = "Gemiddelde plaathoogte per bekken. ", include=FALSE}
 valid.values.df %>% 
   filter(diepte >= -1 & diepte < 1) %>% #  
   group_by(naam, jaar) %>%
@@ -444,7 +739,22 @@ valid.values.df %>%
 
 De gemiddelde plaathoogte (figuur \@ref(fig:plaathoogteDeelgebieden)) geeft een gevarieerd beeld. De plaathoogte is vrij laag voor alle deelgebieden. De plaathoogte is voor de meeste deelgebieden afgenomen tussen 1927 en 1949 of 1971, en vervolgens weer toegenomen. Het Scheurrak laat een tegenovergesteld beeld zien. Sinds 2003 is de plaathoogte redelijk stabiel, behalve in de Zwanenbalg, waar deze toeneemt.
 
-```{r plaathoogteDeelgebieden, fig.cap = "Gemiddelde plaathoogte per bekken. "}
+```{r plaathoogteDeelgebieden, fig.cap = "Gemiddelde plaathoogte per deelgebied. "}
+load(file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_deelgebieden.Rdata"))
+
+ggplot(aes(jaar, plaathoogte), data= hoogtediepte_deelgebieden %>% 
+         mutate(jaar = as.numeric(jaar))) +
+    geom_line(aes()) +
+    geom_point(aes(), shape = 21, fill = "white", size = 3) +
+    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
+    facet_wrap(~ gebied, scales = "free") +
+  coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))+
+   ylab("Plaathoogte t.o.v. NAP [m]") + xlab("Jaar") +
+  ggtitle("Plaathoogte in m per deelgebied")
+```
+
+
+```{r plaathoogteDeelgebiedenOld, fig.cap = "Gemiddelde plaathoogte per bekken. ", include=FALSE}
 valid.values.Marsdiep.df %>% 
   filter(diepte >= -1 & diepte < 1) %>% #  
   group_by(naam, jaar) %>%
@@ -465,7 +775,20 @@ Geuldiepte is het volume beneden -5 m NAP gedeeld door het oppervlak beneden -5 
 
 De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens (Marsdiep, Eierlandse Gat en Vlie) een toename door de tijd zien (figuur \@ref(fig:geuldiepte)). Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries in sommige bekkens door worden veroorzaakt. Voor de Eilanderbalg, Lauwers en Schild zijn pas in de jaren '70 de eerste bodems opgenomen, en vertonen om die reden voor die tijd een horizontale lijn.
 
-```{r geuldiepte, fig.cap="Geuldiepte door de jaren in de verschillende gebieden. Let op de verschillende verticale assen. "}
+```{r geuldiepte, fig.cap="Geuldiepte door de jaren in de verschillende bekkens. Let op de verschillende verticale assen. "}
+ggplot(aes(jaar, geuldiepte), data= hoogtediepte_bekkens %>% 
+         mutate(jaar = as.numeric(jaar))) +
+    geom_line(aes()) +
+    geom_point(aes(), shape = 21, fill = "white", size = 3) +
+    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
+    facet_wrap(~ gebied, scales = "free") +
+  coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))+
+   ylab("Geuldiepte t.o.v. NAP [m]") + xlab("Jaar") +
+  ggtitle("Plaathoogte in m per bekken")
+```
+
+
+```{r geuldiepteOld, fig.cap="Geuldiepte door de jaren in de verschillende gebieden. Let op de verschillende verticale assen. ", include=FALSE}
 
 valid.values.df %>% 
   filter(diepte <= -5) %>%
@@ -482,7 +805,19 @@ valid.values.df %>%
 
 De ontwikkeling van de geuldiepte door de jaren laat voor de meeste deelgebieden, net als voor het Marsdiep bekken (figuur \@ref(fig:geuldiepte)), een sterke piek zien in 1949 en vervolgens een afname zien (figuur \@ref(fig:geuldiepteDeelgebieden)). In de Boontjes is de daling van de geuldiepte pas later ingezet. De geuldiepte van van Texelstroom ligt een stuk dieper dan de geuldiepte in de andere gebieden. Voor dit deelgebied laat de geuldiepte ook een andere trend zien, deze werd dieper tot 1971 en is vervolgens ondieper geworden.
 
-```{r geuldiepteDeelgebieden, fig.cap="Geuldiepte door de jaren in de verschillende deelgebieden. Let op de verschillende verticale assen. "}
+```{r geuldiepteDeelgebieden, fig.cap="Geuldiepte door de jaren in de verschillende bekkens. Let op de verschillende verticale assen. "}
+ggplot(aes(jaar, geuldiepte), data= hoogtediepte_bekkens %>% 
+         mutate(jaar = as.numeric(jaar))) +
+    geom_line(aes()) +
+    geom_point(aes(), shape = 21, fill = "white", size = 3) +
+    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
+    facet_wrap(~ gebied, scales = "free") +
+  coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))+
+    ggtitle("Geuldiepte per deelgebied")+
+   ylab("Geuldiepte t.o.v. NAP [m]") + xlab("Jaar")
+```
+
+```{r geuldiepteDeelgebiedenOld, fig.cap="Geuldiepte door de jaren in de verschillende deelgebieden. Let op de verschillende verticale assen. ", include=FALSE}
 
 valid.values.Marsdiep.df %>% 
   filter(diepte <= -5) %>%
@@ -554,6 +889,19 @@ if(knitr::is_html_output())knitr::include_url("../Concept_webgis_geuldoorsnedes/
 Het plaatvolume is per bekken gevisualiseerd in figuur \@ref(fig:plaatvolume). Het verloop is grotendeels vergelijkbaar met de plaatoppervlaktes; kleine verschillen worden verzoorzaakt door geulmigratie van het ene naar het andere bekken. In veel bekkens is het plaatvolume de afgelopen 80 jaar netto toegenomen, vaak wel met tijdelijke afnames. Lauwers, Zoutkamperlaag en Schild kennen na een piek in 2003 juist een duidelijke afname. Verdere analyse is nodig om preciezer vast te stellen wat de veranderingen in de tijd heeft veroorzaakt.
 
 ```{r plaatvolume, fig.cap = "Plaatvolume in  m^3^ per gebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. " }
+ggplot(aes(jaar, plaatvolume), data= hoogtediepte_bekkens %>% 
+         mutate(jaar = as.numeric(jaar))) +
+    geom_line(aes()) +
+    geom_point(aes(), shape = 21, fill = "white", size = 3) +
+    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
+    facet_wrap(~ gebied, scales = "free") +
+  coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))+
+    ggtitle("Plaatvolume per bekken")+
+  ylab("Plaatvolume [miljoen m^3^]") + xlab("Jaar") 
+```
+
+
+```{r plaatvolumeOld, fig.cap = "Plaatvolume in  m^3^ per gebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. ", include=FALSE }
 
 valid.values.df %>% 
   filter(diepte >= -1 & diepte < 1) %>%
@@ -573,6 +921,19 @@ valid.values.df %>%
 Het plaatvolume is per deelgebied in het Marsdiep is gevisualiseerd in Figuur \@ref(fig:plaatvolumeDeelgebieden). Het verloop is grotendeels vergelijkbaar met de plaatoppervlaktes en plaathoogte. In het Balgzand, de Boontjes, Doovebalg en Zwanenbalg is het plaatvolume sinds de jaren 50 toegenomen. In de Texelstroom en het Scheurrak is het plaatvolume juist afgenomen. Verdere analyse is nodig om preciezer vast te stellen wat de veranderingen in de tijd heeft veroorzaakt.
 
 ```{r plaatvolumeDeelgebieden, fig.cap = "Plaatvolume in  m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. " }
+ggplot(aes(jaar, plaatvolume), data= hoogtediepte_deelgebieden %>% 
+         mutate(jaar = as.numeric(jaar))) +
+    geom_line(aes()) +
+    geom_point(aes(), shape = 21, fill = "white", size = 3) +
+    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
+    facet_wrap(~ gebied, scales = "free") +
+  coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))+
+    ggtitle("Plaatvolume per deelgebied")+
+  ylab("Plaatvolume [miljoen m^3^]") + xlab("Jaar") 
+```
+
+
+```{r plaatvolumeDeelgebiedenOld, fig.cap = "Plaatvolume in  m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. ", include=FALSE }
 
 valid.values.Marsdiep.df %>% 
   filter(diepte >= -1 & diepte < 1) %>%
@@ -594,6 +955,19 @@ valid.values.Marsdiep.df %>%
 Het geulvolume is in de westelijke bekkens (Marsdiep, Eierlandse Gat, Vlie) toegenomen, terwijl deze in het Friesche Zeegat (Pinkegat en Zoutkamperlaag) is afgenomen (figuur \@ref(fig:geulvolume)). De scherpe afname van het volume van Zouterkamperlaag begin jaren zeventig komt door de sluiting van de Lauwerszee in 1968, waardoor er sterke sedimentatie in de geulen optrad.
 
 ```{r geulvolume, fig.cap = "Geulvolume in miljoen m^3^ per bekken over de tijd. Het volume is bepaald voor dat deel van het bekken dat onder de NAP -5 m NAP ligt. " }
+ggplot(aes(jaar, geulvolume), data= hoogtediepte_bekkens %>% 
+         mutate(jaar = as.numeric(jaar))) +
+    geom_line(aes()) +
+    geom_point(aes(), shape = 21, fill = "white", size = 3) +
+    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
+    facet_wrap(~ gebied, scales = "free") +
+  coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))+
+    ggtitle("Geulvolume per bekken")+
+  ylab("Geulvolume [miljoen m^3^]") + xlab("Jaar") 
+```
+
+
+```{r geulvolumeOld, fig.cap = "Geulvolume in miljoen m^3^ per bekken over de tijd. Het volume is bepaald voor dat deel van het bekken dat onder de NAP -5 m NAP ligt. ", include =FALSE }
 valid.values.df %>% 
   filter(diepte < -5) %>%
   mutate(volumediepte = -(diepte+5)) %>%
@@ -612,6 +986,19 @@ valid.values.df %>%
 Het geulvolume van de verschillende deelgebieden binnen het Marsdiep laat een eentonig beeld zien, vergelijkbaar met het geulvolume voor het gehele bekken (figuur \@ref(fig:geulvolumeDeelgebieden)). Sinds de jaren 50 of 70 is het geulvolume gestaag toegenomen.
 
 ```{r geulvolumeDeelgebieden, fig.cap = "Geulvolume in miljoen m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van het deelgebied dat onder de NAP -5 m NAP ligt. " }
+ggplot(aes(jaar, geulvolume), data= hoogtediepte_deelgebieden %>% 
+         mutate(jaar = as.numeric(jaar))) +
+    geom_line(aes()) +
+    geom_point(aes(), shape = 21, fill = "white", size = 3) +
+    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
+    facet_wrap(~ gebied, scales = "free") +
+  coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))+
+    ggtitle("Geulvolume per deelgebied")+
+  ylab("Geulvolume [miljoen m^3^]") + xlab("Jaar") 
+```
+
+
+```{r geulvolumeDeelgebiedenOld, fig.cap = "Geulvolume in miljoen m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van het deelgebied dat onder de NAP -5 m NAP ligt. " , include = FALSE}
 valid.values.Marsdiep.df %>% 
   filter(diepte < -5) %>%
   mutate(volumediepte = -(diepte+5)) %>%

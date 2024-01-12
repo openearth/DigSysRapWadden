@@ -51,6 +51,7 @@ waterstanden1927 <- df.extrema.jaar %>% filter(jaar == 1927)
 #'
 #all(unique(df.extrema.jaar$jaar[df.extrema.jaar$jaar>1932])==1933:2020) #elk jaar beschikbaar tm 2020
 waterstanden <- df.extrema.jaar %>% filter(jaar >1932)
+
 HW_plot <- 
   ggplot(aes(x=jaar, y=jaargemiddelde, color=locatie.naam), data=as.data.frame(waterstanden) %>% 
            mutate(HL=factor(HL)) %>% mutate(locatie.naam= factor(locatie.naam)) %>% 
@@ -265,6 +266,8 @@ ws_m <- as.data.frame(left_join(ws, metadata, by= 'locatie.naam'))
 bathymetry1927 <- raster::raster(file.path(mosaicdir, mosaiclist[1]))
 r <- raster(extent(bathymetry1927), crs = crs(bathymetry1927), resolution = c(20,20)) 
 
+r_lowres <- raster(extent(bathymetry1927), crs = crs(bathymetry1927), resolution = c(200,200)) 
+
 #'Maak gstat objects
 #'
 #spdfs <- list()
@@ -437,6 +440,16 @@ for (indicator in unique_indicators) {
 #    text(spdfs_trans[[1]], labels = spdfs_trans[[1]]$locatie.naam, cex = 0.7)
 #} #This does not work (because plot() objects cannot be stored?)
 
+
+## LOWRES watervlakken
+watervlakken_lowres <- list()
+
+for (object in unique_indicators){
+  print(paste0('start idw for ', object))
+  watervlakken_lowres[[object]] <- interpolate(r_lowres, gobjs[[object]])
+}
+
+
 #' Now we want to create separate values for the different arealen: geul, subtidal, intertidal and supratitidal
 #' Here we try this
 
@@ -581,8 +594,8 @@ for (jaar in doeljaren){
 
 # alternatively, we look at the shapefiles made by Julia
 Zwanenbalg <- read_table("N:/Projects/11209000/11209267/B. Measurements and calculations/01. Kombergingsrapportage/Zwanenbalg.pol",
-                         skip = 7, colnames=c('x', 'y'))
-
+                         skip = 7)
+colnames(Zwanenbalg) <- c('x', 'y')
 Zwanenbalgpol <- Zwanenbalg %>% st_as_sf(coords=c('x', 'y'), crs= 9001) %>% st_combine() %>% st_cast("POLYGON")
 Zwanenbalgpol.df <- st_sf(var = 1, Zwanenbalgpol)
 
