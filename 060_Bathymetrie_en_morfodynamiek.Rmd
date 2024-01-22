@@ -9,9 +9,8 @@ doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015", "2019")
 laagwaterlijn = -1 # of -2 (allebei is voorbereid)
 namen_west_oost <- c("Marsdiep","Eijerlandse Gat","Vlie","Borndiep","Pinkegat","Zoutkamperlaag","Eilanderbalg","Lauwers","Schild")
 
-remove_seventies_easternWadden <- function(df) {
-  df <- df %>% filter(!(naam %in% c("Lauwers", "Eilanderbalg", "Schild") & jaar < 1972))
-}
+remove_seventies_easternWadden <- TRUE 
+
 
 fac = 10 
 mosaicdir = "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/bathymetrie/processing_tiles/mosaic"
@@ -219,8 +218,6 @@ valid.values.df <- map(valid.values, as_tibble) %>%
 
 # rm(valid.data,valid.values)
 
-remove_seventies_easternWadden(valid.values.df)
-
 save(valid.values.df, file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
 
 # Now we do the same for deelgebieden (Marsdiep)
@@ -251,6 +248,11 @@ save(valid.values.Marsdiep.df, file = file.path(datadir, "RWS", "bathymetrie", "
 ```{r hypsometriePerGebied, fig.cap="Hypsometrische curven voor verschillende bekkens in de Waddenzee en voor een selectie van bathymetrieën. "}
 
 load(file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
+
+if (remove_seventies_easternWadden){
+  valid.values.df <- valid.values.df %>% 
+    filter(!(naam %in% c("Lauwers", "Eilanderbalg", "Schild") & jaar < 1972))
+}
 
 p <- valid.values.df %>%
   # filter(naam == "Pinkegat") %>%
@@ -482,6 +484,7 @@ for (i in 1:length(doeljaren)){
                                         reclassify(lagen_lowres$bathymetry[[i]]-lagen_lowres$hoogwater[[i]], matrix_inv),rcl =cbind(from = c(-Inf, -.01, .01),to = c(-.01, .01, Inf), become = c(0,1,0)))
 }
 
+
 save(lagen_lowres, file = file.path(datadir, "RWS", "bathymetrie", "lagen.Rdata"))
 ```
 
@@ -506,6 +509,20 @@ for(hoogteklasse in hoogteklassen){
   }
 }
 
+if (remove_seventies_easternWadden){
+  bekkens.df <- bekkens.df %>% 
+    filter(!(naam %in% c("Lauwers", "Eilanderbalg", "Schild") & jaar < 1972))
+}
+
+bekkens.df$naam <- factor(bekkens.df$naam, levels = namen_west_oost)
+
+bekkens.df <- bekkens.df %>%
+  mutate(areaal = ifelse(areaal == 'subtidal', 'subgetijdengebied', areaal)) %>% 
+  mutate(areaal = ifelse(areaal == 'intertidal', 'intergetijdengebied', areaal)) %>% 
+  mutate(areaal = ifelse(areaal == 'supratidal', 'supragetijdengebied', areaal))
+
+bekkens.df$areaal <- factor(bekkens.df$areaal, levels = c('geul', 'subgetijdengebied', 'intergetijdengebied', 'supragetijdengebied'))
+
 ggplot(aes(jaar, oppervlakte), data= bekkens.df %>% 
          mutate(oppervlakte = as.numeric(oppervlakte)) %>% 
          mutate(jaar = as.numeric(jaar))) +
@@ -521,13 +538,13 @@ ggplot(aes(jaar, oppervlakte), data= bekkens.df %>%
 ```
 
 
-```{r arealenOld, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse.", include=FALSE}
+```{r arealenOld, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse.", include=TRUE}
 
-remove_seventies_easternWadden <- TRUE 
 if (remove_seventies_easternWadden){
   valid.values.df <- valid.values.df %>% 
     filter(!(naam %in% c("Lauwers", "Eilanderbalg", "Schild") & jaar < 1972))
 }
+
 
 p<-valid.values.df  %>%
     mutate(class=case_when(
@@ -550,16 +567,16 @@ p<-valid.values.df  %>%
     theme(strip.text.y = element_text(angle = 0)) +
     ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
     coord_cartesian(xlim = c(1920, 2020)) +
-    ggtitle("Areaal in km^2 per bekken en diepteklasse")+
-  theme_bw()
+    ggtitle("Areaal in km^2 per bekken en diepteklasse")
 
-ggplotly(
-    p, 900, 900) %>%
-    config(displayModeBar = F) %>%
-    layout(xaxis=list(fixedrange=TRUE)) %>%
-    layout(yaxis=list(fixedrange=TRUE)
-    )
+#ggplotly(
+#    p, 900, 900) %>%
+#    config(displayModeBar = F) %>%
+#    layout(xaxis=list(fixedrange=TRUE)) %>%
+#    layout(yaxis=list(fixedrange=TRUE)
+#    )
 
+p
 ```
 
 Figuur \@ref(fig:arealenDeelgebieden) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:deelgebiedenWaddenzee)). Het geulareaal is over de laatste decennia toegenomen in het Balgzand, de Boontjes, Texelstroom en Zwanenbalg. In het Scheurrak en Doovebalg is het geulareaal redelijk constant sinds de jaren 70. In het Balgzand, de Boontjes en Zwanenbalg neemt het totale subgetijdegebied (dus inclusief het geulareaal) af. Dit betekent dat een steeds groter deel van het subgetijdegebied uitdiept. In de Texelstroom neemt het subgetijdegebied toe. Het intertijdegebied laat een tegenovergesteld beeld zien. In het Balgzand, de Boontjes en Zwanenbalg komt er dus steeds meer intergetijdegebied in plaats van subgetijdegebied, terwijl in de Texelstroom juist intergetijdegebied ingewisseld wordt voor subgetijdegebied. Het supragetijdegebied is zeer klein, in sommige jaren en in het Scheurrak was er zelfs überhaupt geen areaal boven de +1 NAP.
@@ -579,6 +596,11 @@ for(hoogteklasse in hoogteklassen){
   }
 }
 
+deelgebieden.df <- deelgebieden.df %>%
+  mutate(areaal = ifelse(areaal == 'subtidal', 'subgetijdengebied', areaal)) %>% 
+  mutate(areaal = ifelse(areaal == 'intertidal', 'intergetijdengebied', areaal)) %>% 
+  mutate(areaal = ifelse(areaal == 'supratidal', 'supragetijdengebied', areaal))
+
 ggplot(aes(jaar, oppervlakte), data= deelgebieden.df %>% 
          mutate(oppervlakte = as.numeric(oppervlakte)) %>% 
          mutate(jaar = as.numeric(jaar))) +
@@ -593,7 +615,7 @@ ggplot(aes(jaar, oppervlakte), data= deelgebieden.df %>%
 ```
 
 
-```{r arealenDeelgebiedenOld, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per deelgebied en diepteklasse.", include=FALSE}
+```{r arealenDeelgebiedenOld, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per deelgebied en diepteklasse.", include=TRUE}
 
  p<-valid.values.Marsdiep.df  %>%
       mutate(class=case_when(
@@ -616,17 +638,18 @@ ggplot(aes(jaar, oppervlakte), data= deelgebieden.df %>%
       theme(strip.text.y = element_text(angle = 0)) +
       ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
       coord_cartesian(xlim = c(1920, 2020)) +
-      ggtitle("Areaal in km^2 per deelgebied en diepteklasse")+
-  theme_bw()
+      ggtitle("Areaal in km^2 per deelgebied en diepteklasse")
 
-if(knitr::is_html_output()) {
-  ggplotly(
-    p, 900, 900) %>%
-    config(displayModeBar = F) %>%
-    layout(xaxis=list(fixedrange=TRUE)) %>%
-    layout(yaxis=list(fixedrange=TRUE)
-    )
-} else p
+#if(knitr::is_html_output()) {
+#  ggplotly(
+#    p, 900, 900) %>%
+#    config(displayModeBar = F) %>%
+#    layout(xaxis=list(fixedrange=TRUE)) %>%
+#    layout(yaxis=list(fixedrange=TRUE)
+#    )
+#} else p
+
+p
 
 ```
 
@@ -701,6 +724,8 @@ for(i in 1:length(lagen_lowres$plaathoogte)) {
   }
 }
 
+
+
 save(hoogtediepte_bekkens, file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_bekkens.Rdata"))
 save(hoogtediepte_deelgebieden, file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_deelgebieden.Rdata"))
 
@@ -708,6 +733,13 @@ save(hoogtediepte_deelgebieden, file = file.path(datadir, "RWS", "bathymetrie", 
 
 ```{r plaathoogte, fig.cap= "Gemiddelde plaathoogte per bekken. "}
 load(file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_bekkens.Rdata"))
+
+if (remove_seventies_easternWadden){
+  hoogtediepte_bekkens <- hoogtediepte_bekkens %>% 
+    filter(!(gebied %in% c("Lauwers", "Eilanderbalg", "Schild") & jaar < 1972))
+}
+
+hoogtediepte_bekkens$gebied <- factor(hoogtediepte_bekkens$gebied, levels = namen_west_oost)
 
 ggplot(aes(jaar, plaathoogte), data= hoogtediepte_bekkens %>% 
          mutate(jaar = as.numeric(jaar))) +
@@ -722,7 +754,7 @@ ggplot(aes(jaar, plaathoogte), data= hoogtediepte_bekkens %>%
 ```
 
 
-```{r plaathoogteOld, fig.cap = "Gemiddelde plaathoogte per bekken. ", include=FALSE}
+```{r plaathoogteOld, fig.cap = "Gemiddelde plaathoogte per bekken. ", include=TRUE}
 valid.values.df %>% 
   filter(diepte >= -1 & diepte < 1) %>% #  
   group_by(naam, jaar) %>%
@@ -754,7 +786,7 @@ ggplot(aes(jaar, plaathoogte), data= hoogtediepte_deelgebieden %>%
 ```
 
 
-```{r plaathoogteDeelgebiedenOld, fig.cap = "Gemiddelde plaathoogte per bekken. ", include=FALSE}
+```{r plaathoogteDeelgebiedenOld, fig.cap = "Gemiddelde plaathoogte per bekken. ", include=TRUE}
 valid.values.Marsdiep.df %>% 
   filter(diepte >= -1 & diepte < 1) %>% #  
   group_by(naam, jaar) %>%
@@ -784,11 +816,11 @@ ggplot(aes(jaar, geuldiepte), data= hoogtediepte_bekkens %>%
     facet_wrap(~ gebied, scales = "free") +
   coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))+
    ylab("Geuldiepte t.o.v. NAP [m]") + xlab("Jaar") +
-  ggtitle("Plaathoogte in m per bekken")
+  ggtitle("Geuldiepte in m per bekken")
 ```
 
 
-```{r geuldiepteOld, fig.cap="Geuldiepte door de jaren in de verschillende gebieden. Let op de verschillende verticale assen. ", include=FALSE}
+```{r geuldiepteOld, fig.cap="Geuldiepte door de jaren in de verschillende gebieden. Let op de verschillende verticale assen. ", include=TRUE}
 
 valid.values.df %>% 
   filter(diepte <= -5) %>%
@@ -806,7 +838,7 @@ valid.values.df %>%
 De ontwikkeling van de geuldiepte door de jaren laat voor de meeste deelgebieden, net als voor het Marsdiep bekken (figuur \@ref(fig:geuldiepte)), een sterke piek zien in 1949 en vervolgens een afname zien (figuur \@ref(fig:geuldiepteDeelgebieden)). In de Boontjes is de daling van de geuldiepte pas later ingezet. De geuldiepte van van Texelstroom ligt een stuk dieper dan de geuldiepte in de andere gebieden. Voor dit deelgebied laat de geuldiepte ook een andere trend zien, deze werd dieper tot 1971 en is vervolgens ondieper geworden.
 
 ```{r geuldiepteDeelgebieden, fig.cap="Geuldiepte door de jaren in de verschillende bekkens. Let op de verschillende verticale assen. "}
-ggplot(aes(jaar, geuldiepte), data= hoogtediepte_bekkens %>% 
+ggplot(aes(jaar, geuldiepte), data= hoogtediepte_deelgebieden %>% 
          mutate(jaar = as.numeric(jaar))) +
     geom_line(aes()) +
     geom_point(aes(), shape = 21, fill = "white", size = 3) +
@@ -817,7 +849,7 @@ ggplot(aes(jaar, geuldiepte), data= hoogtediepte_bekkens %>%
    ylab("Geuldiepte t.o.v. NAP [m]") + xlab("Jaar")
 ```
 
-```{r geuldiepteDeelgebiedenOld, fig.cap="Geuldiepte door de jaren in de verschillende deelgebieden. Let op de verschillende verticale assen. ", include=FALSE}
+```{r geuldiepteDeelgebiedenOld, fig.cap="Geuldiepte door de jaren in de verschillende deelgebieden. Let op de verschillende verticale assen. ", include=TRUE}
 
 valid.values.Marsdiep.df %>% 
   filter(diepte <= -5) %>%
@@ -901,7 +933,7 @@ ggplot(aes(jaar, plaatvolume), data= hoogtediepte_bekkens %>%
 ```
 
 
-```{r plaatvolumeOld, fig.cap = "Plaatvolume in  m^3^ per gebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. ", include=FALSE }
+```{r plaatvolumeOld, fig.cap = "Plaatvolume in  m^3^ per gebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. ", include=TRUE }
 
 valid.values.df %>% 
   filter(diepte >= -1 & diepte < 1) %>%
@@ -933,7 +965,7 @@ ggplot(aes(jaar, plaatvolume), data= hoogtediepte_deelgebieden %>%
 ```
 
 
-```{r plaatvolumeDeelgebiedenOld, fig.cap = "Plaatvolume in  m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. ", include=FALSE }
+```{r plaatvolumeDeelgebiedenOld, fig.cap = "Plaatvolume in  m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. ", include=TRUE }
 
 valid.values.Marsdiep.df %>% 
   filter(diepte >= -1 & diepte < 1) %>%
@@ -967,7 +999,7 @@ ggplot(aes(jaar, geulvolume), data= hoogtediepte_bekkens %>%
 ```
 
 
-```{r geulvolumeOld, fig.cap = "Geulvolume in miljoen m^3^ per bekken over de tijd. Het volume is bepaald voor dat deel van het bekken dat onder de NAP -5 m NAP ligt. ", include =FALSE }
+```{r geulvolumeOld, fig.cap = "Geulvolume in miljoen m^3^ per bekken over de tijd. Het volume is bepaald voor dat deel van het bekken dat onder de NAP -5 m NAP ligt. ", include =TRUE }
 valid.values.df %>% 
   filter(diepte < -5) %>%
   mutate(volumediepte = -(diepte+5)) %>%
@@ -998,7 +1030,7 @@ ggplot(aes(jaar, geulvolume), data= hoogtediepte_deelgebieden %>%
 ```
 
 
-```{r geulvolumeDeelgebiedenOld, fig.cap = "Geulvolume in miljoen m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van het deelgebied dat onder de NAP -5 m NAP ligt. " , include = FALSE}
+```{r geulvolumeDeelgebiedenOld, fig.cap = "Geulvolume in miljoen m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van het deelgebied dat onder de NAP -5 m NAP ligt. " , include = TRUE}
 valid.values.Marsdiep.df %>% 
   filter(diepte < -5) %>%
   mutate(volumediepte = -(diepte+5)) %>%
