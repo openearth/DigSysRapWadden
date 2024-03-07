@@ -21,7 +21,59 @@ Volume, locaties. Zandwinning is gestopt, maar de data is nog wel relevant voor 
 Volume, locaties. Schelpwinning wordt afgebouwd, maar de data is nog wel relevant voor het begrijpen van de historische ontwikkeling.
 
 ## Kunstwerken
-Locaties/arealen van dijken, dammen, bestortingen, kwelderwerken, kabels en leidingen en andere civiele werken. Voor zover beschikbaar in publieke webservices.  
+Onder kunstwerken verstaan we menselijke bouwwerken die doorgaans niet voor bewoning bestemd zijn. Onderstaande figuur toont de locaties van verschillende kunstwerken rond de Waddenzee, waaronder sluizen, gemalen en duikers. In de figuur wordt per locatie het type kunstwerk vermeld.
+
+```{r kunstwerken, out.height="450px", fig.cap="Kunstwerken in de Waddenzee, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
+Wadden <- sf::st_read('p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp') %>% st_transform(4326)
+
+kunstwerken <- read_csv('https://geo.rijkswaterstaat.nl/services/ogc/gdr/primaire_waterkering/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=kunstwerken&outputFormat=csv')
+kunstwerken <- st_as_sf(kunstwerken, coords = c('x_pr_dr', 'y_pr_dr'), crs = crs(Wadden)) 
+kunstwerkenWad <- st_intersection(kunstwerken, Wadden %>% st_transform(4326))
+
+leaflet(kunstwerken) %>%
+  setView(lng = 5.8, lat = 53.3, zoom = 9) %>% 
+  addTiles() %>%
+  addCircleMarkers(label = ~kd_type_om, radius=2) 
+
+```
+
+
+## Kabels en leidingen
+Er lopen verschillende kabels en leidingen tussen het vasteland en de Waddeneilanden. Voor het overzicht is besloten om alleen het deel van de kabels en leidingen te tonen welke binnen de Waddenzee en de Noordzeekustzone gelegen zijn. Voor pijpleidingen wordt binnen de figuur getoond welke stof (gas, olie, water, etc.) vervoerd wordt. Voor de telecomkabels wordt voor zover bekend weergegeven wat voor soort kabel het is (coaxiaal of glasvezel). 
+
+```{r kabelsEnLeidingen, echo =FALSE, out.height="450px", fig.cap="Pijpleidingen, telecomkabels en elektrakabels in de Waddenzee. NB: tussen Den Helder en Texel lopen zowel telecomkabels als pijpleidingen, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
+Wadden <- sf::st_read('p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp') %>% st_transform(4326)
+
+wfs_geo <- 'https://geo.rijkswaterstaat.nl/services/ogc/gdr/kabels_en_leidingen_noordzee/ows?service=WFS&request=getcapabilities&version=2.0.0'
+
+pijpleidingen.lay <- 'kabels_en_leidingen_noordzee:pijpleidingen_noordzee'
+telecom_kabels.lay <- 'kabels_en_leidingen_noordzee:telecom_kabels_noordzee'
+elektra_kabels.lay <- 'kabels_en_leidingen_noordzee:electra_kabels_noordzee'
+
+pijpleidingen <- st_read(dsn = wfs_geo, layer = pijpleidingen.lay) %>% st_transform(4326)
+pijpleidingenWadden <- st_intersection(pijpleidingen, Wadden)
+
+telecom_kabels <- st_read(dsn = wfs_geo, layer = telecom_kabels.lay) %>% st_transform(4326)
+telecom_kabelsWadden <- st_intersection(telecom_kabels, Wadden) 
+
+elektra_kabels <- st_read(dsn=wfs_geo, layer = elektra_kabels.lay) %>% st_transform(4326)
+elektra_kabelsWadden <- st_intersection(elektra_kabels, Wadden)
+
+leaflet() %>%
+  addTiles() %>%
+  addPolylines(data=pijpleidingenWadden %>% filter(status == "Active"), 
+               color = 'red', label = ~stofnaam) %>%
+  addPolylines(data=telecom_kabelsWadden %>% filter(status == 'Ingebruik'), 
+               color = 'blue', label = ~kabel_type) %>%
+  addPolylines(data=telecom_kabelsWadden %>% filter(status == 'Verlaten'), 
+               color = '#4682B4', label = ~kabel_type) %>%
+  addPolylines(data=elektra_kabelsWadden %>% filter(status == 'Ingebruik'), 
+               color = 'yellow', label = ~kabelsoort) %>% 
+  addLegend(colors = c("red", "blue", "#4682B4", 'yellow'), 
+            labels = c("Pijpleidingen", "Telecom Kabels (actief)","Telecom Kabels (verlaten)", 'Elektra Kabels'), opacity = 1, title = "Legenda")
+
+```
+
 
 ## Gesloten gebieden voor bodemberoerende visserij
 In de Waddenzee is in het Groninger Wad een gebied gesloten voor bodemberoerende visserij. Dit is nog niet opgenomen op onderstaande kaart.
