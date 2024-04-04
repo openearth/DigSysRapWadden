@@ -41,21 +41,6 @@ jaar en zal een nieuwe kaart opgesteld moeten worden.
 knitr::include_graphics("images/bodemdalingsmonitor_doorwinning.png")
 ```
 
-**Komende 30 jaar**
-
- \ref(fig:bodemdalingmonitor-doorwinning-prognose) laat zien dat de bodemdaling in de komende 30
-jaar in het algemeen minder zal zijn dan in de afgelopen 30 jaar. Dit is een gevolg van
-verminderde gaswinning, waardoor op de meeste locaties nog slechts enkele centimeters
-bodemdaling verwacht wordt. Rondom Ameland en het Groninger gasveld kan nog wel tot
-rond 10 cm aanvullende bodemdaling optreden. De onzekerheid rondom deze getallen is
-groter dan voor de afgelopen 30 jaar, omdat deze getallen alleen gebaseerd zijn op
-modellering en omdat winningsplannen nog kunnen wijzigen. In lijn met de eerdere Bodemdalingmonitor wordt de onzekerheid (variatiecoëfficiënt) rondom de bodemdalingsgetallen voor de
-komende 30 jaar daarom op ± 50% geschat. Binnenkort zijn beide kaarten ook beschikbaar via Datahuis Wadden. 
-
-```{r bodemdalingmonitor-doorwinning-prognose, fig.cap="Bodembeweging door winning van gas, olie en zout voor de komende 30 jaar."}
-
-knitr::include_graphics("images/bodemdalingmonitor-doorwinning-prognose.png")
-```
 
 ## Zandwinning
 
@@ -77,14 +62,14 @@ en duikers. In de figuur wordt per locatie het type kunstwerk vermeld.
 ```{r kunstwerken, out.height="450px", fig.cap="Kunstwerken in de Waddenzee, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
 Wadden <- sf::st_read('p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp') %>% st_transform(4326)
 
-kunstwerken <- read_csv('https://geo.rijkswaterstaat.nl/services/ogc/gdr/primaire_waterkering/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=kunstwerken&outputFormat=csv')
-kunstwerken <- st_as_sf(kunstwerken, coords = c('x_pr_dr', 'y_pr_dr'), crs = crs(Wadden)) 
-kunstwerkenWad <- st_intersection(kunstwerken, Wadden %>% st_transform(4326))
+kunstwerken <- sf::st_read("https://geo.rijkswaterstaat.nl/services/ogc/gdr/primaire_waterkering/ows?request=GetFeature&service=WFS&version=2.0.0&outputFormat=application%2Fjson&typeNames=primaire_waterkering:kunstwerken") %>% st_transform(4326)
+ 
 
 leaflet(kunstwerken) %>%
   setView(lng = 5.8, lat = 53.3, zoom = 9) %>% 
   addTiles() %>%
-  addCircleMarkers(label = ~kd_type_om, radius=2) 
+  addCircleMarkers(label = ~kd_type_om, radius=3) 
+
 
 ```
 
