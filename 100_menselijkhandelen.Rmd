@@ -1,27 +1,78 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
 \newpage
 
+# Ingrepen door de mens
 
-# Ingrepen door de mens 
-
-Vooralsnog zijn er geen indicatoren voor menselijke activeiten opgenomen in deze systeemrapportage omdat er maar weinig in direct bruikbare vorm digitaal ontsloten is. De indicatoren die in 2023 toegevoegd gaan worden worden aangegeven door de paragrafen in dit hoofdstuk.
+Vooralsnog zijn er geen indicatoren voor menselijke activeiten opgenomen
+in deze systeemrapportage omdat er maar weinig in direct bruikbare vorm
+digitaal ontsloten is. De indicatoren die in 2023 toegevoegd gaan worden
+worden aangegeven door de paragrafen in dit hoofdstuk.
 
 ## Bagger- en verspreidingswerken
-Baggervolumes en -massa, locaties, sedimentsamenstelling. Deze data is niet digitaal ontsloten. 
+
+Baggervolumes en -massa, locaties, sedimentsamenstelling. Deze data is
+niet digitaal ontsloten.
 
 ## Zandsuppleties
-Zandsuppleties worden alleen uitgevoerd aan de Noordzeezijde van de eilanden en niet in de Waddenzee. Locaties en volumes zijn beschikbaar via de [kustviewer](https://www.openearth.nl/coastviewer-static/).
+
+Zandsuppleties worden alleen uitgevoerd aan de Noordzeezijde van de
+eilanden en niet in de Waddenzee. Locaties en volumes zijn beschikbaar
+via de [kustviewer](https://www.openearth.nl/coastviewer-static/).
 
 ## Bodemdaling
-Hier wordt verwezen naar paragraaf \@ref(bodemdaling).
+**Afgelopen 30 jaar**
+
+In de Bodemdalingsmonitor-rapporten (2018) zijn overzichten gegeven van de bodemdaling als gevolg van de winning van gas, olie, zout en water.De bodemdaling door het winnen van water bleek niet relevant voor hetkustfundament en is daarna niet meer meegenomen. In de Bodemdalingmonitor (2018) wordt de onzekerheid
+(variatiecoëfficiënt) rondom de bodemdalingsgetallen voor het historisch verleden op ± 25%
+geschat. Deze kaart is oorspronkelijk opgesteld voor de periode 1987-2017, de kaart
+wordt ook representatief geacht voor de laatste 30 jaar, omdat gewerkt is met een legenda-
+indeling in klassen en ook omdat de bodemdaling door winning in de laatste 5 jaar
+grotendeels binnen de spreiding van ± 25% valt. Door de start van de zoutwinning bij de
+Ballastplaat zal deze kaart zeer binnenkort niet meer representatief zijn voor de laatste 30
+jaar en zal een nieuwe kaart opgesteld moeten worden.
+
+```{r bodemdalingsmonitor_doorwinning, fig.cap="Bodembeweging door winning van gas, olie en zout in de laatste 30 jaar."}
+
+knitr::include_graphics("images/bodemdalingsmonitor_doorwinning.png")
+```
+
+**Komende 30 jaar**
+
+ \ref(fig:bodemdalingmonitor-doorwinning-prognose) laat zien dat de bodemdaling in de komende 30
+jaar in het algemeen minder zal zijn dan in de afgelopen 30 jaar. Dit is een gevolg van
+verminderde gaswinning, waardoor op de meeste locaties nog slechts enkele centimeters
+bodemdaling verwacht wordt. Rondom Ameland en het Groninger gasveld kan nog wel tot
+rond 10 cm aanvullende bodemdaling optreden. De onzekerheid rondom deze getallen is
+groter dan voor de afgelopen 30 jaar, omdat deze getallen alleen gebaseerd zijn op
+modellering en omdat winningsplannen nog kunnen wijzigen. In lijn met de eerdere Bodemdalingmonitor wordt de onzekerheid (variatiecoëfficiënt) rondom de bodemdalingsgetallen voor de
+komende 30 jaar daarom op ± 50% geschat. Binnenkort zijn beide kaarten ook beschikbaar via Datahuis Wadden. 
+
+```{r bodemdalingmonitor-doorwinning-prognose, fig.cap="Bodembeweging door winning van gas, olie en zout voor de komende 30 jaar."}
+
+knitr::include_graphics("images/bodemdalingmonitor-doorwinning-prognose.png")
+```
 
 ## Zandwinning
-Volume, locaties. Zandwinning is gestopt, maar de data is nog wel relevant voor het begrijpen van de historische ontwikkeling.
+
+Volume, locaties. Zandwinning is gestopt, maar de data is nog wel
+relevant voor het begrijpen van de historische ontwikkeling.
 
 ## Schelpenwinning
-Volume, locaties. Schelpwinning wordt afgebouwd, maar de data is nog wel relevant voor het begrijpen van de historische ontwikkeling.
+
+Volume, locaties. Schelpwinning wordt afgebouwd, maar de data is nog wel
+relevant voor het begrijpen van de historische ontwikkeling.
 
 ## Kunstwerken
-Onder kunstwerken verstaan we menselijke bouwwerken die doorgaans niet voor bewoning bestemd zijn. Onderstaande figuur toont de locaties van verschillende kunstwerken rond de Waddenzee, waaronder sluizen, gemalen en duikers. In de figuur wordt per locatie het type kunstwerk vermeld.
+
+Onder kunstwerken verstaan we menselijke bouwwerken die doorgaans niet
+voor bewoning bestemd zijn. Onderstaande figuur toont de locaties van
+verschillende kunstwerken rond de Waddenzee, waaronder sluizen, gemalen
+en duikers. In de figuur wordt per locatie het type kunstwerk vermeld.
 
 ```{r kunstwerken, out.height="450px", fig.cap="Kunstwerken in de Waddenzee, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
 Wadden <- sf::st_read('p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp') %>% st_transform(4326)
@@ -37,9 +88,15 @@ leaflet(kunstwerken) %>%
 
 ```
 
-
 ## Kabels en leidingen
-Er lopen verschillende kabels en leidingen tussen het vasteland en de Waddeneilanden. Voor het overzicht is besloten om alleen het deel van de kabels en leidingen te tonen welke binnen de Waddenzee en de Noordzeekustzone gelegen zijn. Voor pijpleidingen wordt binnen de figuur getoond welke stof (gas, olie, water, etc.) vervoerd wordt. Voor de telecomkabels wordt voor zover bekend weergegeven wat voor soort kabel het is (coaxiaal of glasvezel). 
+
+Er lopen verschillende kabels en leidingen tussen het vasteland en de
+Waddeneilanden. Voor het overzicht is besloten om alleen het deel van de
+kabels en leidingen te tonen welke binnen de Waddenzee en de
+Noordzeekustzone gelegen zijn. Voor pijpleidingen wordt binnen de figuur
+getoond welke stof (gas, olie, water, etc.) vervoerd wordt. Voor de
+telecomkabels wordt voor zover bekend weergegeven wat voor soort kabel
+het is (coaxiaal of glasvezel).
 
 ```{r kabelsEnLeidingen, echo =FALSE, out.height="450px", fig.cap="Pijpleidingen, telecomkabels en elektrakabels in de Waddenzee. NB: tussen Den Helder en Texel lopen zowel telecomkabels als pijpleidingen, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
 Wadden <- sf::st_read('p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp') %>% st_transform(4326)
@@ -74,9 +131,11 @@ leaflet() %>%
 
 ```
 
-
 ## Gesloten gebieden voor bodemberoerende visserij
-In de Waddenzee is in het Groninger Wad een gebied gesloten voor bodemberoerende visserij. Dit is nog niet opgenomen op onderstaande kaart.
+
+In de Waddenzee is in het Groninger Wad een gebied gesloten voor
+bodemberoerende visserij. Dit is nog niet opgenomen op onderstaande
+kaart.
 
 ```{r geslotenGebiedenVisserij, out.height="450px", fig.cap="Gesloten gebieden voor bodemberoerende visserij in de Noordzee. Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
 

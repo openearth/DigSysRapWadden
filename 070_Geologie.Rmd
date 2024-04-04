@@ -48,8 +48,6 @@ De effecten van ERL's kunnen op verschillende manieren tot uiting komen in de mo
 knitr::include_graphics("images/geologie/erl_morfologie.jpg")
 ```
 
-
-
 Een geul die zich in (losgepakt) zand insnijdt zal een v-vormig dwarsprofiel vormen (Figuur \@ref(fig:erl-morfologie) A). Als één of meerdere ERL's zich in de geulwand bevinden kan er een getrapt profiel ontstaan. Een dikke en/of sterk resistente ERL in de geulwand zal ervoor zorgen dat de laterale migratie van de geul in meer of mindere mate wordt vertraagd ter hoogte van deze laag (Figuur \@ref(fig:erl-morfologie) B, Figuur \@ref(fig:erl-multibeam)). Boven de bovenste ERL kan de erosiesnelheid juist toenemen (Figuur \@ref(fig:erl-morfologie) C). Als er een ERL op de bodem van de geul ligt en deze de verdieping van de geul verhinderd, kan er een 'platte' bodem ontstaan. De geul zal zich meer in de breedte ontwikkelen een u-vormig dwarsprofiel aannemen en voor een (tijdelijke) toegenomen erosiesnelheid zorgen (Figuur \@ref(fig:erl-morfologie) D). De twee laatst genoemde situaties C en D zorgen voor een vergroting van het geulareaal.
 
 ```{r erl-multibeam, fig.cap="In deze multibeam bathymetrie van de Westerscheldemonding is het ontstaan van het getrapte profiel duidelijk zichtbaar met 10 kleilagen die uit de geulwand steken. De kleilagen liggen in dit voorbeeld niet perfect horizontaal, maar steken schuin weg de geulwand in (hellen naar links in het figuur), waardoor ze een soort richels vormen in de geulwand."}
@@ -57,9 +55,16 @@ Een geul die zich in (losgepakt) zand insnijdt zal een v-vormig dwarsprofiel vor
 knitr::include_graphics("images/geologie/erl-multibeam-getrapt.png")
 ```
 
-
 \newpage
 
-## Bodemdaling {#bodemdaling}
+## Geologische bodemdaling {#bodemdaling}
 
-De bodemdalingsschotels als gevolg van gas- en zoutwinning moeten nog worden toegevoegd.
+De bijdrage van geologische bodemdaling aan relatieve zeespiegel langs de Nederlandse kust wordt binnen de Bodemdalingsmonitor (2022) berekend door het sommeren van de tektonische en glacio-isostatische bodembeweging, de belangrijkste componenten van geologische bodemdaling. Hieronder worden deze componenten van geologische bodemdaling kort toegelicht, gevolgd door een kaart met de geologische bodemdaling in Nederland voor een periode van 100 jaar. De gemiddelde snelheid van geologische bodemdaling wordt constant beschouwd op een schaal van eeuwen, dus de geologische bodemdaling in de laatste 100 jaar is identiek aan de geologische bodemdaling in de komende 100 jaar.
+
+Figuur \@ref(fig:bodemdalingsmonitor-geologie) geeft de meest recente kaart van geologische bodemdaling binnen de Bodemdalingsmonitor (2022). Er is een duidelijke trend zichtbaar van zuid naar noord, met minder bodemdaling in het zuiden (rond 2 cm/eeuw) en meer in het noorden (rond 6 cm/eeuw). Deze trend wordt bepaald door glacio-isostatische bodemdaling, terwijl de meer lokale/regionale afwijkingen van de hoofdtrend het gevolg zijn van tektonische bodembewegingen langs breuken. Deze data is binnenkort ook beschikbaar via Datahuis Wadden. 
+
+```{r bodemdalingsmonitor-geologie, fig.cap="Gemodelleerde geologische bodemdaling voor een periode van 100 jaar. Voor geheel Nederland wordt bodemdaling gemodelleerd, toenemend van zuid naar noord van 2 tot 6 cm per eeuw. De zwart-witte lijnen zijn contourlijnen van geologische bodemdaling."}
+
+knitr::include_graphics("images/bodemdalingsmonitor_geologisch.png")
+```
+

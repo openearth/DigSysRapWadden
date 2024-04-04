@@ -327,16 +327,16 @@ if(knitr::is_html_output()) {
 
 Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in vier verschillende hoogteklassen:
 
-1.  Geul 
-2.  Subgetijdengebied 
-3.  Intergetijdengebied 
-4.  Supragetijdengebied 
+1.  Geul
+2.  Subgetijdengebied
+3.  Intergetijdengebied
+4.  Supragetijdengebied
 
 Het intergetijdengebied betreft het areaal dat een deel van de tijd droogvalt. De begrenzing van het intergetijdengebied wordt enerzijds gevormd door de bodemligging en anderszijds door de waterstandvariatie. De waterstand varieert niet alleen door de tijd, maar ook in de ruimte. Achterin de bekkens is de getijslag meestal groter dan nabij de zeegaten. Daarnaast neemt de getijslag toe van west naar oost, dus tussen Den Helder en Delfzijl. De kaart met de getijslag laat dit goed zien (figuur \@ref(fig:kaartGetijslag)).
 
 De waterstand wordt echter alleen gemeten op een aantal stations. Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, dient rekening te worden gehouden met de getijvoortplanting. Numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden (rekencellen), en daarmee de kleinere geultjes en prielen, die een belangrijke functie hebben in het efficient draineren van de intergetijdengebieden, niet in het rekenrooster zijn opgenomen. Voor de ecotopenkaart wordt de waterspiegel berekend middels een driehoeksinterpolatie van de gemeten waterstanden als invoer voor het berekenen van de droogvalduur.
 
-Voor deze rapportage zijn gebiedsdekkende kaarten gegenereerd voor de Waddenzee op basis van het gemiddelde jaarlijkse hoogwater en laagwater gemeten op de verschillende stations. Op basis hiervan kan aan de hand van de bathymetrie worden vastgesteld welk deel van de Waddenzee zich onder de laagwaterlijn bevindt (subgetijdengebied) en welk deel hoger ligt dan de hoogwaterlijn (supragetijdengebied). Het areaal dat tussen het gemiddelde hoogwater en laag water ligt is het intergetijdengebien. Areaal dat zich meer dan 2 meter onder de laagwaterlijn ligt wordt aangeduid als geul. De gebiedsdekkende kaarten zijn vooralsnog gegenereerd op basis van 'inverse-distance weighted (idw)' interpolatie (idp = 3). 
+Voor deze rapportage zijn gebiedsdekkende kaarten gegenereerd voor de Waddenzee op basis van het gemiddelde jaarlijkse hoogwater en laagwater gemeten op de verschillende stations. Op basis hiervan kan aan de hand van de bathymetrie worden vastgesteld welk deel van de Waddenzee zich onder de laagwaterlijn bevindt (subgetijdengebied) en welk deel hoger ligt dan de hoogwaterlijn (supragetijdengebied). Het areaal dat tussen het gemiddelde hoogwater en laag water ligt is het intergetijdengebien. Areaal dat zich meer dan 2 meter onder de laagwaterlijn ligt wordt aangeduid als geul. De gebiedsdekkende kaarten zijn vooralsnog gegenereerd op basis van 'inverse-distance weighted (idw)' interpolatie (idp = 3).
 
 Figuur \@ref(fig:arealen) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:gebiedenWaddenzee)). De figuur laat zien dat het intergetijdengebied in de meeste bekkens toeneemt over de tijd. Alleen voor de Lauwers en Schild is dit niet zo. Ook neemt het areaal subgetijdengebied af (dit ligt tussen de -5 m NAP en de -1 m NAP lijn). De arealen supragetijdengebied zijn klein, ook omdat enkel de gebieden (cellen) worden meegenomen die in alle jaren opgenomen zijn. Het supragetijdengebied is niet altijd volledig opgenomen in de vaklodingen data, zeker niet in oudere opnamen. De ontwikkeling van het geulareaal verschilt per bekken.
 
@@ -537,7 +537,6 @@ ggplot(aes(jaar, oppervlakte), data= bekkens.df %>%
 
 ```
 
-
 ```{r arealenOld, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse.", include=TRUE}
 
 if (remove_seventies_easternWadden){
@@ -613,7 +612,6 @@ ggplot(aes(jaar, oppervlakte), data= deelgebieden.df %>%
     ggtitle("Areaal in km^2 per bekken en diepteklasse")+ 
   coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))
 ```
-
 
 ```{r arealenDeelgebiedenOld, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per deelgebied en diepteklasse.", include=TRUE}
 
@@ -753,7 +751,6 @@ ggplot(aes(jaar, plaathoogte), data= hoogtediepte_bekkens %>%
 
 ```
 
-
 ```{r plaathoogteOld, fig.cap = "Gemiddelde plaathoogte per bekken. ", include=TRUE}
 valid.values.df %>% 
   filter(diepte >= -1 & diepte < 1) %>% #  
@@ -784,7 +781,6 @@ ggplot(aes(jaar, plaathoogte), data= hoogtediepte_deelgebieden %>%
    ylab("Plaathoogte t.o.v. NAP [m]") + xlab("Jaar") +
   ggtitle("Plaathoogte in m per deelgebied")
 ```
-
 
 ```{r plaathoogteDeelgebiedenOld, fig.cap = "Gemiddelde plaathoogte per bekken. ", include=TRUE}
 valid.values.Marsdiep.df %>% 
@@ -818,7 +814,6 @@ ggplot(aes(jaar, geuldiepte), data= hoogtediepte_bekkens %>%
    ylab("Geuldiepte t.o.v. NAP [m]") + xlab("Jaar") +
   ggtitle("Geuldiepte in m per bekken")
 ```
-
 
 ```{r geuldiepteOld, fig.cap="Geuldiepte door de jaren in de verschillende gebieden. Let op de verschillende verticale assen. ", include=TRUE}
 
@@ -932,7 +927,6 @@ ggplot(aes(jaar, plaatvolume), data= hoogtediepte_bekkens %>%
   ylab("Plaatvolume [miljoen m^3^]") + xlab("Jaar") 
 ```
 
-
 ```{r plaatvolumeOld, fig.cap = "Plaatvolume in  m^3^ per gebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. ", include=TRUE }
 
 valid.values.df %>% 
@@ -963,7 +957,6 @@ ggplot(aes(jaar, plaatvolume), data= hoogtediepte_deelgebieden %>%
     ggtitle("Plaatvolume per deelgebied")+
   ylab("Plaatvolume [miljoen m^3^]") + xlab("Jaar") 
 ```
-
 
 ```{r plaatvolumeDeelgebiedenOld, fig.cap = "Plaatvolume in  m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. ", include=TRUE }
 
@@ -998,7 +991,6 @@ ggplot(aes(jaar, geulvolume), data= hoogtediepte_bekkens %>%
   ylab("Geulvolume [miljoen m^3^]") + xlab("Jaar") 
 ```
 
-
 ```{r geulvolumeOld, fig.cap = "Geulvolume in miljoen m^3^ per bekken over de tijd. Het volume is bepaald voor dat deel van het bekken dat onder de NAP -5 m NAP ligt. ", include =TRUE }
 valid.values.df %>% 
   filter(diepte < -5) %>%
@@ -1028,7 +1020,6 @@ ggplot(aes(jaar, geulvolume), data= hoogtediepte_deelgebieden %>%
     ggtitle("Geulvolume per deelgebied")+
   ylab("Geulvolume [miljoen m^3^]") + xlab("Jaar") 
 ```
-
 
 ```{r geulvolumeDeelgebiedenOld, fig.cap = "Geulvolume in miljoen m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van het deelgebied dat onder de NAP -5 m NAP ligt. " , include = TRUE}
 valid.values.Marsdiep.df %>% 
