@@ -155,3 +155,55 @@ leaflet() %>%
     options = layersControlOptions(collapsed = FALSE)
   )
 ```
+
+## Olie en gas gegevens
+
+De volgende gegevens komen van het Nederlandse Olie- en Gasportaal. In het verleden hebben er wel boringen plaatsgevonden in de Waddenzee, maar op het moment zijn er geen lopende boringen in de Waddenzee. Alle boringen zijn weergegeven in de kaart hieronder. 
+
+```{r NLOG, out.height="450px", fig.cap="Data van Nederlands Olie- en Gasportaal", out.width = "100%"}
+
+# library(sf)
+# library(httr) 
+# library(tidyverse) 
+# library(ows4R)
+# library(leaflet)
+# library(leaflet.extras)
+# library(jpeg)
+# 
+# # URL of the WFS service
+# wms_url <- "https://www.nlog.nl/arcgis/services/nlog/gdw_ng_wll_all_utm/MapServer/WMSServer?"
+# 
+# # Parameters for GetMap request
+# params <- list(
+#   service = "WMS",
+#   request = "GetMap",
+#   layers = "0",  # Adjust layer ID as needed
+#   format = "image/png",
+#   transparent = FALSE,
+#   width = 600,
+#   height = 400,
+#   # bbox = "-180,-90,180,90",
+#   version = "1.1.1",
+#   srs = "EPSG:4326",
+#   styles = 'esriSMSCircle'
+# )
+# 
+# # Construct GetMap request URL
+# get_map_url <- paste0(wms_url, paste(names(params), params, sep = "=", collapse = "&"))
+# 
+# # Make a request to retrieve map tiles
+# response <- httr::GET(get_map_url)
+# content(response, as = 'text')
+# 
+# leaflet() %>% 
+#   setView(lng = 0, lat = 0, zoom = 2) %>%
+#   addTiles() %>%
+#   addWMSTiles(get_map_url, layers = "0", options = WMSTileOptions(format = "image/png", transparent = FALSE))
+
+```
+
+
+
+
+
+
