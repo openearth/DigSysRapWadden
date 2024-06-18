@@ -863,44 +863,9 @@ valid.values.Marsdiep.df %>%
 
 Naast de meer geaggregeerde indicatoren als arealen en volumes, is voor geulen ook de daadwerkelijke diepte en ligging van belang om te kunnen beoordelen of een geul bijvoorbeeld verondiept, wat de bevaarbaarheid beïnvloedt, of migreert, wat de stabiliteit van platen of land in gevaar kan brengen. Ook kunnen verschuivingen in geulpatronen verklarend zijn voor andere morfologische veranderingen.
 
-Bovenstaande wordt beoordeeld en geduid in de kombergingsrapportages aan de hand van een aantal (bijna 200 voor de gehele Waddenzee) geuldoorsnedes (profielen) op vaste locaties, wat een vergelijking tussen verschillende jaren mogelijk maakt. Klikken op een profiellijn in Figuur \@ref(fig:geul-kaart) geeft een figuur met de geuldoorsnedes voor de vaklodingen tussen 1927 en nu.
+Bovenstaande wordt beoordeeld en geduid in de kombergingsrapportages aan de hand van een aantal (bijna 200 voor de gehele Waddenzee) geuldoorsnedes (profielen) op vaste locaties, wat een vergelijking tussen verschillende jaren mogelijk maakt. Klikken op een profiellijn in Figuur \@ref(fig:geul-kaart) geeft een figuur met de geuldoorsnedes voor de vaklodingen tussen 1927 en nu. De data na 1991 zijn gecomnbineerde bathymetriën van de vaklodingen die per kombergingsgebied per jaar plaatsvinden. Ze refereren dus naar een geuldoorsnedes per periode. De data van de combineerde bathymetriën is binnenkort ook te vinden op Datahuis Wadden. 
 
 NB Het is de bedoeling de profieldata ook nog downloadbaar te maken zodat de gebruiker zelf figuren kan maken. Omdat de dataset (vaklodingen) groot is kost de berekening te veel tijd om online te doen, en de vooraf offline berekende niet-geogerefeerde profieldata past niet in de bestaande opslagstructuur; daar moet nog een oplossing voor gevonden worden.
-
-```{r geuldoorsnedes, eval=FALSE}
-#Not working now!!
-require(raster)
-datadir <-"p:/11202493--systeemrap-grevelingen/1_data/Wadden"
-mosaicdir <- file.path(datadir, "RWS", "bathymetrie", "processing_tiles", "mosaic")
-mosaiclist <- list.files(mosaicdir)
-
-# list of available years
-years <- mosaiclist[grepl("_", mosaiclist)] %>%
-lapply(., function(x) substring(x,8,11)) %>%
-unlist(.) %>%
-sort(.)
-
-# select some years
-# jaren
-doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015")
-rasterlist <- mosaiclist[which(years %in% doeljaren)]
-
-# Local path!!
-shp <-  "C:/projecten/RWS/2023/dsr/test/doorsnedes_test.shp"
-doorsnedes <- sf::st_read(shp)
-
-r<- raster(file.path(mosaicdir, mosaiclist[1]))
-
-t<-raster::extract(r, doorsnedes)
-
-# Access the nested list using ID values and assign them to the corresponding line segments
-for (i in 1:length(doorsnedes$id)) {
-  id <- doorsnedes$id[i]
-  tvec <- t[[id]]
-  doorsnedes$NestedArrayColumn[i] <- list(tvec)
-}
-
-```
 
 (ref:geul-kaartLabel) Interactieve kaart van geuldoorsnedes van profielen over de tijd in het Waddengebied. Klikken op een profiel laat de verandering in de geuldiepte over de tijd zien. NB Het best te bekijken in een apart schermvullend tabblad, anders is een deel van de profielfiguur niet zichtbaar. ([Link naar Schermvullende versie](https://www.testsysteemrapportage.nl/Concept_webgis_geuldoorsnedes/index.html)).
 
