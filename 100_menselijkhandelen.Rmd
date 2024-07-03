@@ -24,7 +24,7 @@ Zandsuppleties worden alleen uitgevoerd aan de Noordzeezijde van de
 eilanden en niet in de Waddenzee. Locaties en volumes zijn beschikbaar
 via de [kustviewer](https://www.openearth.nl/coastviewer-static/).
 
-## Bodemdaling
+## Bodemdaling {#winningbodemdaling}
 **Afgelopen 30 jaar**
 
 In de Bodemdalingsmonitor-rapporten (2018) zijn overzichten gegeven van de bodemdaling als gevolg van de winning van gas, olie, zout en water.De bodemdaling door het winnen van water bleek niet relevant voor hetkustfundament en is daarna niet meer meegenomen. In de Bodemdalingmonitor (2018) wordt de onzekerheid

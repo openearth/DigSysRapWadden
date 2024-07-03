@@ -6,14 +6,6 @@
 
 ```
 
-(ref:erl-kaartLabel) Interactieve kaart van erosie-resistente lagen in het Waddengebied. Klikken op een (mogelijke) ERL laat de verandering in dwarsdoorsnede in de loop van de tijd zien ([Link naar Schermvullende versie](https://www.testsysteemrapportage.nl/ERL%20kaart%20NL%20v1.0/index.html#10/53.2167/5.6978)). Meer uitleg over erosie-resistente lagen is te vinden in paragraaf \@ref(erl-uitleg).
-
-```{r erl-kaart, fig.cap= "(ref:erl-kaartLabel)"}
-
-if(knitr::is_html_output())knitr::include_url("../ERL kaart NL v1.0/index.html#10/53.2167/5.6978", height = "600px") else{
-  knitr::include_graphics(file.path(datadir, "deltares/geologie/erosieresistentelagen.png"))
-}
-```
 
 ## Geologische achtergrond Waddenzee {#geologie-achtergrond}
 
@@ -31,13 +23,22 @@ Naarmate de zee verder steeg en het getijdenbekken z'n huidige vorm kreeg zijn d
 
 ## Erosie-resistente lagen {#erl-uitleg}
 
+(ref:erl-kaartLabel) Interactieve kaart van erosie-resistente lagen in het Waddengebied. Klikken op een (mogelijke) ERL laat de verandering in dwarsdoorsnede in de loop van de tijd zien ([Link naar Schermvullende versie](https://www.testsysteemrapportage.nl/ERL%20kaart%20NL%20v1.0/index.html#10/53.2167/5.6978)). Meer uitleg over erosie-resistente lagen is te vinden in paragraaf \@ref(erl-uitleg).
+
+```{r erl-kaart, fig.cap= "(ref:erl-kaartLabel)"}
+
+if(knitr::is_html_output())knitr::include_url("../ERL kaart NL v1.0/index.html#10/53.2167/5.6978", height = "600px") else{
+  knitr::include_graphics(file.path(datadir, "deltares/geologie/erosieresistentelagen.png"))
+}
+```
+
 ### Belang
 
 De morfologie van natuurlijk gevormde (vaar)geulen in de Waddenzee wordt mede bepaald door de erosiegevoeligheid van het sediment waarin de geul zich verticaal insnijdt en lateraal beweegt. De geologie is om die reden onlosmakelijk verbonden aan de morfologie en morfologische ontwikkeling van geulen. In het kader van het kustbeheer, en het (vaar)geulbeheer in het bijzonder, is het van belang om inzicht te hebben in waar erosieresistente lagen (ERL's) zich bevinden en welk effect ze hebben (gehad) op de morfologische ontwikkeling.
 
 ### Afbakening
 
-De ligging van deze ERL's is in een eerder onderzoek [@Onselen2021] bepaald en is weergegeven in Figuur \@ref(fig:sedimentatlasSlib). De ERL's zijn meestal kleilagen, maar ook veen, schelpen en grind kunnen moeilijk erodeerbaar zijn. De kaart toont plekken waar ERL's actief invloed uitoefenen op de morfologische ontwikkeling van de bodem en is dus geen kartering van de verbreiding van de lagen zelf. Voor meer informatie over het gebruik en de totstandkoming van deze kaart wordt naar het oorspronkelijke onderzoek verwezen.
+De ligging van deze ERL's is in een eerder onderzoek [@Onselen2021] bepaald en is weergegeven in Figuur \@ref(fig:erl-kaart). De ERL's zijn meestal kleilagen, maar ook veen, schelpen en grind kunnen moeilijk erodeerbaar zijn. De kaart toont plekken waar ERL's actief invloed uitoefenen op de morfologische ontwikkeling van de bodem en is dus geen kartering van de verbreiding van de lagen zelf. Voor meer informatie over het gebruik en de totstandkoming van deze kaart wordt naar het oorspronkelijke onderzoek verwezen.
 
 ### Conceptueel model effecten ERL's
 
@@ -48,7 +49,7 @@ De effecten van ERL's kunnen op verschillende manieren tot uiting komen in de mo
 knitr::include_graphics("images/geologie/erl_morfologie.jpg")
 ```
 
-Een geul die zich in (losgepakt) zand insnijdt zal een v-vormig dwarsprofiel vormen (Figuur \@ref(fig:erl-morfologie) A). Als één of meerdere ERL's zich in de geulwand bevinden kan er een getrapt profiel ontstaan. Een dikke en/of sterk resistente ERL in de geulwand zal ervoor zorgen dat de laterale migratie van de geul in meer of mindere mate wordt vertraagd ter hoogte van deze laag (Figuur \@ref(fig:erl-morfologie) B, Figuur \@ref(fig:erl-multibeam)). Boven de bovenste ERL kan de erosiesnelheid juist toenemen (Figuur \@ref(fig:erl-morfologie) C). Als er een ERL op de bodem van de geul ligt en deze de verdieping van de geul verhinderd, kan er een 'platte' bodem ontstaan. De geul zal zich meer in de breedte ontwikkelen een u-vormig dwarsprofiel aannemen en voor een (tijdelijke) toegenomen erosiesnelheid zorgen (Figuur \@ref(fig:erl-morfologie) D). De twee laatst genoemde situaties C en D zorgen voor een vergroting van het geulareaal.
+Een geul die zich in (losgepakt) zand insnijdt zal een v-vormig dwarsprofiel vormen (Figuur \@ref(fig:erl-morfologie) A). Als één of meerdere ERL's zich in de geulwand bevinden kan er een getrapt profiel ontstaan. Een dikke en/of sterk resistente ERL in de geulwand zal ervoor zorgen dat de laterale migratie van de geul in meer of mindere mate wordt vertraagd ter hoogte van deze laag (Figuur \@ref(fig:erl-morfologie) B, Figuur \@ref(fig:erl-multibeam)). Boven de bovenste ERL kan de erosiesnelheid juist toenemen (Figuur \@ref(fig:erl-morfologie) C). Als er een ERL op de bodem van de geul ligt en deze de verdieping van de geul verhindert, kan er een 'platte' bodem ontstaan. De geul zal zich meer in de breedte ontwikkelen een u-vormig dwarsprofiel aannemen en voor een (tijdelijke) toegenomen erosiesnelheid zorgen (Figuur \@ref(fig:erl-morfologie) D). De twee laatst genoemde situaties C en D zorgen voor een vergroting van het geulareaal.
 
 ```{r erl-multibeam, fig.cap="In deze multibeam bathymetrie van de Westerscheldemonding is het ontstaan van het getrapte profiel duidelijk zichtbaar met 10 kleilagen die uit de geulwand steken. De kleilagen liggen in dit voorbeeld niet perfect horizontaal, maar steken schuin weg de geulwand in (hellen naar links in het figuur), waardoor ze een soort richels vormen in de geulwand."}
 
@@ -57,9 +58,9 @@ knitr::include_graphics("images/geologie/erl-multibeam-getrapt.png")
 
 \newpage
 
-## Geologische bodemdaling {#bodemdaling}
+## Geologische bodemdaling {#geobodemdaling}
 
-De bijdrage van geologische bodemdaling aan relatieve zeespiegel langs de Nederlandse kust wordt binnen de Bodemdalingsmonitor (2022) berekend door het sommeren van de tektonische en glacio-isostatische bodembeweging, de belangrijkste componenten van geologische bodemdaling. Hieronder worden deze componenten van geologische bodemdaling kort toegelicht, gevolgd door een kaart met de geologische bodemdaling in Nederland voor een periode van 100 jaar. De gemiddelde snelheid van geologische bodemdaling wordt constant beschouwd op een schaal van eeuwen, dus de geologische bodemdaling in de laatste 100 jaar is identiek aan de geologische bodemdaling in de komende 100 jaar.
+De bijdrage van geologische bodemdaling aan de relatieve zeespiegelstijging langs de Nederlandse kust wordt binnen de Bodemdalingsmonitor (2022) berekend door het sommeren van de tektonische en glacio-isostatische bodembeweging, de belangrijkste componenten van geologische bodemdaling. Hieronder worden deze componenten van geologische bodemdaling kort toegelicht, gevolgd door een kaart met de geologische bodemdaling in Nederland voor een periode van 100 jaar. De gemiddelde snelheid van geologische bodemdaling wordt constant beschouwd op een schaal van eeuwen, dus de geologische bodemdaling in de laatste 100 jaar is identiek aan de geologische bodemdaling in de komende 100 jaar.
 
 Figuur \@ref(fig:bodemdalingsmonitor-geologie) geeft de meest recente kaart van geologische bodemdaling binnen de Bodemdalingsmonitor (2022). Er is een duidelijke trend zichtbaar van zuid naar noord, met minder bodemdaling in het zuiden (rond 2 cm/eeuw) en meer in het noorden (rond 6 cm/eeuw). Deze trend wordt bepaald door glacio-isostatische bodemdaling, terwijl de meer lokale/regionale afwijkingen van de hoofdtrend het gevolg zijn van tektonische bodembewegingen langs breuken. Deze data is binnenkort ook beschikbaar via Datahuis Wadden. 
 
@@ -68,3 +69,4 @@ Figuur \@ref(fig:bodemdalingsmonitor-geologie) geeft de meest recente kaart van 
 knitr::include_graphics("images/bodemdalingsmonitor_geologisch.png")
 ```
 
+Naast geologische bodemdaling kent de Waddenzee ook bodemdaling als gevolg van menselijke activiteiten zoals gas- en zoutwinning. De informatie hierover staat in \@ref(winningbodemdaling) . 
