@@ -20,9 +20,9 @@ mosaicdir = "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/bathymetrie/p
 
 **Belang**
 
-De noemer 'Morfologie' wordt in deze rapportage gebruikt om een aantal geomorfologische indicatoren onder te scharen: ten eerste de bodemligging of bathymetrie zelf, die sterk bepalend is voor stromingen, golven, waterstanden, scheepvaart en ecologie. Om veranderingen in bodemligging beter te kunnen duiden zijn een aantal afgeleide morfologische indicatoren opgenomen, namelijk de hypsometrie (de verdeling van de hoogteligging naar oppervlakte), de arealen geul/subtidaal/intratidaal/supratidaal, plaathoogte en -volume en geuldiepte en -volume. Ook de netto erosie- en sedimentatie en de bijbehorende sedimentbalans zijn weergegeven.
+De noemer 'Morfologie' wordt in deze rapportage gebruikt om een aantal geomorfologische indicatoren onder te scharen: ten eerste de bodemligging of bathymetrie zelf, die sterk bepalend is voor stromingen, golven, waterstanden, scheepvaart en ecologie. Om veranderingen in bodemligging, onder andere van belang om te kunnen beoordelen of ecologisch waardevolle intergetijdengebieden mee kunnen groeien met zeespiegelstijing, beter te kunnen duiden zijn een aantal afgeleide morfologische indicatoren opgenomen, namelijk de hypsometrie (de verdeling van de hoogteligging naar oppervlakte), de arealen geul/subtidaal/intratidaal/supratidaal, plaathoogte en -volume en geuldiepte en -volume. Daarnaast is de ontwikkeling in de tijd van de daadwerkelijke geuldoorsnedes op  kenmerkende plaatsen opgenomen, zoals deze in de komberingsrapportages gebruikt worden om bijvoorbeeld geulmigratie te duiden. Ook de netto erosie- en sedimentatie en de bijbehorende sedimentbalans zijn weergegeven.
 
-Ook is de lengte van de laagwaterlijn opgenomen. Deze geeft aan of er veel kleine platen en geulen zijn, of juist vooral grotere en is indicatief voor het beschikbare foerageergebied voor steltlopers: hoe langer de laagwaterlijn, hoe meer gebied beschikbaar is.
+<!-- Ook is de lengte van de laagwaterlijn opgenomen. Deze geeft aan of er veel kleine platen en geulen zijn, of juist vooral grotere en is indicatief voor het beschikbare foerageergebied voor steltlopers: hoe langer de laagwaterlijn, hoe meer gebied beschikbaar is. -->
 
 Het bodemslibgehalte (relevant voor het voorkomen van biota en de erosiesnelheid van de bodem) en erosieresistente lagen zijn eveneens opgenomen. Erosieresistente of harde lagen bestaan over het algemeen uit geconsolideerde klei, veen of Holocene afzettingen en vertragen geulmigratie door hun moeilijke erodeerbaarheid. Ze zijn dus mede bepalend voor de lange-termijn morfologische ontwikkeling.
 
@@ -30,7 +30,9 @@ Tot slot is de Ecotopenkaart (2017) van de Waddenzee opgenomen. Deze is een aggr
 
 **Afbakening**
 
-De morfologische indicatoren worden meestal getoond per kombergingsgebied, ook wel bekken genoemd. Figuur \@ref(fig:gebiedenWaddenzee) toont de begrenzing en benaming van de verschillende bekkens. Deze begrenzing is overgenomen van de Geoserver van <abbr title="Wageningen Marine Research">WMR</abbr>[^060_bathymetrie_en_morfodynamiek-1]. De begrenzing van de bekkens is relevant, omdat er evenwichtsrelaties bekend zijn voor de verhouding tussen geulen en platen afhankelijk van de bekkenoppervlakte. De begrenzing tussen de bekkens wordt gevormd door de zogenaamde 'wantijen'. Dit zijn gebieden achter de eilanden waar de getijgolven die door de zeegaten naar binnen komen elkaar ontmoeten. De stroomsnelheden zijn daar lager, waardoor sediment kan worden afgezet. Deze gebieden hebben vaak een hogere bodemligging en zijn slibrijk. Door de morfologische ontwikkeling van de Waddenzee en de morfodynamiek hebben de wantijen geen vaste positie, ze kunnen bijvoorbeeld van ligging veranderen als gevolg van afsluitingen (Zuiderzee, Lauwerszee). Bovendien moeten ze ook meer worden gezien als overgangszone dan als een vaste lijn zoals gebruikt wordt voor de begrenzing. In deze rapportage wordt geen rekening gehouden met de verschuivende positie van de wantijen en wordt onderstaande indeling gebruikt.
+De morfologische indicatoren worden meestal getoond per kombergingsgebied, ook wel bekken genoemd. Figuur \@ref(fig:gebiedenWaddenzee) toont de begrenzing en benaming van de verschillende bekkens. Deze begrenzing is overgenomen van de Geoserver van <abbr title="Wageningen Marine Research">WMR</abbr>[^060_bathymetrie_en_morfodynamiek-1]. De begrenzing van de bekkens is relevant, omdat er evenwichtsrelaties bekend zijn voor de verhouding tussen geulen en platen afhankelijk van de bekkenoppervlakte. De begrenzing tussen de bekkens wordt gevormd door de zogenaamde 'wantijen'. Dit zijn gebieden achter de eilanden waar de getijgolven die door de zeegaten naar binnen komen elkaar ontmoeten. De stroomsnelheden zijn daar lager, waardoor sediment kan worden afgezet. Deze gebieden hebben vaak een hogere bodemligging en zijn slibrijk. Door de morfologische ontwikkeling van de Waddenzee en de morfodynamiek hebben de wantijen geen vaste positie, ze kunnen bijvoorbeeld van ligging veranderen als gevolg van afsluitingen (Zuiderzee, Lauwerszee). Bovendien moeten ze ook meer worden gezien als overgangszone dan als een vaste lijn zoals gebruikt wordt voor de begrenzing. 
+
+NB In deze rapportage wordt (nog) geen rekening gehouden met de verschuivende positie van de wantijen en wordt onderstaande 'vaste' indeling gebruikt. Hiervoor zijn de vaste verticale begrenzingen deels gebaseerd op de voor de Westerschelde ontwikkelde methodiek. Deze methode doet niet volledig recht aan de de morfologische of ecologische karakteristiek van een eenheid, aangezien die immers afhankelijk is van de echte getijslag. Het is echter wel een robuuste en eenvoudige methode, die toch enig inzicht biedt in trends in arealen en volumes. Bovendien was er geen wetenschappelijk onderbouwde alternatieve methode beschikbaar. Omdat het wel wenselijk is dat morfologische indicatoren beter recht doen aan de echte morfologische ontwikkelingen, is na een overleg tussen morfologisch experts van Rijkswaterstaat en Deltares in maart 2024 besloten om, naast de bestaande 'vaste' methode, een nieuwe manier van bepalen te ontwikkelen die dat wel doet. Hiervoor wordt in de loop van 2024 een proof of concept uitgewerkt voor het Vlie; een bekken met zowel Westelijke- als oostelijke Waddenzee kenmerken. De verwachting is dat deze methode in 2025 voor de gehele Waddenzee kan worden toegepast naast de bestaande methode.   
 
 [^060_bathymetrie_en_morfodynamiek-1]: <https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins>
 
@@ -59,7 +61,7 @@ leaflet(poly %>% st_transform(4326)) %>%
 
 ```
 
-Daarnaast kunnen binnen deze bekkens ook nog verschillende kombergingen worden aangewezen. In deze rapportage wordt voorlopig alleen het Marsdiep onderverdeeld in verschillende deelgebieden. De volgende deelgebieden worden gehanteerd: Balgzand, Boontjes, Doovebalg, Scheurrak, Texelstroom en Zwanenbalg, zoals te zien in Figuur \@ref(fig:deelgebiedenWaddenzee). Hierin is ook te zien dat de grenzen van deze gebieden niet helemaal overeen komen met het bekken Marsdiep op de Geoserver van WMR (in rood). Voor overige bekkens moeten grenzen voor de deelgebieden nog bepaald worden.
+Daarnaast kunnen binnen deze bekkens ook nog verschillende kombergingen worden aangewezen. In deze rapportage wordt voorlopig alleen het Marsdiep onderverdeeld in verschillende deelgebieden. De volgende deelgebieden worden gehanteerd: Balgzand, Boontjes, Doovebalg, Scheurrak, Texelstroom en Zwanenbalg, zoals te zien in Figuur \@ref(fig:deelgebiedenWaddenzee). Hierin is ook te zien dat de grenzen van deze gebieden niet helemaal overeen komen met het bekken Marsdiep op de Geoserver van WMR (in rood). Voor overige bekkens moeten grenzen voor de deelgebieden nog bepaald worden (naar verwachting in de loop van 2024).
 
 ```{r deelgebiedenWaddenzee, fig.cap="Indeling van het Marsdiep in verschillende kombergingsgebieden voor het gebruik in morfologische indicatoren. "}
 deelgebieden <- c('Balgzand', 'Boontjes', 'DooveBalg', 'Scheurrak', 'Texelstroom', 'Zwanenbalg')
@@ -859,22 +861,7 @@ valid.values.Marsdiep.df %>%
   ylab("Geuldiepte [m] t.o.v. NAP") + xlab("Jaar") 
 ```
 
-## Geuldoorsnede
 
-Naast de meer geaggregeerde indicatoren als arealen en volumes, is voor geulen ook de daadwerkelijke diepte en ligging van belang om te kunnen beoordelen of een geul bijvoorbeeld verondiept, wat de bevaarbaarheid beïnvloedt, of migreert, wat de stabiliteit van platen of land in gevaar kan brengen. Ook kunnen verschuivingen in geulpatronen verklarend zijn voor andere morfologische veranderingen.
-
-Bovenstaande wordt beoordeeld en geduid in de kombergingsrapportages aan de hand van een aantal (bijna 200 voor de gehele Waddenzee) geuldoorsnedes (profielen) op vaste locaties, wat een vergelijking tussen verschillende jaren mogelijk maakt. Klikken op een profiellijn in Figuur \@ref(fig:geul-kaart) geeft een figuur met de geuldoorsnedes voor de vaklodingen tussen 1927 en nu. De data na 1991 zijn gecombineerde bathymetriën van de vaklodingen die per kombergingsgebied per jaar plaatsvinden, de data daarvoor zijn ook combinaties van bathymetrieën van meerdere jaren maar de precieze herkomst niet altijd duidelijk. Ze refereren dus naar een geuldoorsnedes per periode. De data van de gecombineerde bathymetriën is ook te vinden op Datahuis Wadden. 
-
-NB Het is de bedoeling de profieldata ook nog downloadbaar te maken zodat de gebruiker zelf figuren kan maken. Omdat de dataset (vaklodingen) groot is kost de berekening te veel tijd om online te doen, en de vooraf offline berekende niet-geogerefeerde profieldata past niet in de bestaande opslagstructuur; daar moet nog een oplossing voor gevonden worden.
-
-(ref:geul-kaartLabel) Interactieve kaart van geuldoorsnedes van profielen over de tijd in het Waddengebied. Klikken op een profiel laat de verandering in de geuldiepte over de tijd zien. NB Het best te bekijken in een apart schermvullend tabblad, anders is een deel van de profielfiguur niet zichtbaar. ([Link naar Schermvullende versie](https://www.testsysteemrapportage.nl/Concept_webgis_geuldoorsnedes/index.html)).
-
-```{r geul-kaart, fig.cap= "(ref:geul-kaartLabel)"}
-
-if(knitr::is_html_output())knitr::include_url("../Concept_webgis_geuldoorsnedes/index.html", height = "600px") else{
-  knitr::include_graphics(file.path(datadir, "images/concept_geuldoorsnedes.png"))
-}
-```
 
 ## Plaatvolume
 
@@ -1002,6 +989,23 @@ valid.values.Marsdiep.df %>%
   ylab("Geulvomume [miljoen m^3^]") + xlab("Jaar") 
 ```
 
+## Geuldoorsnede
+
+Naast de meer geaggregeerde indicatoren als arealen en volumes, is voor geulen ook de daadwerkelijke diepte en ligging van belang om te kunnen beoordelen of een geul bijvoorbeeld verondiept, wat de bevaarbaarheid beïnvloedt, of migreert, wat de stabiliteit van platen of land in gevaar kan brengen. Ook kunnen verschuivingen in geulpatronen verklarend zijn voor andere morfologische veranderingen.
+
+Bovenstaande wordt beoordeeld en geduid in de kombergingsrapportages aan de hand van een aantal (bijna 200 voor de gehele Waddenzee) geuldoorsnedes (profielen) op vaste locaties, wat een vergelijking tussen verschillende jaren mogelijk maakt. Klikken op een profiellijn in Figuur \@ref(fig:geul-kaart) geeft een figuur met de geuldoorsnedes voor de vaklodingen tussen 1927 en nu. De data na 1991 zijn gecombineerde bathymetriën van de vaklodingen die per kombergingsgebied per jaar plaatsvinden, de data daarvoor zijn ook combinaties van bathymetrieën van meerdere jaren maar de precieze herkomst niet altijd duidelijk. Ze refereren dus naar een geuldoorsnedes per periode. De data van de gecombineerde bathymetriën is ook te vinden op Datahuis Wadden. 
+
+NB Het is de bedoeling de profieldata ook nog downloadbaar te maken zodat de gebruiker zelf figuren kan maken. Omdat de dataset (vaklodingen) groot is kost de berekening te veel tijd om online te doen, en de vooraf offline berekende niet-geogerefeerde profieldata past niet in de bestaande opslagstructuur; daar moet nog een oplossing voor gevonden worden.
+
+(ref:geul-kaartLabel) Interactieve kaart van geuldoorsnedes van profielen over de tijd in het Waddengebied. Klikken op een profiel laat de verandering in de geuldiepte over de tijd zien. NB Het best te bekijken in een apart schermvullend tabblad, anders is een deel van de profielfiguur niet zichtbaar. ([Link naar Schermvullende versie](https://www.testsysteemrapportage.nl/Concept_webgis_geuldoorsnedes/index.html)).
+
+```{r geul-kaart, fig.cap= "(ref:geul-kaartLabel)"}
+
+if(knitr::is_html_output())knitr::include_url("../Concept_webgis_geuldoorsnedes/index.html", height = "600px") else{
+  knitr::include_graphics(file.path(datadir, "images/concept_geuldoorsnedes.png"))
+}
+```
+
 ## Sedimentbalans
 
 De sedimentbalans van de Waddenzee is van groot belang om te kunnen beoordelen of de Waddenzee in staat is zich aan te passen aan grootschalige veranderingen zoals zeespiegelstijging en de afsluiting van getijdebekkens. Voor deze aanpassingen zijn grote hoeveelheden sediment nodig. Omdat in de Waddenzee zelf niet gesuppleert wordt, informeert de sedimentbalans dus ook hoeveel sediment aan de Noordzeekant gesuppleerd dient te worden. De algemene sedimentbalans inventariseert op basis van de ontwikkeling van de bodemligging hoeveel sediment de Waddenzee in- en uitgaat en hoe dit verdeeld is over de verschillende kombergingen. Omdat de transportmechanismen en herkomst van zand en slib verschillen, en omdat dit de bodemsamenstelling in de verschillende kombergingsgebieden verandert met alle gevolgen voor morfologische ontwikkelingen en biotiek, is ook inzicht in de aard van het materiaal van belang. Daarom is niet alleen de totale sedimentbalans gemaakt door ([Wang et al. (2018)](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/43109B1810D68CF36D1C91405EA37F0A/S0016774618000082a.pdf/div-class-title-sediment-budget-and-morphological-development-of-the-dutch-wadden-sea-impact-of-accelerated-sea-level-rise-and-subsidence-until-2100-div.pdf)) opgenomen, maar ook een recentere van ([Colina Alonso et al. (2021)](https://www.sciencedirect.com/science/article/pii/S0025322721001262)) die onderscheid maakt tussen beide sedimenttypes.
@@ -1061,106 +1065,106 @@ Op dit moment worden de laatste berekeningen uitgevoerd van de totale huidige sl
 
 De huidige resultaten van de slibbalans is op dit moment under review bij een wetenschappelijk tijdschrift en daarom ook onder embargo. Zodra de slibbalans gepubliceerd is (naar verwachting in de loop van 2024), zullen deze resultaten aan de Digitale Systeemrapportage Wadden worden toegevoegd.
 
-## Lengte laagwaterlijn
+<!-- ## Lengte laagwaterlijn -->
 
-De lengte van de laagwaterlijn geeft een indruk van de lengte van de plaatrand. Deze is hier bepaald aan de hand van de `r laagwaterlijn` m NAP contourlijn (zie figuur \@ref(fig:laagwaterlijnen)).
+<!-- De lengte van de laagwaterlijn geeft een indruk van de lengte van de plaatrand. Deze is hier bepaald aan de hand van de `r laagwaterlijn` m NAP contourlijn (zie figuur \@ref(fig:laagwaterlijnen)). -->
 
-(ref:laagwaterlijnen-label) Laagwaterlijnen door de tijd. De lijnen zijn berekend aan de hand van de meest recente lodingen voor het aangegeven jaar, en een vaste diepte van `r laagwaterlijn` m NAP.
+<!-- (ref:laagwaterlijnen-label) Laagwaterlijnen door de tijd. De lijnen zijn berekend aan de hand van de meest recente lodingen voor het aangegeven jaar, en een vaste diepte van `r laagwaterlijn` m NAP. -->
 
-```{r laagwaterlijnen, eval=T, fig.height=8, fig.width=8, fig.cap= "(ref:laagwaterlijnen-label)"}
+<!-- ```{r laagwaterlijnen, eval=T, fig.height=8, fig.width=8, fig.cap= "(ref:laagwaterlijnen-label)"} -->
 
-doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015")
+<!-- doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015") -->
 
-load(file = file.path(datadir, "RWS", "bathymetrie", paste0("laagwater_", laagwaterlijn, "mContourlijnen.Rdata")))
+<!-- load(file = file.path(datadir, "RWS", "bathymetrie", paste0("laagwater_", laagwaterlijn, "mContourlijnen.Rdata"))) -->
 
-# convert to leaflet map with different layers, on top of bathymetries
-# 
-# labels = names(contours_allregions)
-# bbox = st_bbox(contours_allregions[[1]])
-# 
-# maps <- map2(
-#   contours_allregions, list((poly)),
-#   function(x,y)
-#     ggplot() +
-#     geom_sf(data = x) +
-#     geom_sf(data = y, fill = "transparent", color = "blue") +
-#     coord_sf(
-#       xlim = bbox[c(1,3)], ylim = bbox[c(2,4)]
-#     )
-# )
-# 
-# cowplot::plot_grid(plotlist = maps, labels = labels, label_size = 10, ncol = 2)
+<!-- # convert to leaflet map with different layers, on top of bathymetries -->
+<!-- #  -->
+<!-- # labels = names(contours_allregions) -->
+<!-- # bbox = st_bbox(contours_allregions[[1]]) -->
+<!-- #  -->
+<!-- # maps <- map2( -->
+<!-- #   contours_allregions, list((poly)), -->
+<!-- #   function(x,y) -->
+<!-- #     ggplot() + -->
+<!-- #     geom_sf(data = x) + -->
+<!-- #     geom_sf(data = y, fill = "transparent", color = "blue") + -->
+<!-- #     coord_sf( -->
+<!-- #       xlim = bbox[c(1,3)], ylim = bbox[c(2,4)] -->
+<!-- #     ) -->
+<!-- # ) -->
+<!-- #  -->
+<!-- # cowplot::plot_grid(plotlist = maps, labels = labels, label_size = 10, ncol = 2) -->
 
-ggplot() +
-  geom_sf(data = contours_allregions2) +
-  geom_sf(data = poly, aes(color = name), fill = "transparent", linewidth = 1) +
-  facet_wrap(~ jaar) +
-  guides(color = "none") +
-  theme_void()
+<!-- ggplot() + -->
+<!--   geom_sf(data = contours_allregions2) + -->
+<!--   geom_sf(data = poly, aes(color = name), fill = "transparent", linewidth = 1) + -->
+<!--   facet_wrap(~ jaar) + -->
+<!--   guides(color = "none") + -->
+<!--   theme_void() -->
 
-```
+<!-- ``` -->
 
-De totale lengte van de laagwaterlijnen is bepaald voor dezelfde jaren als de andere indicatoren, en weer voor elk bekken. In figuur \@ref(fig:plotAllregions) is de cumulatieve lengte voor de hele Waddenzee (excl. Eems-estuarium) te zien. Voor de afzonderlijke bekkens geldt dat de lengte in de meeste gevallen is toegenomen over de tijd, of op zijn minst ongeveer gelijk gebleven (figuur \@ref(fig:lengteLaagwaterLijn)).
+<!-- De totale lengte van de laagwaterlijnen is bepaald voor dezelfde jaren als de andere indicatoren, en weer voor elk bekken. In figuur \@ref(fig:plotAllregions) is de cumulatieve lengte voor de hele Waddenzee (excl. Eems-estuarium) te zien. Voor de afzonderlijke bekkens geldt dat de lengte in de meeste gevallen is toegenomen over de tijd, of op zijn minst ongeveer gelijk gebleven (figuur \@ref(fig:lengteLaagwaterLijn)). -->
 
-(ref:plotAllregions-label) Ontwikkeling van de laagwaterlijn, bepaald op een vaste diepte van `r laagwaterlijn`m NAP, voor de gehele Waddenzee exclusief het Eems-estuarium.
+<!-- (ref:plotAllregions-label) Ontwikkeling van de laagwaterlijn, bepaald op een vaste diepte van `r laagwaterlijn`m NAP, voor de gehele Waddenzee exclusief het Eems-estuarium. -->
 
-```{r plotAllregions, eval=T, fig.height=4, fig.width=7, fig.align='center', fig.cap="(ref:plotAllregions-label)"}
-library("units")
+<!-- ```{r plotAllregions, eval=T, fig.height=4, fig.width=7, fig.align='center', fig.cap="(ref:plotAllregions-label)"} -->
+<!-- library("units") -->
 
-doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015")
+<!-- doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015") -->
 
-contours_allregions2 %>% 
-  mutate(laagwaterlijnlengte_m = st_length(.)) %>%
-  drop_units() %>%
-  group_by(jaar, name) %>%
-  summarize(`laagwaterlijnlengte (km)` = sum(laagwaterlijnlengte_m)/1000) %>%
-  ungroup() %>%
-  st_drop_geometry() %>%
-  mutate(gebied = factor(name, levels = namen_west_oost)) %>%
-  ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
-  ggtitle("Laagwaterlijn in km") +
-  geom_area(aes(fill = gebied)) +
-  geom_line(
-    data = . %>% 
-      group_by(jaar) %>% 
-      summarize(
-        `laagwaterlijnlengte (km)` = sum(`laagwaterlijnlengte (km)`)
-      )
-  ) +
-  geom_point(
-    data = . %>% 
-      group_by(jaar) %>% 
-      summarize(
-        `laagwaterlijnlengte (km)` = sum(`laagwaterlijnlengte (km)`)
-      ),
-    shape = 21, fill = "white", size = 3
-    ) +
-  coord_cartesian(xlim = c(1920, 2020)) +
-  scale_y_continuous(limits = c(0, NA)) +
-  ylab(paste("Laagwaterlijn [km] berekend aan NAP", laagwaterlijn, "m vlak")) + xlab("Jaar") 
-```
+<!-- contours_allregions2 %>%  -->
+<!--   mutate(laagwaterlijnlengte_m = st_length(.)) %>% -->
+<!--   drop_units() %>% -->
+<!--   group_by(jaar, name) %>% -->
+<!--   summarize(`laagwaterlijnlengte (km)` = sum(laagwaterlijnlengte_m)/1000) %>% -->
+<!--   ungroup() %>% -->
+<!--   st_drop_geometry() %>% -->
+<!--   mutate(gebied = factor(name, levels = namen_west_oost)) %>% -->
+<!--   ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) + -->
+<!--   ggtitle("Laagwaterlijn in km") + -->
+<!--   geom_area(aes(fill = gebied)) + -->
+<!--   geom_line( -->
+<!--     data = . %>%  -->
+<!--       group_by(jaar) %>%  -->
+<!--       summarize( -->
+<!--         `laagwaterlijnlengte (km)` = sum(`laagwaterlijnlengte (km)`) -->
+<!--       ) -->
+<!--   ) + -->
+<!--   geom_point( -->
+<!--     data = . %>%  -->
+<!--       group_by(jaar) %>%  -->
+<!--       summarize( -->
+<!--         `laagwaterlijnlengte (km)` = sum(`laagwaterlijnlengte (km)`) -->
+<!--       ), -->
+<!--     shape = 21, fill = "white", size = 3 -->
+<!--     ) + -->
+<!--   coord_cartesian(xlim = c(1920, 2020)) + -->
+<!--   scale_y_continuous(limits = c(0, NA)) + -->
+<!--   ylab(paste("Laagwaterlijn [km] berekend aan NAP", laagwaterlijn, "m vlak")) + xlab("Jaar")  -->
+<!-- ``` -->
 
-(ref:lengteLaagwaterLijn-label) Ontwikkeling van de lengte van de laagwaterlijn door de tijd, berekend uit de contour op `r laagwaterlijn`m NAP.
+<!-- (ref:lengteLaagwaterLijn-label) Ontwikkeling van de lengte van de laagwaterlijn door de tijd, berekend uit de contour op `r laagwaterlijn`m NAP. -->
 
-```{r lengteLaagwaterLijn, fig.cap="(ref:lengteLaagwaterLijn-label)" }
+<!-- ```{r lengteLaagwaterLijn, fig.cap="(ref:lengteLaagwaterLijn-label)" } -->
 
-contours_allregions2 %>% 
-  mutate(laagwaterlijnlengte_m = st_length(.)) %>%
-  drop_units() %>%
-  group_by(jaar, name) %>%
-  summarize(`laagwaterlijnlengte (km)` = sum(laagwaterlijnlengte_m)/1000) %>%
-  ungroup() %>%
-  st_drop_geometry() %>%
-  mutate(gebied = factor(name, levels = namen_west_oost)) %>%
-  ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) +
-  ggtitle("Laagwaterlijn in km") +
-  geom_line() +
-  geom_point(aes(), shape = 21, fill = "white", size = 3) +
-  facet_wrap(~ gebied, scales = 'free') +
-  coord_cartesian(xlim = c(1940, 2020)) +
-  scale_y_continuous(limits = c(0, NA)) +
-  ylab(paste("Laagwaterlijn [km] berekend aan NAP", laagwaterlijn, "m vlak")) + xlab("Jaar") 
-```
+<!-- contours_allregions2 %>%  -->
+<!--   mutate(laagwaterlijnlengte_m = st_length(.)) %>% -->
+<!--   drop_units() %>% -->
+<!--   group_by(jaar, name) %>% -->
+<!--   summarize(`laagwaterlijnlengte (km)` = sum(laagwaterlijnlengte_m)/1000) %>% -->
+<!--   ungroup() %>% -->
+<!--   st_drop_geometry() %>% -->
+<!--   mutate(gebied = factor(name, levels = namen_west_oost)) %>% -->
+<!--   ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) + -->
+<!--   ggtitle("Laagwaterlijn in km") + -->
+<!--   geom_line() + -->
+<!--   geom_point(aes(), shape = 21, fill = "white", size = 3) + -->
+<!--   facet_wrap(~ gebied, scales = 'free') + -->
+<!--   coord_cartesian(xlim = c(1940, 2020)) + -->
+<!--   scale_y_continuous(limits = c(0, NA)) + -->
+<!--   ylab(paste("Laagwaterlijn [km] berekend aan NAP", laagwaterlijn, "m vlak")) + xlab("Jaar")  -->
+<!-- ``` -->
 
 ## Bodemsamenstelling {#bodemsamenstelling}
 
