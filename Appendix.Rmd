@@ -511,7 +511,15 @@ read_excel(file.path(datadir, "dataoverzicht.xlsx")) %>%
 ## Versiebeheer en kwaliteitscontrole
 De R-code waaruit deze digitale systeemrapportage is gemaakt (tekst, scripts en figuren) wordt bewaard op SVN onder versiebeheer (https://repos.deltares.nl/repos/DigSysRapWadden/). Daar is precies te herleiden wanneer en door wie aan een bepaalde indicator is gewerkt, en welke bewerkingen op brondata zijn gedaan. 
 
-Om dat overzicht toegankelijker te maken en eventuele fouten sneller te kunnen verhelpen is onderstaande tabel toegevoegd. Deze tabel laat ook zien voor welke indicatoren de resultaten (waarden, kaarten, grafieken) en bijbehorende teksten gecontroleerd zijn, en door wie. Let wel: deze kwaliteitscontrole is beperkt en gericht op de voor de DSR gedane bewerkingen, omdat de DSR voornamelijk data uit andere bronnen ontsluit, en er noodzeklijkerwijs vanuit gegaan wordt dat daar reeds kwaliteitscontrole heeft plaatsgevonden. Deze tabel is alleen ingevuld voor de indicatoren die recent toegevoegd of wezenlijk veranderd zijn. 
+Om dat overzicht toegankelijker te maken en eventuele fouten sneller te kunnen verhelpen is onderstaande tabel toegevoegd. Deze tabel laat ook zien voor welke indicatoren de resultaten (waarden, kaarten, grafieken) en bijbehorende teksten gecontroleerd zijn, en door wie. Let wel: deze kwaliteitscontrole is beperkt en gericht op de voor de DSR gedane bewerkingen, omdat de DSR voornamelijk data uit andere bronnen ontsluit, en er noodzakelijkerwijs vanuit gegaan wordt dat daar reeds kwaliteitscontrole heeft plaatsgevonden. Deze tabel is alleen ingevuld voor de indicatoren die recent toegevoegd of wezenlijk veranderd zijn. 
+
+```{r}
+library(kableExtra)
+reviewTable <- readxl::read_excel("P:/11202493--systeemrap-grevelingen/1_data/Wadden/DSR_reviewtabel.xlsx")
+reviewTable %>%
+  kbl() %>%
+  kable_styling()
+```
 
 ## Zelf aan de slag
 Wil je de code achter de digitale systeemrapportage downloaden en aanpassen voor eigen gebruik? Neem contact op met jasper.dijkstra -at- deltares.nl voor toegang tot de DSR. Vraag vervolgens een Open Earth account aan. Via het programma Tortoise kan je een lokale kopie op je computer zetten om verder te bewerken. Op de [publicwiki van Deltares](https://publicwiki.deltares.nl/display/OET/TortoiseSVN) lees je hoe je een Open Earth account kunt aanvragen en een lokale kopie op je computer kunt zetten.
@@ -524,13 +532,7 @@ Waarschijnlijk wordt deze systeemrapportage gemigreerd naar een Github code, waa
 pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
 ```
 
-# Review
-```{r}
-library(kableExtra)
-reviewTable <- readxl::read_excel("P:/11202493--systeemrap-grevelingen/1_data/Wadden/DSR_reviewtabel.xlsx")
-reviewTable %>%
-  kbl() %>%
-  kable_styling()
-```
+
+
 
 
