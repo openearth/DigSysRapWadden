@@ -524,4 +524,13 @@ Waarschijnlijk wordt deze systeemrapportage gemigreerd naar een Github code, waa
 pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE)
 ```
 
+# Review
+```{r}
+library(kableExtra)
+reviewTable <- readxl::read_excel("P:/11202493--systeemrap-grevelingen/1_data/Wadden/DSR_reviewtabel.xlsx")
+reviewTable %>%
+  kbl() %>%
+  kable_styling()
+```
+
 
