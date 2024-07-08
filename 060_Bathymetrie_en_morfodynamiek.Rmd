@@ -98,11 +98,12 @@ De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBa
 
 Voor een schermvullende interactieve weergave van bathymetrie zoals getoond in figuur \@ref(fig:WaddenBathymetrieLeaflet2) verwijzen we naar deze [viewer](https://deltares.shinyapps.io/bathymetrywadden/).
 
-```{r WaddenBathymetrieLeaflet2, fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit vaklodingen tussen 1926 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
+```{r WaddenBathymetrieLeaflet2, fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit lodingen tussen 1926 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
 
 knitr::include_url("https://deltares.shinyapps.io/bathymetrywadden/", height = "600px")
 
 ```
+Zoals uitgebreider beschreven is in de Appendix \@ref(Appmorfologie), zijn de verschillende bodemkaarten van de Waddenzee een samenslag van lodingen (onder water) en hoogtemetingen (intertidaal en hoger) over de verschillende kombergingsgebieden waarvan er jaarlijks één bemeten wordt. Zo is elke 6 jaar door Rijkswaterstaat een kaart van de volledige Waddenzee geconstrueerd, op basis van de kaarten van deelgebieden over die periode. De eerste volledige kaart dateert van 1991, met data over de periode 1985-1991. Let wel, deze kennen missende punten en vooral de kwelders en ondiepe gebieden langs de eilandkusten zijn niet volledig. De serie bodems vanaf 1985 zijn begin 2024 door Deltares opnieuw gecombineerd, aangevuld en gecorrigeerd. Voor de bodems vóór 1985 geldt dat de lodingen minder systematisch plaats vonden en ontsloten werden, waardoor de samengestelde bodems minder duidelijk terug te voeren zijn op een bepaalde periode.  
 
 ## Netto erosie en sedimentatie
 
