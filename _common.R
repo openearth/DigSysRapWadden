@@ -2,6 +2,8 @@
 
 # options(width = 60)
 
+concept = TRUE
+
 # source("r/runThisFirst.R")
 source("r/installeerPackages.R")
 source("r/waterSystemSpecificSettings.R")

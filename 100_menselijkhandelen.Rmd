@@ -118,8 +118,8 @@ getoond welke stof (gas, olie, water, etc.) vervoerd wordt. Voor de
 telecomkabels wordt voor zover bekend weergegeven wat voor soort kabel
 het is (coaxiaal of glasvezel).
 
-```{r kabelsEnLeidingen, echo =FALSE, out.height="450px", fig.cap="Pijpleidingen, telecomkabels en elektrakabels in de Waddenzee. NB: tussen Den Helder en Texel lopen zowel telecomkabels als pijpleidingen, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
-Wadden <- sf::st_read('p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp') %>% st_transform(4326)
+```{r kabelsEnLeidingen,eval=FALSE, echo =FALSE, out.height="450px", fig.cap="Pijpleidingen, telecomkabels en elektrakabels in de Waddenzee. NB: tussen Den Helder en Texel lopen zowel telecomkabels als pijpleidingen, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
+Wadden <- sf::st_read(file.path(datadir, 'RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp')) %>% st_transform(4326)
 
 wfs_geo <- 'https://geo.rijkswaterstaat.nl/services/ogc/gdr/kabels_en_leidingen_noordzee/ows?service=WFS&request=getcapabilities&version=2.0.0'
 
@@ -127,7 +127,7 @@ pijpleidingen.lay <- 'kabels_en_leidingen_noordzee:pijpleidingen_noordzee'
 telecom_kabels.lay <- 'kabels_en_leidingen_noordzee:telecom_kabels_noordzee'
 elektra_kabels.lay <- 'kabels_en_leidingen_noordzee:electra_kabels_noordzee'
 
-pijpleidingen <- st_read(dsn = wfs_geo, layer = pijpleidingen.lay) %>% st_transform(4326)
+pijpleidingen <- st_read(dsn = wfs_geo, layer = pijpleidingen.lay) %>% st_transform(4326) %>% st_simplify()
 pijpleidingenWadden <- st_intersection(pijpleidingen, Wadden)
 
 telecom_kabels <- st_read(dsn = wfs_geo, layer = telecom_kabels.lay) %>% st_transform(4326)
