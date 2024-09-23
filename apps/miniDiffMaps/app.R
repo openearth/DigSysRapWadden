@@ -1,0 +1,131 @@
+library(shiny)
+library(miniUI)
+# library(leaflet)
+library(tidyverse)
+library(raster)
+library(colorRamps)
+library(sf)
+library(terra)
+library(leaflet)
+
+#=== css styling for selectinput box ===========================================
+CSS <- "
+.selectize-dropdown {
+  bottom: 100% !important; 
+  top: auto !important;
+}
+"
+
+#=== read data =================================================================
+
+# diffMapDir <- "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/bathymetrie/processing_tiles/volledige_bodemkaarten_BenO_Wadden/verschilkaarten_nieuwedata/"
+
+wadden <- sf::read_sf("https://datahuiswadden.openearth.nl/geoserver/dhw/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=dhw%3Akombergingen&maxFeatures=50&outputFormat=application%2Fjson") %>%
+  dplyr::select(id) %>%
+  sf::st_transform(28992) %>%
+  sf::st_simplify()
+
+diffMapDir <- "apps/miniDiffMaps/data"
+
+files <- list.files(diffMapDir)
+
+diffYears <- sub(".tiff", "", files)
+
+
+#=== Testing ===================================================================
+
+
+
+
+
+
+
+#=== colors for plot raster ====================================================
+
+# col5 <- colorRampPalette(c('blue', 'gray96', 'red'))  #create color ramp starting from blue to red
+# color_levels=5 #the number of colors to use
+
+#=== user interface ============================================================
+
+ui <- miniPage(
+  gadgetTitleBar("Verschilkaarten Bathymetrie"),
+  miniContentPanel(padding = 0,
+                   leafletOutput("diffPlot", height = "100%")
+  ),
+  miniButtonBlock(
+    tags$head(
+      tags$style(HTML(CSS))
+    ),
+    selectizeInput(
+      "periode",
+      "kies periode:",
+      diffYears
+    ),
+    numericInput(
+      "maxScale",
+      "max scale",
+      10,
+      5,
+      20
+    ),
+    actionButton(
+      inputId = "btn", 
+      label = "refresh scale",
+      width = "50px"
+    )
+  )
+)
+
+#=== Server ====================================================================
+
+server <- function(input, output, session) {
+  
+  maxScale <- reactiveValues()
+  
+  observeEvent(c(input$btn),{
+    maxScale$values <- input$maxScale
+  }, ignoreNULL = FALSE)
+  
+  
+  
+  output$diffPlot <- renderLeaflet({
+    
+    diff <- terra::rast(
+      file.path(diffMapDir, paste0(files[4]))
+    ) %>%
+      terra::aggregate(2) %>%
+      terra::mask(wadden) %>%
+      terra::project("epsg:4326")
+    
+    pal <- colorNumeric(c("red", "white", "blue"), c(-scale, scale),
+                        na.color = "transparent")
+    
+    leaflet::leaflet() %>%
+      leaflet::addTiles(group = "OpenStreetMap") %>%
+      addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
+      leaflet::addRasterImage(diffm_wgs, colors = pal, opacity = 0.6, group = "verschilkaart") %>%
+      leaflet::addLegend(position = "bottomright", pal = pal, values = c(-maxScale$values, maxScale$values)) %>%
+      leaflet::addLayersControl(
+        baseGroups = c("OpenStreetMap", "ESRI worldimagery"), 
+        overlayGroups = c("verschilkaart"),
+        options = layersControlOptions(noHide = T, collapsed = FALSE),
+      )
+    
+    
+    # output$diffPlot <- renderPlot({
+    #   diff <- terra::mask(
+    #     raster(
+    #       file.path(diffMapDir, paste0(input$periode, ".tiff"))
+    #     ), wadden
+    #   )
+    #   
+    #   plot(
+    #     diff, 
+    #     col=col5(n=color_levels), 
+    #     breaks=seq(-maxScale$values,maxScale$values,length.out=color_levels+1) , 
+    #     axes=FALSE
+    #   )
+  })
+}
+
+runGadget(ui, server, viewer = paneViewer())
