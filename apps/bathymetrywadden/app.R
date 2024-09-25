@@ -9,6 +9,7 @@ library(jsonlite)
 library(sf)
 library(tidyverse)
 library(ows4R)
+library(leaflet.extras)
 
 # voorbereiding. alleen draaien als andere polygoon nodig is. 
 # wfs_wmr <- "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows"
@@ -26,6 +27,18 @@ library(ows4R)
 #   st_simplify() %>% #Lambert2008
 # dplyr::filter(fid %in% polygonsInRaster)
 # st_write(poly, "apps/bathymetrywadden/vakken.geojson")
+
+layers <- c(
+  `1997` = "mosaic_ASC_1991_1997_def",
+  `2002` = "mosaic_ASC_1997_2002_def",
+  `2008` = "mosaic_ASC_2003_2008_def",
+  `2014` = "mosaic_ASC_2009_2014_def",
+  `2020` = "mosaic_ASC_2015_2020_def"
+)
+
+jaren = names(layers)
+
+wms_base <- "https://datahuiswadden.openearth.nl/geoserver/ows"
 
 poly <- st_read("vakken.geojson")
 
@@ -47,23 +60,17 @@ ui <- fluidPage(title = "Wadden Sea Bathymetry",
                          leafletOutput("map")
                   ),
                   absolutePanel(id = "controls", class = "panel panel-default", align = 'center', 
-                                top = "2%", left = "5%", width = "550px", height = "100px",
+                                top = "2%", left = "5%", width = "300px", height = "75px",
                                 draggable = T,
                                 tags$style(type = 'text/css', '#big_slider .irs-grid-text {font-size: 14px}'), 
                                 div(id = 'big_slider',
-                                    sliderInput(
+                                    selectInput(
                                       inputId = "endyear", 
-                                      label = NULL, 
-                                      min = 1920, 
-                                      max = 2020, 
-                                      value = c(2005,2020), 
-                                      ticks = T,
-                                      # step = 10, 
-                                      sep = "", 
-                                      dragRange = TRUE, 
-                                      width = "500px"
-                                    ), # animate = animationOptions(loop = F, interval = 2000), 
-                                    shiny::checkboxInput("hillshade", "hillshade", TRUE)
+                                      label = "select bathymetry", 
+                                      choices = names(layers), 
+                                      selected = tail(names(layers),1), 
+                                      width = "250px"
+                                    )
                                 )#div close,
                   )
                 )
@@ -72,37 +79,11 @@ ui <- fluidPage(title = "Wadden Sea Bathymetry",
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
-  
-  request <- reactive({list(dataset = "vaklodingen", 
-                            begin_date = paste0(as.integer(max(c(input$endyear[1]), 1926))-0, "-01-01T00:00:00.000Z"), 
-                            end_date = paste0(input$endyear[2], "-12-31T23:59:00.000Z"), 
-                            min = -30L, 
-                            max = 10L, 
-                            hillshade = input$hillshade)
-  })
-  
-  jsonInput <- reactive(toJSON(request(), auto_unbox = T))
-  
-  res <- reactive({
-    POST(
-      "https://hydro-engine.ey.r.appspot.com//get_bathymetry", 
-      body = jsonInput(), 
-      encode = "form", 
-      verbose(), 
-      content_type("application/json")
-    )
-  })
-  
-  
+  # initialize map
   output$map = renderLeaflet({
-    
-    
-    # run request
-    
     leaflet() %>% 
       setView(5.0, 53.0, zoom = 12) 
   })
-  
   
   # output$map <- renderLeaflet({
   observe({
@@ -112,14 +93,17 @@ server <- function(input, output) {
       addTiles(group = "OSM") %>%
       addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
       leaflet::clearImages() %>%
-      addTiles(content(res())$url, group = "bathymetrie") %>%
-      # addWMSTiles(baseUrl = "https://opengeodata.wmr.wur.nl/geoserver/WS3shp/wms",
-      #             layers = "WS3shp:ws3_tidalbasins",
-      #             options = WMSTileOptions(format = "image/png", transparent = TRUE),
-      #             group = "vakken"
-      # ) %>%
-      # !!!! werkt niet netjes. de polygonen zijn niet zichtbaar bovenop de bathymetrie
-      addPolygons(
+      addWMSTiles(
+        baseUrl = wms_base,
+        layers = paste0('bathymetrie:', unname(layers[input$endyear])),
+        # layers = "bathymetrie:mosaic_ASC_2015_2020_def", # example
+        options = WMSTileOptions(
+          format = "image/png",
+          transparent = TRUE,
+          version = "1.3.1"),
+        group = "bathymetrie"
+      ) %>%
+    addPolygons(
         data = poly,
         fill = F,
         label = ~name,
@@ -129,29 +113,31 @@ server <- function(input, output) {
       leaflet::addLayersControl(
         baseGroups = c("OSM", "ESRI worldimagery"), 
         overlayGroups = c("vakken", "bathymetrie"),
-        options = layersControlOptions(noHide = T, collapsed = FALSE),
-      ) #%>%
-    # leaflet::addLegend(
-    #     colors = unlist(strsplit(content(res())$palette, ",")),
-    #     labels = round(seq(request()$min/100, request()$max/100, length.out = 20), 0), opacity = 1
-    # )
+        options = layersControlOptions(
+          noHide = T, 
+          collapsed = FALSE,
+          position = 'bottomleft'),
+      )
   })
   
   # Use a separate observer to recreate the legend as needed.
   observe({
     proxy <- leafletProxy("map")
-    
+
     # Remove any existing legend, and only if the legend is
     # enabled, create a new one.
-    proxy %>% 
+    proxy %>%
       clearControls() %>%
-      leaflet::addLegend(
-        colors = unlist(strsplit(content(res())$palette, ",")),
-        labels = round(seq(request()$min, request()$max, length.out = 20), 0), opacity = 1
+      leaflet.extras::addWMSLegend(
+        uri=paste0(sub("ows", "wms", wms_base),
+                   "?request=",
+                   "GetLegendGraphic&version=1.3.0&",
+                   "format=image/png&layer=",
+                   "bathymetrie:",
+                   unname(layers[input$endyear])
+                   )
       )
   })
-  
-  
   
   # keep zooming level when input changes
   # after e.g. https://stackoverflow.com/questions/48397262/in-shiny-how-to-fix-lock-leaflet-map-view-zoom-and-center
@@ -159,8 +145,6 @@ server <- function(input, output) {
   zoom <- reactive({
     ifelse(is.null(input$map_zoom),3,input$map_zoom)
   })
-  
-  
   
 }
 

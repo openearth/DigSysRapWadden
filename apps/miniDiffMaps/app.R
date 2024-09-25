@@ -25,25 +25,28 @@ wadden <- sf::read_sf("https://datahuiswadden.openearth.nl/geoserver/dhw/ows?ser
   sf::st_transform(28992) %>%
   sf::st_simplify()
 
-diffMapDir <- "apps/miniDiffMaps/data"
+diffMapDir <- "data"
 
-files <- list.files(diffMapDir)
+files <- list.files(diffMapDir, pattern = ".RDS")
 
-diffYears <- sub(".tiff", "", files)
-
-
-#=== Testing ===================================================================
+diffYears <- sub(".RDS", "", files)
 
 
+#=== Preparation ===============================================================
 
+# diffMaps <- lapply(
+#   files,
+#   function(x){
+#     terra::rast(
+#       file.path(diffMapDir, x)
+#     ) %>%
+#       terra::aggregate(2) %>%
+#       terra::mask(wadden) %>%
+#       terra::project("epsg:4326") %>%
+#     saveRDS(file = file.path(diffMapDir, paste0(sub(".tiff", "", x),  ".RDS")))
+#   }
+# )
 
-
-
-
-#=== colors for plot raster ====================================================
-
-# col5 <- colorRampPalette(c('blue', 'gray96', 'red'))  #create color ramp starting from blue to red
-# color_levels=5 #the number of colors to use
 
 #=== user interface ============================================================
 
@@ -84,48 +87,32 @@ server <- function(input, output, session) {
   
   observeEvent(c(input$btn),{
     maxScale$values <- input$maxScale
-  }, ignoreNULL = FALSE)
-  
-  
+    }, 
+    ignoreNULL = FALSE)
   
   output$diffPlot <- renderLeaflet({
     
     diff <- terra::rast(
-      file.path(diffMapDir, paste0(files[4]))
-    ) %>%
-      terra::aggregate(2) %>%
-      terra::mask(wadden) %>%
-      terra::project("epsg:4326")
+      file.path(diffMapDir, paste0(input$periode, ".RDS"))
+    )
+
+#=== colors for plot raster ====================================================
     
-    pal <- colorNumeric(c("red", "white", "blue"), c(-scale, scale),
+    pal <- colorNumeric(c("red", "white", "blue"), c(-maxScale$values, maxScale$values),
                         na.color = "transparent")
     
     leaflet::leaflet() %>%
       leaflet::addTiles(group = "OpenStreetMap") %>%
       addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
-      leaflet::addRasterImage(diffm_wgs, colors = pal, opacity = 0.6, group = "verschilkaart") %>%
+      leaflet::addRasterImage(diff, colors = pal, opacity = 0.6, group = "verschilkaart") %>%
       leaflet::addLegend(position = "bottomright", pal = pal, values = c(-maxScale$values, maxScale$values)) %>%
       leaflet::addLayersControl(
         baseGroups = c("OpenStreetMap", "ESRI worldimagery"), 
         overlayGroups = c("verschilkaart"),
         options = layersControlOptions(noHide = T, collapsed = FALSE),
       )
-    
-    
-    # output$diffPlot <- renderPlot({
-    #   diff <- terra::mask(
-    #     raster(
-    #       file.path(diffMapDir, paste0(input$periode, ".tiff"))
-    #     ), wadden
-    #   )
-    #   
-    #   plot(
-    #     diff, 
-    #     col=col5(n=color_levels), 
-    #     breaks=seq(-maxScale$values,maxScale$values,length.out=color_levels+1) , 
-    #     axes=FALSE
-    #   )
   })
 }
 
-runGadget(ui, server, viewer = paneViewer())
+# runGadget(ui, server, viewer = paneViewer())
+shinyApp(ui, server)
