@@ -94,17 +94,26 @@ voor bewoning bestemd zijn. Onderstaande figuur toont de locaties van
 verschillende kunstwerken rond de Waddenzee, waaronder sluizen, gemalen
 en duikers. In de figuur wordt per locatie het type kunstwerk vermeld.
 
-```{r kunstwerken, out.height="450px", fig.cap="Kunstwerken in de Waddenzee, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
+```{r kunstwerken, out.height="450px", fig.cap="Kunstwerken in de Waddenzee, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/6c39918c-b1ed-4472-b4ce-eb1efeac788d", out.width = "100%"}
 Wadden <- sf::st_read('p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp', quiet = TRUE) %>% st_transform(4326)
+#
+# oude url (werkt niet meer) 
+# kunstwerkenurl <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/primaire_waterkering/ows?request=GetFeature&service=WFS&version=2.0.0&outputFormat=application%2Fjson&typeNames=primaire_waterkering:kunstwerken"
+# 
+kunstwerkenurl <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/dijkringen_historie/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=kunstwerken_2012&outputFormat=json&content-disposition=attachment"
 
-kunstwerken <- sf::st_read("https://geo.rijkswaterstaat.nl/services/ogc/gdr/primaire_waterkering/ows?request=GetFeature&service=WFS&version=2.0.0&outputFormat=application%2Fjson&typeNames=primaire_waterkering:kunstwerken", quiet=TRUE) %>% st_transform(4326)
- 
+dijkringenurl <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/dijkringen_historie/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=dijkring_l_2012&outputFormat=json&content-disposition=attachment"
+
+kunstwerken <- sf::st_read(kunstwerkenurl, quiet=TRUE) %>% st_transform(4326)
+dijkringen <- sf::st_read(dijkringenurl, quiet=TRUE) %>% st_transform(4326)
 
 leaflet(kunstwerken) %>%
-  setView(lng = 5.8, lat = 53.3, zoom = 9) %>% 
+  setView(lng = 5.8, lat = 53.3, zoom = 9) %>%
   addTiles() %>%
-  addCircleMarkers(label = ~kd_type_om, radius=3) 
+  addCircleMarkers(label = ~kd_type_om, radius=3) %>%
+  addPolylines(data = dijkringen, label = ~wk_type, stroke = 3, color = "green")
 
+# cat("Deze laag met kunstwerken is niet meer actief. Zie [deze link](https://rijkswaterstaatdata.nl/meldingen-storingen/meldingen-storingen/webservice-primaire-waterkering/). Lagen zijn niet meer via standaard OGS services opvraagbaar maar alleen via arcig REST via https://geo.rijkswaterstaat.nl/arcgis/rest/services/GDR/dijkringen_historie/FeatureServer. ")
 
 ```
 
@@ -120,8 +129,8 @@ het is (coaxiaal of glasvezel). Deze data zijn naar alle waarschijnlijkheid niet
 
 ```{r kabelsEnLeidingen, echo =FALSE, out.height="450px", fig.cap="Pijpleidingen, telecomkabels en elektrakabels in de Waddenzee. NB: tussen Den Helder en Texel lopen zowel telecomkabels als pijpleidingen, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/66bacf5b-b5fa-4dce-aa31-1938f37f11c7", out.width = "100%", message=FALSE}
 
-Wadden <- sf::st_read(file.path(datadir, 'RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp'), quiet = TRUE) %>% st_transform(4326) #%>%
-  #st_make_valid()
+Wadden <- sf::st_read(file.path(datadir, 'RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp'), quiet = TRUE) %>% st_transform(4326) %>%
+  st_make_valid()
 
 wfs_geo <- 'https://geo.rijkswaterstaat.nl/services/ogc/gdr/kabels_en_leidingen_noordzee/ows?service=WFS&request=getcapabilities&version=2.0.0'
 
