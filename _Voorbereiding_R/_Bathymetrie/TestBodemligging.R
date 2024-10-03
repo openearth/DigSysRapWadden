@@ -9,7 +9,6 @@ require(raster)
 require(gstat)
 require(sp)
 require(tidyverse)
-require(rgdal)
 
 # source('r/testplotraster.R')
 

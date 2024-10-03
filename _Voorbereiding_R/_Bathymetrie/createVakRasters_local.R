@@ -3,9 +3,7 @@
 csvfile <- "_Voorbereiding_R/_Bathymetrie/WaddenZeeVaklodingen.csv"
 processingpath <- "_Voorbereiding_R/_Bathymetrie/processing_tiles_doeljaren/"
 
-# install.packages("gdalUtils")
 # install.packages("terra")
-library("gdalUtils")
 library(data.table)
 require("raster")
 require(stringr)

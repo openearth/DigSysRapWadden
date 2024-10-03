@@ -4,9 +4,8 @@ csvfile <- "_Voorbereiding_R/_Bathymetrie/WaddenZeeVaklodingen.csv"
 processingpath <- "_Voorbereiding_R/_Bathymetrie/processing_tiles/"
 
 # install.packages("gdalUtils")
-library("gdalUtils")
 library(data.table)
-require("raster")
+require(raster)
 
 ## define function for mosaicking
 setMethod('mosaic', signature(x='list', y='missing'), 

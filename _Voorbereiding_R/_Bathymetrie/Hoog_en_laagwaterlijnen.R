@@ -8,7 +8,6 @@ require(raster)
 require(gstat)
 require(sp)
 require(tidyverse)
-require(rgdal)
 require(readr)
 
 #' Informatie en directories

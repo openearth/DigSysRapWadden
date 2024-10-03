@@ -21,8 +21,6 @@ names <- catalogue %>%
 
 # select based on bbox - from polygon:
 
-require('rgdal')
-
 tilesInPolygon <- function(bbox,names,dataset='vaklodingen') {
   # load the dfs and look into those
   if (dataset == 'vaklodingen'){

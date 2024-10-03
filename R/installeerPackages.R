@@ -8,7 +8,6 @@
 
 require("shiny")
 require("rmarkdown")
-require("rgdal")
 require("sf")
 require("bookdown")
 require("pander")
