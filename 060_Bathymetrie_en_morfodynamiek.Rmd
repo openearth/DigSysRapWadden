@@ -343,20 +343,16 @@ if (knitr::is_html_output()) {
 
 ## Arealen {#arealen}
 
-*NB Onderstaande beschrijft de huidige aanpak, die deels is afgeleid van de classificatie van de Westerschelde op basis van vaste verticale begrenzingen. Voor de Waddenzee zijn*
+*NB Onderstaande beschrijft de huidige methode, op basis van vaste verticale begrenzingen ten opzichte van NAP. Deze methode geeft inzicht in de absolute volumes of oppervlaktes, maar relateert die niet aan de vanuit morfologisch en ecologisch opzicht relevantere waterstand zoals GLW of GHW die door de jaren en ruimtelijk varieert. Een methode die daar wel recht aan doet is momenteel in ontwikkeling en wordt dit jaar beproefd op het bekken van ht Vlie. Het is de bedoeling de nieuwe methode in 2025 voor alle Waddenzeebekkens op de DSR te gebruiken.*
 
 Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in vier verschillende hoogteklassen:
 
-1.  Geul
-2.  Subgetijdengebied
-3.  Intergetijdengebied
-4.  Supragetijdengebied
+1.  Geul (z < -5m)
+2.  Subgetijdengebied (-5m < z < -1m)
+3.  Intergetijdengebied (-1m < z < 1m)
+4.  Supragetijdengebied (z > 1m)
 
-Het intergetijdengebied betreft het areaal dat een deel van de tijd droogvalt. De begrenzing van het intergetijdengebied wordt enerzijds gevormd door de bodemligging en anderszijds door de waterstandsvariatie. De waterstand varieert niet alleen door de tijd, maar ook in de ruimte. Achterin de bekkens is de getijslag meestal groter dan nabij de zeegaten. Daarnaast neemt de getijslag toe van west naar oost, dus tussen Den Helder en Delfzijl. De kaart met de getijslag laat dit goed zien (figuur \@ref(fig:kaartGetijslag)).
-
-De waterstand wordt echter alleen gemeten op een aantal stations aan de randen van de Waddenzee (eilanden en vastelandskust). Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, dient rekening te worden gehouden met de getijvoortplanting. Numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden (rekencellen), en daarmee de kleinere geultjes en prielen, die een belangrijke functie hebben in het efficient draineren van de intergetijdengebieden, niet in het rekenrooster zijn opgenomen. Voor de ecotopenkaart wordt de waterspiegel berekend middels een driehoeksinterpolatie van de gemeten waterstanden als invoer voor het berekenen van de droogvalduur.
-
-Voor deze rapportage zijn gebiedsdekkende kaarten gegenereerd voor de Waddenzee op basis van het gemiddelde jaarlijkse hoogwater en laagwater gemeten op de verschillende stations. Op basis hiervan kan aan de hand van de bathymetrie worden vastgesteld welk deel van de Waddenzee zich onder de laagwaterlijn bevindt (subgetijdengebied) en welk deel hoger ligt dan de hoogwaterlijn (supragetijdengebied). Het areaal dat tussen het gemiddelde hoogwater en laag water ligt is het intergetijdengebied. Areaal dat zich meer dan 2 meter onder de laagwaterlijn ligt wordt aangeduid als geul. De gebiedsdekkende kaarten zijn vooralsnog gegenereerd op basis van 'inverse-distance weighted (idw)' interpolatie (idp = 3).
+De geulen zijn indicatief voor de transportcapaciteit van het systeem, terwijl ze door de sterke hydrodynamiek vaak arm zijn aan bodemleven. Het subgetijdengebied ligt permanent onder water maar is over het algemeen rustiger en heeft daarmee een functie als bijvoorbeeld kraamkamer voor jonge vis. Het intergetijdengebied betreft het areaal dat een deel van de tijd droogvalt, en is zeer waardevol als foerageergebied voor vogels. Op het hoogste deel, wat het langst droogvalt, kan kweldervorming optreden.  Het supragetijdengebied overstroomt onregelmatig, als gevolg van springtij en stormopzet. Hier kan zich dichte begroeiïng (hoge kwelder) ontwikkelen, of eilandvorming (duinen) optreden. 
 
 Figuur \@ref(fig:arealenOld) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:gebiedenWaddenzee)). De figuur laat zien dat het intergetijdengebied in de meeste bekkens toeneemt over de tijd. Alleen voor de Lauwers en Schild is dit niet zo. Ook neemt het areaal subgetijdengebied af (dit ligt tussen de -5 m NAP en de -1 m NAP lijn). De arealen supragetijdengebied zijn klein, ook omdat enkel de gebieden (cellen) worden meegenomen die in alle jaren opgenomen zijn. Het supragetijdengebied is niet altijd volledig opgenomen in de vaklodingen data, zeker niet in oudere opnamen. De ontwikkeling van het geulareaal verschilt per bekken.
 
@@ -677,7 +673,7 @@ De hoogte van het intergetijdengebied (plaathoogte) is afhankelijk van de hydrod
 
 Bij analyse van deelgebieden is de ruimtelijke begrenzing zeer van belang voor het berekenen van de plaathoogte. Indien een intergetijdengebied bijvoorbeeld migreert of opschuift, kan een stuk met lagere bodemligging (of zelfs geul) binnen de polygoon schuiven en daarmee de *gemiddelde* plaathoogte beïnvloeden. Op het niveau van bekkens speelt dit minder, omdat op de wantijen weinig geulen aanwezig zijn.
 
-In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte per bekken te berekenen. Hiervoor wordt het volume tussen de -1 m NAP en +1 m NAP grens bepaald, en gedeeld door de oppervlakte.
+In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte per bekken te berekenen. Hiervoor wordt het volume tussen de -1 m NAP en +1 m NAP grens bepaald, en gedeeld door de oppervlakte. NB, net als voor de indicator arealen geldt voor de plaathoogte dat er gewerkt wordt aan een morfologisch/ecologisch passender methode. 
 
 De gemiddelde plaathoogte (figuur \@ref(fig:plaathoogteOld)) lijkt voor de grotere bekkens licht toe te nemen. Voor de Eilanderbalg, Lauwers en Schild zijn pas in de jaren '70 de eerste bodems opgenomen, en vertonen om die reden voor die tijd een horizontale lijn.
 
@@ -819,7 +815,7 @@ valid.values.Marsdiep.df %>%
 
 ## Geuldiepte
 
-Geuldiepte is het volume beneden -5 m NAP gedeeld door het oppervlak beneden -5 m NAP (zie ook vergelijking \@ref(eq:geuldiepte)).
+Geuldiepte is het volume beneden -5 m NAP gedeeld door het oppervlak beneden -5 m NAP (zie ook vergelijking \@ref(eq:geuldiepte)). NB, net als voor de indicator arealen geldt voor de geuldiepte dat er gewerkt wordt aan een morfologisch/ecologisch passender methode. Echter, voor diepe, duidelijk te definiëren geulen zal dit waarschijnlijk weinig uitmaken.  
 
 De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens (Marsdiep, Eierlandse Gat en Vlie) een toename door de tijd zien (figuur \@ref(fig:geuldiepteOld)). Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries in sommige bekkens door worden veroorzaakt. Voor de Eilanderbalg, Lauwers en Schild zijn pas in de jaren '70 de eerste bodems opgenomen, en vertonen om die reden voor die tijd een horizontale lijn.
 
@@ -1009,7 +1005,7 @@ valid.values.Marsdiep.df %>%
 
 Naast de meer geaggregeerde indicatoren als arealen en volumes, is voor geulen ook de daadwerkelijke diepte en ligging van belang om te kunnen beoordelen of een geul bijvoorbeeld verondiept, wat de bevaarbaarheid beïnvloedt, of migreert, wat de stabiliteit van platen of land in gevaar kan brengen. Ook kunnen verschuivingen in geulpatronen verklarend zijn voor andere morfologische veranderingen.
 
-Bovenstaande wordt beoordeeld en geduid in de kombergingsrapportages aan de hand van een aantal (bijna 200 voor de gehele Waddenzee) geuldoorsnedes (profielen) op vaste locaties, wat een vergelijking tussen verschillende jaren mogelijk maakt. Klikken op een profiellijn in Figuur \@ref(fig:geul-kaart) geeft een figuur met de geuldoorsnedes voor de vaklodingen tussen 1927 en nu. De data na 1991 zijn gecombineerde bathymetriën van de vaklodingen die per kombergingsgebied per jaar plaatsvinden, de data daarvoor zijn ook combinaties van bathymetrieën van meerdere jaren maar de precieze herkomst niet altijd duidelijk. Ze refereren dus naar een geuldoorsnedes per periode. De data van de gecombineerde bathymetriën is ook te vinden op Datahuis Wadden.
+Bovenstaande wordt beoordeeld en geduid in de kombergingsrapportages aan de hand van een aantal (bijna 200 voor de gehele Waddenzee) geuldoorsnedes (profielen) op vaste locaties, wat een vergelijking tussen verschillende jaren mogelijk maakt. Klikken op een profiellijn in Figuur \@ref(fig:geul-kaart) geeft een figuur met de geuldoorsnedes voor de vaklodingen tussen 1949 en nu. De data na 1991 zijn gecombineerde bathymetriën van de vaklodingen die per kombergingsgebied per jaar plaatsvinden, de data daarvoor zijn ook combinaties van bathymetrieën van meerdere jaren maar de precieze herkomst is niet altijd duidelijk (dit wordt waarschijnlijk in 2025 verbeterd). Ze refereren dus naar een geuldoorsnedes per periode. De data van de gecombineerde bathymetriën is ook te vinden op Datahuis Wadden.
 
 NB Het is de bedoeling de profieldata ook nog downloadbaar te maken zodat de gebruiker zelf figuren kan maken. Omdat de dataset (vaklodingen) groot is kost de berekening te veel tijd om online te doen, en de vooraf offline berekende niet-geogerefeerde profieldata past niet in de bestaande opslagstructuur; daar moet nog een oplossing voor gevonden worden.
 
