@@ -53,7 +53,7 @@ diffYears <- sub(".RDS", "", files)
 #=== user interface ============================================================
 
 ui <- miniPage(
-  gadgetTitleBar("Verschilkaarten Bathymetrie"),
+  miniTitleBar("Verschilkaarten Bathymetrie"),
   miniContentPanel(padding = 0,
                    leafletOutput("diffPlot", height = "100%")
   ),
@@ -100,7 +100,7 @@ server <- function(input, output, session) {
     
     #=== colors for plot raster ====================================================
     
-    pal <- colorNumeric(c("red", "white", "blue"), c(-maxScale$values, maxScale$values),
+    pal <- colorNumeric(c("orange", "white", "blue"), c(-maxScale$values, maxScale$values),
                         na.color = "transparent")
     
     leaflet::leaflet() %>%
