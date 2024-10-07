@@ -290,14 +290,18 @@ p <- valid.values.df %>%
   coord_cartesian(ylim = c(-5, 3)) +
   theme(legend.position = "bottom")
 
-if(knitr::is_html_output()) {
+if (knitr::is_html_output()) {
   ggplotly(
-    p, 900, 900) %>%
-    config(displayModeBar = F) %>%
-    layout(xaxis=list(fixedrange=TRUE)) %>%
-    layout(yaxis=list(fixedrange=TRUE)
+    p, width = 900, height = 900
+  ) %>%
+    config(displayModeBar = FALSE) %>%
+    layout(
+      xaxis = list(fixedrange = TRUE),
+      yaxis = list(fixedrange = TRUE)
     )
-} else p
+} else {
+  p
+}
 
 
 ```
@@ -322,14 +326,18 @@ p <- valid.values.Marsdiep.df %>%
   coord_cartesian(ylim = c(-5, 3)) +
   theme(legend.position = "bottom")
 
-if(knitr::is_html_output()) {
+if (knitr::is_html_output()) {
   ggplotly(
-    p, 900, 900) %>%
-    config(displayModeBar = F) %>%
-    layout(xaxis=list(fixedrange=TRUE)) %>%
-    layout(yaxis=list(fixedrange=TRUE)
+    p, width = 900, height = 900
+  ) %>%
+    config(displayModeBar = FALSE) %>%
+    layout(
+      xaxis = list(fixedrange = TRUE),
+      yaxis = list(fixedrange = TRUE)
     )
-} else p
+} else {
+  p
+}
 
 ```
 
@@ -350,7 +358,7 @@ De waterstand wordt echter alleen gemeten op een aantal stations aan de randen v
 
 Voor deze rapportage zijn gebiedsdekkende kaarten gegenereerd voor de Waddenzee op basis van het gemiddelde jaarlijkse hoogwater en laagwater gemeten op de verschillende stations. Op basis hiervan kan aan de hand van de bathymetrie worden vastgesteld welk deel van de Waddenzee zich onder de laagwaterlijn bevindt (subgetijdengebied) en welk deel hoger ligt dan de hoogwaterlijn (supragetijdengebied). Het areaal dat tussen het gemiddelde hoogwater en laag water ligt is het intergetijdengebied. Areaal dat zich meer dan 2 meter onder de laagwaterlijn ligt wordt aangeduid als geul. De gebiedsdekkende kaarten zijn vooralsnog gegenereerd op basis van 'inverse-distance weighted (idw)' interpolatie (idp = 3).
 
-Figuur \@ref(fig:arealen) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:gebiedenWaddenzee)). De figuur laat zien dat het intergetijdengebied in de meeste bekkens toeneemt over de tijd. Alleen voor de Lauwers en Schild is dit niet zo. Ook neemt het areaal subgetijdengebied af (dit ligt tussen de -5 m NAP en de -1 m NAP lijn). De arealen supragetijdengebied zijn klein, ook omdat enkel de gebieden (cellen) worden meegenomen die in alle jaren opgenomen zijn. Het supragetijdengebied is niet altijd volledig opgenomen in de vaklodingen data, zeker niet in oudere opnamen. De ontwikkeling van het geulareaal verschilt per bekken.
+Figuur \@ref(fig:arealenOld) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:gebiedenWaddenzee)). De figuur laat zien dat het intergetijdengebied in de meeste bekkens toeneemt over de tijd. Alleen voor de Lauwers en Schild is dit niet zo. Ook neemt het areaal subgetijdengebied af (dit ligt tussen de -5 m NAP en de -1 m NAP lijn). De arealen supragetijdengebied zijn klein, ook omdat enkel de gebieden (cellen) worden meegenomen die in alle jaren opgenomen zijn. Het supragetijdengebied is niet altijd volledig opgenomen in de vaklodingen data, zeker niet in oudere opnamen. De ontwikkeling van het geulareaal verschilt per bekken.
 
 ```{r prepare arealen, eval=F}
 
@@ -500,7 +508,7 @@ for (i in 1:length(doeljaren)){
 save(lagen_lowres, file = file.path(datadir, "RWS", "bathymetrie", "lagen.Rdata"))
 ```
 
-```{r arealen, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse."}
+```{r arealen, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse.", eval=FALSE}
 
 load(file = file.path(datadir, "RWS", "bathymetrie", "lagen.Rdata"))
 
@@ -576,7 +584,7 @@ p<-valid.values.df  %>%
     # facet_grid(naam ~ class, scales = "free") + #free_y facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free_y") + #
     facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free") +
     theme(strip.text.y = element_text(angle = 0)) +
-    ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
+    ylab(expression(Oppervlakte ~ "[" ~ km^2 ~ "]")) + xlab("Jaar") +
     coord_cartesian(xlim = c(1920, 2020)) +
     ggtitle("Areaal in km^2 per bekken en diepteklasse")
 
@@ -590,9 +598,9 @@ p<-valid.values.df  %>%
 p
 ```
 
-Figuur \@ref(fig:arealenDeelgebieden) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:deelgebiedenWaddenzee)). Het geulareaal is over de laatste decennia toegenomen in het Balgzand, de Boontjes, Texelstroom en Zwanenbalg. In het Scheurrak en Doovebalg is het geulareaal redelijk constant sinds de jaren 70. In het Balgzand, de Boontjes en Zwanenbalg neemt het totale subgetijdegebied (dus inclusief het geulareaal) af. Dit betekent dat een steeds groter deel van het subgetijdegebied uitdiept. In de Texelstroom neemt het subgetijdegebied toe. Het intertijdegebied laat een tegenovergesteld beeld zien. In het Balgzand, de Boontjes en Zwanenbalg komt er dus steeds meer intergetijdegebied in plaats van subgetijdegebied, terwijl in de Texelstroom juist intergetijdegebied ingewisseld wordt voor subgetijdegebied. Het supragetijdegebied is zeer klein, in sommige jaren en in het Scheurrak was er zelfs überhaupt geen areaal boven de +1 NAP.
+Figuur \@ref(fig:arealenDeelgebiedenOld) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:deelgebiedenWaddenzee)). Het geulareaal is over de laatste decennia toegenomen in het Balgzand, de Boontjes, Texelstroom en Zwanenbalg. In het Scheurrak en Doovebalg is het geulareaal redelijk constant sinds de jaren 70. In het Balgzand, de Boontjes en Zwanenbalg neemt het totale subgetijdegebied (dus inclusief het geulareaal) af. Dit betekent dat een steeds groter deel van het subgetijdegebied uitdiept. In de Texelstroom neemt het subgetijdegebied toe. Het intertijdegebied laat een tegenovergesteld beeld zien. In het Balgzand, de Boontjes en Zwanenbalg komt er dus steeds meer intergetijdegebied in plaats van subgetijdegebied, terwijl in de Texelstroom juist intergetijdegebied ingewisseld wordt voor subgetijdegebied. Het supragetijdegebied is zeer klein, in sommige jaren en in het Scheurrak was er zelfs überhaupt geen areaal boven de +1 NAP.
 
-```{r arealenDeelgebieden, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per deelgebied en diepteklasse."}
+```{r arealenDeelgebieden, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per deelgebied en diepteklasse.", eval=FALSE}
 deelgebieden_sp <- as(deelgebieden_sf$geometry, 'Spatial')
 
 deelgebieden.df <- data.frame(jaar = integer(), gebied = integer(), oppervlakte = numeric(), areaal = character())
@@ -646,7 +654,7 @@ ggplot(aes(jaar, oppervlakte), data= deelgebieden.df %>%
       # facet_grid(naam ~ class, scales = "free") + #free_y facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free_y") + #
       facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free") +
       theme(strip.text.y = element_text(angle = 0)) +
-      ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
+      ylab(expression(Oppervlakte ~ "[" ~ km^2 ~ "]")) + xlab("Jaar") +
       coord_cartesian(xlim = c(1920, 2020)) +
       ggtitle("Areaal in km^2 per deelgebied en diepteklasse")
 
@@ -671,7 +679,7 @@ Bij analyse van deelgebieden is de ruimtelijke begrenzing zeer van belang voor h
 
 In deze rapportage is er voor gekozen om in eerste instantie de gemiddelde plaathoogte per bekken te berekenen. Hiervoor wordt het volume tussen de -1 m NAP en +1 m NAP grens bepaald, en gedeeld door de oppervlakte.
 
-De gemiddelde plaathoogte (figuur \@ref(fig:plaathoogte)) lijkt voor de grotere bekkens licht toe te nemen. Voor de Eilanderbalg, Lauwers en Schild zijn pas in de jaren '70 de eerste bodems opgenomen, en vertonen om die reden voor die tijd een horizontale lijn.
+De gemiddelde plaathoogte (figuur \@ref(fig:plaathoogteOld)) lijkt voor de grotere bekkens licht toe te nemen. Voor de Eilanderbalg, Lauwers en Schild zijn pas in de jaren '70 de eerste bodems opgenomen, en vertonen om die reden voor die tijd een horizontale lijn.
 
 ```{r DataPlaaghoogteGeuldiepte, eval=FALSE, include=FALSE }
 # Eerst maken we nieuwe lagen voor de plaathoogte + plaatvolume en geuldiepte (geulvolume halen we uit geuldiepte)
@@ -741,7 +749,7 @@ save(hoogtediepte_deelgebieden, file = file.path(datadir, "RWS", "bathymetrie", 
 
 ```
 
-```{r plaathoogte, fig.cap= "Gemiddelde plaathoogte per bekken. "}
+```{r plaathoogte, fig.cap= "Gemiddelde plaathoogte per bekken. ", eval=FALSE}
 load(file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_bekkens.Rdata"))
 
 if (remove_seventies_easternWadden){
@@ -778,9 +786,9 @@ valid.values.df %>%
   ggtitle("Plaathoogte in m per bekken")
 ```
 
-De gemiddelde plaathoogte (figuur \@ref(fig:plaathoogteDeelgebieden)) geeft een gevarieerd beeld. De plaathoogte is vrij laag voor alle deelgebieden. De plaathoogte is voor de meeste deelgebieden afgenomen tussen 1927 en 1949 of 1971, en vervolgens weer toegenomen. Het Scheurrak laat een tegenovergesteld beeld zien. Sinds 2003 is de plaathoogte redelijk stabiel, behalve in de Zwanenbalg, waar deze toeneemt.
+De gemiddelde plaathoogte per deelgebied (figuur \@ref(fig:plaathoogteDeelgebiedenOld)) geeft een gevarieerd beeld. De plaathoogte is vrij laag voor alle deelgebieden. De plaathoogte is voor de meeste deelgebieden afgenomen tussen 1927 en 1949 of 1971, en vervolgens weer toegenomen. Het Scheurrak laat een tegenovergesteld beeld zien. Sinds 2003 is de plaathoogte redelijk stabiel, behalve in de Zwanenbalg, waar deze toeneemt.
 
-```{r plaathoogteDeelgebieden, fig.cap = "Gemiddelde plaathoogte per deelgebied. "}
+```{r plaathoogteDeelgebieden, fig.cap = "Gemiddelde plaathoogte per deelgebied. ", eval=FALSE}
 load(file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_deelgebieden.Rdata"))
 
 ggplot(aes(jaar, plaathoogte), data= hoogtediepte_deelgebieden %>% 
@@ -813,9 +821,9 @@ valid.values.Marsdiep.df %>%
 
 Geuldiepte is het volume beneden -5 m NAP gedeeld door het oppervlak beneden -5 m NAP (zie ook vergelijking \@ref(eq:geuldiepte)).
 
-De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens (Marsdiep, Eierlandse Gat en Vlie) een toename door de tijd zien (figuur \@ref(fig:geuldiepte)). Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries in sommige bekkens door worden veroorzaakt. Voor de Eilanderbalg, Lauwers en Schild zijn pas in de jaren '70 de eerste bodems opgenomen, en vertonen om die reden voor die tijd een horizontale lijn.
+De ontwikkeling van de geuldiepte door de jaren laat voor de westelijke bekkens (Marsdiep, Eierlandse Gat en Vlie) een toename door de tijd zien (figuur \@ref(fig:geuldiepteOld)). Verdere analyse is nodig om vast te stellen waar de sprongen in de tijdseries in sommige bekkens door worden veroorzaakt. Voor de Eilanderbalg, Lauwers en Schild zijn pas in de jaren '70 de eerste bodems opgenomen, en vertonen om die reden voor die tijd een horizontale lijn.
 
-```{r geuldiepte, fig.cap="Geuldiepte door de jaren in de verschillende bekkens. Let op de verschillende verticale assen. "}
+```{r geuldiepte, fig.cap="Geuldiepte door de jaren in de verschillende bekkens. Let op de verschillende verticale assen. ", eval=FALSE}
 ggplot(aes(jaar, geuldiepte), data= hoogtediepte_bekkens %>% 
          mutate(jaar = as.numeric(jaar))) +
     geom_line(aes()) +
@@ -842,9 +850,9 @@ valid.values.df %>%
   ylab("Geuldiepte [m] t.o.v. NAP") + xlab("Jaar") 
 ```
 
-De ontwikkeling van de geuldiepte door de jaren laat voor de meeste deelgebieden, net als voor het Marsdiep bekken (figuur \@ref(fig:geuldiepte)), een sterke piek zien in 1949 en vervolgens een afname zien (figuur \@ref(fig:geuldiepteDeelgebieden)). In de Boontjes is de daling van de geuldiepte pas later ingezet. De geuldiepte van van Texelstroom ligt een stuk dieper dan de geuldiepte in de andere gebieden. Voor dit deelgebied laat de geuldiepte ook een andere trend zien, deze werd dieper tot 1971 en is vervolgens ondieper geworden.
+De ontwikkeling van de geuldiepte door de jaren laat voor de meeste deelgebieden, net als voor het Marsdiep bekken (figuur \@ref(fig:geuldiepteOld)), een sterke piek zien in 1949 en vervolgens een afname zien (figuur \@ref(fig:geuldiepteDeelgebiedenOld)). In de Boontjes is de daling van de geuldiepte pas later ingezet. De geuldiepte van van Texelstroom ligt een stuk dieper dan de geuldiepte in de andere gebieden. Voor dit deelgebied laat de geuldiepte ook een andere trend zien, deze werd dieper tot 1971 en is vervolgens ondieper geworden.
 
-```{r geuldiepteDeelgebieden, fig.cap="Geuldiepte door de jaren in de verschillende bekkens. Let op de verschillende verticale assen. "}
+```{r geuldiepteDeelgebieden, fig.cap="Geuldiepte door de jaren in de verschillende bekkens. Let op de verschillende verticale assen. ", eval=FALSE}
 ggplot(aes(jaar, geuldiepte), data= hoogtediepte_deelgebieden %>% 
          mutate(jaar = as.numeric(jaar))) +
     geom_line(aes()) +
@@ -873,9 +881,9 @@ valid.values.Marsdiep.df %>%
 
 ## Plaatvolume
 
-Het plaatvolume is per bekken gevisualiseerd in figuur \@ref(fig:plaatvolume). Het verloop is grotendeels vergelijkbaar met de plaatoppervlaktes; kleine verschillen worden verzoorzaakt door geulmigratie van het ene naar het andere bekken. In veel bekkens is het plaatvolume de afgelopen 80 jaar netto toegenomen, vaak wel met tijdelijke afnames. Lauwers, Zoutkamperlaag en Schild kennen na een piek in 2003 juist een duidelijke afname. Verdere analyse is nodig om preciezer vast te stellen wat de veranderingen in de tijd heeft veroorzaakt.
+Het plaatvolume is per bekken gevisualiseerd in figuur \@ref(fig:plaatvolumeOld). Het verloop is grotendeels vergelijkbaar met de plaatoppervlaktes; kleine verschillen worden verzoorzaakt door geulmigratie van het ene naar het andere bekken. In veel bekkens is het plaatvolume de afgelopen 80 jaar netto toegenomen, vaak wel met tijdelijke afnames. Lauwers, Zoutkamperlaag en Schild kennen na een piek in 2003 juist een duidelijke afname. Verdere analyse is nodig om preciezer vast te stellen wat de veranderingen in de tijd heeft veroorzaakt.
 
-```{r plaatvolume, fig.cap = "Plaatvolume in  m^3^ per gebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. " }
+```{r plaatvolume, fig.cap = "Plaatvolume in  m^3^ per gebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. ", eval=FALSE }
 ggplot(aes(jaar, plaatvolume), data= hoogtediepte_bekkens %>% 
          mutate(jaar = as.numeric(jaar))) +
     geom_line(aes()) +
@@ -904,9 +912,9 @@ valid.values.df %>%
   ylab("Plaatvolume [miljoen m^3^]") + xlab("Jaar") 
 ```
 
-Het plaatvolume is per deelgebied in het Marsdiep is gevisualiseerd in Figuur \@ref(fig:plaatvolumeDeelgebieden). Het verloop is grotendeels vergelijkbaar met de plaatoppervlaktes en plaathoogte. In het Balgzand, de Boontjes, Doovebalg en Zwanenbalg is het plaatvolume sinds de jaren 50 toegenomen. In de Texelstroom en het Scheurrak is het plaatvolume juist afgenomen. Verdere analyse is nodig om preciezer vast te stellen wat de veranderingen in de tijd heeft veroorzaakt.
+Het plaatvolume is per deelgebied in het Marsdiep is gevisualiseerd in Figuur \@ref(fig:plaatvolumeDeelgebiedenOld). Het verloop is grotendeels vergelijkbaar met de plaatoppervlaktes en plaathoogte. In het Balgzand, de Boontjes, Doovebalg en Zwanenbalg is het plaatvolume sinds de jaren 50 toegenomen. In de Texelstroom en het Scheurrak is het plaatvolume juist afgenomen. Verdere analyse is nodig om preciezer vast te stellen wat de veranderingen in de tijd heeft veroorzaakt.
 
-```{r plaatvolumeDeelgebieden, fig.cap = "Plaatvolume in  m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. " }
+```{r plaatvolumeDeelgebieden, fig.cap = "Plaatvolume in  m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van de bodem dat tussen -1 m NAP en +1 m NAP ligt. ", eval=FALSE }
 ggplot(aes(jaar, plaatvolume), data= hoogtediepte_deelgebieden %>% 
          mutate(jaar = as.numeric(jaar))) +
     geom_line(aes()) +
@@ -937,9 +945,9 @@ valid.values.Marsdiep.df %>%
 
 ## Geulvolume
 
-Het geulvolume is in de westelijke bekkens (Marsdiep, Eierlandse Gat, Vlie) toegenomen, terwijl deze in het Friesche Zeegat (Pinkegat en Zoutkamperlaag) is afgenomen (figuur \@ref(fig:geulvolume)). De scherpe afname van het volume van Zouterkamperlaag begin jaren zeventig komt door de sluiting van de Lauwerszee in 1968, waardoor er sterke sedimentatie in de geulen optrad.
+Het geulvolume is in de westelijke bekkens (Marsdiep, Eierlandse Gat, Vlie) toegenomen, terwijl deze in het Friesche Zeegat (Pinkegat en Zoutkamperlaag) is afgenomen (figuur \@ref(fig:geulvolumeOld)). De scherpe afname van het volume van Zouterkamperlaag begin jaren zeventig komt door de sluiting van de Lauwerszee in 1968, waardoor er sterke sedimentatie in de geulen optrad.
 
-```{r geulvolume, fig.cap = "Geulvolume in miljoen m^3^ per bekken over de tijd. Het volume is bepaald voor dat deel van het bekken dat onder de NAP -5 m NAP ligt. " }
+```{r geulvolume, fig.cap = "Geulvolume in miljoen m^3^ per bekken over de tijd. Het volume is bepaald voor dat deel van het bekken dat onder de NAP -5 m NAP ligt. ", eval=FALSE }
 ggplot(aes(jaar, geulvolume), data= hoogtediepte_bekkens %>% 
          mutate(jaar = as.numeric(jaar))) +
     geom_line(aes()) +
@@ -967,9 +975,9 @@ valid.values.df %>%
   ylab("Geulvomume [miljoen m^3^]") + xlab("Jaar") 
 ```
 
-Het geulvolume van de verschillende deelgebieden binnen het Marsdiep laat een eentonig beeld zien, vergelijkbaar met het geulvolume voor het gehele bekken (figuur \@ref(fig:geulvolumeDeelgebieden)). Sinds de jaren 50 of 70 is het geulvolume gestaag toegenomen.
+Het geulvolume van de verschillende deelgebieden binnen het Marsdiep laat een eentonig beeld zien, vergelijkbaar met het geulvolume voor het gehele bekken (figuur \@ref(fig:geulvolumeDeelgebiedenOld)). Sinds de jaren 50 of 70 is het geulvolume gestaag toegenomen.
 
-```{r geulvolumeDeelgebieden, fig.cap = "Geulvolume in miljoen m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van het deelgebied dat onder de NAP -5 m NAP ligt. " }
+```{r geulvolumeDeelgebieden, fig.cap = "Geulvolume in miljoen m^3^ per deelgebied over de tijd. Het volume is bepaald voor dat deel van het deelgebied dat onder de NAP -5 m NAP ligt. ", eval=FALSE }
 ggplot(aes(jaar, geulvolume), data= hoogtediepte_deelgebieden %>% 
          mutate(jaar = as.numeric(jaar))) +
     geom_line(aes()) +
