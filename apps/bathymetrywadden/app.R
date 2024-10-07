@@ -29,6 +29,7 @@ library(leaflet.extras)
 # st_write(poly, "apps/bathymetrywadden/vakken.geojson")
 
 layers <- c(
+  `1990` = "mosaic_ASC_1985_1990_def",
   `1997` = "mosaic_ASC_1991_1997_def",
   `2002` = "mosaic_ASC_1997_2002_def",
   `2008` = "mosaic_ASC_2003_2008_def",
