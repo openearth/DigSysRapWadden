@@ -149,7 +149,7 @@ This Digital System Report (DSR) has been set up as part of the Nature Monitorin
 2.  achieving effective and efficient system-based monitoring;
 3.  making all available information and monitoring data on the Wadden Sea area accessible, giving users a view of the entire Wadden Sea system.
 
-Basic Wadden Monitoring thereby focuses on the so-called core values: Landscape qualities; Natural Wadden Sea Abiotic (non-living nature); Natural Wadden Sea Biotic (living nature); and Human Co-use. Policy and management objectives are linked to each of these core values, or themes. For more information on these, see the [Ambition of Basic Wadden](https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf).
+Basic Wadden Monitoring thereby focuses on the so-called core values: Landscape qualities; Natural Wadden Sea Abiotic (non-living nature); Natural Wadden Sea Biotic (living nature); and Human Co-use. Policy and management objectives are linked to each of these core values, or themes. For more information on these, see the [Ambition of Basic Wadden Monitoring](https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf).
 
 For the abiotic (non-living) nature of the Wadden Sea, a key objective is:
 
@@ -179,7 +179,7 @@ Der digitale Systembericht (DSR) wurde im Rahmen des Projekts Naturmonitoring Wa
 2.  Erreichung einer effektiven und effizienten systemgestützten Überwachung;
 3.  Zugang zu allen verfügbaren Informationen und Überwachungsdaten über das Wattenmeergebiet, damit die Nutzer einen Überblick über das gesamte Wattenmeersystem erhalten
 
-Das Basis-Wattenmeer-Monitoring konzentriert sich dabei auf die so genannten Kernwerte: Landschaftsqualitäten, natürliche abiotische Wattenmeere (nicht lebende Natur), natürliche biotische Wattenmeere (lebende Natur) und menschliche Mitnutzung. Politik- und Managementziele sind mit jedem dieser Kernwerte oder Themen verbunden. Weitere Informationen zu diesen Themen finden Sie im [Ambition of Basic Wadden] (<https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf>).
+Das Basis-Wattenmeer-Monitoring konzentriert sich dabei auf die so genannten Kernwerte: Landschaftsqualitäten, natürliche abiotische Wattenmeere (nicht lebende Natur), natürliche biotische Wattenmeere (lebende Natur) und menschliche Mitnutzung. Politik- und Managementziele sind mit jedem dieser Kernwerte oder Themen verbunden. Weitere Informationen zu diesen Themen finden Sie im [Ambition of Basic Wadden Monitoring](https://basismonitoringwadden.waddenzee.nl/fileadmin/inhoud/pdf/Ambitie_Basismonitoring_Wadden_obw_mrt_2018.pdf).
 
 Für die abiotische Natur des Wattenmeeres ist ein Schlüsselziel:
 

@@ -20,7 +20,7 @@ mosaicdir = "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/bathymetrie/p
 
 **Belang**
 
-De noemer 'Morfologie' wordt in deze rapportage gebruikt om een aantal geomorfologische indicatoren onder te scharen: ten eerste de bodemligging of bathymetrie zelf, die sterk bepalend is voor stromingen, golven, waterstanden, scheepvaart en ecologie. Om veranderingen in bodemligging, onder andere van belang om te kunnen beoordelen of ecologisch waardevolle intergetijdengebieden mee kunnen groeien met zeespiegelstijing, beter te kunnen duiden zijn een aantal afgeleide morfologische indicatoren opgenomen, namelijk de hypsometrie (de verdeling van de hoogteligging naar oppervlakte), de arealen geul/subtidaal/intratidaal/supratidaal, plaathoogte en -volume en geuldiepte en -volume. Daarnaast is de ontwikkeling in de tijd van de daadwerkelijke geuldoorsnedes op  kenmerkende plaatsen opgenomen, zoals deze in de komberingsrapportages gebruikt worden om bijvoorbeeld geulmigratie te duiden. Ook de netto erosie- en sedimentatie en de bijbehorende sedimentbalans zijn weergegeven.
+De noemer 'Morfologie' wordt in deze rapportage gebruikt om een aantal geomorfologische indicatoren onder te scharen: ten eerste de bodemligging of bathymetrie zelf, die sterk bepalend is voor stromingen, golven, waterstanden, scheepvaart en ecologie. Om veranderingen in bodemligging, onder andere van belang om te kunnen beoordelen of ecologisch waardevolle intergetijdengebieden mee kunnen groeien met zeespiegelstijing, beter te kunnen duiden zijn een aantal afgeleide morfologische indicatoren opgenomen, namelijk de hypsometrie (de verdeling van de hoogteligging naar oppervlakte), de arealen geul/subtidaal/intratidaal/supratidaal, plaathoogte en -volume en geuldiepte en -volume. Daarnaast is de ontwikkeling in de tijd van de daadwerkelijke geuldoorsnedes op kenmerkende plaatsen opgenomen, zoals deze in de komberingsrapportages gebruikt worden om bijvoorbeeld geulmigratie te duiden. Ook de netto erosie- en sedimentatie en de bijbehorende sedimentbalans zijn weergegeven.
 
 <!-- Ook is de lengte van de laagwaterlijn opgenomen. Deze geeft aan of er veel kleine platen en geulen zijn, of juist vooral grotere en is indicatief voor het beschikbare foerageergebied voor steltlopers: hoe langer de laagwaterlijn, hoe meer gebied beschikbaar is. -->
 
@@ -30,11 +30,11 @@ Tot slot is de Ecotopenkaart (2017) van de Waddenzee opgenomen. Deze is een aggr
 
 **Afbakening**
 
-De morfologische indicatoren worden meestal getoond per kombergingsgebied, ook wel bekken genoemd. Figuur \@ref(fig:gebiedenWaddenzee) toont de begrenzing en benaming van de verschillende bekkens. Deze begrenzing is overgenomen van de Geoserver van <abbr title="Wageningen Marine Research">WMR</abbr>[^060_bathymetrie_en_morfodynamiek-1]. De begrenzing van de bekkens is relevant, omdat er evenwichtsrelaties bekend zijn voor de verhouding tussen geulen en platen afhankelijk van de bekkenoppervlakte. De begrenzing tussen de bekkens wordt gevormd door de zogenaamde 'wantijen'. Dit zijn gebieden achter de eilanden waar de getijgolven die door de zeegaten naar binnen komen elkaar ontmoeten. De stroomsnelheden zijn daar lager, waardoor sediment kan worden afgezet. Deze gebieden hebben vaak een hogere bodemligging en zijn slibrijk. Door de morfologische ontwikkeling van de Waddenzee en de morfodynamiek hebben de wantijen geen vaste positie, ze kunnen bijvoorbeeld van ligging veranderen als gevolg van afsluitingen (Zuiderzee, Lauwerszee). Bovendien moeten ze ook meer worden gezien als overgangszone dan als een vaste lijn zoals gebruikt wordt voor de begrenzing. 
-
-NB In deze rapportage wordt (nog) geen rekening gehouden met de verschuivende positie van de wantijen en wordt onderstaande 'vaste' indeling gebruikt. Hiervoor zijn de vaste verticale begrenzingen deels gebaseerd op de voor de Westerschelde ontwikkelde methodiek. Deze methode doet niet volledig recht aan de de morfologische of ecologische karakteristiek van een eenheid, aangezien die immers afhankelijk is van de echte getijslag. Het is echter wel een robuuste en eenvoudige methode, die toch enig inzicht biedt in trends in arealen en volumes. Bovendien was er geen wetenschappelijk onderbouwde alternatieve methode beschikbaar. Omdat het wel wenselijk is dat morfologische indicatoren beter recht doen aan de echte morfologische ontwikkelingen, is na een overleg tussen morfologisch experts van Rijkswaterstaat en Deltares in maart 2024 besloten om, naast de bestaande 'vaste' methode, een nieuwe manier van bepalen te ontwikkelen die dat wel doet. Hiervoor wordt in de loop van 2024 een proof of concept uitgewerkt voor het Vlie; een bekken met zowel Westelijke- als oostelijke Waddenzee kenmerken. De verwachting is dat deze methode in 2025 voor de gehele Waddenzee kan worden toegepast naast de bestaande methode.   
+De morfologische indicatoren worden meestal getoond per kombergingsgebied, ook wel bekken genoemd. Figuur \@ref(fig:gebiedenWaddenzee) toont de begrenzing en benaming van de verschillende bekkens. Deze begrenzing is overgenomen van de Geoserver van <abbr title="Wageningen Marine Research">WMR</abbr>[^060_bathymetrie_en_morfodynamiek-1]. De begrenzing van de bekkens is relevant, omdat er evenwichtsrelaties bekend zijn voor de verhouding tussen geulen en platen afhankelijk van de bekkenoppervlakte. De begrenzing tussen de bekkens wordt gevormd door de zogenaamde 'wantijen'. Dit zijn gebieden achter de eilanden waar de getijgolven die door de zeegaten naar binnen komen elkaar ontmoeten. De stroomsnelheden zijn daar lager, waardoor sediment kan worden afgezet. Deze gebieden hebben vaak een hogere bodemligging en zijn slibrijk. Door de morfologische ontwikkeling van de Waddenzee en de morfodynamiek hebben de wantijen geen vaste positie, ze kunnen bijvoorbeeld van ligging veranderen als gevolg van afsluitingen (Zuiderzee, Lauwerszee). Bovendien moeten ze ook meer worden gezien als overgangszone dan als een vaste lijn zoals gebruikt wordt voor de begrenzing.
 
 [^060_bathymetrie_en_morfodynamiek-1]: <https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins>
+
+NB In deze rapportage wordt (nog) geen rekening gehouden met de verschuivende positie van de wantijen en wordt onderstaande 'vaste' indeling gebruikt. Hiervoor zijn de vaste verticale begrenzingen deels gebaseerd op de voor de Westerschelde ontwikkelde methodiek. Deze methode doet niet volledig recht aan de de morfologische of ecologische karakteristiek van een eenheid, aangezien die immers afhankelijk is van de echte getijslag. Het is echter wel een robuuste en eenvoudige methode, die toch enig inzicht biedt in trends in arealen en volumes. Bovendien was er geen wetenschappelijk onderbouwde alternatieve methode beschikbaar. Omdat het wel wenselijk is dat morfologische indicatoren beter recht doen aan de echte morfologische ontwikkelingen, is na een overleg tussen morfologisch experts van Rijkswaterstaat en Deltares in maart 2024 besloten om, naast de bestaande 'vaste' methode, een nieuwe manier van bepalen te ontwikkelen die dat wel doet. Hiervoor wordt in de loop van 2024 een proof of concept uitgewerkt voor het Vlie; een bekken met zowel Westelijke- als oostelijke Waddenzee kenmerken. De verwachting is dat deze methode in 2025 voor de gehele Waddenzee kan worden toegepast naast de bestaande methode.
 
 ```{r gebiedenWaddenzee, fig.cap="Indeling van de Waddenzee in verschillende kombergingsgebieden of bekkens voor het gebruik in morfologische indicatoren. "}
 
@@ -92,30 +92,29 @@ Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswij
 
 ## Bodemligging {#bodemligging}
 
-De bodemligging voor de gehele Waddenzee is te zien in figuur \@ref(fig:WaddenBathymetrieLeaflet2). De bodemligging is een mozaïek van de verschillende vaklodingen[^060_bathymetrie_en_morfodynamiek-2]. In de figuur kan het tijdsinterval van de vaklodingen worden aangepast om ook oudere bodemliggingen te bekijken. Hiermee is de ontwikkeling van het geulensysteem te volgen.
+De bodemliggingen voor de gehele Waddenzee over zes cycli in de periode 1985-2020 zijn weergegeven in figuur \@ref(fig:WaddenBathymetrieLeaflet2). Deze zes bodemliggingen zijn een mozaïek van de verschillende vaklodingen[^060_bathymetrie_en_morfodynamiek-2]. Hiermee is de ontwikkeling van het geulensysteem te volgen.
 
 [^060_bathymetrie_en_morfodynamiek-2]: <https://puc.overheid.nl/rijkswaterstaat/doc/PUC_116617_31/>
 
 Voor een schermvullende interactieve weergave van bathymetrie zoals getoond in figuur \@ref(fig:WaddenBathymetrieLeaflet2) verwijzen we naar deze [viewer](https://deltares.shinyapps.io/bathymetrywadden/).
 
-```{r WaddenBathymetrieLeaflet2, fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit lodingen tussen 1926 en 2021. De kaart laat bodemligging zien voor het gekozen interval. Het interval kan verschoven worden door tussen de punten te klikken en slepen, en ook kan het interval breder of smaller gemaakt worden door de punten te verslepen. "}
+```{r WaddenBathymetrieLeaflet2, fig.cap = "Bathymetrie van de Waddenzee, samengesteld uit lodingen tussen 1985 en 2020. De kaart laat bodemligging zien voor het gekozen interval, wat in het drop-down menu aangegeven wordt met het laatste jaar van de metingen in een cyclus. Bijvoorbeeld: de menu keuze '2020' laat de gebiedsdekkende kaart zien waarvoor de metingen in 2015 in het Marsdiep begonnen zijn en in 2020 in Eems-Dollard geeindigd zijn."}
 
 knitr::include_url("https://deltares.shinyapps.io/bathymetrywadden/", height = "600px")
 
 ```
-Zoals uitgebreider beschreven is in de Appendix \@ref(Appmorfologie), zijn de verschillende bodemkaarten van de Waddenzee een samenslag van lodingen (onder water) en hoogtemetingen (intertidaal en hoger) over de verschillende kombergingsgebieden waarvan er jaarlijks één bemeten wordt. Zo is elke 6 jaar door Rijkswaterstaat een kaart van de volledige Waddenzee geconstrueerd, op basis van de kaarten van deelgebieden over die periode. De eerste volledige kaart dateert van 1991, met data over de periode 1985-1991. Let wel, deze kennen missende punten en vooral de kwelders en ondiepe gebieden langs de eilandkusten zijn niet volledig. De serie bodems vanaf 1985 zijn begin 2024 door Deltares opnieuw gecombineerd, aangevuld en gecorrigeerd. Voor de bodems vóór 1985 geldt dat de lodingen minder systematisch plaats vonden en ontsloten werden, waardoor de samengestelde bodems minder duidelijk terug te voeren zijn op een bepaalde periode.  
 
+Zoals uitgebreider beschreven is in de Appendix \@ref(Appmorfologie), zijn de verschillende bodemkaarten van de Waddenzee een samenslag van lodingen (onder water) en hoogtemetingen (intertidaal en hoger) over de verschillende kombergingsgebieden waarvan er jaarlijks één bemeten wordt. Zo is elke 6 jaar door Rijkswaterstaat een kaart van de volledige Waddenzee geconstrueerd, op basis van de kaarten van deelgebieden over die periode. De eerste volledige kaart dateert van 1991, met data over de periode 1985-1991. Let wel, deze kennen missende punten en vooral de kwelders en ondiepe gebieden langs de eilandkusten zijn niet volledig. De serie bodems vanaf 1985 zijn begin 2024 door Deltares opnieuw gecombineerd, aangevuld en gecorrigeerd. Voor de bodems vóór 1985 geldt dat de lodingen minder systematisch plaats vonden en ontsloten werden, waardoor de samengestelde bodems minder duidelijk terug te voeren zijn op een bepaalde periode. Een reconstructie van deze bodems (1926-1985), waarin duidelijk wordt waar deze precies op gebaseerd zijn, wordt in 2025 verwacht.
 
 ## Netto erosie en sedimentatie
 
-Figuur \@ref(fig:diffmaps) geeft de netto erosie en sedimentatie aan gebaseerd op dezelfde bathymetriegegevens als figuur \@ref(fig:WaddenBathymetrieLeaflet2). Er is ook een [schermvullende versie](https://deltares.shinyapps.io/miniDiffMaps/) beschikbaar. 
+Figuur \@ref(fig:diffmaps) geeft de netto erosie en sedimentatie tussen twee opeenvolgende vaklodingencycli aan, gebaseerd op dezelfde bathymetriegegevens als figuur \@ref(fig:WaddenBathymetrieLeaflet2). Ook deze kaarten geven inzicht in de ontwikkeling van het geulensysteem en de hoogteligging van de platen. Er is ook een [schermvullende versie](https://deltares.shinyapps.io/miniDiffMaps/) beschikbaar. Net als bij #bodemligging is de verwachting dat eerdere (verschil)kaarten in 2025 beschikbaar worden.
 
-```{r diffmaps, fig.cap= "Interactieve verschilkaarten voor bodemligging. Verschillende verschilperioden kunnen gekozen worden. De kleurenschaal is aanpasbaar. Verschillen buiten de gekozen kleurenschaal worden niet weergegeven (transparant). " }
+```{r diffmaps, fig.cap= "Interactieve verschilkaarten voor bodemligging. Verschillende verschilperioden kunnen gekozen worden. De kleurenschaal is aanpasbaar. Let op: Verschillen buiten de gekozen kleurenschaal worden niet weergegeven (transparant). " }
 knitr::include_url("https://deltares.shinyapps.io/miniDiffMaps/", height = "600px")
 ```
 
-
-Figuur \@ref(fig:Wang2018Sedero) laat zien dat de grootste bodemveranderingen over de periode 1927-2016 hebben plaatsgevonden in de Westelijke Waddenzee. Hier is de invloed van de afsluiting van de Zuiderzee dominant: de snelle opvulling van afgesloten geulen en sedimentatie langs de vastelandskust. Deze sedimentatie verloopt tot nu toe sneller dan de zeespiegelstijging.
+Voor ontwikkelingen op de langere termijn laat Figuur \@ref(fig:Wang2018Sedero) zien dat de grootste bodemveranderingen over de periode 1927-2016 hebben plaatsgevonden in de Westelijke Waddenzee. Hier is de invloed van de afsluiting van de Zuiderzee dominant: de snelle opvulling van afgesloten geulen en sedimentatie langs de vastelandskust. Deze sedimentatie verloopt tot nu toe sneller dan de zeespiegelstijging.
 
 ```{r Wang2018Sedero, fig.cap= "Veranderingen in platen en geulen in de Waddenzee over de periode 1927-2016. Boven: Bodemligging voor de sluiting van de Zuiderzee (1027-1935). Midden: Recente bodemligging, gebaseerd op surveys tussen 2011-2016. Onder: Sedimentatie-erosiepatroon over de periode 1927-2016. Bron: [Wang et al., 2018](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/43109B1810D68CF36D1C91405EA37F0A/S0016774618000082a.pdf/div-class-title-sediment-budget-and-morphological-development-of-the-dutch-wadden-sea-impact-of-accelerated-sea-level-rise-and-subsidence-until-2100-div.pdf)." }
 knitr::include_graphics("images/Wangetal2018_Fig2BathyChange.png")
@@ -336,6 +335,8 @@ if(knitr::is_html_output()) {
 
 ## Arealen {#arealen}
 
+*NB Onderstaande beschrijft de huidige aanpak, die deels is afgeleid van de classificatie van de Westerschelde op basis van vaste verticale begrenzingen. Voor de Waddenzee zijn*
+
 Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in vier verschillende hoogteklassen:
 
 1.  Geul
@@ -343,11 +344,11 @@ Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende m
 3.  Intergetijdengebied
 4.  Supragetijdengebied
 
-Het intergetijdengebied betreft het areaal dat een deel van de tijd droogvalt. De begrenzing van het intergetijdengebied wordt enerzijds gevormd door de bodemligging en anderszijds door de waterstandvariatie. De waterstand varieert niet alleen door de tijd, maar ook in de ruimte. Achterin de bekkens is de getijslag meestal groter dan nabij de zeegaten. Daarnaast neemt de getijslag toe van west naar oost, dus tussen Den Helder en Delfzijl. De kaart met de getijslag laat dit goed zien (figuur \@ref(fig:kaartGetijslag)).
+Het intergetijdengebied betreft het areaal dat een deel van de tijd droogvalt. De begrenzing van het intergetijdengebied wordt enerzijds gevormd door de bodemligging en anderszijds door de waterstandsvariatie. De waterstand varieert niet alleen door de tijd, maar ook in de ruimte. Achterin de bekkens is de getijslag meestal groter dan nabij de zeegaten. Daarnaast neemt de getijslag toe van west naar oost, dus tussen Den Helder en Delfzijl. De kaart met de getijslag laat dit goed zien (figuur \@ref(fig:kaartGetijslag)).
 
-De waterstand wordt echter alleen gemeten op een aantal stations. Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, dient rekening te worden gehouden met de getijvoortplanting. Numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden (rekencellen), en daarmee de kleinere geultjes en prielen, die een belangrijke functie hebben in het efficient draineren van de intergetijdengebieden, niet in het rekenrooster zijn opgenomen. Voor de ecotopenkaart wordt de waterspiegel berekend middels een driehoeksinterpolatie van de gemeten waterstanden als invoer voor het berekenen van de droogvalduur.
+De waterstand wordt echter alleen gemeten op een aantal stations aan de randen van de Waddenzee (eilanden en vastelandskust). Om van de gemeten waterstand een ruimtelijk dekkende waterspiegel te reconstrueren, dient rekening te worden gehouden met de getijvoortplanting. Numerieke modellen die de waterstanden berekenen, hebben moeite om laagwaterstanden goed te reproduceren. Dit komt doordat in een numeriek model de bodem wordt geschematiseerd naar grotere gebieden (rekencellen), en daarmee de kleinere geultjes en prielen, die een belangrijke functie hebben in het efficient draineren van de intergetijdengebieden, niet in het rekenrooster zijn opgenomen. Voor de ecotopenkaart wordt de waterspiegel berekend middels een driehoeksinterpolatie van de gemeten waterstanden als invoer voor het berekenen van de droogvalduur.
 
-Voor deze rapportage zijn gebiedsdekkende kaarten gegenereerd voor de Waddenzee op basis van het gemiddelde jaarlijkse hoogwater en laagwater gemeten op de verschillende stations. Op basis hiervan kan aan de hand van de bathymetrie worden vastgesteld welk deel van de Waddenzee zich onder de laagwaterlijn bevindt (subgetijdengebied) en welk deel hoger ligt dan de hoogwaterlijn (supragetijdengebied). Het areaal dat tussen het gemiddelde hoogwater en laag water ligt is het intergetijdengebien. Areaal dat zich meer dan 2 meter onder de laagwaterlijn ligt wordt aangeduid als geul. De gebiedsdekkende kaarten zijn vooralsnog gegenereerd op basis van 'inverse-distance weighted (idw)' interpolatie (idp = 3).
+Voor deze rapportage zijn gebiedsdekkende kaarten gegenereerd voor de Waddenzee op basis van het gemiddelde jaarlijkse hoogwater en laagwater gemeten op de verschillende stations. Op basis hiervan kan aan de hand van de bathymetrie worden vastgesteld welk deel van de Waddenzee zich onder de laagwaterlijn bevindt (subgetijdengebied) en welk deel hoger ligt dan de hoogwaterlijn (supragetijdengebied). Het areaal dat tussen het gemiddelde hoogwater en laag water ligt is het intergetijdengebied. Areaal dat zich meer dan 2 meter onder de laagwaterlijn ligt wordt aangeduid als geul. De gebiedsdekkende kaarten zijn vooralsnog gegenereerd op basis van 'inverse-distance weighted (idw)' interpolatie (idp = 3).
 
 Figuur \@ref(fig:arealen) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:gebiedenWaddenzee)). De figuur laat zien dat het intergetijdengebied in de meeste bekkens toeneemt over de tijd. Alleen voor de Lauwers en Schild is dit niet zo. Ook neemt het areaal subgetijdengebied af (dit ligt tussen de -5 m NAP en de -1 m NAP lijn). De arealen supragetijdengebied zijn klein, ook omdat enkel de gebieden (cellen) worden meegenomen die in alle jaren opgenomen zijn. Het supragetijdengebied is niet altijd volledig opgenomen in de vaklodingen data, zeker niet in oudere opnamen. De ontwikkeling van het geulareaal verschilt per bekken.
 
@@ -870,8 +871,6 @@ valid.values.Marsdiep.df %>%
   ylab("Geuldiepte [m] t.o.v. NAP") + xlab("Jaar") 
 ```
 
-
-
 ## Plaatvolume
 
 Het plaatvolume is per bekken gevisualiseerd in figuur \@ref(fig:plaatvolume). Het verloop is grotendeels vergelijkbaar met de plaatoppervlaktes; kleine verschillen worden verzoorzaakt door geulmigratie van het ene naar het andere bekken. In veel bekkens is het plaatvolume de afgelopen 80 jaar netto toegenomen, vaak wel met tijdelijke afnames. Lauwers, Zoutkamperlaag en Schild kennen na een piek in 2003 juist een duidelijke afname. Verdere analyse is nodig om preciezer vast te stellen wat de veranderingen in de tijd heeft veroorzaakt.
@@ -1002,7 +1001,7 @@ valid.values.Marsdiep.df %>%
 
 Naast de meer geaggregeerde indicatoren als arealen en volumes, is voor geulen ook de daadwerkelijke diepte en ligging van belang om te kunnen beoordelen of een geul bijvoorbeeld verondiept, wat de bevaarbaarheid beïnvloedt, of migreert, wat de stabiliteit van platen of land in gevaar kan brengen. Ook kunnen verschuivingen in geulpatronen verklarend zijn voor andere morfologische veranderingen.
 
-Bovenstaande wordt beoordeeld en geduid in de kombergingsrapportages aan de hand van een aantal (bijna 200 voor de gehele Waddenzee) geuldoorsnedes (profielen) op vaste locaties, wat een vergelijking tussen verschillende jaren mogelijk maakt. Klikken op een profiellijn in Figuur \@ref(fig:geul-kaart) geeft een figuur met de geuldoorsnedes voor de vaklodingen tussen 1927 en nu. De data na 1991 zijn gecombineerde bathymetriën van de vaklodingen die per kombergingsgebied per jaar plaatsvinden, de data daarvoor zijn ook combinaties van bathymetrieën van meerdere jaren maar de precieze herkomst niet altijd duidelijk. Ze refereren dus naar een geuldoorsnedes per periode. De data van de gecombineerde bathymetriën is ook te vinden op Datahuis Wadden. 
+Bovenstaande wordt beoordeeld en geduid in de kombergingsrapportages aan de hand van een aantal (bijna 200 voor de gehele Waddenzee) geuldoorsnedes (profielen) op vaste locaties, wat een vergelijking tussen verschillende jaren mogelijk maakt. Klikken op een profiellijn in Figuur \@ref(fig:geul-kaart) geeft een figuur met de geuldoorsnedes voor de vaklodingen tussen 1927 en nu. De data na 1991 zijn gecombineerde bathymetriën van de vaklodingen die per kombergingsgebied per jaar plaatsvinden, de data daarvoor zijn ook combinaties van bathymetrieën van meerdere jaren maar de precieze herkomst niet altijd duidelijk. Ze refereren dus naar een geuldoorsnedes per periode. De data van de gecombineerde bathymetriën is ook te vinden op Datahuis Wadden.
 
 NB Het is de bedoeling de profieldata ook nog downloadbaar te maken zodat de gebruiker zelf figuren kan maken. Omdat de dataset (vaklodingen) groot is kost de berekening te veel tijd om online te doen, en de vooraf offline berekende niet-geogerefeerde profieldata past niet in de bestaande opslagstructuur; daar moet nog een oplossing voor gevonden worden.
 
@@ -1076,7 +1075,7 @@ De huidige resultaten van de slibbalans is op dit moment under review bij een we
 
 <!-- ## Lengte laagwaterlijn -->
 
-<!-- De lengte van de laagwaterlijn geeft een indruk van de lengte van de plaatrand. Deze is hier bepaald aan de hand van de `r laagwaterlijn` m NAP contourlijn (zie figuur \@ref(fig:laagwaterlijnen)). -->
+<!-- De lengte van de laagwaterlijn geeft een indruk van de lengte van de plaatrand. Deze is hier bepaald aan de hand van de `r laagwaterlijn` m NAP contourlijn (zie figuur @ref(fig:laagwaterlijnen)). -->
 
 <!-- (ref:laagwaterlijnen-label) Laagwaterlijnen door de tijd. De lijnen zijn berekend aan de hand van de meest recente lodingen voor het aangegeven jaar, en een vaste diepte van `r laagwaterlijn` m NAP. -->
 
@@ -1087,70 +1086,121 @@ De huidige resultaten van de slibbalans is op dit moment under review bij een we
 <!-- load(file = file.path(datadir, "RWS", "bathymetrie", paste0("laagwater_", laagwaterlijn, "mContourlijnen.Rdata"))) -->
 
 <!-- # convert to leaflet map with different layers, on top of bathymetries -->
+
 <!-- #  -->
+
 <!-- # labels = names(contours_allregions) -->
+
 <!-- # bbox = st_bbox(contours_allregions[[1]]) -->
+
 <!-- #  -->
+
 <!-- # maps <- map2( -->
+
 <!-- #   contours_allregions, list((poly)), -->
+
 <!-- #   function(x,y) -->
+
 <!-- #     ggplot() + -->
+
 <!-- #     geom_sf(data = x) + -->
+
 <!-- #     geom_sf(data = y, fill = "transparent", color = "blue") + -->
+
 <!-- #     coord_sf( -->
+
 <!-- #       xlim = bbox[c(1,3)], ylim = bbox[c(2,4)] -->
+
 <!-- #     ) -->
+
 <!-- # ) -->
+
 <!-- #  -->
+
 <!-- # cowplot::plot_grid(plotlist = maps, labels = labels, label_size = 10, ncol = 2) -->
 
 <!-- ggplot() + -->
+
 <!--   geom_sf(data = contours_allregions2) + -->
+
 <!--   geom_sf(data = poly, aes(color = name), fill = "transparent", linewidth = 1) + -->
+
 <!--   facet_wrap(~ jaar) + -->
+
 <!--   guides(color = "none") + -->
+
 <!--   theme_void() -->
 
 <!-- ``` -->
 
-<!-- De totale lengte van de laagwaterlijnen is bepaald voor dezelfde jaren als de andere indicatoren, en weer voor elk bekken. In figuur \@ref(fig:plotAllregions) is de cumulatieve lengte voor de hele Waddenzee (excl. Eems-estuarium) te zien. Voor de afzonderlijke bekkens geldt dat de lengte in de meeste gevallen is toegenomen over de tijd, of op zijn minst ongeveer gelijk gebleven (figuur \@ref(fig:lengteLaagwaterLijn)). -->
+<!-- De totale lengte van de laagwaterlijnen is bepaald voor dezelfde jaren als de andere indicatoren, en weer voor elk bekken. In figuur @ref(fig:plotAllregions) is de cumulatieve lengte voor de hele Waddenzee (excl. Eems-estuarium) te zien. Voor de afzonderlijke bekkens geldt dat de lengte in de meeste gevallen is toegenomen over de tijd, of op zijn minst ongeveer gelijk gebleven (figuur @ref(fig:lengteLaagwaterLijn)). -->
 
 <!-- (ref:plotAllregions-label) Ontwikkeling van de laagwaterlijn, bepaald op een vaste diepte van `r laagwaterlijn`m NAP, voor de gehele Waddenzee exclusief het Eems-estuarium. -->
 
 <!-- ```{r plotAllregions, eval=T, fig.height=4, fig.width=7, fig.align='center', fig.cap="(ref:plotAllregions-label)"} -->
+
 <!-- library("units") -->
 
 <!-- doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015") -->
 
 <!-- contours_allregions2 %>%  -->
+
 <!--   mutate(laagwaterlijnlengte_m = st_length(.)) %>% -->
+
 <!--   drop_units() %>% -->
+
 <!--   group_by(jaar, name) %>% -->
+
 <!--   summarize(`laagwaterlijnlengte (km)` = sum(laagwaterlijnlengte_m)/1000) %>% -->
+
 <!--   ungroup() %>% -->
+
 <!--   st_drop_geometry() %>% -->
+
 <!--   mutate(gebied = factor(name, levels = namen_west_oost)) %>% -->
+
 <!--   ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) + -->
+
 <!--   ggtitle("Laagwaterlijn in km") + -->
+
 <!--   geom_area(aes(fill = gebied)) + -->
+
 <!--   geom_line( -->
+
 <!--     data = . %>%  -->
+
 <!--       group_by(jaar) %>%  -->
+
 <!--       summarize( -->
+
 <!--         `laagwaterlijnlengte (km)` = sum(`laagwaterlijnlengte (km)`) -->
+
 <!--       ) -->
+
 <!--   ) + -->
+
 <!--   geom_point( -->
+
 <!--     data = . %>%  -->
+
 <!--       group_by(jaar) %>%  -->
+
 <!--       summarize( -->
+
 <!--         `laagwaterlijnlengte (km)` = sum(`laagwaterlijnlengte (km)`) -->
+
 <!--       ), -->
+
 <!--     shape = 21, fill = "white", size = 3 -->
+
 <!--     ) + -->
+
 <!--   coord_cartesian(xlim = c(1920, 2020)) + -->
+
 <!--   scale_y_continuous(limits = c(0, NA)) + -->
+
 <!--   ylab(paste("Laagwaterlijn [km] berekend aan NAP", laagwaterlijn, "m vlak")) + xlab("Jaar")  -->
+
 <!-- ``` -->
 
 <!-- (ref:lengteLaagwaterLijn-label) Ontwikkeling van de lengte van de laagwaterlijn door de tijd, berekend uit de contour op `r laagwaterlijn`m NAP. -->
@@ -1158,21 +1208,37 @@ De huidige resultaten van de slibbalans is op dit moment under review bij een we
 <!-- ```{r lengteLaagwaterLijn, fig.cap="(ref:lengteLaagwaterLijn-label)" } -->
 
 <!-- contours_allregions2 %>%  -->
+
 <!--   mutate(laagwaterlijnlengte_m = st_length(.)) %>% -->
+
 <!--   drop_units() %>% -->
+
 <!--   group_by(jaar, name) %>% -->
+
 <!--   summarize(`laagwaterlijnlengte (km)` = sum(laagwaterlijnlengte_m)/1000) %>% -->
+
 <!--   ungroup() %>% -->
+
 <!--   st_drop_geometry() %>% -->
+
 <!--   mutate(gebied = factor(name, levels = namen_west_oost)) %>% -->
+
 <!--   ggplot(aes(jaar, `laagwaterlijnlengte (km)`)) + -->
+
 <!--   ggtitle("Laagwaterlijn in km") + -->
+
 <!--   geom_line() + -->
+
 <!--   geom_point(aes(), shape = 21, fill = "white", size = 3) + -->
+
 <!--   facet_wrap(~ gebied, scales = 'free') + -->
+
 <!--   coord_cartesian(xlim = c(1940, 2020)) + -->
+
 <!--   scale_y_continuous(limits = c(0, NA)) + -->
+
 <!--   ylab(paste("Laagwaterlijn [km] berekend aan NAP", laagwaterlijn, "m vlak")) + xlab("Jaar")  -->
+
 <!-- ``` -->
 
 ## Bodemsamenstelling {#bodemsamenstelling}
