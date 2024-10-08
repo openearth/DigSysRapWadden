@@ -21,10 +21,16 @@ CSS <- "
 prepare = FALSE
 
 if(prepare) {
-  diffMapDirRDS <- "apps/miniDiffMaps/data"
+  
+  wadden <- sf::read_sf("https://datahuiswadden.openearth.nl/geoserver/dhw/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=dhw%3Akombergingen&maxFeatures=50&outputFormat=application%2Fjson") %>%
+    dplyr::select(id) %>%
+    sf::st_transform(28992) %>%
+    sf::st_simplify()
+
+    diffMapDirRDS <- "apps/miniDiffMaps/data"
   diffMapDirPrep <- "p:/11202493--systeemrap-grevelingen/1_data/Wadden/RWS/bathymetrie/processing_tiles/volledige_bodemkaarten_BenO_Wadden/morphopy/verschilkaarten/"
   
-  filesprep <- list.files(diffMapDirPrep, pattern = "tiff", full.names = TRUE)
+  filesprep <- list.files(diffMapDirPrep, pattern = "tiff", full.names = FALSE)
   
   diffMaps <- lapply(
     filesprep,
@@ -40,11 +46,6 @@ if(prepare) {
   )
 }
 
-## only if "vakken" need to be showed in app
-# wadden <- sf::read_sf("https://datahuiswadden.openearth.nl/geoserver/dhw/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=dhw%3Akombergingen&maxFeatures=50&outputFormat=application%2Fjson") %>%
-#   dplyr::select(id) %>%
-#   sf::st_transform(28992) %>%
-#   sf::st_simplify()
 
 diffMapDir <- "data"
 files <- list.files(diffMapDir, pattern = ".RDS")
@@ -64,19 +65,21 @@ ui <- miniPage(
     selectizeInput(
       "periode",
       "kies periode:",
-      diffYears
+      diffYears, 
+      width = "30%"
     ),
     numericInput(
       "maxScale",
-      "max scale",
+      "max scale in meters",
       10,
       5,
-      20
+      30, 
+      width = "30%"
     ),
     actionButton(
       inputId = "btn", 
-      label = "refresh scale",
-      width = "50px"
+      label = "refresh scale", 
+      width = "30%"
     )
   )
 )
@@ -107,7 +110,7 @@ server <- function(input, output, session) {
       leaflet::addTiles(group = "OpenStreetMap") %>%
       addProviderTiles(provider = "Esri.WorldImagery", group = "ESRI worldimagery") %>%
       leaflet::addRasterImage(diff, colors = pal, opacity = 0.6, group = "verschilkaart") %>%
-      leaflet::addLegend(position = "bottomright", pal = pal, values = c(-maxScale$values, maxScale$values)) %>%
+      leaflet::addLegend(labFormat = labelFormat(suffix = " m"), position = "bottomright", pal = pal, values = c(-maxScale$values, maxScale$values)) %>%
       leaflet::addLayersControl(
         baseGroups = c("OpenStreetMap", "ESRI worldimagery"), 
         overlayGroups = c("verschilkaart"),
