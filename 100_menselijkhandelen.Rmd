@@ -8,16 +8,61 @@ editor_options:
 
 # Ingrepen door de mens
 
-In 2024 ziin een aantal indicatoren voor menselijk ingrepen toegevoegd, die relevant geacht worden voor de morfologische ontwikkeling van de Waddenzee. Deze hebben betrekking op de ligging of verstoring van de bodem, en/of op volumes door de mens verplaatst sediment. Omdat ook visserij-activiteiten de bodem beroer(d)en is het wenselijk deze ook op te nemen, maar daarvoor ontbreekt vooralsnog de juiste brondata. 
+In 2024 ziin een aantal indicatoren voor menselijk ingrepen toegevoegd,
+die relevant geacht worden voor de morfologische ontwikkeling van de
+Waddenzee. Deze hebben betrekking op de ligging of verstoring van de
+bodem, en/of op volumes door de mens verplaatst sediment. Omdat ook
+visserij-activiteiten de bodem beroer(d)en is het wenselijk deze ook op
+te nemen, maar daarvoor ontbreekt vooralsnog de juiste brondata.
+Daarnaast geldt, met name voor visserij-activiteiten, dat er vaak een
+verschil is tussen wat er volgens een duidelijke omschrijving in een
+vergunning mag plaatsvinden en wat er daadwerkelijk gebeurd is.
+Bijvoorbeeld: een gebied kan in principe open zijn voor een bepaald type
+visserij, maar het kan zijn dat er niet gevist is.
 
 ## Bagger- en verspreidingswerken
 
-Baggervolumes en -massa, locaties, sedimentsamenstelling. Deze data is
-niet digitaal openbaar ontsloten, wel beschikbaar in jaarrapportages. Op basis daarvan wordt door Rijkswaterstaat gewerkt aan een ArcGIS storymap; als deze gereed is zal daar naar verwezen worden. 
+De wens is om hier baggervolumes/massa in combinatie met bagger- en
+verspreidingslocaties te tonen, over de afgelopen jaren. Deze data is
+echter niet digitaal openbaar ontsloten, wel beschikbaar in
+jaarrapportages. Deze rapportages bevatten geen regristratie van het
+soort materiaal (zand of slib) maar dat kan wel enigszins uit de
+baggerlocatie herleid worden. Op basis van de jaarraportages wordt door
+Rijkswaterstaat gewerkt aan een ArcGIS storymap; als deze gereed is zal
+daar naar verwezen worden.
+
+Voor nu geeft figuur \@ref(fig:baggeren20222023), gebaseerd op de
+[Jaarrapportages baggerwerkzaamheden Waddenzee 2022 en
+2023](https://open.rijkswaterstaat.nl/publish/pages/195118/jaarrapportage_baggerwerkzaamheden_waddenzee_2023.pdf),
+een goed overzicht van waar gebaggerd is (baggervakken), waar gebaggerd
+materiaal verspreid is (verspreidingsvakken) en hoeveel (m\^3) per jaar
+dit gemiddeld geweest is over de jaren 2022 en 2023, per
+Waddenzeebekken. Deze volumes omvatten zowel baggerwerken in havens
+(veelal gebaggerd door lokale beheerders) als in vaarwegen (veelal
+gebaggerd door Rijkswaterstaat). Naast deze volumes wordt er ook een
+deel door middel van ploegen op stroom gezet; dat is hier niet
+opgenomen. In het Marsdiep en het Vlie vormen de baggerwerken in de
+havens (Marinehaven Den Helder, Harlingen) het grootste volume. In het
+Borndiep is het in havens gebaggerde volume juist heel klein, en komt
+vrijwel het gehele volume op het conto van de Veerbootroute
+Ameland-Holwerd. In het Friesche Zeegat zijn de baggervolumes in 2023
+fors kleiner dan in 2022; de jaarraportages geven meer inzicht
+jaarlijkse variaties. Het baggervolume in Eems-Dollard is duidelijk het
+grootste van de Waddenzeebekkens, waarbij vooral het baggervolume in de
+geulen met circa 3,5 miljoen m\^3 sinds de vaarwegverruiming in
+2017/2018 aanzienlijk boven verwachting (1,5 miljoen m\^3) is.
+
+```{r baggeren20222023, fig.cap="Overzicht van bagger- en verspreidingslocaties en baggervolumes, gemiddeld over 2022 en 2023. De grootte van de cirkels geeft het volume per bekken weer; de kleur de herkomst (vaarweg of haven) van het materiaal. Bron: Jaarrapportage baggerwerkzaamheden Waddenzee 2022 en 2023, Rijkswaterstaat Noord Nederland"}
+
+knitr::include_graphics("images/overzichtsfiguur_baggerenwaddenv2.png")
+```
 
 ## Olie- en gaswinning
 
-De volgende gegevens komen van het Nederlandse Olie- en Gasportaal. In het verleden hebben er wel boringen plaatsgevonden in de Waddenzee, maar op het moment zijn er geen lopende boringen in de Waddenzee. Alle boringen zijn weergegeven in de kaart hieronder. 
+De volgende gegevens komen van het Nederlandse Olie- en Gasportaal. In
+het verleden hebben er wel boringen plaatsgevonden in de Waddenzee, maar
+op het moment zijn er geen lopende boringen in de Waddenzee. Alle
+boringen zijn weergegeven in de kaart hieronder.
 
 ```{r NLOG, out.height="450px", fig.cap="Data van Nederlands Olie- en Gasportaal", out.width = "100%"}
 
@@ -61,31 +106,53 @@ De volgende gegevens komen van het Nederlandse Olie- en Gasportaal. In het verle
 
 ```
 
-
 ## Zandsuppleties
 
-Structurele zandsuppleties worden alleen uitgevoerd aan de Noordzeezijde van de
-eilanden en niet in de Waddenzee. Dit materiaal wordt vervolgens door golven en getij door de zeegaten wel naar de Waddenzee getransporteerd, en daar afgezet. Dit proces is belangrijk om zeespiegelstijging te kunnen volgen. Locaties en volumes van structurele suppleties zijn beschikbaar via de [kustviewer](https://www.openearth.nl/coastviewer-static/).
-In de afgelopen jaren hebben ook enkele incidentele suppleties plaatsgevonden in de Waddenzee zelf (bijvoorbeeld de Prins Hendrik Zanddijk, de 'mudmotor' ten oosten van Harlingen) die niet in de kustviewer staan, en daarom niet zijn ontsloten. 
+Structurele zandsuppleties worden alleen uitgevoerd aan de Noordzeezijde
+van de eilanden en niet in de Waddenzee. Dit materiaal wordt vervolgens
+door golven en getij door de zeegaten wel (deels) naar de Waddenzee
+getransporteerd, en daar afgezet. Dit proces is belangrijk om
+zeespiegelstijging te kunnen volgen. Locaties en volumes van structurele
+suppleties zijn beschikbaar via de
+[kustviewer](https://www.openearth.nl/coastviewer-static/). Het is dus
+niet bekend hoeveel van het gesuppleerde volume daadwerkelijk in de
+Waddenzee terecht komt. In de afgelopen jaren hebben ook enkele
+incidentele suppleties plaatsgevonden in de Waddenzee zelf (bijvoorbeeld
+de Prins Hendrik Zanddijk, de 'mudmotor' ten oosten van Harlingen) die
+niet in de kustviewer staan, en daarom niet zijn ontsloten.
 
 ## Bodemdaling {#winningbodemdaling}
+
 **Afgelopen 30 jaar**
 
-In de Bodemdalingsmonitor-rapporten (2018) zijn overzichten gegeven van de bodemdaling als gevolg van de winning van gas, olie, zout en water.De bodemdaling door het winnen van water bleek niet relevant voor het kustfundament en is daarna niet meer meegenomen. In de Bodemdalingmonitor (2018) wordt de onzekerheid
-(variatiecoëfficiënt) rondom de bodemdalingsgetallen voor het historisch verleden op ± 25%
-geschat. Deze kaart is oorspronkelijk opgesteld voor de periode 1987-2017, de kaart
-wordt ook representatief geacht voor de laatste 30 jaar, omdat gewerkt is met een legenda-
-indeling in klassen en ook omdat de bodemdaling door winning in de laatste 5 jaar
-grotendeels binnen de spreiding van ± 25% valt. Door de start van de zoutwinning bij de
-Ballastplaat zal deze kaart zeer binnenkort niet meer representatief zijn voor de laatste 30
-jaar en zal een nieuwe kaart opgesteld moeten worden.
-Over de afgelopen 30 jaar is vooral in de Oostelijke Waddenzee bodemdaling opgetreden: rondom Ameland door gaswinning en in Eems-Dollard (Eemshaven - Delfzijl) door gaswinning op het Groningse vasteland.
+In de Bodemdalingsmonitor-rapporten (2018) zijn overzichten gegeven van
+de bodemdaling als gevolg van de winning van gas, olie, zout en water.De
+bodemdaling door het winnen van water bleek niet relevant voor het
+kustfundament en is daarna niet meer meegenomen. In de
+Bodemdalingmonitor (2018) wordt de onzekerheid (variatiecoëfficiënt)
+rondom de bodemdalingsgetallen voor het historisch verleden op ± 25%
+geschat. Deze kaart is oorspronkelijk opgesteld voor de periode
+1987-2017, de kaart wordt ook representatief geacht voor de laatste 30
+jaar, omdat gewerkt is met een legenda- indeling in klassen en ook omdat
+de bodemdaling door winning in de laatste 5 jaar grotendeels binnen de
+spreiding van ± 25% valt. De bodemdaling door de winning van gas, olie
+en zout is ook berekend voor de periode 1917-2017; deze is behoorlijk
+vergelijkbaar (zelfde ruimtelijke patronen, uiteraard iets grotere
+daling) met de daling in de periode 1987-2017 maar heeft door de sterke
+toename van activiteiten in de loop van de twintigste eeuw geen linear
+verloop en is daardoor minder indicatief voor de te verwachten
+bodemdaling in de komende 30 jaar. Door de start van de zoutwinning bij
+de Ballastplaat zal de bodemdalingskaart zeer binnenkort niet meer
+representatief zijn voor de laatste 30 jaar en zal een nieuwe kaart
+opgesteld moeten worden. Over de afgelopen 30 jaar is vooral in de
+Oostelijke Waddenzee bodemdaling opgetreden: rondom Ameland door
+gaswinning en in Eems-Dollard (Eemshaven - Delfzijl) door gaswinning
+vanaf het Groningse vasteland.
 
-```{r bodemdalingsmonitor_doorwinning, fig.cap="Bodembeweging door winning van gas, olie en zout in de laatste 30 jaar."}
+```{r bodemdalingsmonitor_doorwinning, fig.cap="Bodembeweging door delfstofwinning tussen 1987-2017 in het kustfundament en de getijdenbekkens. Bron: Bodemdalingsmonitor"}
 
 knitr::include_graphics("images/bodemdalingsmonitor_doorwinning.png")
 ```
-
 
 ## Kunstwerken
 
@@ -125,7 +192,10 @@ kabels en leidingen te tonen welke binnen de Waddenzee en de
 Noordzeekustzone gelegen zijn. Voor pijpleidingen wordt binnen de figuur
 getoond welke stof (gas, olie, water, etc.) vervoerd wordt. Voor de
 telecomkabels wordt voor zover bekend weergegeven wat voor soort kabel
-het is (coaxiaal of glasvezel). Deze data zijn naar alle waarschijnlijkheid niet compleet, aangezien voor lang niet alle Waddeneilanden verbindingen met het vasteland getoond worden, terwijl deze er wel zijn.
+het is (coaxiaal of glasvezel). Deze data zijn naar alle
+waarschijnlijkheid niet compleet, aangezien voor lang niet alle
+Waddeneilanden verbindingen met het vasteland getoond worden, terwijl
+deze er wel zijn.
 
 ```{r kabelsEnLeidingen, echo =FALSE, out.height="450px", fig.cap="Pijpleidingen, telecomkabels en elektrakabels in de Waddenzee. NB: tussen Den Helder en Texel lopen zowel telecomkabels als pijpleidingen, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/66bacf5b-b5fa-4dce-aa31-1938f37f11c7", out.width = "100%", message=FALSE}
 
@@ -206,8 +276,6 @@ leaflet() %>%
   )
 ```
 
-
-
 ## Zandwinning
 
 Volume, locaties. Zandwinning is gestopt, maar de data is nog wel
@@ -217,7 +285,3 @@ relevant voor het begrijpen van de historische ontwikkeling.
 
 Volume, locaties. Schelpwinning wordt afgebouwd, maar de data is nog wel
 relevant voor het begrijpen van de historische ontwikkeling.
-
-
-
-

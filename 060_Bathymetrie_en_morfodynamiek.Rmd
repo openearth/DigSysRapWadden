@@ -343,7 +343,7 @@ if (knitr::is_html_output()) {
 
 ## Arealen {#arealen}
 
-*NB Onderstaande beschrijft de huidige methode, op basis van vaste verticale begrenzingen ten opzichte van NAP. Deze methode geeft inzicht in de absolute volumes of oppervlaktes, maar relateert die niet aan de vanuit morfologisch en ecologisch opzicht relevantere waterstand zoals GLW of GHW die door de jaren en ruimtelijk varieert. Een methode die daar wel recht aan doet is momenteel in ontwikkeling en wordt dit jaar beproefd op het bekken van ht Vlie. Het is de bedoeling de nieuwe methode in 2025 voor alle Waddenzeebekkens op de DSR te gebruiken.*
+*NB Onderstaande beschrijft de huidige methode, op basis van vaste verticale begrenzingen ten opzichte van NAP. Deze methode geeft inzicht in de absolute volumes of oppervlaktes, maar relateert die niet aan de vanuit morfologisch en ecologisch opzicht relevantere waterstand zoals GLW of GHW die door de jaren en ruimtelijk varieert. Een methode die daar wel recht aan doet is momenteel in ontwikkeling en wordt dit jaar beproefd op het Vlie. Het is de bedoeling de nieuwe methode in 2025 voor alle Waddenzeebekkens op de DSR te gebruiken.*
 
 Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in vier verschillende hoogteklassen:
 
@@ -1317,7 +1317,7 @@ Voor een goed beheer van gebieden zoals de Waddenzee is een consistent, eenduidi
 
 De ecotopenkaart helpt beheerders om duidelijk te krijgen waar welke natuur zit in het Waddengebied. Zo kunnen beheerders inspelen op bepaalde situaties. Hoge zandruggen naast diepe geulen zijn bijvoorbeeld vaak een rustplaats voor zeehonden. Als in het veld blijkt dat die zeehonden daar toch niet liggen dan kan dit een indicatie zijn dat er wat aan de hand is. Daarnaast geeft de ecotopenkartering, door de regelmatige uitvoering, een goed inzicht in veranderingen van het Waddenlandschap.
 
-Elk kombergingsgebied wordt eens in de zes jaar geüpdatet, waardoor er elke zes jaar een volledig nieuwe ecotopenkaart wordt opgeleverd. Dit zal gedurende een langjarige periode (+/- 30 jaar) een duidelijke verandering van de Waddenzee weergeven.
+Elk kombergingsgebied wordt eens in de zes jaar geüpdate, waardoor er elke zes jaar een volledig nieuwe ecotopenkaart wordt opgeleverd. Dit zal gedurende een langjarige periode (+/- 30 jaar) een duidelijke verandering van de Waddenzee weergeven.
 
 De arealen van de verschillende ecotopen (2017) en beschrijving van de methodieken van de verschillende ecotopen kunnen geëxtraheerd worden via de beschrijving in de [Toelichting op de zoute ecotopenkaart](https://puc.overheid.nl/rijkswaterstaat/doc/PUC_629120_31/1/).
 
