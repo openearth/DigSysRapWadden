@@ -13,12 +13,14 @@ die relevant geacht worden voor de morfologische ontwikkeling van de
 Waddenzee. Deze hebben betrekking op de ligging of verstoring van de
 bodem, en/of op volumes door de mens verplaatst sediment. Omdat ook
 visserij-activiteiten de bodem beroer(d)en is het wenselijk deze ook op
-te nemen, maar daarvoor ontbreekt vooralsnog de juiste brondatawat reden is om deze voorlopig nog niet te tonen.
-Daarnaast geldt, met name voor visserij-activiteiten, dat er vaak een
-verschil is tussen wat er volgens een duidelijke omschrijving in een
-vergunning mag plaatsvinden en wat er daadwerkelijk gebeurd is.
-Bijvoorbeeld: een gebied kan in principe open zijn voor een bepaald type
-visserij, maar het kan zijn dat er niet gevist is. Deze categorie indicatoren kan dus nog niet zomaar eenduidig ontsloten worden.
+te nemen, maar daarvoor ontbreekt vooralsnog de juiste brondatawat reden
+is om deze voorlopig nog niet te tonen. Daarnaast geldt, met name voor
+visserij-activiteiten, dat er vaak een verschil is tussen wat er volgens
+een duidelijke omschrijving in een vergunning mag plaatsvinden en wat er
+daadwerkelijk gebeurd is. Bijvoorbeeld: een gebied kan in principe open
+zijn voor een bepaald type visserij, maar het kan zijn dat er niet
+gevist is. Deze categorie indicatoren kan dus nog niet zomaar eenduidig
+ontsloten worden.
 
 ## Bagger- en verspreidingswerken
 
@@ -31,28 +33,32 @@ baggerlocatie herleid worden. Op basis van de jaarraportages wordt door
 Rijkswaterstaat gewerkt aan een ArcGIS storymap; als deze gereed is zal
 daar naar verwezen worden.
 
-Voor nu geeft figuur \@ref(fig:baggeren20222023), gebaseerd op de
-[Jaarrapportages baggerwerkzaamheden Waddenzee 2022 en
-2023](https://open.rijkswaterstaat.nl/publish/pages/195118/jaarrapportage_baggerwerkzaamheden_waddenzee_2023.pdf),
+Voor nu geeft figuur \@ref(fig:baggeren20222023), gebaseerd op de studie
+[Abiotische effecten baggeren en verspreiden in de Waddenzee (Deltares,
+2024)](https://publicwiki.deltares.nl/display/MORFWAD/Producten?preview=/137135283/314311761/11210370-014-ZKS-0001_v1.0-Abiotische%20effecten%20baggeren%20en%20verspreiden%20in%20de%20Waddenzee%20-%20voor%20publicatie.pdf),
 een goed overzicht van waar gebaggerd is (baggervakken), waar gebaggerd
-materiaal verspreid is (verspreidingsvakken) en hoeveel (m\^3) per jaar
+materiaal verspreid is (verspreidingsvakken) en hoeveel m^3^ per jaar
 dit gemiddeld geweest is over de jaren 2022 en 2023, per
-Waddenzeebekken. Deze volumes omvatten zowel baggerwerken in havens
-(veelal gebaggerd door lokale beheerders) als in vaarwegen (veelal
-gebaggerd door Rijkswaterstaat). Naast deze volumes wordt er ook een
-deel door middel van ploegen op stroom gezet; dat is hier niet
-opgenomen. In het Marsdiep en het Vlie vormen de baggerwerken in de
-havens (Marinehaven Den Helder, Harlingen) het grootste volume. In het
-Borndiep is het in havens gebaggerde volume juist heel klein, en komt
-vrijwel het gehele volume op het conto van de Veerbootroute
-Ameland-Holwerd. In het Friesche Zeegat zijn de baggervolumes in 2023
-fors kleiner dan in 2022; de jaarraportages geven meer inzicht
-jaarlijkse variaties. Het baggervolume in Eems-Dollard is duidelijk het
-grootste van de Waddenzeebekkens, waarbij vooral het baggervolume in de
-geulen met circa 3,5 miljoen m\^3 sinds de vaarwegverruiming in
-2017/2018 aanzienlijk boven verwachting (1,5 miljoen m\^3) is.
+Waddenzeebekken. De data gebruikt in deze studie is dezelfde als in de
+[Jaarrapportages baggerwerkzaamheden Waddenzee 2022 en
+2023](https://open.rijkswaterstaat.nl/publish/pages/195118/jaarrapportage_baggerwerkzaamheden_waddenzee_2023.pdf).
+Deze en eerdere jaarrapportages geven meer inzicht in variaties tussen
+jaren en in de verdeling binnen een bekken.
 
-```{r baggeren20222023, fig.cap="Overzicht van bagger- en verspreidingslocaties en baggervolumes, gemiddeld over 2022 en 2023. De grootte van de cirkels geeft het volume per bekken weer; de kleur de herkomst (vaarweg of haven) van het materiaal. Bron: Jaarrapportage baggerwerkzaamheden Waddenzee 2022 en 2023, Rijkswaterstaat Noord Nederland"}
+Deze volumes omvatten zowel baggerwerken in havens (veelal gebaggerd
+door lokale beheerders) als in vaarwegen (veelal gebaggerd door
+Rijkswaterstaat). Naast deze volumes wordt er ook een deel door middel
+van de baggermethode ploegen herverdeeld; dat is hier niet opgenomen. In
+het Marsdiep en het Vlie vormen de baggerwerken in de havens
+(Marinehaven Den Helder, Harlingen) het grootste volume. In het Borndiep
+is het in havens gebaggerde volume juist heel klein, en komt vrijwel het
+gehele volume op het conto van de Veerbootroute Ameland-Holwerd.Het
+baggervolume in Eems-Dollard is duidelijk het grootste van de
+Waddenzeebekkens, waarbij vooral het baggervolume in de geulen sinds de
+vaarwegverruiming in 2017/2018 aanzienlijk gegroeid is naar circa 3,5
+miljoen m^3^ per jaar.
+
+```{r baggeren20222023, fig.cap="Overzicht van bagger- en verspreidingslocaties en baggervolumes, gemiddeld over 2022 en 2023. De grootte van de cirkels geeft het volume per bekken weer; de kleur de herkomst (vaarweg of haven) van het materiaal. Bron: Abiotische effecten baggeren en verspreiden in de Waddenzee, Deltares (2024)"}
 
 knitr::include_graphics("images/overzichtsfiguur_baggerenwaddenv2.png")
 ```
@@ -125,29 +131,8 @@ niet in de kustviewer staan, en daarom niet zijn ontsloten.
 
 **Afgelopen 30 jaar**
 
-In de Bodemdalingsmonitor-rapporten (2018) zijn overzichten gegeven van
-de bodemdaling als gevolg van de winning van gas, olie, zout en water.De
-bodemdaling door het winnen van water bleek niet relevant voor het
-kustfundament en is daarna niet meer meegenomen. In de
-Bodemdalingmonitor (2018) wordt de onzekerheid (variatiecoëfficiënt)
-rondom de bodemdalingsgetallen voor het historisch verleden op ± 25%
-geschat. Deze kaart is oorspronkelijk opgesteld voor de periode
-1987-2017, de kaart wordt ook representatief geacht voor de laatste 30
-jaar, omdat gewerkt is met een legenda- indeling in klassen en ook omdat
-de bodemdaling door winning in de laatste 5 jaar grotendeels binnen de
-spreiding van ± 25% valt. De bodemdaling door de winning van gas, olie
-en zout is ook berekend voor de periode 1917-2017; deze is behoorlijk
-vergelijkbaar (zelfde ruimtelijke patronen, uiteraard iets grotere
-daling) met de daling in de periode 1987-2017 maar heeft door de sterke
-toename van activiteiten in de loop van de twintigste eeuw geen linear
-verloop en is daardoor minder indicatief voor de te verwachten
-bodemdaling in de komende 30 jaar. Door de start van de zoutwinning bij
-de Ballastplaat zal de bodemdalingskaart zeer binnenkort niet meer
-representatief zijn voor de laatste 30 jaar en zal een nieuwe kaart
-opgesteld moeten worden. Over de afgelopen 30 jaar is vooral in de
-Oostelijke Waddenzee bodemdaling opgetreden: rondom Ameland door
-gaswinning en in Eems-Dollard (Eemshaven - Delfzijl) door gaswinning
-vanaf het Groningse vasteland.
+In de Bodemdalingsmonitor (2022) zijn overzichten gegeven van de opgetreden en verwachte bodemdaling als gevolg van de winning van gas, olie en zout. Uit een eerder rapport (2018) bleek dat bodemdaling door het winnen van water niet relevant is voor het kustfundament en getijdenbekkens als de Waddenzee. Er zijn kaarten opgesteld voor de periode 1917-2017, 1987-2017 (hieronder, in \@ref(fig:bodemdalingsmonitor_doorwinning) ) en de periode 2020-2050. De onzekerheid rondom de bodemdalingsgetallen is vrij groot, voor opgetreden bodemdaling is deze geschat op ± 25%, voor toekomstige bodemdaling op ± 50%.
+De meeste bodemdaling is opgetreden bij de oostpunt van Ameland en bij de monding van de Eems. Ook de bodemdalingsschotel van de winning ten oosten van Vlieland (Zuidwal) is goed zichtbaar. In de meeste gebieden treedt er de komende 30 jaar minder bodemdaling op dan in de afgelopen 30 jaar. Dit geldt niet voor de omgeving van de Ballastplaat ten westen van Harlingen waar door zoutwinning de komende tientallen jaren naar verwachting meer dan 1 m bodemdaling zal optreden in het centrum van de bodemdalingsschotel. De bodemdalingskaarten van de Bodemdalingsmonitor zullen regelmatig geactualiseerd moeten worden om in te spelen op veranderende productieplannen en wingebieden.
 
 ```{r bodemdalingsmonitor_doorwinning, fig.cap="Bodembeweging door delfstofwinning tussen 1987-2017 in het kustfundament en de getijdenbekkens. Bron: Bodemdalingsmonitor"}
 
