@@ -131,12 +131,12 @@ niet in de kustviewer staan, en daarom niet zijn ontsloten.
 
 **Afgelopen 30 jaar**
 
-In de Bodemdalingsmonitor (2022) zijn overzichten gegeven van de opgetreden en verwachte bodemdaling als gevolg van de winning van gas, olie en zout. Uit een eerder rapport (2018) bleek dat bodemdaling door het winnen van water niet relevant is voor het kustfundament en getijdenbekkens als de Waddenzee. Er zijn kaarten opgesteld voor de periode 1917-2017, 1987-2017 (hieronder, in \@ref(fig:bodemdalingsmonitor_doorwinning) ) en de periode 2020-2050. De onzekerheid rondom de bodemdalingsgetallen is vrij groot, voor opgetreden bodemdaling is deze geschat op ± 25%, voor toekomstige bodemdaling op ± 50%.
+In de Bodemdalingsmonitor (2022) zijn overzichten gegeven van de opgetreden en verwachte bodemdaling als gevolg van de winning van gas, olie en zout. Uit een eerder rapport (2018) bleek dat bodemdaling door het winnen van water niet relevant is voor het kustfundament en getijdenbekkens als de Waddenzee. Er zijn kaarten opgesteld voor de periode 1917-2017, 1987-2017 (hieronder, in \@ref(fig:bodemdalingsmonitor-doorwinning) ) en de periode 2020-2050. De onzekerheid rondom de bodemdalingsgetallen is vrij groot, voor opgetreden bodemdaling is deze geschat op ± 25%, voor toekomstige bodemdaling op ± 50%.
 De meeste bodemdaling is opgetreden bij de oostpunt van Ameland en bij de monding van de Eems. Ook de bodemdalingsschotel van de winning ten oosten van Vlieland (Zuidwal) is goed zichtbaar. In de meeste gebieden treedt er de komende 30 jaar minder bodemdaling op dan in de afgelopen 30 jaar. Dit geldt niet voor de omgeving van de Ballastplaat ten westen van Harlingen waar door zoutwinning de komende tientallen jaren naar verwachting meer dan 1 m bodemdaling zal optreden in het centrum van de bodemdalingsschotel. De bodemdalingskaarten van de Bodemdalingsmonitor zullen regelmatig geactualiseerd moeten worden om in te spelen op veranderende productieplannen en wingebieden.
 
-```{r bodemdalingsmonitor_doorwinning, fig.cap="Bodembeweging door delfstofwinning tussen 1987-2017 in het kustfundament en de getijdenbekkens. Bron: Bodemdalingsmonitor"}
+```{r bodemdalingsmonitor-doorwinning, fig.cap="Bodembeweging door delfstofwinning tussen 1987-2017 in het kustfundament en de getijdenbekkens. Bron: Bodemdalingsmonitor"}
 
-knitr::include_graphics("images/bodemdalingsmonitor_doorwinning.png")
+knitr::include_graphics("images/bodemdalingsmonitor-doorwinning.png")
 ```
 
 ## Kunstwerken
