@@ -103,7 +103,7 @@ server <- function(input, output, session) {
     
     #=== colors for plot raster ====================================================
     
-    pal <- colorNumeric(c("orange", "white", "blue"), c(-maxScale$values, maxScale$values),
+    pal <- colorNumeric(c("blue", "white", "orange"), c(-maxScale$values, maxScale$values),
                         na.color = "transparent")
     
     leaflet::leaflet() %>%
