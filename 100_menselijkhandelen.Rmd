@@ -72,43 +72,45 @@ boringen zijn weergegeven in de kaart hieronder.
 
 ```{r NLOG, out.height="450px", fig.cap="Data van Nederlands Olie- en Gasportaal", out.width = "100%"}
 
-# library(sf)
-# library(httr) 
-# library(tidyverse) 
-# library(ows4R)
-# library(leaflet)
-# library(leaflet.extras)
-# library(jpeg)
-# 
-# # URL of the WFS service
-# wms_url <- "https://www.nlog.nl/arcgis/services/nlog/gdw_ng_wll_all_utm/MapServer/WMSServer?"
-# 
-# # Parameters for GetMap request
-# params <- list(
-#   service = "WMS",
-#   request = "GetMap",
-#   layers = "0",  # Adjust layer ID as needed
-#   format = "image/png",
-#   transparent = FALSE,
-#   width = 600,
-#   height = 400,
-#   # bbox = "-180,-90,180,90",
-#   version = "1.1.1",
-#   srs = "EPSG:4326",
-#   styles = 'esriSMSCircle'
-# )
-# 
-# # Construct GetMap request URL
-# get_map_url <- paste0(wms_url, paste(names(params), params, sep = "=", collapse = "&"))
-# 
-# # Make a request to retrieve map tiles
-# response <- httr::GET(get_map_url)
-# content(response, as = 'text')
-# 
-# leaflet() %>% 
-#   setView(lng = 0, lat = 0, zoom = 2) %>%
-#   addTiles() %>%
-#   addWMSTiles(get_map_url, layers = "0", options = WMSTileOptions(format = "image/png", transparent = FALSE))
+library(sf)
+library(httr)
+library(tidyverse)
+library(ows4R)
+library(leaflet)
+library(leaflet.extras)
+library(jpeg)
+
+# https://www.nlog.nl/arcgis/services/nlog/gdw_ng_field_utm/MapServer/WMSServer?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=0&STYLES=&CRS=EPSG:4326&BBOX=-180,-90,180,90&WIDTH=800&HEIGHT=600&FORMAT=image/jpeg&DPI=96&TRANSPARENT=TRUE
+# URL of the WFS service
+wms_url <- "https://www.nlog.nl/arcgis/services/nlog/gdw_ng_field_utm/MapServer/WMSServer?"
+
+# Parameters for GetMap request
+params <- list(
+  service = "WMS",
+  version = "1.3.1",
+  request = "GetMap",
+  layers = "0",  # Adjust layer ID as needed
+  styles = '',
+  crs = "EPSG:4326",
+  bbox = "-180,-90,180,90",
+  width = 800,
+  height = 600,
+  format = "image/jpeg",
+  dpi = '96',
+  transparent = TRUE
+)
+
+# Construct GetMap request URL
+get_map_url <- paste0(wms_url, paste(names(params), params, sep = "=", collapse = "&"))
+
+# Make a request to retrieve map tiles
+response <- httr::GET(get_map_url)
+content(response, as = 'text')
+
+leaflet() %>%
+  setView(lng = 0, lat = 0, zoom = 2) %>%
+  addTiles() %>%
+  addWMSTiles(get_map_url, layers = "0", options = WMSTileOptions(format = "image/png", transparent = FALSE))
 
 ```
 
@@ -225,7 +227,9 @@ leaflet() %>%
 
 In de Waddenzee is in het Groninger Wad een gebied gesloten voor
 bodemberoerende visserij. Dit is nog niet opgenomen op onderstaande
-kaart.
+kaart. 
+
+!!!! vernieuwde kaart van RVO, nog tekst bij schrijven
 
 ```{r geslotenGebiedenVisserij, out.height="450px", fig.cap="Gesloten gebieden voor bodemberoerende visserij in de Noordzee. Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
 
@@ -236,22 +240,34 @@ library(ows4R)
 library(leaflet)
 library(leaflet.extras)
 
-wms_geslotengebieden <- "https://geodata.nationaalgeoregister.nl/geslotenvisserij/wms?"
+# wms does not work for some reason. will try WFS underneath
+# wms_geslotengebieden <- "https://geodata.nationaalgeoregister.nl/geslotenvisserij/wms?"
+# wms_geslotengebieden <- "https://service.pdok.nl/rvo/geslotenvisserij/wms?" # replaces previous
+
+wfs_geslotengebieden <- "https://service.pdok.nl/rvo/geslotenvisserij/wfs/v1_0?request=GetFeature&service=WFS&version=1.1.0&outputFormat=text%2Fxml%3B%20subtype%3Dgml%2F3.1.1&typeName=geslotenvisserij:geslotenvisserij" 
+
+geslotengebieden_sf <- sf::st_read(wfs_geslotengebieden) %>% 
+  st_transform(4326)
+
+factpal = colorFactor(topo.colors(4), geslotengebieden_sf$databron)
 
 leaflet() %>% 
   setView(lng = 5.3, lat = 53.5, zoom = 8) %>%
   addTiles('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
            group = "OSM") %>%
-  addWMSTiles(
-    wms_geslotengebieden,
-    layers = "GeslotenGebiedenVoorVisserij",
-    options = WMSTileOptions(format = "image/png", transparent = TRUE), 
-    group = "GeslotenGebiedenVoorVisserij"
-  ) %>%
-  addWMSLegend(
-    uri = paste0("https://geodata.nationaalgeoregister.nl/geslotenvisserij/wms?SERVICE=WMS&language=dut&version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=GeslotenGebiedenVoorVisserij&format=image/png&STYLE=geslotenvisserij:VISSERIJ_GESLOTEN_GEBIEDEN"),
-    position = "bottomleft"
-  ) %>%
+  addPolygons(data = geslotengebieden_sf, group = "GeslotenGebiedenVoorVisserij",
+              color = ~factpal(databron)) %>%
+  # addWMSTiles(
+  #   wms_geslotengebieden,
+  #   layers = "geslotenvisserij",
+  #   options = WMSTileOptions(format = "image/png", transparent = TRUE), 
+  #   group = "GeslotenGebiedenVoorVisserij"
+  # ) %>%
+  # addWMSLegend(
+  #   uri = paste0("https://geodata.nationaalgeoregister.nl/geslotenvisserij/wms?SERVICE=WMS&language=dut&version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=GeslotenGebiedenVoorVisserij&format=image/png&STYLE=geslotenvisserij:VISSERIJ_GESLOTEN_GEBIEDEN"),
+  #   position = "bottomleft"
+  # ) %>%
+  leaflet::addLegend(position = "bottomright", pal = factpal, values = geslotengebieden_sf$databron )
   addLayersControl(
     baseGroups = c("OSM", "Esri.WorldImagery"),
     overlayGroups = c("GeslotenGebiedenVoorVisserij"
