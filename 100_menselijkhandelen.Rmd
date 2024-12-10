@@ -287,9 +287,24 @@ relevant voor het begrijpen van de historische ontwikkeling. Er is momenteel nog
 ## Schelpenwinning
 
 Schelpenwinning is één van de economische activiteiten in de Waddenzee. De gewonnen schelpen worden al decennia gebruikt als grondstof voor toepassingen in de bouw of voor de aanleg van schelpenpaden. Schelpenwinning gebeurt in de Waddenzee middels schepen, op schelpenbanken in de grote geulen (Marsdiep, Vlie, Friese Zeegat) waar zich hoge concentraties schelpen vormen aan de hand van natuurlijke transportprocessen.
-Voor de morfologie van de Waddenzee zijn deze schelpenbanken van beperkt belang (Mestdagh, 2024, Reijngoud et al., 2001), al kunnen ze wanneer ze aan of nabij het sedimentoppervlak komen te liggen, ervoor zorgen dat erosie van de zachte geulbodem vertraagd wordt. Vooral in buitenbochten kan de aanwezigheid van schelpenbanken op die manier een geul stabiliseren (\@ref(#erl-uitleg)). Om een rol van betekenis te spelen in de vorming van eilanden of voor het beïnvloeden van stroomsnelheden is de winning op schelpenbanken in de Waddenzee waarschijnlijk te klein en verwaarloosbaar in vergelijking met de autonome kustdynamiek. 
+Voor de morfologie van de Waddenzee zijn deze schelpenbanken van beperkt belang (Mestdagh, 2024, Reijngoud et al., 2001), al kunnen ze wanneer ze aan of nabij het sedimentoppervlak komen te liggen, ervoor zorgen dat erosie van de zachte geulbodem vertraagd wordt. Vooral in buitenbochten kan de aanwezigheid van schelpenbanken op die manier een geul stabiliseren. Om een rol van betekenis te spelen in de vorming van eilanden of voor het beïnvloeden van stroomsnelheden is de winning op schelpenbanken in de Waddenzee waarschijnlijk te klein en verwaarloosbaar in vergelijking met de autonome kustdynamiek. 
 Vanuit ecologisch standpunt vormen ze waarschijnlijk een uniek habitat door de aanwezigheid van hard substraat, zolang de banken zich nabij of aan het sedimentoppervlak bevinden. Alle winlocaties vallen op de ecotopenkaart uit 2017 binnen het hoogdynamisch (doorgaans diep, soms ondiep) sublitoraal.
-Gewonnen hoeveelheden (2016-2022), op basis van Blackboxgegevens zoals doorgegeven aan Rijkswaterstaat door de drie betrokken bedrijven zijn voor elk geulsysteem weergegeven in Tabel 1. In sommige gebieden wordt doorlopend gewonnen, in andere fluctueert de winning zonder bekende oorzaak. Op alle winlocaties worden losse schelpen gewonnen. Dat gebeurt met steekzuigers, waarbij een winningsschip min of meer stilligt en met een steekbuis sediment en schelpen opzuigt tot 4 meter onder het sedimentoppervlak. De schelpen worden tijdens de winning ter plaatse gezeefd en het gezeefde sediment wordt teruggestort. Schelpenwinputten vullen na de winning geleidelijk op in een proces dat vier tot vijf maanden kan duren.
+Gewonnen hoeveelheden (2016-2022), op basis van Blackboxgegevens zoals doorgegeven aan Rijkswaterstaat door de drie betrokken bedrijven zijn voor elk geulsysteem weergegeven in Tabel 1 en Figuren \@ref(fig:schelpenwinning_Marsdiep), \@ref(fig:schelpenwinning_Vlie), \@ref(fig:schelpenwinning_FZ). In sommige gebieden wordt doorlopend gewonnen, in andere fluctueert de winning zonder bekende oorzaak. Op alle winlocaties worden losse schelpen gewonnen. Dat gebeurt met steekzuigers, waarbij een winningsschip min of meer stilligt en met een steekbuis sediment en schelpen opzuigt tot 4 meter onder het sedimentoppervlak. De schelpen worden tijdens de winning ter plaatse gezeefd en het gezeefde sediment wordt teruggestort. Schelpenwinputten vullen na de winning geleidelijk op in een proces dat vier tot vijf maanden kan duren.
 
+```{r schelpenwinning_Marsdiep, fig.cap="Schelpenwinning tussen 2016-2022 in het Marsdiep op basis van Blackbox data, geprojecteerd op de ecotopenkaart 2017. Bron: Mestdagh, 2024"}
+
+knitr::include_graphics("images/schelpenwinning_Marsdiep.png")
+```
+
+```{r schelpenwinning_Vlie, fig.cap="Schelpenwinning tussen 2016-2022 in het Vlie op basis van Blackbox data, geprojecteerd op de ecotopenkaart 2017. Bron: Mestdagh, 2024"}
+
+knitr::include_graphics("images/schelpenwinning_Vlie.png")
+```
+
+
+```{r schelpenwinning_FZ, fig.cap="Schelpenwinning tussen 2016-2022 in het Friesche Zeegat op basis van Blackbox data, geprojecteerd op de ecotopenkaart 2017. Bron: Mestdagh, 2024"}
+
+knitr::include_graphics("images/schelpenwinning_Friesche Zeegat.png")
+```
 
 Er is geen goed te ontsluiten brondata van de daadwerkelijke schelpenwinning (alleen Blackbox data), evenmin van de gebieden waar dit toegestaan is. Bovenstaande tekst en gegevens zijn daarom gebaseerd op het memo ‘Kennisoverzicht en aanbevelingen schelpenwinning Waddenzee’ (Deltares memo 1210370-013-ZKS-0001 door S. Mestdagh, oktober 2024), waarin een synthese van deze data gemaakt is. 
