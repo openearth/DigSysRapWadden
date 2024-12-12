@@ -2,7 +2,7 @@
 
 # options(width = 60)
 
-concept = TRUE
+concept = FALSE
 
 # source("r/runThisFirst.R")
 source("r/installeerPackages.R")

@@ -293,7 +293,7 @@ Gewonnen hoeveelheden (2016-2022), op basis van Blackboxgegevens zoals doorgegev
 
 ```{r}
 library(kableExtra)
-schelpenwinningTable <- readxl::read_excel("p:\11202493--systeemrap-grevelingen\1_data\Wadden\RWS\menselijkhandelen\Mestdagh2024_Schelpenwinning2016_2022.xlsx")
+schelpenwinningTable <- readxl::read_excel("p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Mestdagh2024_Schelpenwinning2016_2022.xlsx")
 schelpenwinningTable %>%
   kbl(caption = "Hoeveelheden gewonnen schelpen (in m3) in de Waddenzee per geulsysteem, over de periode 2016-2022. In de laatste kolom wordt het maximum toegelaten ontgonnen volume in de hele Waddenzee weergegeven. Data aangeleverd door Rijkswaterstaat. De gegevens voor 2020 zijn waarschijnlijk niet correct. De door Rijkswaterstaat aangeleverde invoertabellen zijn leeg, maar uit de Blackboxgegevens blijkt dat zowel de MS Vertrouwen als de MS Waddenzee dat jaar actief waren op verschillende plaatsen in de Waddenzee.") %>%
   kable_styling()
