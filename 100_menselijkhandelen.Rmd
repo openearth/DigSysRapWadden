@@ -138,7 +138,7 @@ De meeste bodemdaling is opgetreden bij de oostpunt van Ameland en bij de mondin
 
 ```{r bodemdalingsmonitor-doorwinning, fig.cap="Bodembeweging door delfstofwinning tussen 1987-2017 in het kustfundament en de getijdenbekkens. Bron: Bodemdalingsmonitor"}
 
-knitr::include_graphics("images/bodemdalingsmonitor-doorwinning.png")
+knitr::include_graphics("images/bodemdalingsmonitor_doorwinning.png")
 ```
 
 ## Kunstwerken
@@ -269,7 +269,7 @@ leaflet() %>%
   #   uri = paste0("https://geodata.nationaalgeoregister.nl/geslotenvisserij/wms?SERVICE=WMS&language=dut&version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=GeslotenGebiedenVoorVisserij&format=image/png&STYLE=geslotenvisserij:VISSERIJ_GESLOTEN_GEBIEDEN"),
   #   position = "bottomleft"
   # ) %>%
-  leaflet::addLegend(position = "bottomright", pal = factpal, values = geslotengebieden_sf$databron )
+  leaflet::addLegend(position = "bottomright", pal = factpal, values = geslotengebieden_sf$databron ) %>%
   addLayersControl(
     baseGroups = c("OSM", "Esri.WorldImagery"),
     overlayGroups = c("GeslotenGebiedenVoorVisserij"

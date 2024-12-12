@@ -12,7 +12,7 @@ require("sf")
 require("bookdown")
 require("pander")
 require("data.table")
-require("strucchange")
+# require("strucchange")
 require("zoo")
 require("xts")
 require("devtools")
@@ -36,6 +36,8 @@ require("downloadthis")
 require("rwsapi")
 require("gstat")
 require("raster")
+require("reshape2")
+require("jpeg")
 
 select <- dplyr::select
 addLegend <- leaflet::addLegend
