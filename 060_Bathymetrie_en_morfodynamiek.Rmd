@@ -1013,7 +1013,7 @@ NB Het is de bedoeling de profieldata ook nog downloadbaar te maken zodat de geb
 
 ```{r geul-kaart, fig.cap= "(ref:geul-kaartLabel)"}
 
-if(knitr::is_html_output())knitr::include_url("../Concept_webgis_geuldoorsnedes/index.html", height = "600px") else{
+if(knitr::is_html_output())knitr::include_url("../Concept_webgis_geuldoorsnedes/index.html#10/53.2167/5.6978", height = "600px") else{
   knitr::include_graphics( "images/concept_geuldoorsnedes.png")
 }
 ```
