@@ -34,6 +34,14 @@ De informatie op deze website is op dit moment onder constructie en bedoeld voor
 ```
 
 
+```{r, eval=concept}
+# Add noindex tag to prevent search engines from crawling
+metathis::meta() %>%
+  metathis::meta_name("robots" = "noindex")
+```
+
+
+
 ### Nederlands {-}
 
 Deze watersysteemrapportage is een initiatief van:

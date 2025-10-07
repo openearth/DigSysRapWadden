@@ -184,7 +184,9 @@ waarschijnlijkheid niet compleet, aangezien voor lang niet alle
 Waddeneilanden verbindingen met het vasteland getoond worden, terwijl
 deze er wel zijn.
 
-```{r kabelsEnLeidingen, echo =FALSE, out.height="450px", fig.cap="Pijpleidingen, telecomkabels en elektrakabels in de Waddenzee. NB: tussen Den Helder en Texel lopen zowel telecomkabels als pijpleidingen, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/66bacf5b-b5fa-4dce-aa31-1938f37f11c7", out.width = "100%", message=FALSE}
+<Figuur kabels en leidingen kan niet getoond worden, deze is niet meer beschikbaar>
+
+```{r kabelsEnLeidingen, eval=FALSE, echo =FALSE, out.height="450px", fig.cap="Pijpleidingen, telecomkabels en elektrakabels in de Waddenzee. NB: tussen Den Helder en Texel lopen zowel telecomkabels als pijpleidingen, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/66bacf5b-b5fa-4dce-aa31-1938f37f11c7", out.width = "100%", message=FALSE}
 
 Wadden <- sf::st_read(file.path(datadir, 'RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp'), quiet = TRUE) %>% st_transform(4326) %>%
   st_make_valid()

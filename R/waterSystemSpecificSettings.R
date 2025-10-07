@@ -4,7 +4,7 @@ runonline = F
 local = F
 
 startyear <- 1990
-endyear <- 2020
+endyear <- 2024
 
 # voor naamgeving directory etc
 mijnGebied <- "Wadden"

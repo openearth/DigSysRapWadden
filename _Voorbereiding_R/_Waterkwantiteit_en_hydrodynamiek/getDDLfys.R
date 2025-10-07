@@ -141,9 +141,28 @@ for(year in c(1870:2021)){
   
   ophaalCatalogus <- bind_rows(waterhoogteCatalogus) %>%
     filter(locatie.naam %in% 
-             c("Delfzijl", "Den Helder", "Eemshaven", "Harlingen", "Holwerd", "Huibertgat", "Lauwersoog",
-               "Nes", "Schiermonnikoog", "Terschelling Noordzee", "Texel Noordzee", "Uithuizerwad 1", "West-Terschelling", "Wierumergronden",
-               "Wierumerwad 1", "Termunterzijl", "Vlieland haven", "Nieuwe Statenzijl", "Den Oever buiten", "Oudeschild")
+             c(
+               "Delfzijl", 
+               "Den Helder", 
+               "Eemshaven", 
+               "Harlingen", 
+               "Holwerd", 
+               "Huibertgat", 
+               "Lauwersoog",
+               "Nes", 
+               "Schiermonnikoog", 
+               "Terschelling Noordzee", 
+               "Texel Noordzee", 
+               "Uithuizerwad 1", 
+               "West-Terschelling", 
+               "Wierumergronden",
+               "Wierumerwad 1", 
+               "Termunterzijl", 
+               "Vlieland haven", 
+               "Nieuwe Statenzijl", 
+               "Den Oever buiten", 
+               "Oudeschild"
+             )
     )
   
   # Temporarily set to below ophaalCatalogus !!!!!!!!!!!!!!!!!!!!!!  maar levert niets op! niet in DDL
@@ -262,16 +281,38 @@ save(df_all,
 
 #==== waterhoogte alle jaren  ===============================
 
-for(year in c(2019:2022)){ # done
+for(year in c(1870:2025)){ # done
   # for(year in c(1870:2021)){
   startdate <- paste0(year, "-01-01T00:00:00.000+01:00")  # hardcoded startyear
   enddate <- paste0(year+1, "-01-01T00:00:00.000+01:00")
   
   ophaalCatalogus <- bind_rows(waterhoogteCatalogus) %>%
     filter(locatie.naam %in% 
-             c("Delfzijl", "Den Helder", "Eemshaven", "Harlingen", "Holwerd", "Huibertgat", "Lauwersoog",
-               "Nes", "Schiermonnikoog", "Terschelling Noordzee", "Texel Noordzee", "Uithuizerwad 1", "West-Terschelling", "Wierumergronden",
-               "Wierumerwad 1", "Termunterzijl", "Vlieland haven", "Nieuwe Statenzijl", "Den Oever buiten", "Oudeschild")
+             c(
+               # "Delfzijl",
+               # "Den Helder",
+               # "Eemshaven",
+               # "Harlingen",
+               # "Holwerd",
+               # "Huibertgat",
+               # "Lauwersoog",
+               # "Nes",
+               # "Schiermonnikoog",
+               # "Terschelling Noordzee",
+               # "Texel Noordzee",
+               # "Uithuizerwad 1",
+               # "West-Terschelling",
+               # "Wierumergronden",
+               # "Wierumerwad 1",
+               # "Termunterzijl",
+               # "Vlieland haven", 
+               # "Nieuwe Statenzijl", 
+               # "Den Oever buiten", 
+               # "Den Oever",
+               # "Oudeschild",
+               "Kornwerderzand buiten zui",
+               "Kornwerderzand buiten noo"
+             )
     )
   
   ## Temporarily set to below ophaalCatalogus !!!!!!!!!!!!!!!!!!!!!!1
@@ -322,6 +363,9 @@ source("r/runThisFirst.R")
 allFiles = list()
 
 filenamesRaw = list.files(file.path(datadir, "ddl/raw/waterhoogte"), full.names = T, recursive = T, pattern = "WATHTE_")
+
+filenamesRaw <- filenamesRaw[grepl("KOBU", filenamesRaw, ignore.case = T)]
+
 allFiles <- lapply(filenamesRaw, function(x) 
   read_delim(x, delim = ";", 
              col_types = 'cccccccccccn',

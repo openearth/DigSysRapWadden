@@ -25,7 +25,7 @@ getPackage("rgdal")
 getPackage("sf")
 getPackage("leaflet")
 getPackage("purrr")
-source("runThisFirst.R")
+source("R/runThisFirst.R")
 
 #==== ophalen DDL metadata catalogus ==================
 
@@ -44,10 +44,11 @@ if(locsTable %>% distinct(Coordinatenstelsel) %>% length() == 1){
   locs_sf_rd <- sf::st_transform(locs_sf, crs = 28992)
 } else print("warning, multiple epsg, sf object not produced")
 
-wl2006 <- sf::read_sf("../1_data/administratief/waterlichamen2006.shp", "waterlichamen2006")
+wl2006 <- sf::read_sf(file.path(datadir, "../administratief/waterlichamen2006.geojson"))
 
 wl2006 <- sf::st_set_crs(wl2006, 28992)
-mijnShape <- wl2006[grepl(x = tolower(wl2006$OWMNAAM), pattern = tolower(mijnGebied)),]
+# mijnShape <- wl2006[grepl(x = tolower(wl2006$OWMNAAM), pattern = tolower(mijnGebied)),]
+mijnShape <- wl2006 %>% filter(OWMIDENT %in% c("NL81_2", "NL81_3", "NL81_1", "NL95_4A", "NL81_10"))
 
 
 buffer_in_m <- 0
