@@ -1,0 +1,37 @@
+basin,jaar,dep,area,perc
+Marsdiep,1989,Totaal,673.0788,100
+Marsdiep,1989,Geul (< -5 m NAP),158.624,23.5669285676506
+Marsdiep,1989,Geul (-3 tot -5 m NAP),92.6996,13.7724735944736
+Marsdiep,1989,Subgetijde (GLW tot -3 m NAP),406.5828,60.4064189809574
+Marsdiep,1989,Intergetijde (GLW tot GHW),2.468,0.3666732632197
+Marsdiep,1989,Supragetijde (> GHW),12.7044,1.88750559369869
+Marsdiep,1993,Totaal,678.7092,100
+Marsdiep,1993,Geul (< -5 m NAP),159.2148,23.4584708738293
+Marsdiep,1993,Geul (-3 tot -5 m NAP),82.5984,12.1699249104035
+Marsdiep,1993,Subgetijde (GLW tot -3 m NAP),418.5364,61.6665281684704
+Marsdiep,1993,Intergetijde (GLW tot GHW),1.6944,0.249650365723641
+Marsdiep,1993,Supragetijde (> GHW),16.6652,2.4554256815732
+Marsdiep,1999,Totaal,682.0932,100
+Marsdiep,1999,Geul (< -5 m NAP),158.3868,23.220697699376
+Marsdiep,1999,Geul (-3 tot -5 m NAP),85.2092,12.4923104349963
+Marsdiep,1999,Subgetijde (GLW tot -3 m NAP),419.9816,61.5724654636639
+Marsdiep,1999,Intergetijde (GLW tot GHW),1.2028,0.176339538350478
+Marsdiep,1999,Supragetijde (> GHW),17.3128,2.53818686361336
+Marsdiep,2005,Totaal,689.7624,100
+Marsdiep,2005,Geul (< -5 m NAP),160.0036,23.1969153436024
+Marsdiep,2005,Geul (-3 tot -5 m NAP),87.6464,12.706752354144
+Marsdiep,2005,Subgetijde (GLW tot -3 m NAP),423.0444,61.331902115859
+Marsdiep,2005,Intergetijde (GLW tot GHW),0.9144,0.132567388422448
+Marsdiep,2005,Supragetijde (> GHW),18.1536,2.63186279797217
+Marsdiep,2011,Totaal,692.2388,100
+Marsdiep,2011,Geul (< -5 m NAP),162.3724,23.4561252561977
+Marsdiep,2011,Geul (-3 tot -5 m NAP),88.8724,12.8384020080932
+Marsdiep,2011,Subgetijde (GLW tot -3 m NAP),420.5376,60.750365336355
+Marsdiep,2011,Intergetijde (GLW tot GHW),0.5512,0.0796257014197991
+Marsdiep,2011,Supragetijde (> GHW),19.9052,2.8754816979343
+Marsdiep,2017,Totaal,698.7516,100
+Marsdiep,2017,Geul (< -5 m NAP),163.522,23.4020215481439
+Marsdiep,2017,Geul (-3 tot -5 m NAP),85.1828,12.1907126938958
+Marsdiep,2017,Subgetijde (GLW tot -3 m NAP),429.5772,61.4778127162786
+Marsdiep,2017,Intergetijde (GLW tot GHW),0.8044,0.115119593286083
+Marsdiep,2017,Supragetijde (> GHW),19.6652,2.81433344839568
