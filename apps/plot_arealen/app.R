@@ -16,6 +16,36 @@ CSS <- "
 
 #==== load data ===========================================================
 
+test = F
+
+require(tidyverse)
+
+colors <- c(
+  "Geul\n(< -5 m NAP)" = "#16466E",
+  "Geul\n(-3 tot -5 m NAP)" = "#3681BF",
+  "Subgetijde\n(GLW tot -3 m NAP)" = "#87BCE8",
+  "Intergetijde\n(GLW tot GHW)" = "#CFBA7C",
+  "Supragetijde\n(> GHW)"  = "#61A13B"
+)
+
+diepteklassen <- c(
+  "Geul\n(< -5 m NAP)",
+  "Geul\n(-3 tot -5 m NAP)",
+  "Subgetijde\n(GLW tot -3 m NAP)",
+  "Intergetijde\n(GLW tot GHW)",
+  "Supragetijde\n(> GHW)",
+  "Totaal"
+)
+
+basins <- c(
+  "Marsdiep",
+  "Eijerlandse Gat",
+  "Vlie",
+  "Borndiep",
+  "Pinkegat",
+  "Zoutkamperlaag"
+)
+
 arealenfiles <- c(
   "Arealen_ZKL_18.6jr.csv",
   "Arealen_PGAT_18.6jr.csv",
@@ -25,14 +55,35 @@ arealenfiles <- c(
   "Arealen_MD_18.6jr.csv"
 )
 
-read_csv(arealenfiles[1])
-arealen <- map(1:length(arealenfiles), \(x) read_csv(arealenfiles[x])) %>% bind_rows()
+if(test){ 
+  arealenfiles = file.path("apps/plot_arealen", arealenfiles) 
+} else{
+  arealenfiles = arealenfiles
+}
+
+
+arealen <- map(
+  1:length(arealenfiles), 
+  \(x) read_csv(arealenfiles[x])
+) %>% 
+  bind_rows() %>%
+  mutate(
+    percentage = round(percentage,0),
+    area = signif(area, 3)
+  ) %>%
+  mutate(diepteklasse_plotname = 
+           str_replace_all(
+             diepteklasse_plotname, 
+             fixed(" \\n "), 
+             "\n"
+           )
+  )
 
 
 #=== user interface ============================================================
 
 ui <- miniPage(
-  miniTitleBar("Plot arealenverloop Waddenzee"),
+  miniTitleBar("Arealenverloop Waddenzee"),
   miniContentPanel(padding = 0,
                    plotlyOutput("areaalPlot", height = "100%")
   ),
@@ -41,11 +92,18 @@ ui <- miniPage(
       tags$style(HTML(CSS))
     ),
     selectizeInput(
-      "diepteKlasse",
+      "diepteklasse",
       "kies diepteklasse:",
-      unique(arealen$dep),
+      unique(arealen$diepteklasse),
+      width = "30%"
+    ),
+    radioButtons(
+      "scale_abs_rel",
+      "kies soort grafiek:",
+      c("absoluut", "relatief"),
       width = "30%"
     )
+    
   )
 )
 
@@ -56,16 +114,35 @@ server <- function(input, output, session) {
   output$areaalPlot <- renderPlotly({
     
     arealenSelectie <- arealen %>%
-      filter(dep == input$diepteKlasse)
+      filter(diepteklasse == input$diepteklasse)
     
-    p <- ggplot(arealenSelectie, aes(jaar, area)) +
-      geom_line(aes(color = basin), linewidth = 1) +
-      geom_point(aes(color = basin), shape = 21, fill = "white", linewidth = 2) +
-      theme_light() +
-      ylab("areaal in km2")
+    if(input$scale_abs_rel == "absoluut"){
+      p <- arealenSelectie %>%
+        # mutate(diepteklasse_plotname = factor(diepteklasse_plotname, levels = rev(diepteklassen))) %>%
+        # mutate(diepteklasse = factor(diepteklasse, levels = str_replace(diepteklassen, fixed("\n"), " "))) %>%
+        mutate(basin = factor(basin, levels = basins)) %>%
+        ggplot(aes(jaar, area)) +
+        ylab("oppervlakte in  km^2")
+    }
+
+    if(input$scale_abs_rel == "relatief"){
+      p <- arealenSelectie %>%
+        # mutate(diepteklasse_plotname = factor(diepteklasse_plotname, levels = rev(diepteklassen))) %>%
+        # mutate(diepteklasse = factor(diepteklasse, levels = str_replace(diepteklassen, fixed("\n"), " "))) %>%
+        mutate(basin = factor(basin, levels = basins)) %>%
+        ggplot(aes(jaar, percentage)) +
+        ylab("oppervlakte in %")
+    }
     
-    ggplotly(p, dynamicTicks = TRUE)
-    
+    p <- p +
+      geom_line(aes(color = basin), linewidth = 1.5) +
+      geom_point(aes(color = basin), size = 2) +
+      # facet_wrap("diepteklasse", scales = "free") +
+      theme_light()
+
+
+   ggplotly(p)    
+
   })
   
 }

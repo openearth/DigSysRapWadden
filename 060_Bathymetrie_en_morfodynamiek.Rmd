@@ -667,6 +667,16 @@ p
 
 ```
 
+
+
+
+```{r arealen_nieuw, fig.cap = "Arealen voor verschillende diepteklassen met nieuwe bathymetrie en diepteklassen gerelateerd aan GHW en GLW (preliminair)."}
+
+knitr::include_url("https://deltares.shinyapps.io/plot_arealen/", height = "600px")
+
+```
+
+
 ## Plaathoogte
 
 De hoogte van het intergetijdengebied (plaathoogte) is afhankelijk van de hydrodynamiek en het aanbod van sediment. Het getij voert sediment aan, dat kan worden afgezet op de platen. Golfwerking leidt tot erosie van de platen. De balans tussen erosie en sedimentatie resulteert in een bepaalde plaathoogte. Indien er veranderingen optreden in het getij, kan dit leiden tot veranderingen in de stroomsnelheden, met andere sedimentbeschikbaarheid tot gevolg. Veranderingen in GHW (bijvoorbeeld door zeespiegelstijging) leiden tot andere overstromingsduur en kunnen leiden tot veranderende invloed van de golven. Voor platen die in evenwicht zijn, zijn er evenwichtsrelaties afgeleid door [Eysink & Biegel (1992)](https://repository.tudelft.nl/islandora/object/uuid%3A3a321491-a1c9-4eb2-b536-d35cb81302d8).

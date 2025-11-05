@@ -1,37 +1,43 @@
-basin,jaar,dep,area,perc
-Vlie,1989,Totaal,694.1336,100
-Vlie,1989,Geul (< -5 m NAP),86.4428,12.4533375131243
-Vlie,1989,Geul (-3 tot -5 m NAP),46.79,6.74077727976286
-Vlie,1989,Subgetijde (GLW tot -3 m NAP),511.5612,73.6978011149439
-Vlie,1989,Intergetijde (GLW tot GHW),4.0644,0.585535695145718
-Vlie,1989,Supragetijde (> GHW),45.2752,6.52254839702328
-Vlie,1993,Totaal,690.3996,100
-Vlie,1993,Geul (< -5 m NAP),86.6612,12.5523247695972
-Vlie,1993,Geul (-3 tot -5 m NAP),40.9568,5.9323325216295
-Vlie,1993,Subgetijde (GLW tot -3 m NAP),516.7248,74.8443075575362
-Vlie,1993,Intergetijde (GLW tot GHW),4.5632,0.660950556750033
-Vlie,1993,Supragetijde (> GHW),41.4936,6.01008459448702
-Vlie,1999,Totaal,684.966,100
-Vlie,1999,Geul (< -5 m NAP),85.8592,12.5348119468704
-Vlie,1999,Geul (-3 tot -5 m NAP),39.3284,5.74165725014088
-Vlie,1999,Subgetijde (GLW tot -3 m NAP),508.2176,74.1960330877737
-Vlie,1999,Intergetijde (GLW tot GHW),3.0028,0.438386722844638
-Vlie,1999,Supragetijde (> GHW),48.558,7.08911099237042
-Vlie,2005,Totaal,680.5696,100
-Vlie,2005,Geul (< -5 m NAP),85.8644,12.616549431535
-Vlie,2005,Geul (-3 tot -5 m NAP),40.6192,5.96841234166204
-Vlie,2005,Subgetijde (GLW tot -3 m NAP),510.7004,75.0401428450521
-Vlie,2005,Intergetijde (GLW tot GHW),2.1788,0.32014359736315
-Vlie,2005,Supragetijde (> GHW),41.2068,6.05475178438767
-Vlie,2011,Totaal,675.76,100
-Vlie,2011,Geul (< -5 m NAP),85.712,12.6837930626258
-Vlie,2011,Geul (-3 tot -5 m NAP),40.3344,5.9687463004617
-Vlie,2011,Subgetijde (GLW tot -3 m NAP),496.8288,73.5214869184326
-Vlie,2011,Intergetijde (GLW tot GHW),1.2404,0.183556292174737
-Vlie,2011,Supragetijde (> GHW),51.6444,7.6424174263052
-Vlie,2017,Totaal,661.8004,100
-Vlie,2017,Geul (< -5 m NAP),83.7044,12.6479826848095
-Vlie,2017,Geul (-3 tot -5 m NAP),38.4692,5.81281002550014
-Vlie,2017,Subgetijde (GLW tot -3 m NAP),483.9444,73.1254317767109
-Vlie,2017,Intergetijde (GLW tot GHW),4.0564,0.612934050810486
-Vlie,2017,Supragetijde (> GHW),51.626,7.80084146216896
+basin,jaar,diepteklasse,diepteklasse_plotname,area,percentage
+Vlie,1989,Totaal,Totaal,694.1336,100
+Vlie,1989,Geul (< -5 m NAP),Geul \n (< -5 m NAP),86.4428,12.4533375131243
+Vlie,1989,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),46.79,6.74077727976286
+Vlie,1989,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),230.3344,33.1830068447918
+Vlie,1989,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),328.896,47.382233045627
+Vlie,1989,Supragetijde (> GHW),Supragetijde \n (> GHW),1.6704,0.240645316694077
+Vlie,1993,Totaal,Totaal,690.3996,100
+Vlie,1993,Geul (< -5 m NAP),Geul \n (< -5 m NAP),86.6612,12.5523247695972
+Vlie,1993,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),40.9568,5.9323325216295
+Vlie,1993,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),207.7752,30.094918942595
+Vlie,1993,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),351.888,50.9687433190865
+Vlie,1993,Supragetijde (> GHW),Supragetijde \n (> GHW),3.1184,0.4516804470918
+Vlie,1999,Totaal,Totaal,684.966,100
+Vlie,1999,Geul (< -5 m NAP),Geul \n (< -5 m NAP),85.8592,12.5348119468704
+Vlie,1999,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),39.3284,5.74165725014088
+Vlie,1999,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),207.9456,30.3585287444924
+Vlie,1999,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),348.5792,50.8900003795809
+Vlie,1999,Supragetijde (> GHW),Supragetijde \n (> GHW),3.2536,0.47500167891545
+Vlie,2005,Totaal,Totaal,680.5696,100
+Vlie,2005,Geul (< -5 m NAP),Geul \n (< -5 m NAP),85.8644,12.616549431535
+Vlie,2005,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),40.6192,5.96841234166204
+Vlie,2005,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),222.5456,32.6999031399581
+Vlie,2005,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),327.5792,48.1330932207375
+Vlie,2005,Supragetijde (> GHW),Supragetijde \n (> GHW),3.9612,0.582041866107449
+Vlie,2011,Totaal,Totaal,675.76,100
+Vlie,2011,Geul (< -5 m NAP),Geul \n (< -5 m NAP),85.712,12.6837930626258
+Vlie,2011,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),40.3344,5.9687463004617
+Vlie,2011,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),205.252,30.3735053865278
+Vlie,2011,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),339.4532,50.2328045459927
+Vlie,2011,Supragetijde (> GHW),Supragetijde \n (> GHW),5.0084,0.741150704392092
+Vlie,2017,Totaal,Totaal,661.8004,100
+Vlie,2017,Geul (< -5 m NAP),Geul \n (< -5 m NAP),83.7044,12.6479826848095
+Vlie,2017,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),38.4692,5.81281002550014
+Vlie,2017,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),216.4728,32.7096810458259
+Vlie,2017,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),317.9984,48.0504998183742
+Vlie,2017,Supragetijde (> GHW),Supragetijde \n (> GHW),5.1556,0.779026425490223
+Vlie,2023,Totaal,Totaal,664.8244,100
+Vlie,2023,Geul (< -5 m NAP),Geul \n (< -5 m NAP),83.5504,12.5672884448886
+Vlie,2023,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),36.9436,5.55689592620247
+Vlie,2023,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),217.2064,32.6712437148817
+Vlie,2023,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),322.296,48.4783651141565
+Vlie,2023,Supragetijde (> GHW),Supragetijde \n (> GHW),4.828,0.726206799870763

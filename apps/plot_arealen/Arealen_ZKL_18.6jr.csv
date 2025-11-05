@@ -1,37 +1,43 @@
-basin,jaar,dep,area,perc
-Zoutkamperlaag,1989,Totaal,145.6516,100
-Zoutkamperlaag,1989,Geul (< -5 m NAP),17.926,12.3074514801073
-Zoutkamperlaag,1989,Geul (-3 tot -5 m NAP),9.0908,6.24146936937184
-Zoutkamperlaag,1989,Subgetijde (GLW tot -3 m NAP),81.2512,55.7846257782269
-Zoutkamperlaag,1989,Intergetijde (GLW tot GHW),2.668,1.83176841174419
-Zoutkamperlaag,1989,Supragetijde (> GHW),34.7156,23.8346849605497
-Zoutkamperlaag,1993,Totaal,150.6632,100
-Zoutkamperlaag,1993,Geul (< -5 m NAP),15.8904,10.5469683373246
-Zoutkamperlaag,1993,Geul (-3 tot -5 m NAP),11.844,7.86124282505615
-Zoutkamperlaag,1993,Subgetijde (GLW tot -3 m NAP),83.9492,55.719777623202
-Zoutkamperlaag,1993,Intergetijde (GLW tot GHW),1.8724,1.24277195758486
-Zoutkamperlaag,1993,Supragetijde (> GHW),37.1072,24.6292392568325
-Zoutkamperlaag,1999,Totaal,147.022,100
-Zoutkamperlaag,1999,Geul (< -5 m NAP),15.53,10.5630449864646
-Zoutkamperlaag,1999,Geul (-3 tot -5 m NAP),12.4908,8.49587136619009
-Zoutkamperlaag,1999,Subgetijde (GLW tot -3 m NAP),79.4852,54.0634734937628
-Zoutkamperlaag,1999,Intergetijde (GLW tot GHW),2.2844,1.55378106677912
-Zoutkamperlaag,1999,Supragetijde (> GHW),37.2316,25.3238290868033
-Zoutkamperlaag,2005,Totaal,147.4576,100
-Zoutkamperlaag,2005,Geul (< -5 m NAP),16.004,10.8532893523291
-Zoutkamperlaag,2005,Geul (-3 tot -5 m NAP),10.9344,7.4152841223511
-Zoutkamperlaag,2005,Subgetijde (GLW tot -3 m NAP),82.5472,55.980295352698
-Zoutkamperlaag,2005,Intergetijde (GLW tot GHW),2.0876,1.41572899599614
-Zoutkamperlaag,2005,Supragetijde (> GHW),35.8844,24.3354021766257
-Zoutkamperlaag,2011,Totaal,146.8472,100
-Zoutkamperlaag,2011,Geul (< -5 m NAP),17.0152,11.5870101711166
-Zoutkamperlaag,2011,Geul (-3 tot -5 m NAP),11.0532,7.5270076651104
-Zoutkamperlaag,2011,Subgetijde (GLW tot -3 m NAP),81.5108,55.5072211114683
-Zoutkamperlaag,2011,Intergetijde (GLW tot GHW),1.9988,1.36114273884691
-Zoutkamperlaag,2011,Supragetijde (> GHW),35.2692,24.0176183134578
-Zoutkamperlaag,2017,Totaal,146.1612,100
-Zoutkamperlaag,2017,Geul (< -5 m NAP),15.9724,10.9279343628815
-Zoutkamperlaag,2017,Geul (-3 tot -5 m NAP),11.1912,7.65675158660438
-Zoutkamperlaag,2017,Subgetijde (GLW tot -3 m NAP),75.6888,51.7844681078152
-Zoutkamperlaag,2017,Intergetijde (GLW tot GHW),2.2536,1.54185926223923
-Zoutkamperlaag,2017,Supragetijde (> GHW),41.0552,28.0889866804597
+basin,jaar,diepteklasse,diepteklasse_plotname,area,percentage
+Zoutkamperlaag,1989,Totaal,Totaal,145.6516,100
+Zoutkamperlaag,1989,Geul (< -5 m NAP),Geul \n (< -5 m NAP),17.926,12.3074514801073
+Zoutkamperlaag,1989,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),9.0908,6.24146936937184
+Zoutkamperlaag,1989,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),16.8648,11.5788635346265
+Zoutkamperlaag,1989,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),95.9072,65.8469937851695
+Zoutkamperlaag,1989,Supragetijde (> GHW),Supragetijde \n (> GHW),5.8628,4.02522183072483
+Zoutkamperlaag,1993,Totaal,Totaal,150.6632,100
+Zoutkamperlaag,1993,Geul (< -5 m NAP),Geul \n (< -5 m NAP),15.8904,10.5469683373246
+Zoutkamperlaag,1993,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),11.844,7.86124282505615
+Zoutkamperlaag,1993,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),19.7332,13.0975579969097
+Zoutkamperlaag,1993,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),96.6332,64.1385554003897
+Zoutkamperlaag,1993,Supragetijde (> GHW),Supragetijde \n (> GHW),6.5624,4.35567544031987
+Zoutkamperlaag,1999,Totaal,Totaal,147.022,100
+Zoutkamperlaag,1999,Geul (< -5 m NAP),Geul \n (< -5 m NAP),15.53,10.5630449864646
+Zoutkamperlaag,1999,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),12.4908,8.49587136619009
+Zoutkamperlaag,1999,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),18.9704,12.9031029369754
+Zoutkamperlaag,1999,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),93.6648,63.7080164873284
+Zoutkamperlaag,1999,Supragetijde (> GHW),Supragetijde \n (> GHW),6.366,4.32996422304145
+Zoutkamperlaag,2005,Totaal,Totaal,147.4576,100
+Zoutkamperlaag,2005,Geul (< -5 m NAP),Geul \n (< -5 m NAP),16.004,10.8532893523291
+Zoutkamperlaag,2005,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),10.9344,7.4152841223511
+Zoutkamperlaag,2005,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),17.3996,11.7997309056976
+Zoutkamperlaag,2005,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),96.4536,65.4110740985883
+Zoutkamperlaag,2005,Supragetijde (> GHW),Supragetijde \n (> GHW),6.666,4.52062152103384
+Zoutkamperlaag,2011,Totaal,Totaal,146.8472,100
+Zoutkamperlaag,2011,Geul (< -5 m NAP),Geul \n (< -5 m NAP),17.0152,11.5870101711166
+Zoutkamperlaag,2011,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),11.0532,7.5270076651104
+Zoutkamperlaag,2011,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),17.4668,11.8945407198775
+Zoutkamperlaag,2011,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),95.4296,64.9856449424981
+Zoutkamperlaag,2011,Supragetijde (> GHW),Supragetijde \n (> GHW),5.8824,4.00579650139737
+Zoutkamperlaag,2017,Totaal,Totaal,146.1612,100
+Zoutkamperlaag,2017,Geul (< -5 m NAP),Geul \n (< -5 m NAP),15.9724,10.9279343628815
+Zoutkamperlaag,2017,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),11.1912,7.65675158660438
+Zoutkamperlaag,2017,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),16.6432,11.3868796917376
+Zoutkamperlaag,2017,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),95.9812,65.6680432289828
+Zoutkamperlaag,2017,Supragetijde (> GHW),Supragetijde \n (> GHW),6.3732,4.36039112979368
+Zoutkamperlaag,2023,Totaal,Totaal,146.4904,100
+Zoutkamperlaag,2023,Geul (< -5 m NAP),Geul \n (< -5 m NAP),15.8152,10.7960658172822
+Zoutkamperlaag,2023,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),11.5672,7.89621708999361
+Zoutkamperlaag,2023,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),17.6788,12.0682310922764
+Zoutkamperlaag,2023,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),95.1328,64.9413203868649
+Zoutkamperlaag,2023,Supragetijde (> GHW),Supragetijde \n (> GHW),6.2964,4.29816561358287

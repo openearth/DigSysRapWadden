@@ -1,37 +1,43 @@
-basin,jaar,dep,area,perc
-Pinkegat,1989,Totaal,58.1732,100
-Pinkegat,1989,Geul (< -5 m NAP),1.7352,2.98281682974291
-Pinkegat,1989,Geul (-3 tot -5 m NAP),2.2268,3.82787950465163
-Pinkegat,1989,Subgetijde (GLW tot -3 m NAP),45.6196,78.420303507457
-Pinkegat,1989,Intergetijde (GLW tot GHW),0.8624,1.48246959080814
-Pinkegat,1989,Supragetijde (> GHW),7.7292,13.2865305673403
-Pinkegat,1993,Totaal,57.3744,100
-Pinkegat,1993,Geul (< -5 m NAP),1.7452,3.04177472879891
-Pinkegat,1993,Geul (-3 tot -5 m NAP),2.7964,4.8739507515547
-Pinkegat,1993,Subgetijde (GLW tot -3 m NAP),43.2364,75.3583479740093
-Pinkegat,1993,Intergetijde (GLW tot GHW),1.0208,1.77919071920578
-Pinkegat,1993,Supragetijde (> GHW),8.5756,14.9467358264313
-Pinkegat,1999,Totaal,58.5428,100
-Pinkegat,1999,Geul (< -5 m NAP),1.8796,3.21064247012442
-Pinkegat,1999,Geul (-3 tot -5 m NAP),3.0236,5.16476834042786
-Pinkegat,1999,Subgetijde (GLW tot -3 m NAP),44.4924,75.999781356546
-Pinkegat,1999,Intergetijde (GLW tot GHW),0.9164,1.56535047862419
-Pinkegat,1999,Supragetijde (> GHW),8.2308,14.0594573542776
-Pinkegat,2005,Totaal,60.4244,100
-Pinkegat,2005,Geul (< -5 m NAP),1.9548,3.2351169395145
-Pinkegat,2005,Geul (-3 tot -5 m NAP),3.5624,5.8956315660561
-Pinkegat,2005,Subgetijde (GLW tot -3 m NAP),45.5352,75.3589609495502
-Pinkegat,2005,Intergetijde (GLW tot GHW),0.97,1.60531176147384
-Pinkegat,2005,Supragetijde (> GHW),8.402,13.9049787834054
-Pinkegat,2011,Totaal,66.1516,100
-Pinkegat,2011,Geul (< -5 m NAP),1.884,2.8480036764039
-Pinkegat,2011,Geul (-3 tot -5 m NAP),2.8208,4.26414478259029
-Pinkegat,2011,Subgetijde (GLW tot -3 m NAP),51.2324,77.4469551756874
-Pinkegat,2011,Intergetijde (GLW tot GHW),0.95,1.43609527207203
-Pinkegat,2011,Supragetijde (> GHW),9.2644,14.0048010932464
-Pinkegat,2017,Totaal,64.7852,100
-Pinkegat,2017,Geul (< -5 m NAP),1.7272,2.66604100936634
-Pinkegat,2017,Geul (-3 tot -5 m NAP),2.7744,4.28245957410026
-Pinkegat,2017,Subgetijde (GLW tot -3 m NAP),50.0388,77.2380111506949
-Pinkegat,2017,Intergetijde (GLW tot GHW),1.1136,1.71891110932744
-Pinkegat,2017,Supragetijde (> GHW),9.1312,14.0945771565111
+basin,jaar,diepteklasse,diepteklasse_plotname,area,percentage
+Pinkegat,1989,Totaal,Totaal,58.1732,100
+Pinkegat,1989,Geul (< -5 m NAP),Geul \n (< -5 m NAP),1.7352,2.98281682974291
+Pinkegat,1989,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),2.2268,3.82787950465163
+Pinkegat,1989,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),7.5524,12.9826105491876
+Pinkegat,1989,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),46.0644,79.1849167657959
+Pinkegat,1989,Supragetijde (> GHW),Supragetijde \n (> GHW),0.5944,1.02177635062194
+Pinkegat,1993,Totaal,Totaal,57.3744,100
+Pinkegat,1993,Geul (< -5 m NAP),Geul \n (< -5 m NAP),1.7452,3.04177472879891
+Pinkegat,1993,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),2.7964,4.8739507515547
+Pinkegat,1993,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),6.8444,11.9293622242673
+Pinkegat,1993,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),45.4912,79.2883237123177
+Pinkegat,1993,Supragetijde (> GHW),Supragetijde \n (> GHW),0.4972,0.866588583061435
+Pinkegat,1999,Totaal,Totaal,58.5428,100
+Pinkegat,1999,Geul (< -5 m NAP),Geul \n (< -5 m NAP),1.8796,3.21064247012442
+Pinkegat,1999,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),3.0236,5.16476834042786
+Pinkegat,1999,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),7.3616,12.5747316493232
+Pinkegat,1999,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),45.806,78.2436098034259
+Pinkegat,1999,Supragetijde (> GHW),Supragetijde \n (> GHW),0.472,0.80624773669862
+Pinkegat,2005,Totaal,Totaal,60.4244,100
+Pinkegat,2005,Geul (< -5 m NAP),Geul \n (< -5 m NAP),1.9548,3.2351169395145
+Pinkegat,2005,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),3.5624,5.8956315660561
+Pinkegat,2005,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),7.832,12.9616512534671
+Pinkegat,2005,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),46.482,76.925877625595
+Pinkegat,2005,Supragetijde (> GHW),Supragetijde \n (> GHW),0.5932,0.981722615367302
+Pinkegat,2011,Totaal,Totaal,66.1516,100
+Pinkegat,2011,Geul (< -5 m NAP),Geul \n (< -5 m NAP),1.884,2.8480036764039
+Pinkegat,2011,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),2.8208,4.26414478259029
+Pinkegat,2011,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),8.4424,12.7622007630957
+Pinkegat,2011,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),52.1348,78.8110945162324
+Pinkegat,2011,Supragetijde (> GHW),Supragetijde \n (> GHW),0.8696,1.31455626167772
+Pinkegat,2017,Totaal,Totaal,64.7852,100
+Pinkegat,2017,Geul (< -5 m NAP),Geul \n (< -5 m NAP),1.7272,2.66604100936634
+Pinkegat,2017,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),2.7744,4.28245957410026
+Pinkegat,2017,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),8.5048,13.1276896575144
+Pinkegat,2017,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),51.2256,79.0699110290622
+Pinkegat,2017,Supragetijde (> GHW),Supragetijde \n (> GHW),0.5532,0.853898729956842
+Pinkegat,2023,Totaal,Totaal,63.6792,100
+Pinkegat,2023,Geul (< -5 m NAP),Geul \n (< -5 m NAP),1.3448,2.11183557582382
+Pinkegat,2023,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),2.7812,4.36751717986407
+Pinkegat,2023,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),8.21,12.8927499089185
+Pinkegat,2023,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),50.7228,79.6536388648099
+Pinkegat,2023,Supragetijde (> GHW),Supragetijde \n (> GHW),0.6204,0.974258470583801

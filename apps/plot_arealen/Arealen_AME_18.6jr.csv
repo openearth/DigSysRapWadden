@@ -1,37 +1,43 @@
-basin,jaar,dep,area,perc
-Borndiep,1989,Totaal,321.3664,100
-Borndiep,1989,Geul (< -5 m NAP),25.1668,7.83118583647824
-Borndiep,1989,Geul (-3 tot -5 m NAP),15.108,4.7011759785715
-Borndiep,1989,Subgetijde (GLW tot -3 m NAP),213.5812,66.4603393509714
-Borndiep,1989,Intergetijde (GLW tot GHW),3.2408,1.00844394435759
-Borndiep,1989,Supragetijde (> GHW),64.2696,19.9988548896213
-Borndiep,1993,Totaal,319.8152,100
-Borndiep,1993,Geul (< -5 m NAP),24.3268,7.60651776400872
-Borndiep,1993,Geul (-3 tot -5 m NAP),15.4756,4.83891947599739
-Borndiep,1993,Subgetijde (GLW tot -3 m NAP),211.5496,66.1474501524631
-Borndiep,1993,Intergetijde (GLW tot GHW),3.2536,1.01733751241342
-Borndiep,1993,Supragetijde (> GHW),65.2096,20.3897750951174
-Borndiep,1999,Totaal,319.7072,100
-Borndiep,1999,Geul (< -5 m NAP),24.2652,7.58981968501179
-Borndiep,1999,Geul (-3 tot -5 m NAP),14.5896,4.56342553436394
-Borndiep,1999,Subgetijde (GLW tot -3 m NAP),207.666,64.9550588788742
-Borndiep,1999,Intergetijde (GLW tot GHW),3.3932,1.06134613171052
-Borndiep,1999,Supragetijde (> GHW),69.7932,21.8303497700396
-Borndiep,2005,Totaal,317.7672,100
-Borndiep,2005,Geul (< -5 m NAP),24.3508,7.66309424006002
-Borndiep,2005,Geul (-3 tot -5 m NAP),15.4612,4.86557454639749
-Borndiep,2005,Subgetijde (GLW tot -3 m NAP),204.7132,64.4223821716024
-Borndiep,2005,Intergetijde (GLW tot GHW),2.988,0.940311020143048
-Borndiep,2005,Supragetijde (> GHW),70.254,22.1086380217971
-Borndiep,2011,Totaal,312.6864,100
-Borndiep,2011,Geul (< -5 m NAP),24.21,7.74258170486468
-Borndiep,2011,Geul (-3 tot -5 m NAP),14.806,4.73509561017045
-Borndiep,2011,Subgetijde (GLW tot -3 m NAP),197.18,63.0599859795629
-Borndiep,2011,Intergetijde (GLW tot GHW),3.7316,1.19340016067216
-Borndiep,2011,Supragetijde (> GHW),72.7588,23.2689365447298
-Borndiep,2017,Totaal,313.4244,100
-Borndiep,2017,Geul (< -5 m NAP),22.9156,7.31136439919802
-Borndiep,2017,Geul (-3 tot -5 m NAP),15.2676,4.87122253404649
-Borndiep,2017,Subgetijde (GLW tot -3 m NAP),201.7952,64.3840109449041
-Borndiep,2017,Intergetijde (GLW tot GHW),2.8444,0.907523472965091
-Borndiep,2017,Supragetijde (> GHW),70.6016,22.5258786488863
+basin,jaar,diepteklasse,diepteklasse_plotname,area,percentage
+Borndiep,1989,Totaal,Totaal,321.3664,100
+Borndiep,1989,Geul (< -5 m NAP),Geul \n (< -5 m NAP),25.1668,7.83118583647824
+Borndiep,1989,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),15.108,4.7011759785715
+Borndiep,1989,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),62.282,19.3803708166131
+Borndiep,1989,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),187.732,58.4168102203591
+Borndiep,1989,Supragetijde (> GHW),Supragetijde \n (> GHW),31.0776,9.67045714797813
+Borndiep,1993,Totaal,Totaal,319.8152,100
+Borndiep,1993,Geul (< -5 m NAP),Geul \n (< -5 m NAP),24.3268,7.60651776400872
+Borndiep,1993,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),15.4756,4.83891947599739
+Borndiep,1993,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),58.5628,18.3114498622955
+Borndiep,1993,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),190.84,59.6719605572218
+Borndiep,1993,Supragetijde (> GHW),Supragetijde \n (> GHW),30.61,9.57115234047663
+Borndiep,1999,Totaal,Totaal,319.7072,100
+Borndiep,1999,Geul (< -5 m NAP),Geul \n (< -5 m NAP),24.2652,7.58981968501179
+Borndiep,1999,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),14.5896,4.56342553436394
+Borndiep,1999,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),58.6404,18.3419078456788
+Borndiep,1999,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),191.7112,59.964617625127
+Borndiep,1999,Supragetijde (> GHW),Supragetijde \n (> GHW),30.5008,9.54022930981849
+Borndiep,2005,Totaal,Totaal,317.7672,100
+Borndiep,2005,Geul (< -5 m NAP),Geul \n (< -5 m NAP),24.3508,7.66309424006002
+Borndiep,2005,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),15.4612,4.86557454639749
+Borndiep,2005,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),62.4076,19.639408976131
+Borndiep,2005,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),184.082,57.9298303915571
+Borndiep,2005,Supragetijde (> GHW),Supragetijde \n (> GHW),31.4656,9.90209184585445
+Borndiep,2011,Totaal,Totaal,312.6864,100
+Borndiep,2011,Geul (< -5 m NAP),Geul \n (< -5 m NAP),24.21,7.74258170486468
+Borndiep,2011,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),14.806,4.73509561017045
+Borndiep,2011,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),55.888,17.8734988154266
+Borndiep,2011,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),184.3992,58.972568042614
+Borndiep,2011,Supragetijde (> GHW),Supragetijde \n (> GHW),33.3832,10.6762558269244
+Borndiep,2017,Totaal,Totaal,313.4244,100
+Borndiep,2017,Geul (< -5 m NAP),Geul \n (< -5 m NAP),22.9156,7.31136439919802
+Borndiep,2017,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),15.2676,4.87122253404649
+Borndiep,2017,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),60.834,19.4094652490361
+Borndiep,2017,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),181.2896,57.8415720026903
+Borndiep,2017,Supragetijde (> GHW),Supragetijde \n (> GHW),33.1176,10.5663758150291
+Borndiep,2023,Totaal,Totaal,315.3356,100
+Borndiep,2023,Geul (< -5 m NAP),Geul \n (< -5 m NAP),22.9332,7.2726327125767
+Borndiep,2023,Geul (-3 tot -5 m NAP),Geul \n (-3 tot -5 m NAP),14.5232,4.60563285591605
+Borndiep,2023,Subgetijde (GLW tot -3 m NAP),Subgetijde \n (GLW tot -3 m NAP),56.5204,17.9238880735318
+Borndiep,2023,Intergetijde (GLW tot GHW),Intergetijde \n (GLW tot GHW),187.6448,59.5063798695739
+Borndiep,2023,Supragetijde (> GHW),Supragetijde \n (> GHW),33.714,10.6914664884016
