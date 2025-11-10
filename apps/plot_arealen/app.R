@@ -43,7 +43,9 @@ basins <- c(
   "Vlie",
   "Borndiep",
   "Pinkegat",
-  "Zoutkamperlaag"
+  "Zoutkamperlaag",
+  "Groninger Wad",
+  "Eems-Dollard"
 )
 
 arealenfiles <- c(
@@ -52,7 +54,9 @@ arealenfiles <- c(
   "Arealen_AME_18.6jr.csv",
   "Arealen_VLIE_18.6jr.csv",
   "Arealen_ELD_18.6jr.csv",
-  "Arealen_MD_18.6jr.csv"
+  "Arealen_MD_18.6jr.csv",
+  "Arealen_GRWAD_18.6jr.csv",
+  "Arealen_ED_18.6jr.csv"
 )
 
 if(test){ 
@@ -141,7 +145,7 @@ server <- function(input, output, session) {
       theme_light()
 
 
-   ggplotly(p)    
+   ggplotly(p, dynamicTicks = TRUE)    
 
   })
   
