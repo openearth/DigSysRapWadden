@@ -341,333 +341,149 @@ if (knitr::is_html_output()) {
 
 ```
 
-## Arealen {#arealen}
+## Arealen {#arealen} 
 
-*NB Onderstaande beschrijft de huidige methode, op basis van vaste verticale begrenzingen ten opzichte van NAP. Deze methode geeft inzicht in de absolute volumes of oppervlaktes, maar relateert die niet aan de vanuit morfologisch en ecologisch opzicht relevantere waterstand zoals GLW of GHW die door de jaren en ruimtelijk varieert. Een methode die daar wel recht aan doet is momenteel in ontwikkeling en wordt dit jaar beproefd op het Vlie. Het is de bedoeling de nieuwe methode in 2025 voor alle Waddenzeebekkens op de DSR te gebruiken.*
+<!-- nieuwe berekenening door o.a. Edwin Elias, gebruikt variabel wantij en ruimtelijk variabele dieptegrenzen t.o.v. HW en LW -->
 
-Om nauwkeuriger inzicht te krijgen in de areaalveranderingen van verschillende morfologische eenheden van de kombergingsgebieden, wordt de hypsometrische curve onderverdeeld in vier verschillende hoogteklassen:
+```{r leesAreaalData}
 
-1.  Geul (z < -5m)
-2.  Subgetijdengebied (-5m < z < -1m)
-3.  Intergetijdengebied (-1m < z < 1m)
-4.  Supragetijdengebied (z > 1m)
-
-De geulen zijn indicatief voor de transportcapaciteit van het systeem, terwijl ze door de sterke hydrodynamiek vaak arm zijn aan bodemleven. Het subgetijdengebied ligt permanent onder water maar is over het algemeen rustiger en heeft daarmee een functie als bijvoorbeeld kraamkamer voor jonge vis. Het intergetijdengebied betreft het areaal dat een deel van de tijd droogvalt, en is zeer waardevol als foerageergebied voor vogels. Op het hoogste deel, wat het langst droogvalt, kan kweldervorming optreden.  Het supragetijdengebied overstroomt onregelmatig, als gevolg van springtij en stormopzet. Hier kan zich dichte begroeiïng (hoge kwelder) ontwikkelen, of eilandvorming (duinen) optreden. 
-
-Figuur \@ref(fig:arealenOld) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:gebiedenWaddenzee)). De figuur laat zien dat het intergetijdengebied in de meeste bekkens toeneemt over de tijd. Alleen voor de Lauwers en Schild is dit niet zo. Ook neemt het areaal subgetijdengebied af (dit ligt tussen de -5 m NAP en de -1 m NAP lijn). De arealen supragetijdengebied zijn klein, ook omdat enkel de gebieden (cellen) worden meegenomen die in alle jaren opgenomen zijn. Het supragetijdengebied is niet altijd volledig opgenomen in de vaklodingen data, zeker niet in oudere opnamen. De ontwikkeling van het geulareaal verschilt per bekken.
-
-```{r prepare arealen, eval=F}
-
-df.extrema <- read_delim(file.path(datadir, "RWS", "standard", paste0("extremaHLLL", "latest", ".csv")), delim = ";") 
-
-df.extrema.jaar <- df.extrema %>%
-  mutate(jaar = year(time)) %>% 
-  # group_by(locatie.naam) %>%
-  # mutate(across(h, remove_outliers)) %>%
-  group_by(locatie.naam, jaar, HL) %>% 
-  summarise(
-    jaargemiddelde = mean(h, na.rm = T),
-    n = n())
-
-#Niet voor ieder jaar is data aanwezig, dus we gaan extrapoleren voor jaren die er niet zijn
-waterstanden <- df.extrema.jaar %>% filter(jaar >1932)
-
-lmH <- lm(jaargemiddelde ~ jaar * locatie.naam, data=waterstanden %>% filter(HL== 'H'))
-
-n <- length(unique(waterstanden$locatie.naam))
-waterstanden_hw.df <- data.frame(locatie.naam = unique(waterstanden$locatie.naam),
-                                 Intercept = unname(summary(lmH)$coefficients[,1])[c(1,(3):(n+1))],
-                                 Slope = unname(summary(lmH)$coefficients[,1])[c(2,(n+2):(2*n))])
-hwDInt <- waterstanden_hw.df$Intercept[1]
-hwDSlo <- waterstanden_hw.df$Slope[1]
-
-waterstanden_hw.df$Intercept[2:n] <- hwDInt + waterstanden_hw.df$Intercept[2:n]
-waterstanden_hw.df$Slope[2:n] <- hwDSlo + waterstanden_hw.df$Slope[2:n]
-
-lmL <- lm(jaargemiddelde ~ jaar * locatie.naam, data=waterstanden %>% filter(HL== 'L'))
-
-waterstanden_lw.df <- data.frame(locatie.naam = unique(waterstanden$locatie.naam),
-                                 Intercept = unname(summary(lmL)$coefficients[,1])[c(1,(3):(n+1))],
-                                 Slope = unname(summary(lmL)$coefficients[,1])[c(2,(n+2):(2*n))])
-lwDInt <- waterstanden_lw.df$Intercept[1]
-lwDSlo <- waterstanden_lw.df$Slope[1]
-
-waterstanden_lw.df$Intercept[2:n] <- lwDInt + waterstanden_lw.df$Intercept[2:n]
-waterstanden_lw.df$Slope[2:n] <- lwDSlo + waterstanden_lw.df$Slope[2:n]
-
-# We willen output voor de volgende jaren 
-doeljaren <- c("1927","1949","1971","1975","1991","2003","2009","2015", "2019")
-
-# We maken nu twee data frames. Ws bevat waterstanden op basis van de lineaire lijn 
-# over alle gemeten jaren. Extrema bevat de gemeten waardes, behalve voor de missende data, 
-# hiervoor worden de geëxtrapoleerde waterstanden uit ws gebruikt.
-
-ws <- rbind(waterstanden_hw.df %>% mutate(HL = 'H'), waterstanden_lw.df %>% mutate(HL='L')) %>% 
-  arrange(locatie.naam) 
-
-for (doeljaar in doeljaren) {
-  column_name <- doeljaar
-  ws <- ws %>% mutate(!!column_name := as.numeric(doeljaar)*Slope + Intercept)
-}
-
-extrema <- df.extrema.jaar %>% filter(jaar %in% doeljaren) %>% 
-  pivot_wider(names_from = jaar, values_from = jaargemiddelde, id_cols = c('locatie.naam', 'HL')) %>%  as.data.frame()
-extrema_full <- extrema %>% mutate(across(everything(), ~ coalesce(., ws[[cur_column()]])))
-
-# Nu voegen we de coordinaten van de verschillende locaties toe
-metadata <- read_delim(file.path(datadir, "ddl/metadata/Wadden_metadata.csv"),delim = ";") %>%
-  distinct(locatie.naam, x, y,coordinatenstelsel)
-metadata <- metadata %>% group_by(locatie.naam, coordinatenstelsel) %>% summarise(
-  x=mean(x), y= mean(y)
+filenames <- c(
+  "Arealen_ZKL_18.6jr.csv",
+  "Arealen_PGAT_18.6jr.csv",
+  "Arealen_AME_18.6jr.csv",
+  "Arealen_VLIE_18.6jr.csv",
+  "Arealen_ELD_18.6jr.csv",
+  "Arealen_MD_18.6jr.csv",
+  "Arealen_GRWAD_18.6jr.csv",
+  "Arealen_ED_18.6jr.csv"
 )
-extrema_full_m <- as.data.frame(left_join(extrema_full, metadata, by= 'locatie.naam'))
-ws_m <- as.data.frame(left_join(ws, metadata, by= 'locatie.naam'))
 
-# We willen een lang data frame format 
-extrema_full_l <- extrema_full_m %>% 
-  pivot_longer(cols= doeljaren, names_to = 'jaar', values_to = 'level') %>% 
-  mutate(ind = paste0(jaar,HL))
+arealenfiles = file.path(datadir, "arealen", "arealen_processed", filenames) 
 
-ws_l <- ws_m %>% 
-  pivot_longer(cols = doeljaren, names_to = 'jaar', values_to = 'level') %>% 
-  mutate(ind = paste0(jaar, HL))
-
-# Interpolatie voorbereiden 
-
-# Resolutiefactor
-fac = 10 #De bathymetrieën hebben een resolutie van 20x20 m, deze factor bepaalt waarmee deze vermenigvuldigd wordt, belangrijk voor looptijd
-
-# We gebruiken het domein en crs van één van de bathymetrische .tif bestanden die beschikbaar is
-# Resolutie in dit geval 20 *fac meter
-bathymetry1927 <- raster::raster(file.path(mosaicdir, mosaiclist[1]))
-#bathymetry1927_lowres <- aggregate(bathymetry1927, fact=10)
-r_lowres <- raster(extent(bathymetry1927), crs = crs(bathymetry1927), resolution = c(20*fac,20*fac)) 
-
-# We maken G objecten die vervolgens geinterpoleerd kunnen worden
-# De package gstat wordt hiervoor gebruikt
-spdfs <- list()
-spdfs_trans <- list()
-gobjs <- list()
-
-unique_indicators <- unique(extrema_full_l$ind) #iedere combinatie jaar+H/L-water
-
-for (indicator in unique_indicators) {
-  # Creating SpatialPointsDataFrame
-  spdfs[[indicator]] <- SpatialPointsDataFrame(
-    coords = extrema_full_l %>% filter(ind == indicator) %>% select(x, y),
-    data = extrema_full_l %>% filter(ind == indicator),
-    proj4string = CRS(paste0('+init=EPSG:', as.character(metadata$coordinatenstelsel)[1]))
-  )
-  # Coordinate Transformation
-  spdfs_trans[[indicator]] <- spTransform(spdfs[[indicator]], crs(bathymetry1927))
-  # Make Gstat objects 
-  gobjs[[indicator]] <- gstat(formula = level ~ 1, data = spdfs_trans[[indicator]], set = list(idp = 3))
-}
-
-# Interpoleren vlakken 
-
-watervlakken_lowres <- list()
-for (object in unique_indicators){
-  print(paste0('start idw for ', object))
-  watervlakken_lowres[[object]] <- interpolate(r_lowres, gobjs[[object]])
-} 
-
-# We maken eerst een lijst met de doeljaren, bathymetrieën, hoogwaterlijnen en laagwaterlijnen 
-# De bathymetriën laden we in
-bathy_lowres <- c()
-for (jaar in doeljaren) {
-  bathy <- raster::raster(file.path(mosaicdir, paste0('mosaic_', as.character(jaar), '.tif')))
-  print(paste('lowering resolution for', jaar))
-  bathy_lowres[[jaar]] <- aggregate(bathy, fact=fac)
-}
-
-lagen_lowres <- list(jaar = doeljaren, bathymetry = bathy_lowres, laagwater = watervlakken_lowres[10:18], hoogwater = watervlakken_lowres[1:9])
-
-# We voegen voor ieder jaar de areaalvlakken toe
-matrix <- cbind(from=c(-Inf,0),
-                to = c(0, Inf),
-                becomes = c(0, 1))
-matrix_inv <- cbind(from=c(-Inf,0),
-                    to = c(0, Inf),
-                    becomes = c(1, 0))
-
-for (i in 1:length(doeljaren)){
-  lagen_lowres$subtidal[[i]] <- reclassify(lagen_lowres$laagwater[[i]] - lagen_lowres$bathymetry[[i]], matrix)
-  #lagen_lowres$geul[[i]] <- reclassify(lagen_lowres$bathymetry[[i]]+5, matrix_inv)
-  lagen_lowres$geul[[i]] <- reclassify((lagen_lowres$laagwater[[i]]-2)-lagen_lowres$bathymetry[[i]],matrix)
-  lagen_lowres$supratidal[[i]] <- reclassify(lagen_lowres$bathymetry[[i]]-lagen_lowres$hoogwater[[i]], matrix)
-  lagen_lowres$intertidal[[i]] <- reclassify(reclassify(lagen_lowres$laagwater[[i]]-lagen_lowres$bathymetry[[i]], matrix_inv)-
-                                        reclassify(lagen_lowres$bathymetry[[i]]-lagen_lowres$hoogwater[[i]], matrix_inv),rcl =cbind(from = c(-Inf, -.01, .01),to = c(-.01, .01, Inf), become = c(0,1,0)))
-}
-
-
-save(lagen_lowres, file = file.path(datadir, "RWS", "bathymetrie", "lagen.Rdata"))
+  arealen <- map(
+    1:length(arealenfiles), 
+    \(x) read_csv(arealenfiles[x], col_types = cols())
+  ) %>% 
+    bind_rows() %>%
+    mutate(
+      percentage = round(percentage,0),
+      area = signif(area, 3)
+    ) %>%
+    mutate(diepteklasse_plotname = 
+             str_replace_all(
+               diepteklasse_plotname, 
+               fixed(" \\n "), 
+               "\n"
+             )
+    )
+  
 ```
 
-```{r arealen, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse.", eval=FALSE}
 
-load(file = file.path(datadir, "RWS", "bathymetrie", "lagen.Rdata"))
+```{r areaalsettings}
 
-# Voor het croppen moeten we de sf omzetten naar sp
-poly_sp <- as(poly, 'Spatial')
+colors <- c(
+  "Geul\n(< -5 m NAP)" = "#16466E",
+  "Geul\n(-3 tot -5 m NAP)" = "#3681BF",
+  "Subgetijde\n(GLW tot -3 m NAP)" = "#87BCE8",
+  "Intergetijde\n(GLW tot GHW)" = "#CFBA7C",
+  "Supragetijde\n(> GHW)"  = "#61A13B"
+)
 
-bekkens <- poly_sp$name
-hoogteklassen <- c('geul', 'subtidal', 'intertidal', 'supratidal')
-bekkens.df <- data.frame(jaar = integer(), naam = integer(), oppervlakte = numeric(), areaal = character())
+diepteklassen <- c(
+  "Geul\n(< -5 m NAP)",
+  "Geul\n(-3 tot -5 m NAP)",
+  "Subgetijde\n(GLW tot -3 m NAP)",
+  "Intergetijde\n(GLW tot GHW)",
+  "Supragetijde\n(> GHW)",
+  "Totaal"
+)
 
-for(hoogteklasse in hoogteklassen){
-  for(i in 1:length(lagen_lowres[[hoogteklasse]])) {
-    for(j in 1:length(poly_sp)) {
-      masked <- mask(crop(lagen_lowres[[hoogteklasse]][[i]], extent(poly_sp[j,])), poly_sp[j,])
-      oppervlakte <- sum(masked@data@values, na.rm=T) *200 *200 /1000000
-      bekkens.df <- rbind(bekkens.df, data.frame(jaar = doeljaren[i], naam = bekkens[j], oppervlakte = oppervlakte, areaal=hoogteklasse))
-    }
+basins <- c(
+  "Marsdiep",
+  "Eijerlandse Gat",
+  "Vlie",
+  "Borndiep",
+  "Pinkegat",
+  "Zoutkamperlaag",
+  "Groninger Wad",
+  "Eems-Dollard"
+)
+
+```
+
+```{r stackedAreas, fig.width=8, fig.height=8,  fig.cap = ""}
+
+plot_as_plotly = T
+
+  p <- arealen %>%
+    filter(diepteklasse != "Totaal") %>%
+    mutate(diepteklasse_plotname = factor(diepteklasse_plotname, levels = rev(diepteklassen))) %>%
+    mutate(diepteklasse = factor(diepteklasse, levels = str_replace(diepteklassen, fixed("\n"), ""))) %>%
+    mutate(basin = factor(basin, levels = basins)) %>%
+    ggplot(aes(jaar, area)) +
+    geom_area(
+      aes(fill = diepteklasse_plotname), 
+      # position = position_fill(),
+      alpha = 0.6
+    ) +
+    facet_wrap("basin", scales = "free") +
+    scale_fill_manual(values = colors) +
+    scale_y_continuous(expand = c(0, 20)) +
+    scale_x_continuous(expand = c(0, 0)) +
+    theme_bw() +
+    theme(
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      panel.border = element_blank()
+    )
+
+  if(plot_as_plotly){
+  ggplotly(
+    p + ylab("oppervlakte in km2")
+      ) %>% 
+      plotly::layout(
+        legend = list(
+          itemclick = FALSE,
+          itemdoubleclick = FALSE,
+          groupclick = FALSE,
+          dragMode = FALSE),
+        xaxis = list(
+          fixedrange = TRUE
+        ), 
+        yaxis = list(
+          fixedrange = TRUE
+        )
+      ) %>%
+      plotly::config(
+        modeBarButtonsToRemove = c('zoom2d','pan2d', 'zoomIn2d', 'zoomOut2d')
+        # displayModeBar = FALSE
+      )
+  } else{
+    p + 
+      ylab(bquote("oppervlakte in  "(km^2)))
   }
-}
-
-if (remove_seventies_easternWadden){
-  bekkens.df <- bekkens.df %>% 
-    filter(!(naam %in% c("Lauwers", "Eilanderbalg", "Schild") & jaar < 1972))
-}
-
-bekkens.df$naam <- factor(bekkens.df$naam, levels = namen_west_oost)
-
-bekkens.df <- bekkens.df %>%
-  mutate(areaal = ifelse(areaal == 'subtidal', 'subgetijdengebied', areaal)) %>% 
-  mutate(areaal = ifelse(areaal == 'intertidal', 'intergetijdengebied', areaal)) %>% 
-  mutate(areaal = ifelse(areaal == 'supratidal', 'supragetijdengebied', areaal))
-
-bekkens.df$areaal <- factor(bekkens.df$areaal, levels = c('geul', 'subgetijdengebied', 'intergetijdengebied', 'supragetijdengebied'))
-
-ggplot(aes(jaar, oppervlakte), data= bekkens.df %>% 
-         mutate(oppervlakte = as.numeric(oppervlakte)) %>% 
-         mutate(jaar = as.numeric(jaar))) +
-    geom_line(aes()) +
-    geom_point(aes(), shape = 21, fill = "white", size = 3) +
-    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
-    facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free") +
-    theme(strip.text.y = element_text(angle = 0)) +
-    ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
-    coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2)) +
-    ggtitle("Areaal in km^2 per bekken en diepteklasse")
-
+  
 ```
 
-```{r arealenOld, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per gebied en diepteklasse.", include=TRUE}
+```{r barPlotArealen, out.width = 8, out.height = 8, fig.cap = ""}
 
-if (remove_seventies_easternWadden){
-  valid.values.df <- valid.values.df %>% 
-    filter(!(naam %in% c("Lauwers", "Eilanderbalg", "Schild") & jaar < 1972))
-}
+p <- arealen %>%
+  filter(diepteklasse != "Totaal") %>%
+  mutate(diepteklasse_plotname = factor(diepteklasse_plotname, levels = diepteklassen)) %>%
+  mutate(diepteklasse = factor(diepteklasse, levels = str_replace(diepteklassen, fixed("\n"), ""))) %>%
+  mutate(basin = factor(basin, levels = basins)) %>%
+  ggplot(aes(diepteklasse_plotname, percentage)) +
+  geom_col(aes(fill = jaar), position = position_dodge2()) +
+  facet_wrap("basin") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust = 1)) +
+  ylab("relatief oppervlakte (%)") +
+  xlab("diepteklasse")
+# p
 
-
-p<-valid.values.df  %>%
-    mutate(class=case_when(
-      diepte < -5 ~ "geul",
-      diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
-      diepte >= -1 & diepte < 1 ~ "intergetijdengebied",
-      diepte >= 1 ~ "supragetijdengebied"
-    )) %>%
-    mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
-    group_by(naam, jaar, class) %>%
-    mutate(oppervlakte = 400/1e6) %>%  # nu in km2
-    summarize(oppervlakte = sum(oppervlakte)) %>%
-    as.data.frame() %>% 
-    complete(naam, jaar, class, fill = list(oppervlakte = 0)) %>%
-    ggplot(aes(jaar, oppervlakte)) +
-    geom_line(aes()) +
-    geom_point(aes(), shape = 21, fill = "white", size = 3) +
-    # facet_grid(naam ~ class, scales = "free") + #free_y facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free_y") + #
-    facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free") +
-    theme(strip.text.y = element_text(angle = 0)) +
-    ylab(expression(Oppervlakte ~ "[" ~ km^2 ~ "]")) + xlab("Jaar") +
-    coord_cartesian(xlim = c(1920, 2020)) +
-    ggtitle("Areaal in km^2 per bekken en diepteklasse")
-
-#ggplotly(
-#    p, 900, 900) %>%
-#    config(displayModeBar = F) %>%
-#    layout(xaxis=list(fixedrange=TRUE)) %>%
-#    layout(yaxis=list(fixedrange=TRUE)
-#    )
-
-p
-```
-
-Figuur \@ref(fig:arealenDeelgebiedenOld) toont de arealen per klasse (kolommen) en per bekken (rijen; voor begrenzing zie figuur \@ref(fig:deelgebiedenWaddenzee)). Het geulareaal is over de laatste decennia toegenomen in het Balgzand, de Boontjes, Texelstroom en Zwanenbalg. In het Scheurrak en Doovebalg is het geulareaal redelijk constant sinds de jaren 70. In het Balgzand, de Boontjes en Zwanenbalg neemt het totale subgetijdegebied (dus inclusief het geulareaal) af. Dit betekent dat een steeds groter deel van het subgetijdegebied uitdiept. In de Texelstroom neemt het subgetijdegebied toe. Het intertijdegebied laat een tegenovergesteld beeld zien. In het Balgzand, de Boontjes en Zwanenbalg komt er dus steeds meer intergetijdegebied in plaats van subgetijdegebied, terwijl in de Texelstroom juist intergetijdegebied ingewisseld wordt voor subgetijdegebied. Het supragetijdegebied is zeer klein, in sommige jaren en in het Scheurrak was er zelfs überhaupt geen areaal boven de +1 NAP.
-
-```{r arealenDeelgebieden, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per deelgebied en diepteklasse.", eval=FALSE}
-deelgebieden_sp <- as(deelgebieden_sf$geometry, 'Spatial')
-
-deelgebieden.df <- data.frame(jaar = integer(), gebied = integer(), oppervlakte = numeric(), areaal = character())
-
-for(hoogteklasse in hoogteklassen){
-  for(i in 1:length(lagen_lowres[[hoogteklasse]])) {
-    for(j in 1:length(deelgebieden_sp)) {
-      masked <- mask(crop(lagen_lowres[[hoogteklasse]][[i]], extent(deelgebieden_sp[j,])), deelgebieden_sp[j,])
-      oppervlakte <- sum(masked@data@values, na.rm=T) *200 *200 /1000000
-      deelgebieden.df <- rbind(deelgebieden.df, data.frame(jaar = doeljaren[i], naam = deelgebieden[j], oppervlakte = oppervlakte, areaal=hoogteklasse))
-    }
-  }
-}
-
-deelgebieden.df <- deelgebieden.df %>%
-  mutate(areaal = ifelse(areaal == 'subtidal', 'subgetijdengebied', areaal)) %>% 
-  mutate(areaal = ifelse(areaal == 'intertidal', 'intergetijdengebied', areaal)) %>% 
-  mutate(areaal = ifelse(areaal == 'supratidal', 'supragetijdengebied', areaal))
-
-ggplot(aes(jaar, oppervlakte), data= deelgebieden.df %>% 
-         mutate(oppervlakte = as.numeric(oppervlakte)) %>% 
-         mutate(jaar = as.numeric(jaar))) +
-    geom_line(aes()) +
-    geom_point(aes(), shape = 21, fill = "white", size = 3) +
-    # facet_grid(naam ~ areaal, scales = "free") + #free_y facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free_y") + #
-    facet_wrap(~ interaction(areaal, naam), ncol = 4, scales = "free") +
-    theme(strip.text.y = element_text(angle = 0)) +
-    ylab("Oppervlakte [km^2^}]") + xlab("Jaar") +
-    ggtitle("Areaal in km^2 per bekken en diepteklasse")+ 
-  coord_cartesian(xlim = c(1920, max(as.numeric(doeljaren))+2))
-```
-
-```{r arealenDeelgebiedenOld, fig.height = 12, fig.width = 12, fig.cap = "Tijdseries met gemeten areaal in km^2^ per deelgebied en diepteklasse.", include=TRUE}
-
- p<-valid.values.Marsdiep.df  %>%
-      mutate(class=case_when(
-        diepte < -5 ~ "geul",
-        diepte >= -5 & diepte < -1 ~ "subgetijdengebied",
-        diepte >= -1 & diepte < 1 ~ "intergetijdengebied",
-        diepte >= 1 ~ "supragetijdengebied"
-      )) %>%
-      mutate(class = factor(class, levels = c("geul", "subgetijdengebied", "intergetijdengebied", "supragetijdengebied"))) %>%
-      group_by(naam, jaar, class) %>% 
-      mutate(oppervlakte = 400/1e6) %>%  # nu in km2
-      summarize(oppervlakte = sum(oppervlakte)) %>%
-      as.data.frame() %>% 
-      complete(naam, jaar, class, fill = list(oppervlakte = 0)) %>% 
-      ggplot(aes(jaar, oppervlakte)) +
-      geom_line(aes()) +
-      geom_point(aes(), shape = 21, fill = "white", size = 3) +
-      # facet_grid(naam ~ class, scales = "free") + #free_y facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free_y") + #
-      facet_wrap(~ interaction(class, naam), ncol = 4, scales = "free") +
-      theme(strip.text.y = element_text(angle = 0)) +
-      ylab(expression(Oppervlakte ~ "[" ~ km^2 ~ "]")) + xlab("Jaar") +
-      coord_cartesian(xlim = c(1920, 2020)) +
-      ggtitle("Areaal in km^2 per deelgebied en diepteklasse")
-
-#if(knitr::is_html_output()) {
-#  ggplotly(
-#    p, 900, 900) %>%
-#    config(displayModeBar = F) %>%
-#    layout(xaxis=list(fixedrange=TRUE)) %>%
-#    layout(yaxis=list(fixedrange=TRUE)
-#    )
-#} else p
-
-p
+ggplotly(p)
 
 ```
-
-
 
 
 ```{r arealen_nieuw, fig.cap = "Arealen voor verschillende diepteklassen met nieuwe bathymetrie en diepteklassen gerelateerd aan GHW en GLW (preliminair)."}
