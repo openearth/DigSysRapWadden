@@ -5,7 +5,7 @@ account: deltares
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 15681274
-bundleId: 11013170
+bundleId: 11157466
 url: https://deltares.shinyapps.io/plot_arealen/
 version: 1
 asMultiple: FALSE

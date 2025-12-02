@@ -386,11 +386,12 @@ Voor zwevende stof is de anomalie, de afwijking ten opzichte van het langjarig g
 De verschillende bodemkaarten van de Waddenzee zijn een samenslag van lodingen en hoogtemetingen over de verschillende kombergingsgebieden waarvan er jaarlijks één bemeten wordt. Zo is elke 6 jaar door Rijkswaterstaat een kaart van de volledige Waddenzee geconstrueerd, op basis van de kaarten van deelgebieden over die periode. Deze zogenaamde vaklodingen zijn opgehaald van de [Open Earth Dataserver](https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html). De database bevat de vaklodingen data in 20x20 m resolutie. De vaklodingen zijn een combinatie van lodingen van de diepe delen aangevuld met LiDAR opnames van platen en waterpassingen/RTK-DGPS van de hoge delen zoals kwelders. Voor meer informatie over deze metingen verwijzen we naar de desbetreffende webpagina van [Rijkswaterstaat](https://waterinfo-extra.rws.nl/monitoring/morfologie/).
 De eerste volledige kaart dateert van 1991, met data over de periode 1985-1991. Let wel, deze kennen missende punten en vooral de kwelders en ondiepe gebieden langs de eilandkusten zijn niet volledig. De serie bodems vanaf 1985 zijn begin 2024 door Deltares opnieuw gecombineerd, aangevuld en gecorrigeerd en ontsloten via Datahuis Wadden. Voor de bodems vóór 1985 geldt dat de lodingen minder systematisch plaats vonden en ontsloten werden, waardoor de samengestelde bodems minder duidelijk terug te voeren zijn op een bepaalde periode. De tabel hieronder geeft een overzicht van de gebiedsdekkende kaarten vanuit de volledige vaklodingencycli en de onderliggende jaren van de afzonderlijke zeegaten.   
 
-```{r}
+```{r vaklodingcyclus}
 library(kableExtra)
-VaklodingTable <- readxl::read_excel("P:/11202493--systeemrap-grevelingen/1_data/Wadden/DSR_samenvattingVaklodingen.xlsx")
+pad <- file.path(datadir, "DSR_samenvattingVaklodingen.csv")
+VaklodingTable <- read_csv2(pad)
 VaklodingTable %>%
-  kbl() %>%
+  kbl(caption = "Vaklodingcyclus van Rijkswaterstaat") %>%
   kable_styling()
 ```
 
@@ -401,6 +402,15 @@ De visualisatie van de bodemligging van de Waddenzee is interactief beschikbaar 
 De oorspronkelijke data is gemeten en opgeleverd door RWS voor elk jaar^[https://waterinfo-extra.rws.nl/monitoring/morfologie/#h53b817e6-e5cd-49d1-873c-9a0f85d8e416], en opgeslagen op een thredds server van Deltares als netcdf^[https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html]. Van elke netcdf is één tiff file per jaar gemaakt door een script^[https://github.com/openearth/eo-bathymetry/blob/master/notebooks/Vaklodingen2EE.ipynb] en in een Google Cloud storage (gs) map gevat. Hierna is van gs een Google Earth Engine (gee) Image Collection van vaklodingen data gemaakt. De r shiny app gebruikt een API service^[https://github.com/openearth/hydro-engine-service/blob/master/hydroengine_service/main.py] die de Image Collection leest, op basis van de gegeven input data.
 
 Voor het berekenen van morfologische indicatoren zijn de vaklodingen als rasters (tiff) samengesteld voor elk jaar voor de hele Waddenzee. De rasters bestaan uit data van het betreffende jaar, gecombineerd met data van alle voorgaande jaren, waarbij alleen de meest recente waarde per pixel gebruikt wordt. Nadeel is dat sommige delen van een raster oudere waarden kunnen bevatten. Het voordeel is dat er voor elk jaar een gebiedsdekkend raster voorhanden is. 
+
+### Additionele arealenvisualisatie
+
+
+```{r arealen_nieuw, fig.cap = "Arealen voor verschillende diepteklassen met nieuwe bathymetrie en diepteklassen gerelateerd aan GHW en GLW (preliminair)."}
+
+knitr::include_url("https://deltares.shinyapps.io/plot_arealen/", height = "600px")
+
+```
 
 ## Brondata bodemslibgehalte {#Appbodemkwaliteit}
 

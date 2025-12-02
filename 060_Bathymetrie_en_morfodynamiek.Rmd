@@ -412,7 +412,7 @@ basins <- c(
 
 ```
 
-```{r stackedAreas, fig.width=8, fig.height=8,  fig.cap = ""}
+```{r stackedAreas, fig.width=8, fig.height=8,  fig.cap = "Areaalontwikkeling van bekkens in de Waddenzee."}
 
 plot_as_plotly = T
 
@@ -466,7 +466,7 @@ plot_as_plotly = T
   
 ```
 
-```{r barPlotArealen, out.width = 8, out.height = 8, fig.cap = ""}
+```{r barPlotArealen, out.width = 8, out.height = 8, fig.cap = "Relatieve areaalontwikkeling van bekkens in de Waddenzee."}
 
 p <- arealen %>%
   filter(diepteklasse != "Totaal") %>%
@@ -485,12 +485,6 @@ ggplotly(p)
 
 ```
 
-
-```{r arealen_nieuw, fig.cap = "Arealen voor verschillende diepteklassen met nieuwe bathymetrie en diepteklassen gerelateerd aan GHW en GLW (preliminair)."}
-
-knitr::include_url("https://deltares.shinyapps.io/plot_arealen/", height = "600px")
-
-```
 
 
 ## Plaathoogte

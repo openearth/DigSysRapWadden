@@ -281,7 +281,7 @@ save(df_all,
 
 #==== waterhoogte alle jaren  ===============================
 
-for(year in c(2000:2025)){ # done
+for(year in c(2005:2024)){ # done
   # for(year in c(1870:2021)){
   startdate <- paste0(year, "-01-01T00:00:00.000+01:00")  # hardcoded startyear
   enddate <- paste0(year+1, "-01-01T00:00:00.000+01:00")
@@ -351,10 +351,12 @@ for(year in c(2000:2025)){ # done
         parameter.code, grootheid.code, numeriekewaarde, groepering.code
       )
       filename <- paste(ophaalCatalogus$locatie.code[jj], ophaalCatalogus$compartiment.code[jj], str_replace(ophaalCatalogus$grootheid.code[jj], "[^A-Za-z0-9]+", "_"), ophaalCatalogus$parameter.code[jj], str_replace(ophaalCatalogus$hoedanigheid.code[jj], "[^A-Za-z0-9]+", "_"), year, "ddl_wq.csv", sep = "_")
-      write_delim(writefile, file = file.path(datadir, "ddl/raw/waterhoogte2", filename), delim = ";")} else {
-        cat("no data found")
-        next
-      }
+      write_delim(writefile, file = file.path(datadir, "ddl/raw/waterhoogte2", filename), delim = ";")} 
+    cat("downloading data")
+    else{
+      cat("no data found")
+      next
+    }
   }
 }
 
@@ -365,20 +367,29 @@ source("r/runThisFirst.R")
 
 allFiles = list()
 
-filenamesRaw = list.files(file.path(datadir, "ddl/raw/waterhoogte"), full.names = T, recursive = T, pattern = "WATHTE_")
+filenamesRaw = list.files(file.path(datadir, "ddl/raw/waterhoogte2"), full.names = T, recursive = T, pattern = "WATHTE_")
+filenamesRaw2 = list.files(file.path(datadir, "ddl/raw/waterhoogte"), full.names = T, recursive = T, pattern = "WATHTE_")
+
+match(basename(filenamesRaw), basename(filenamesRaw2))
+
+filenamesRaw_toconvert <- c(filenamesRaw, filenamesRaw2[!basename(filenamesRaw2) %in% basename(filenamesRaw)]) 
+
 
 # filenamesRaw <- filenamesRaw[grepl("KOBU", filenamesRaw, ignore.case = T)]
 
-allFiles <- lapply(filenamesRaw, function(x) 
-  read_delim(x, delim = ";", 
-             col_types = 'cccccccccccn',
-             guess_max = 100000
+allFiles <- lapply(filenamesRaw_toconvert, function(x){ 
+  df <- read_delim(x, delim = ";", 
+                   col_types = 'cccccccccccn',
+                   guess_max = 100000
   ) %>%
     filter(kwaliteitswaarde.code < 50, numeriekewaarde < 999, numeriekewaarde >= -999) %>%
     mutate(tijdstip = as_datetime(as.character(tijdstip), tz = "CET")) %>%
     filter(year(tijdstip) == median(year(tijdstip))) # to filter out first tijdstip in next year
-    
+  df <- df[!duplicated(df),]
+  df
+  }
 )
+  
 
 # conversion should not be necessary, when reading is done as above
 # allFiles <- map(allFiles, function(x) x %>% mutate(kwaliteitswaarde.code = as.character(kwaliteitswaarde.code)))

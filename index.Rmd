@@ -3,7 +3,7 @@ title: "Digitale Systeemrapportage van de Waddenzee"
 # author: "Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren, Vincent van Zelst, Jasper Dijkstra"
 # date: '`r Sys.Date()`'
 site: bookdown::bookdown_site
-bibliography: "references/wadden.bib"
+bibliography: ["references/wadden.bib", "WillemsReferences.bib"]
 biblio-style: "apalike"
 link-citations: yes
 # number_sections: true

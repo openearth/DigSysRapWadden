@@ -1,5 +1,8 @@
 ## voorbereiding van digitale watersysteemrapportage
 
+# waterhoogtes
+# custom script voor selectie van stations
+
 ####===  install packages and dependencies ========
 getPackage <- function(pkg){
   if(!require(pkg, character.only = TRUE)){
@@ -72,7 +75,7 @@ leaflet::leaflet(mijnLocaties_wgs) %>%
   leaflet::addLayersControl(
     baseGroups = c("OSM",  "Esri.WorldTopoMap", "Esri.WorldImagery"),
     overlayGroups = c("all_locations", "watersysteem", "OpenSeaMap")) %>%    #, "KRW waterlichamen 2006"
-  hideGroup("KRW waterlichamen 2006")
+  leaflet::hideGroup("KRW waterlichamen 2006")
 
 
 

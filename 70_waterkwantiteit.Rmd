@@ -184,7 +184,7 @@ Figuur \@ref(fig:kaartGetijslag) geeft de gemiddelde getijslag over 2011-2020 we
 metadata <- read_delim(file.path(datadir, "ddl/metadata/Wadden_metadata.csv"),delim = ";") %>%
   distinct(locatie.naam, x, y)
 
-gemGetijslag <- df.extrema.jaar %>%
+gemGetijslag <- df.extrema.jaar %>% ungroup() %>%
   filter(jaar == endyear) %>%
   pivot_wider(id_cols = c(locatie.naam, jaar), names_from = HL, values_from = jaargemiddelde) %>%
   mutate(`getijslag in cm` = H-L) %>% 
