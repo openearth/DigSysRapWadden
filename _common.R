@@ -22,9 +22,5 @@ knitr::opts_chunk$set(
   cache.lazy = FALSE
   )
 
-# require(tidyverse)
-# require(lubridate)
-# require(sf)
-# require(stringr)
-# require(raster)
-
+bib1 <- bibtex::read.bib("references/WillemsReferences.bib")
+bibtex::write.bib(bib1, "references/WillemsReferences.bib")

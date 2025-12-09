@@ -29,51 +29,58 @@ Sinds 2008 zijn door het NIOZ monsters gestoken van het intergetijdengebied en i
 ```
 
 
-```{r sedimentatlasSlib, fig.cap="Slibgehalte in de Waddenzee zoals opgenomen in de sedimentatlas."}
+```{r sedimentatlasSlib, eval=F, fig.cap="Slibgehalte in de Waddenzee zoals opgenomen in de sedimentatlas."}
 
-require(RNetCDF)
-url = "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/sedimentatlas_waddenzee/korrel.nc"
-con = RNetCDF::open.nc(url)
-RNetCDF::print.nc(con)
+# require(RNetCDF)
+# url = "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/sedimentatlas_waddenzee/korrel.nc"
+# con = RNetCDF::open.nc(url)
+# RNetCDF::print.nc(con)
+# 
+# lats <- RNetCDF::var.get.nc(con, "lat")
+# lons <- RNetCDF::var.get.nc(con, "lon")
+# diameters <- RNetCDF::var.get.nc(con, "diameter")
+# RNetCDF::close.nc(con)
+# 
+# require(tidync)
+# nc <- tidync::tidync(url)
+# tidync::hyper_dims(nc)
+# tidync::hyper_vars(nc)
+# tidync::hyper_dims(nc)
+# 
+# # diameters <- c( 4000.0, 2828.0, 2000.0, 1414.0, 1000.0, 707.0, 500.0, 354.0, 250.0, 177.0, 125.0, 88.0, 63.0, 44.0, 32.0, 22.0, 16.0, 11.0, 8.0, 5.5, 4.0, 2.7, 2.0, 1.4, 1.0, 0.7)
+# # names(diameters) <- c(1:length(diameters)) 
+# 
+# sedimentatlas <- tidync::hyper_tibble(nc) %>%
+#   mutate(diam = recode(particle_diameter, !!!diameters)) %>%
+#   mutate(lng = recode(locations, !!!lons)) %>%
+#   mutate(lat = recode(locations, !!!lats))
+# 
+# slib <- sedimentatlas %>% 
+#   group_by(lng, lat) %>%
+#   summarize(
+#     slibgehalte = sum(phi[diam < 63.0]),
+#     rest = sum(phi[diam >= 63.0])
+#     ) %>% 
+#   filter(slibgehalte < 100)
 
-lats <- RNetCDF::var.get.nc(con, "lat")
-lons <- RNetCDF::var.get.nc(con, "lon")
-diameters <- RNetCDF::var.get.nc(con, "diameter")
-RNetCDF::close.nc(con)
-
-require(tidync)
-nc <- tidync::tidync(url)
-tidync::hyper_dims(nc)
-tidync::hyper_vars(nc)
-tidync::hyper_dims(nc)
-
-# diameters <- c( 4000.0, 2828.0, 2000.0, 1414.0, 1000.0, 707.0, 500.0, 354.0, 250.0, 177.0, 125.0, 88.0, 63.0, 44.0, 32.0, 22.0, 16.0, 11.0, 8.0, 5.5, 4.0, 2.7, 2.0, 1.4, 1.0, 0.7)
-# names(diameters) <- c(1:length(diameters)) 
-
-sedimentatlas <- tidync::hyper_tibble(nc) %>%
-  mutate(diam = recode(particle_diameter, !!!diameters)) %>%
-  mutate(lng = recode(locations, !!!lons)) %>%
-  mutate(lat = recode(locations, !!!lats))
-
-slib <- sedimentatlas %>% 
-  group_by(lng, lat) %>%
-  summarize(
-    slibgehalte = sum(phi[diam < 63.0]),
-    rest = sum(phi[diam >= 63.0])
-    ) %>% 
-  filter(slibgehalte < 100)
-
-# slib %>%
-#   ggplot(aes(lng, lat)) +
-#   geom_point(aes(color = slibgehalte)) 
-
-pal = leaflet::colorNumeric(jet.colors(n = 7), slib$slibgehalte)
-
-leaflet(slib) %>%
-  addTiles('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png') %>% 
-  # addCircleMarkers(stroke = F, fillColor = ~pal(slibgehalte), fillOpacity = 1)
-  addCircles(color = ~pal(slibgehalte), fillOpacity = 1, weight = 10) %>%
-  leaflet::addLegend(position = "bottomright", pal = pal, values = slib$slibgehalte)
+## from our own data storage (copy of opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/sedimentatlas_waddenzee/korrel.nc)
+# sedimentatlast <- readr::read_delim(file.path(datadir, r"(RWS\korrelgrootten\korrelSedimentAtlas.txt)"))
+# 
+# slib <- sedimentatlast %>%
+#   sf::st_as_sf(coords = c("X_COORD", "Y_COORD"), crs = 28992) %>%
+#   sf::st_transform(4326) %>%
+#   mutate(
+#     slibgehalte = 
+#   )
+# 
+# 
+# pal = leaflet::colorNumeric(jet.colors(n = 7), slib$slibgehalte)
+# 
+# leaflet(slib) %>%
+#   addTiles('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png') %>% 
+#   # addCircleMarkers(stroke = F, fillColor = ~pal(slibgehalte), fillOpacity = 1)
+#   addCircles(color = ~pal(slibgehalte), fillOpacity = 1, weight = 10) %>%
+#   leaflet::addLegend(position = "bottomright", pal = pal, values = slib$slibgehalte)
 
 ```
 

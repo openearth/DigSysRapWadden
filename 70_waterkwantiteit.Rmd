@@ -184,8 +184,11 @@ Figuur \@ref(fig:kaartGetijslag) geeft de gemiddelde getijslag over 2011-2020 we
 metadata <- read_delim(file.path(datadir, "ddl/metadata/Wadden_metadata.csv"),delim = ";") %>%
   distinct(locatie.naam, x, y)
 
+#! sommige locaties hebben geen coordinaten. Dit moet gecheckt worden 
+
 gemGetijslag <- df.extrema.jaar %>% ungroup() %>%
-  filter(jaar == endyear) %>%
+  # filter(jaar == endyear) %>%
+  filter(jaar == max(df.extrema.jaar$jaar)) %>%
   pivot_wider(id_cols = c(locatie.naam, jaar), names_from = HL, values_from = jaargemiddelde) %>%
   mutate(`getijslag in cm` = H-L) %>% 
   ungroup() %>%
@@ -193,6 +196,7 @@ gemGetijslag <- df.extrema.jaar %>% ungroup() %>%
   summarize(`gemiddelde getijslag in cm` = mean(`getijslag in cm`, na.rm = T)) %>%
   ungroup() %>%
   left_join(metadata, by = c(locatie.naam = "locatie.naam")) %>%
+  filter(!is.na(x)) %>%
   sf::st_as_sf(coords = c("x", "y"), crs = 25831) %>%
   st_transform(4326) 
 
@@ -344,9 +348,11 @@ pal <- colorNumeric(
 
 metadata <- read_delim(file.path(datadir, "ddl/metadata/Wadden_metadata.csv"),delim = ";") %>%
   distinct(locatie.naam, x, y)
+
 yearlyStat %>% group_by(station) %>%
   summarize(`maximum p99,5 waterstand` = max(p995, na.rm = T)) %>%
   left_join(metadata, by = c(station = "locatie.naam")) %>%
+  filter(!is.na(x)) %>%
   sf::st_as_sf(coords = c("x", "y"), crs = 25831) %>%
   st_transform(4326) %>%
   leaflet() %>%
@@ -364,6 +370,7 @@ Het 95-percentiel van de significante golfhoogte per jaar geeft de variatie van 
 golf.df <- "golven2021-07-08.csv"
 golf.pad <- file.path(datadir, "ddl", "standard")
 gdf <- read_delim(file.path(golf.pad, golf.df), delim = ";")
+
 ```
 
 

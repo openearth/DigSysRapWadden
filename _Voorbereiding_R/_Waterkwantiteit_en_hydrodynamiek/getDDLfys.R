@@ -368,11 +368,12 @@ source("r/runThisFirst.R")
 allFiles = list()
 
 filenamesRaw = list.files(file.path(datadir, "ddl/raw/waterhoogte2"), full.names = T, recursive = T, pattern = "WATHTE_")
-filenamesRaw2 = list.files(file.path(datadir, "ddl/raw/waterhoogte"), full.names = T, recursive = T, pattern = "WATHTE_")
+# filenamesRaw2 = list.files(file.path(datadir, "ddl/raw/waterhoogte"), full.names = T, recursive = T, pattern = "WATHTE_")
 
 match(basename(filenamesRaw), basename(filenamesRaw2))
 
 filenamesRaw_toconvert <- c(filenamesRaw, filenamesRaw2[!basename(filenamesRaw2) %in% basename(filenamesRaw)]) 
+filenamesRaw_toconvert <- c(filenamesRaw)  #, filenamesRaw2[!basename(filenamesRaw2) %in% basename(filenamesRaw)]) 
 
 
 # filenamesRaw <- filenamesRaw[grepl("KOBU", filenamesRaw, ignore.case = T)]
@@ -465,7 +466,7 @@ save(df.berekend, file = datadir, ddl, standard, paste0("waterhoogteHyatan", tod
 
 # berekenen van maandelijkse statistiek
 # load(file.path(datadir, "ddl", "standard", paste0("waterhoogteberekend", "2021-07-26", ".Rdata")))
-load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2021-07-26", ".Rdata")))
+load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "2025-12-03", ".Rdata")))
 df_all_WATHTE <- unique(df_all_WATHTE)[grootheid.code != "WATOZT"]
 
 stations <- df_all_WATHTE %>% distinct(locatie.code, locatie.naam)
@@ -520,7 +521,7 @@ rm(df_all, df_all_WATHTBRKD, df_all_WATHTE)
 
 #===== berekening extrema ===========
 
-downloaddatum = "2021-07-26"
+downloaddatum = "2025-12-03"
 
 load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", downloaddatum, ".Rdata")))
 
@@ -539,9 +540,11 @@ map(names(df_all_WATHTE2), function(x){
   save(x = x1, file = file.path(datadir, "ddl", "standard", paste0("waterhoogte", x, downloaddatum, ".Rdata")))
 })
 
-# gaps <- lapply(df_all_WATHTE2,
-#                function(x) Tides::gapsts(x$tijdstip, dtMax = 11, unit = "mins")
-# )
+gaps <- lapply(df_all_WATHTE2,
+               function(x) Tides::gapsts(x$tijdstip, dtMax = 11, unit = "mins")
+)
+
+
 # 
 # rbindlist(gaps, idcol = "locatie.naam") %>%
 #   ggplot() +

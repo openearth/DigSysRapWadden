@@ -466,10 +466,12 @@ plot_as_plotly = T
   
 ```
 
-```{r barPlotArealen, out.width = 8, out.height = 8, fig.cap = "Relatieve areaalontwikkeling van bekkens in de Waddenzee."}
+
+```{r barPlotArealen, fig.width = 8, fig.height = 8, fig.cap = "Relatieve areaalontwikkeling van bekkens in de Waddenzee."}
 
 p <- arealen %>%
   filter(diepteklasse != "Totaal") %>%
+  # determine order 
   mutate(diepteklasse_plotname = factor(diepteklasse_plotname, levels = diepteklassen)) %>%
   mutate(diepteklasse = factor(diepteklasse, levels = str_replace(diepteklassen, fixed("\n"), ""))) %>%
   mutate(basin = factor(basin, levels = basins)) %>%
@@ -1090,7 +1092,7 @@ Naast SIBES bestaan verschillende historische kaarten met het bodemslibgehalte (
 
 ```
 
-```{r sedimentatlasSlib, fig.cap="Slibgehalte in de Waddenzee zoals opgenomen in de sedimentatlas."}
+```{r sedimentatlasSlib, eval=F, fig.cap="Slibgehalte in de Waddenzee zoals opgenomen in de sedimentatlas."}
 
 url = "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/sedimentatlas_waddenzee/korrel.nc"
 con = RNetCDF::open.nc(url)
