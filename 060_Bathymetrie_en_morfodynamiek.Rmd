@@ -306,7 +306,7 @@ if (knitr::is_html_output()) {
 
 ```
 
-Figuur \@ref(fig:hypsometriePerDeelgebied) toont de hypsometrische curves voor de deelgebieden (voor afbakening, zie figuur \@ref(fig:deelgebiedenWaddenzee))in het Marsdiep. Sommige gebieden, zoals het Balgzand, Boontjes, Scheurrak en Zwanenbalg laten net als de bekkens een redelijk vlakke lijn zien, wat inhoudt dat het grooste deel van het areaal zich binnen een bepaalde range van diepte bevindt. In de DooveBalg en in mindere mate in de Texelstroom is de lijn meer lineair, wat betekent dat er een grotere variatie en eerlijkere verdeling is in het diepteprofiel. Vooral in de Boontjes en de Zwanenbalg is een duidelijke toename te zien in bodemhoogte over de jaren.
+Figuur \@ref(fig:hypsometriePerDeelgebied) toont de hypsometrische curves voor de deelgebieden (voor afbakening, zie figuur \@ref(fig:deelgebiedenWaddenzee))in het Marsdiep. Sommige gebieden, zoals het Balgzand, Boontjes, Scheurrak en Zwanenbalg laten net als de bekkens een redelijk vlakke lijn zien, wat inhoudt dat het grootste deel van het areaal zich binnen een bepaalde range van diepte bevindt. In de DooveBalg en in mindere mate in de Texelstroom is de lijn meer lineair, wat betekent dat er een grotere variatie en eerlijkere verdeling is in het diepteprofiel. Vooral in de Boontjes en de Zwanenbalg is een duidelijke toename te zien in bodemhoogte over de jaren.
 
 ```{r hypsometriePerDeelgebied, fig.cap="Hypsometrische curven voor verschillende deelgebieden in het Marsdiep en voor een selectie van bathymetrieën. "}
 
