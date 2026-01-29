@@ -62,6 +62,11 @@ De volgende diepteklassen worden onderscheiden:
 -	**Diepe geulen onder – 5 m NAP:** dit zijn de grootste geulen van de Waddenzee, met hoge stroomsnelheden en sedimenttransporten. Deze hoofdgeulen vormen de verbinding met de Noordzee. Het geuloppervlak is indicatief voor de transportcapaciteit van het systeem. 
 
 
+Om vat te krijgen op de ontwikkelingen en trends beschouwen we verschillende indicatoren. Figuur \@ref(fig:infographic_morfologie) laat zien hoe deze indicatoren gecombineerd kunnen worden om ontwikkelingen van een bekken te begrijpen. 
+```{r infographic_morfologie, fig.cap= "Overzicht van de belangrijkste morfologische indicatoren (volumeveranderingen, hypsometrie, ontwikkeling van arealen) en de wijze waarop deze indicatoren samen informatie geven over de ontwikkeling van een bekken." }
+knitr::include_graphics("images/infographic_indicatoren_morfologie.png")
+```
+
 Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswijze van de getoonde indicatoren is terug te vinden in Appendix \@ref(Appmorfologie).
 
 ## Bodemligging {#bodemligging}

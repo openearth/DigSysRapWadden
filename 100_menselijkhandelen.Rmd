@@ -63,7 +63,7 @@ miljoen m^3^ per jaar.
 knitr::include_graphics("images/overzichtsfiguur_baggerenwaddenv2.png")
 ```
 
-## Olie- en gaswinning
+<!-- ## Olie- en gaswinning
 
 De volgende gegevens komen van het Nederlandse Olie- en Gasportaal. In
 het verleden hebben er wel boringen plaatsgevonden in de Waddenzee, maar
@@ -112,7 +112,8 @@ leaflet() %>%
   addTiles() %>%
   addWMSTiles(get_map_url, layers = "0", options = WMSTileOptions(format = "image/png", transparent = FALSE))
 
-```
+``` 
+-->
 
 ## Zandsuppleties
 
