@@ -306,13 +306,11 @@
     },
     "bit": {
       "Package": "bit",
-      "Version": "4.0.5",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "d242abec29412ce988848d0294b208fd"
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "eddelbuettel",
+      "RemoteRepo": "bit"
     },
     "bit64": {
       "Package": "bit64",
