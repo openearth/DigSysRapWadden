@@ -1,0 +1,41 @@
+name: Docs Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.5.2"
+      - uses: r-lib/actions/setup-pandoc@v2
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y r-base-dev build-essential
+      - name: Install system dependencies2
+        run: sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev libudunits2-dev libgdal-dev libgeos-dev libproj-dev cmake libfreetype6-dev libfontconfig1-dev xclip
+      - name: install textshaping package
+        run: sudo apt install libharfbuzz-dev libfribidi-dev
+      - name: Install R dependencies from CRAN
+        run: Rscript -e 'install.packages(c("downlit", "cli", "R6", "fansi", "memoise", "rlang", "vctrs", "withr", "yaml", "renv", "Kendall"), repos = "https://cloud.r-project.org")'
+      - name: Install rmarkdown
+        run: Rscript -e 'install.packages("rmarkdown", repos = "https://cloud.r-project.org")'
+      - name: Render Book
+        run: Rscript -e 'renv::restore(); bookdown::render_book("index.Rmd")'
+        working-directory: ./
+      - name: Add .nojekyll file
+        run: touch ./_book/.nojekyll
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_book
+          keep_files: false
