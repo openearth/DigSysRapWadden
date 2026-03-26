@@ -9,7 +9,9 @@ theme_wq = theme_bw()
 
 ```{r readWQData}
 # ddl\standard\WQ_TS_trendstations_allyears.csv
-WQ <- read_delim(file.path( datadir, "ddl/standard/", "WQ_TS_trendstations_allyears.csv"), delim = ";", guess_max = 1000000, na = c("999999999999", "999999e32"))
+path <- "https://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/ddl/standard/WQ_TS_trendstations_allyears.csv"
+# path <- file.path( datadir, "ddl", "standard/", "WQ_TS_trendstations_allyears.csv")
+WQ <- read_delim(path, delim = ";", guess_max = 1000000, na = c("999999999999", "999999e32"))
 ZS <- read_delim(file.path(datadir, "RWS", "standard", "ZS_all.csv"), delim = ";") %>%
   mutate(kwaliteitswaarde.code = as.character(kwaliteitswaarde.code))
 
@@ -246,7 +248,7 @@ WQ %>%
   theme_wq +
   theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm"))
 
-ggsave(file.path(datadir, "RWS", "producten", "SaliniteitAnomalie.pdf"))
+# ggsave(file.path(datadir, "RWS", "producten", "SaliniteitAnomalie.pdf"))
   
 ```
 
@@ -382,87 +384,7 @@ parData <- WQ %>%
 
 <!-- ```{r jaargemiddeldeZS, fig.height=10, fig.width=10, fig.cap="Jaargemiddelde concentratie van zwevend stof in de Waddenzee"} -->
 ```
-<!-- locaties = c("Vliestroom", "Marsdiep noord", "Doove Balg west", "Dantziggat", "Boomkensdiep", "Terschelling 10 km uit de kust","Rottumerplaat 3 km uit de kust", "Huibertgat oost", "Bocht van Watum", "Groote Gat noord") -->
 
-<!-- plotlocaties = WQ %>% ungroup() %>%  -->
-
-<!--   filter(parameter.code == "ZS") %>% -->
-
-<!--   group_by(locatie.naam) %>% summarize(x = mean(geometriepunt.x)) %>%  -->
-
-<!--   filter(locatie.naam %in% locaties) %>%   -->
-
-<!--   arrange(x) %>% # tricky, want niet alle data heeft zelfde epsg -->
-
-<!--   select(locatie.naam) %>% unlist %>% unname -->
-
-<!-- par = "ZS" -->
-
-<!-- parlabel = "jaargemiddeld zwevend stof in mg/l" -->
-
-<!-- WQ %>% -->
-
-<!--   filter(parameter.code == par, as.numeric(kwaliteitswaarde.code) < 50, year(tijdstip) >= 1989) %>% -->
-
-<!--   filter(locatie.naam %in% plotlocaties) %>% -->
-
-<!--   arrange(geometriepunt.x) %>% -->
-
-<!--   mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>% -->
-
-<!--   group_by(locatie.naam, jaar, maand) %>% summarize(logmaandgemiddelde = mean(log(numeriekewaarde)), n = n()) %>% ungroup() %>% -->
-
-<!--   group_by(locatie.naam, jaar) %>% summarize(logjaargemiddelde = mean(logmaandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% -->
-
-<!--   mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>% -->
-
-<!--   filter(`n/jaar` > 10) %>%  -->
-
-<!--   ggplot(aes(jaar, exp(logjaargemiddelde))) +  -->
-
-<!--   geom_point(aes(size = `n/jaar`), shape = 21, fill = "white") + -->
-
-<!--   geom_line(aes(alpha = `n/jaar`)) +  # -->
-
-<!--   geom_smooth(method = "lm", formula = y ~ x, alpha = 0.3, aes(weight = `n/jaar`), size = 1, color = "darkgrey") + -->
-
-<!--   geom_smooth(data = WQ %>% -->
-
-<!--                 filter(parameter.code == par, kwaliteitswaarde.code < 50) %>% -->
-
-<!--                 filter(year(tijdstip) > 2009) %>% -->
-
-<!--                 filter(locatie.naam %in% plotlocaties) %>% -->
-
-<!--                 arrange(geometriepunt.x) %>% -->
-
-<!--                 mutate(jaar = year(tijdstip), maand = month(tijdstip)) %>% -->
-
-<!--                 group_by(locatie.naam, jaar, maand) %>% summarize(logmaandgemiddelde = mean(log(numeriekewaarde)), n = n()) %>% ungroup() %>% -->
-
-<!--                 group_by(locatie.naam, jaar) %>% summarize(logjaargemiddelde = mean(logmaandgemiddelde), `n/jaar` = sum(n)) %>% ungroup() %>% -->
-
-<!--                 mutate(locatie.naam = factor(locatie.naam, levels = plotlocaties)) %>% -->
-
-<!--                 filter(`n/jaar` > 10),  -->
-
-<!--               method = "lm", alpha = 0.3, aes(), size = 2) + -->
-
-<!--   scale_y_log10() + -->
-
-<!--   # ylim(0,NA) + -->
-
-<!--   ylab(parlabel) + -->
-
-<!--   facet_wrap(~ locatie.naam, ncol = 3) +  #scales = "free", -->
-
-<!--   theme(legend.position = "bottom") + -->
-
-<!--   theme_wq -->
-
-<!-- ggsave(file.path(datadir, "RWS", "producten", "ZStrends.pdf")) -->
-
-<!-- ``` -->
 
 Indien het zwevende stofgehalte wordt gelogtransformeerd en het maandgemiddelde wordt uitgedrukt als relatieve afwijking ten opzichte van het langjarig gemiddelde (figuur \@ref(fig:plotZSanomalie)), dan zijn de fluctuaties veel beter zichtbaar. De tijdseries vertonen gelijke patronen, met pieken rond 2008 en 2012, maar geen langjarige trends. Hoewel de absolute concentraties van zwevende stof sterk verschillend zijn (figuur \@ref(fig:ZSdataplot)), is de relatieve afwijking van het langjarig gemiddelde vergelijkbaar. In Herman et al. (2018) zijn de karakteristieken van zwevende stof tijdseries in meer detail beschreven.
 

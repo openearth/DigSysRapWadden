@@ -126,12 +126,13 @@ Sommige indicatoren zijn gekoppeld aan (wettelijke) doelstellingen, vanuit versc
 
 ```{r kadertabel}
 
-kadertabel <- readxl::read_excel(file.path(datadir, "RWS/Indicatoren behorend bij kaders_v0.1.xlsx"), skip = 3) %>% replace_na(list(Kader = "", Indicator = "", Snelkoppeling = "")) %>%
+kadertabel <- readr::read_tsv(file.path(datadir, "RWS/Indicatoren_behorend_bij_kaders_v0_1.txt"), skip = 3) %>% replace_na(list(Kader = "", Indicator = "", Snelkoppeling = "")) %>%
   mutate(Snelkoppeling = case_when(
     Snelkoppeling != "<nog niet beschikbaar>" ~ paste0("[", Indicator, "]", "(", Snelkoppeling, ")"),
     Snelkoppeling == "<nog niet beschikbaar>" ~ "nog niet beschikbaar"
   )
-  )
+  ) %>%
+  select(-`...4`)
 
 # \@ref(sec:FirstSection)
 

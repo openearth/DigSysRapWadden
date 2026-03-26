@@ -12,6 +12,11 @@ subtitle: "Abiotische indicatoren"
 always_allow_html: true
 ---
 
+```{r setup_report}
+source("r/runThisFirst.R")
+
+```
+
 #  {.unnumbered}
 
 <!-- # Voorwoord {- #voorwoord} -->

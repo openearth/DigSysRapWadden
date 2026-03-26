@@ -28,7 +28,8 @@ De wind wordt geanalyseerd en gevisualiseerd op vier KNMI stations (zie bron in 
 
 ```{r KNMIstationsmap, fig.cap="Kaart met gebruikte KNMI waarnemingsstations voor de parameter wind."}
 
-file <- file.path(datadir, "KNMI", "netcdf", "STD___OPER_P___OBS_____L2.nc")
+# file <- file.path(datadir, "KNMI", "netcdf", "STD___OPER_P___OBS_____L2.nc")
+file <- "http://watersysteemdata.deltares.nl/thredds/dodsC/watersysteemdata/Wadden/KNMI/netcdf/STD___OPER_P___OBS_____L2.nc"
 # install.packages("RNetCDF")
 require(RNetCDF)
 nc <- open.nc(file)
