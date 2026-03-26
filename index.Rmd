@@ -13,7 +13,6 @@ always_allow_html: true
 ---
 
 ```{r setup_report}
-source("R/runThisFirst.R")
 
 ```
 
