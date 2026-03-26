@@ -4,11 +4,12 @@
 
 concept = TRUE
 
-# source("r/runThisFirst.R")
-source("r/installeerPackages.R")
-source("r/waterSystemSpecificSettings.R")
-source("r/plotfuncties.r")
-source("r/Breakpoints_functions.r")
+# source("R/runThisFirst.R")
+source("R/installeerPackages.R")
+source("R/waterSystemSpecificSettings.R")
+source("R/plotfuncties.r")
+source("R/Breakpoints_functions.r")
+source("R/read_from_thredds.r")
 
 # example chunk options set globally
 knitr::opts_chunk$set(
