@@ -586,7 +586,7 @@ Boontjes <- list()
 
 for (jaar in doeljaren){
   
-  intertidalarea <- raster::mask(raster::crop(lagen$, Zwanenbalgpol.df),Zwanenbalgpol.df)
+  intertidalarea <- raster::mask(raster::crop(lagen$bathymetry, Zwanenbalgpol.df),Zwanenbalgpol.df) # possibly wrong in "bathymetry"
   
 }
 

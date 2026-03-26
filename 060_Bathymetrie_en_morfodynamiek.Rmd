@@ -62,10 +62,10 @@ De volgende diepteklassen worden onderscheiden:
 -	**Diepe geulen onder – 5 m NAP:** dit zijn de grootste geulen van de Waddenzee, met hoge stroomsnelheden en sedimenttransporten. Deze hoofdgeulen vormen de verbinding met de Noordzee. Het geuloppervlak is indicatief voor de transportcapaciteit van het systeem. 
 
 
-Om vat te krijgen op de ontwikkelingen en trends beschouwen we verschillende indicatoren. Figuur \@ref(fig:infographic_morfologie) laat zien hoe deze indicatoren gecombineerd kunnen worden om ontwikkelingen van een bekken te begrijpen. 
-```{r infographic_morfologie, fig.cap= "Overzicht van de belangrijkste morfologische indicatoren (volumeveranderingen, hypsometrie, ontwikkeling van arealen) en de wijze waarop deze indicatoren samen informatie geven over de ontwikkeling van een bekken." }
-knitr::include_graphics("images/infographic_indicatoren_morfologie.png")
-```
+<!-- Om vat te krijgen op de ontwikkelingen en trends beschouwen we verschillende indicatoren. Figuur \@ref(fig:infographic_morfologie) laat zien hoe deze indicatoren gecombineerd kunnen worden om ontwikkelingen van een bekken te begrijpen.  -->
+<!-- ```{r infographic_morfologie, fig.cap= "Overzicht van de belangrijkste morfologische indicatoren (volumeveranderingen, hypsometrie, ontwikkeling van arealen) en de wijze waarop deze indicatoren samen informatie geven over de ontwikkeling van een bekken." } -->
+<!-- knitr::include_graphics("images/infographic_indicatoren_morfologie.png") -->
+<!-- ``` -->
 
 Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswijze van de getoonde indicatoren is terug te vinden in Appendix \@ref(Appmorfologie).
 
@@ -235,7 +235,7 @@ save(valid.values.Marsdiep.df, file = file.path(datadir, "RWS", "bathymetrie", "
 
 ```{r hypsometriePerGebied, fig.cap="Hypsometrische curven voor verschillende bekkens in de Waddenzee en voor een selectie van bathymetrieën. "}
 
-load(file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
+load_from_thredds(file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
 
 if (remove_seventies_easternWadden){
   valid.values.df <- valid.values.df %>% 
@@ -302,14 +302,14 @@ Figuur \@ref(fig:stackedAreas) toont de oppervlaktes van alle diepteklassen per 
 ```{r leesAreaalData}
 
 filenames <- c(
-  "Arealen_ZKL_18.6jr.csv",
-  "Arealen_PGAT_18.6jr.csv",
-  "Arealen_AME_18.6jr.csv",
-  "Arealen_VLIE_18.6jr.csv",
-  "Arealen_ELD_18.6jr.csv",
-  "Arealen_MD_18.6jr.csv",
-  "Arealen_GRWAD_18.6jr.csv",
-  "Arealen_ED_18.6jr.csv"
+  "Arealen_ZKL_19jr.csv",
+  "Arealen_PGAT_19jr.csv",
+  "Arealen_AME_19jr.csv",
+  "Arealen_VLIE_19jr.csv",
+  "Arealen_ELD_19jr.csv",
+  "Arealen_MD_19jr.csv",
+  "Arealen_GRWAD_19jr.csv",
+  "Arealen_ED_19jr.csv"
 )
 
 arealenfiles = file.path(datadir, "arealen", "arealen_processed", filenames) 
@@ -538,7 +538,8 @@ save(hoogtediepte_deelgebieden, file = file.path(datadir, "RWS", "bathymetrie", 
 ```
 
 ```{r plaathoogte, fig.cap= "Gemiddelde plaathoogte per bekken. ", eval=FALSE}
-load(file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_bekkens.Rdata"))
+
+load_from_thredds(file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_bekkens.Rdata"))
 
 if (remove_seventies_easternWadden){
   hoogtediepte_bekkens <- hoogtediepte_bekkens %>% 
@@ -956,15 +957,25 @@ Naast SIBES bestaan verschillende historische kaarten met het bodemslibgehalte (
 url = "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/sedimentatlas_waddenzee/korrel.nc"
 con = RNetCDF::open.nc(url)
 
+
+melt_matrix <- function(mat) {
+  data.frame(
+    Var1  = rep(seq_len(nrow(mat)), times = ncol(mat)),
+    Var2  = rep(seq_len(ncol(mat)), each  = nrow(mat)),
+    value = as.vector(mat)
+  )
+}
+
 lats <- RNetCDF::var.get.nc(con, "lat")
 lons <- RNetCDF::var.get.nc(con, "lon")
 diameters <- RNetCDF::var.get.nc(con, "diameter")
-sedimentatlas <- reshape2::melt(RNetCDF::var.get.nc(con, "phi")) %>%
-mutate(
-  diam = diameters[Var1],
-  lng = lons[Var2],
-  lat = lats[Var2]
-) %>%
+
+sedimentatlas <- melt_matrix(RNetCDF::var.get.nc(con, "phi")) %>%
+  mutate(
+    diam = diameters[Var1],
+    lng  = lons[Var2],
+    lat  = lats[Var2]
+  ) %>%
   select(diam, lng, lat, phi = value)
 
 RNetCDF::close.nc(con)

@@ -75,7 +75,15 @@ Om trends te kunnen bepalen is vervolgens een lineaire trendlijn toegevoegd die 
 
     
 ```{r loadWaterhoogteData2}
-load(file.path(datadir, "ddl", "standard", paste0("waterhoogte", "Delfzijl", "2021-08-05", ".Rdata")))
+library(httr)
+
+path = file.path(datadir, "ddl", "standard", paste0("waterhoogte", "Delfzijl", "2021-08-05", ".Rdata"))
+
+tmp <- tempfile(fileext = ".RData")
+GET(path, write_disk(tmp, overwrite = TRUE))
+
+load(tmp)
+
 assign("Delfzijl", x1); rm(x1)
 
 df.extrema <- read_delim(file.path(datadir, "ddl", "standard", paste0("extremaHLLL", "2021-08-04", ".csv")), delim = ";")

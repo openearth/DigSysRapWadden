@@ -468,9 +468,17 @@ De golfperiode is samen met de golfhoogte van belang voor de orbitaalsnelheden. 
 
 Figuur \@ref(fig:plotGolfperiode) toont de tijdserie van de golfperiode T~M02~ (in seconden), dat is de gemiddelde golfperiode van alle golven zoals bepaald uit het golfspectrum, als individuele blauwe punten. De rode stippen geven het 95-percentiel van de golfperiode T~M02~ per jaar. Er zijn enkele abrupte veranderingen in golfperiode te zien, die waarschijnlijk te wijten zijn aan verandering van de instellingen van de meetapparatuur en/of meetfouten. Ook veranderingen in de lokale morfologie kunnen ertoe leiden dat een station meer geexponeerd of juist beschut komt te liggen. Dit geldt vooral voor de stations in de Waddenzee.
 
-```{r readGolfperiodeData}
+```{r readGolfperiodeData, cache = T}
+
+library(httr)
+
 path = file.path(datadir, "ddl", "standard", paste0("golfperiode", "2021-07-16", ".Rdata"))
-load(path)
+
+tmp <- tempfile(fileext = ".RData")
+GET(path, write_disk(tmp, overwrite = TRUE))
+
+load(tmp)
+
 ```
 
 ```{r plotGolfperiode, fig.height=20, fig.width=10, fig.cap = "Tijdserie van 95-percentiel van de golfperiode T~M02~ per jaar (in seconden), incl metingen als losse puntjes. De metingen in deze figuur zijn een sample uit alle data (n = 100000 uit totaal van 10 miljoen datapunten)."}
