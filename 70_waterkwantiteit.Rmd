@@ -76,7 +76,7 @@ De berekeningswijze van de Gemiddelde HoogWaterstanden is opgenomen in Appendix 
 df.extrema <- read_delim(file.path(datadir, "RWS", "standard", paste0("extremaHLLL", "latest", ".csv")), delim = ";") %>%
   mutate(h = h * 100) # van meter naar cm
 
-pad <- file.path(projectDataPath, mijnGebied, "RWS", "standard", paste0("extremaHLLL", "yearlyaverages.csv"))
+# pad <- file.path(projectDataPath, mijnGebied, "RWS", "standard", paste0("extremaHLLL", "yearlyaverages.csv"))
 
 # check
 # df.extrema %>%
@@ -99,8 +99,8 @@ df.extrema.jaar <- df.extrema %>%
   group_by(locatie.naam, HL) %>% 
   mutate(
     `19jaargemiddelde` = zoo::rollmean(jaargemiddelde, 19, fill = NA)
-    ) %T>%
-  write_csv(pad)
+    ) # %T>%                                  # run only when data are updated
+  # write_csv(pad)
 
 ```
 
