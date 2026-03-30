@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
 	out.width = "100%"
 )
 
-source("r/runThisFirst.R")
+source("R/runThisFirst.R")
 theme_hy <- theme_bw()
 
 alt_theme_hy <- theme_tufte() + theme(axis.line=element_line()) #+ 
