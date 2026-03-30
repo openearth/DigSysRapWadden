@@ -150,7 +150,13 @@ verschillende kunstwerken rond de Waddenzee, waaronder sluizen, gemalen
 en duikers. In de figuur wordt per locatie het type kunstwerk vermeld.
 
 ```{r kunstwerken, out.height="450px", fig.cap="Kunstwerken in de Waddenzee, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/6c39918c-b1ed-4472-b4ce-eb1efeac788d", out.width = "100%"}
-Wadden <- sf::st_read('p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp', quiet = TRUE) %>% st_transform(4326)
+
+# Wadden <- sf::st_read('p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp', quiet = TRUE) %>% st_transform(4326)
+# 
+# sf::st_write(Wadden, 'p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.geojson', quiet = TRUE)
+
+Wadden <- sf::st_read(file.path(datadir, "RWS", "menselijkhandelen", "Waddenzee_Noordzeekust", "Waddenzee_Noordzeekust.geojson"), quiet = TRUE)
+
 #
 # oude url (werkt niet meer) 
 # kunstwerkenurl <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/primaire_waterkering/ows?request=GetFeature&service=WFS&version=2.0.0&outputFormat=application%2Fjson&typeNames=primaire_waterkering:kunstwerken"
@@ -188,9 +194,6 @@ deze er wel zijn.
 <Figuur kabels en leidingen kan niet getoond worden, deze is niet meer beschikbaar>
 
 ```{r kabelsEnLeidingen, eval=FALSE, echo =FALSE, out.height="450px", fig.cap="Pijpleidingen, telecomkabels en elektrakabels in de Waddenzee. NB: tussen Den Helder en Texel lopen zowel telecomkabels als pijpleidingen, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/66bacf5b-b5fa-4dce-aa31-1938f37f11c7", out.width = "100%", message=FALSE}
-
-Wadden <- sf::st_read(file.path(datadir, 'RWS\\menselijkhandelen\\Waddenzee_Noordzeekust\\Waddenzee_Noordzeekust.shp'), quiet = TRUE) %>% st_transform(4326) %>%
-  st_make_valid()
 
 wfs_geo <- 'https://geo.rijkswaterstaat.nl/services/ogc/gdr/kabels_en_leidingen_noordzee/ows?service=WFS&request=getcapabilities&version=2.0.0'
 
@@ -296,7 +299,7 @@ Gewonnen hoeveelheden (2016-2022), op basis van Blackboxgegevens zoals doorgegev
 
 ```{r}
 library(kableExtra)
-schelpenwinningTable <- readxl::read_excel("p:\\11202493--systeemrap-grevelingen\\1_data\\Wadden\\RWS\\menselijkhandelen\\Mestdagh2024_Schelpenwinning2016_2022.xlsx")
+schelpenwinningTable <- readr::read_csv(file.path(datadir, "RWS", "menselijkhandelen", "Mestdagh2024_Schelpenwinning2016_2022.csv"))
 schelpenwinningTable %>%
   kbl(caption = "Hoeveelheden gewonnen schelpen (in m3) in de Waddenzee per geulsysteem, over de periode 2016-2022. In de laatste kolom wordt het maximum toegelaten ontgonnen volume in de hele Waddenzee weergegeven. Data aangeleverd door Rijkswaterstaat. De gegevens voor 2020 zijn waarschijnlijk niet correct. De door Rijkswaterstaat aangeleverde invoertabellen zijn leeg, maar uit de Blackboxgegevens blijkt dat zowel de MS Vertrouwen als de MS Waddenzee dat jaar actief waren op verschillende plaatsen in de Waddenzee.") %>%
   kable_styling()
