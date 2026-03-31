@@ -543,7 +543,7 @@ Om dat overzicht toegankelijker te maken en eventuele fouten sneller te kunnen v
 ```{r}
 # reviewTable <- readxl::read_excel("P:/11202493--systeemrap-grevelingen/1_data/Wadden/DSR_reviewtabel.xlsx")
 # write_delim(reviewTable, file.path("P:/11202493--systeemrap-grevelingen/1_data/Wadden/DSR_reviewtabel.csv"), delim = ";")
-reviewTable <- read_delim(file.path("P:/11202493--systeemrap-grevelingen/1_data/Wadden/DSR_reviewtabel.csv"), delim = ";")
+reviewTable <- read_delim(file.path(datadir, "DSR_reviewtabel.csv"), delim = ";")
 reviewTable %>%
   knitr::kable()
 ```
