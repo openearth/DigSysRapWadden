@@ -58,7 +58,6 @@ plotBreakPointTimeSeries <- function(df, mylocation, mysubstance, h = NULL, brea
   ci_subset_ts <- confint(bp)
   ci_subset_ts
   lines(ci_subset_ts)
-
 }
 
 # location <- "Dreischor"
