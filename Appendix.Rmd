@@ -525,7 +525,9 @@ downloadthis::download_link(
 ```{r dataoverzich2t}
 # code om dataoverzicht in nette tabel weer te geven. 
 
-read_excel(file.path(datadir, "dataoverzicht.xlsx")) %>% 
+# dataoverzicht <- read_excel(file.path(projectDataPath, "wadden", "dataoverzicht.xlsx")) 
+# write_delim(dataoverzicht, file.path(projectDataPath, "wadden", "dataoverzicht.csv"), delim = ";")
+dataoverzicht <- read_delim(file.path(datadir, "dataoverzicht.csv"), delim = ";") %>% 
   knitr::kable(caption = "Overzicht van alle gebruikte data")
 ```
 
