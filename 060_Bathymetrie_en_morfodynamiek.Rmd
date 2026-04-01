@@ -237,7 +237,7 @@ save(valid.values.Marsdiep.df, file = file.path(datadir, "RWS", "bathymetrie", "
 
 ```{r hypsometriePerGebied, fig.cap="Hypsometrische curven voor verschillende bekkens in de Waddenzee en voor een selectie van bathymetrieën. "}
 
-load(file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
+load_from_thredds(file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
 
 if (remove_seventies_easternWadden){
   valid.values.df <- valid.values.df %>% 
@@ -569,7 +569,7 @@ save(hoogtediepte_deelgebieden, file = file.path(datadir, "RWS", "bathymetrie", 
 ```
 
 ```{r plaathoogte, fig.cap= "Gemiddelde plaathoogte per bekken. ", eval=FALSE}
-load(file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_bekkens.Rdata"))
+load_from_thredds(file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_bekkens.Rdata"))
 
 if (remove_seventies_easternWadden){
   hoogtediepte_bekkens <- hoogtediepte_bekkens %>% 
@@ -987,15 +987,23 @@ Naast SIBES bestaan verschillende historische kaarten met het bodemslibgehalte (
 url = "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/sedimentatlas_waddenzee/korrel.nc"
 con = RNetCDF::open.nc(url)
 
+melt_matrix <- function(mat) {
+  data.frame(
+    Var1  = rep(seq_len(nrow(mat)), times = ncol(mat)),
+    Var2  = rep(seq_len(ncol(mat)), each  = nrow(mat)),
+    value = as.vector(mat)
+  )
+}
+
 lats <- RNetCDF::var.get.nc(con, "lat")
 lons <- RNetCDF::var.get.nc(con, "lon")
 diameters <- RNetCDF::var.get.nc(con, "diameter")
-sedimentatlas <- reshape2::melt(RNetCDF::var.get.nc(con, "phi")) %>%
-mutate(
-  diam = diameters[Var1],
-  lng = lons[Var2],
-  lat = lats[Var2]
-) %>%
+sedimentatlas <- melt_matrix(RNetCDF::var.get.nc(con, "phi")) %>%
+  mutate(
+    diam = diameters[Var1],
+    lng  = lons[Var2],
+    lat  = lats[Var2]
+  ) %>%
   select(diam, lng, lat, phi = value)
 
 RNetCDF::close.nc(con)
