@@ -22,9 +22,8 @@ De Waddenzee is een hoogdynamisch gebied. Geulen en wadplaten zijn continu aan v
 
 **Begrenzing**
 
-De morfologische indicatoren worden meestal getoond per kombergingsgebied, ook wel bekken genoemd. Figuur \@ref(fig:gebiedenWaddenzee) toont de begrenzing en benaming van de verschillende bekkens (deze begrenzing is overgenomen van de Geoserver van <abbr title="Wageningen Marine Research">WMR</abbr>[^060_bathymetrie_en_morfodynamiek-1].). De bekkens kennen elk hun eigen karakteristieke ontwikkeling, gestuurd door een combinatie van hun geometrie en diepteligging en de reactie op ingrepen in het verleden. Ook bestaan er evenwichtsrelaties voor de verhouding tussen geulen en platen afhankelijk van de bekkenoppervlakte.  Bekkens worden begrensd door ‘wantijen’: gebieden achter de eilanden waar de stroomsnelheden het laagst zijn. Hier vormt zich een (vaak slibrijke) hoger gelegen rug tussen de bekkens. Door de morfologische dynamiek van de Waddenzee hebben de wantijen geen vaste positie, ze kunnen bijvoorbeeld van ligging veranderen als gevolg van afsluitingen (zoals de Zuiderzee of de Lauwerszee). 
+De morfologische indicatoren worden meestal getoond per kombergingsgebied, ook wel bekken genoemd. Figuur \@ref(fig:gebiedenWaddenzee) toont de begrenzing en benaming van de verschillende bekkens volgens Elias (2025). De bekkens Eilanderbalg, Lauwers, Schild en Sparregat worden vaak samen beschouwd onder de naam 'Groninger Wad'. De bekkens kennen elk hun eigen karakteristieke ontwikkeling, gestuurd door een combinatie van hun geometrie en diepteligging en de reactie op ingrepen in het verleden. Ook bestaan er evenwichtsrelaties voor de verhouding tussen geulen en platen afhankelijk van de bekkenoppervlakte.  Bekkens worden begrensd door ‘wantijen’: gebieden achter de eilanden waar de stroomsnelheden het laagst zijn. Hier vormt zich een (vaak slibrijke) hoger gelegen rug tussen de bekkens. Door de morfologische dynamiek van de Waddenzee hebben de wantijen geen vaste positie, ze kunnen bijvoorbeeld van ligging veranderen als gevolg van afsluitingen (zoals de Zuiderzee of de Lauwerszee). 
 
-[^060_bathymetrie_en_morfodynamiek-1]: <https://opengeodata.wmr.wur.nl/geoserver/WS3shp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WS3shp%3Aws3_tidalbasins>
 
 ```{r gebiedenWaddenzee, fig.cap="Indeling van de Waddenzee in verschillende kombergingsgebieden of bekkens voor het gebruik in morfologische indicatoren."}
 
@@ -39,10 +38,10 @@ if(refreshpolygon){
     filter(fid %in% polygonsInRaster) %>%
     st_transform(28992)
   
-  try(sf::st_write(poly, file.path(datadir, "vakken", "wmr_vakken.geojson")))
+  try(sf::st_write(poly, file.path(datadir, "vakken", "wantijen_2015.geojson")))
 }
 
-poly <- sf::st_read(file.path(datadir, "vakken", "wmr_vakken.geojson"), quiet = T)
+poly <- sf::st_read(file.path(datadir, "vakken", "wantijen_2015.geojson"), quiet = T)
 
 leaflet(poly %>% st_transform(4326)) %>%
   addTiles() %>%
@@ -62,10 +61,13 @@ De volgende diepteklassen worden onderscheiden:
 -	**Diepe geulen onder – 5 m NAP:** dit zijn de grootste geulen van de Waddenzee, met hoge stroomsnelheden en sedimenttransporten. Deze hoofdgeulen vormen de verbinding met de Noordzee. Het geuloppervlak is indicatief voor de transportcapaciteit van het systeem. 
 
 
-<!-- Om vat te krijgen op de ontwikkelingen en trends beschouwen we verschillende indicatoren. Figuur \@ref(fig:infographic_morfologie) laat zien hoe deze indicatoren gecombineerd kunnen worden om ontwikkelingen van een bekken te begrijpen.  -->
-<!-- ```{r infographic_morfologie, fig.cap= "Overzicht van de belangrijkste morfologische indicatoren (volumeveranderingen, hypsometrie, ontwikkeling van arealen) en de wijze waarop deze indicatoren samen informatie geven over de ontwikkeling van een bekken." } -->
-<!-- knitr::include_graphics("images/infographic_indicatoren_morfologie.png") -->
-<!-- ``` -->
+Om vat te krijgen op de ontwikkelingen en trends beschouwen we verschillende indicatoren. Figuur \@ref(fig:infographicMorfologie) laat zien hoe deze indicatoren gecombineerd kunnen worden om ontwikkelingen van een bekken te begrijpen. 
+
+```{r infographicMorfologie, fig.cap="Overzicht van de belangrijkste morfologische indicatoren (volumeveranderingen, hypsometrie, ontwikkeling van arealen) en de wijze waarop deze indicatoren samen informatie geven over de ontwikkeling van een bekken. "}
+
+knitr::include_graphics("images/infographic_indicatoren_morfologie.png")
+
+```
 
 Een overzicht van de voor dit hoofdstuk gebruikte brondata, en de berekeningswijze van de getoonde indicatoren is terug te vinden in Appendix \@ref(Appmorfologie).
 
@@ -235,7 +237,7 @@ save(valid.values.Marsdiep.df, file = file.path(datadir, "RWS", "bathymetrie", "
 
 ```{r hypsometriePerGebied, fig.cap="Hypsometrische curven voor verschillende bekkens in de Waddenzee en voor een selectie van bathymetrieën. "}
 
-load_from_thredds(file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
+load(file = file.path(datadir, "RWS", "bathymetrie", "valid_values_df.Rdata"))
 
 if (remove_seventies_easternWadden){
   valid.values.df <- valid.values.df %>% 
@@ -287,17 +289,17 @@ if (knitr::is_html_output()) {
 
 ## Arealen {#arealen} 
 
-Om een beter begrip te krijgen van de ontwikkelingen en trends in de Waddenzee kan de bodemligging worden ingedeeld in verschillende diepteklassen, zogenoemde ‘arealen’, zoals bijvoorbeeld geulen of intergetijdengebied. De gehanteerde diepteklassen zijn beschreven in \@ref(afbakening). De oppervlakteverandering van de verschillende diepteklassen is indicatief voor hoe de Waddenzee, en de daarbinnen gelegen bekkens of lokale geulsystemen  zich morfologisch gedragen en hoe de gebieden zich aanpassen aan diverse veranderingen zoals bedijkingen, bodemdaling  en zeespiegelstijging.
+Om een beter begrip te krijgen van de ontwikkelingen en trends in de Waddenzee kan de bodemligging worden ingedeeld in verschillende diepteklassen, zogenoemde ‘arealen’, zoals bijvoorbeeld geulen of intergetijdengebied. De gehanteerde diepteklassen zijn beschreven in \@ref(afbakening). De oppervlakteverandering van de verschillende diepteklassen is indicatief voor hoe de Waddenzee, en de daarbinnen gelegen bekkens of lokale geulsystemen  zich morfologisch gedragen en hoe de gebieden zich aanpassen aan diverse veranderingen zoals bedijkingen, bodemdaling en zeespiegelstijging.
 
 In het berekenen van de arealen moeten keuzes gemaakt worden zodat de areaalontwikkeling representatief is voor de langjarige morfodynamiek. Bij het interpreteren is het belangrijk bewust te zijn dat de weergegeven trends afhankelijk zijn van de gekozen methodiek en begrenzingen. Daarnaast tonen de figuren een lange termijn-trend omdat de bodemhoogte in de Waddenzee maar eens per 6 jaar wordt opgemeten; jaar-op-jaar variaties, die groot kunnen zijn, kunnen we hierin dus niet zien.
 
 -	**Verticale afbakening van de diepteklassen:** Het intergetijdegebied wordt begrensd door het gemiddeld hoogwater (GHW) en gemiddeld laagwater (GLW).  In veel studies wordt NAP +/- 1 m gebruikt als proxy voor GHW en GLW. Omdat de GHW en GLW over de Waddenzee variëren van +/- 0,7 m bij Den Helder tot +/- 1,3 m bij Eemshaven zijn voor deze berekening gebiedsdekkende GHW- en GLW-kaarten gemaakt.
--	**Temporele variaties:** Het gemiddeld hoog- en laagwater is niet constant maar kan van jaar tot jaar sterk (~10 cm) verschillen. Er is gekozen om langjarige, trendmatige veranderingen in waterstanden (zoals zeespiegelstijging en verandering van getijslag) mee te nemen en jaar-op-jaarvariaties (zoals meerjarige getijcomponenten of overheersende windrichting) uit te filteren. Daarom zijn de GHW en GLW kaarten gebaseerd op een lopend gemiddelde over 18,6 jaar (periode van de zgn. ‘nodale cyclus’). 
+-	**Temporele variaties:** Het gemiddeld hoog- en laagwater is niet constant maar kan van jaar tot jaar sterk (~10 cm) verschillen. Er is gekozen om langjarige, trendmatige veranderingen in waterstanden (zoals zeespiegelstijging en verandering van getijslag) mee te nemen en jaar-op-jaarvariaties (zoals meerjarige getijcomponenten of overheersende windrichting) uit te filteren. Daarom zijn de GHW en GLW kaarten gebaseerd op een lopend gemiddelde over 19 jaar (periode van de zgn. ‘nodale cyclus’, naar boven afgerond). 
 -	**Horizontale afbakening van de bekkens:** De kombergingsgebieden in de Waddenzee kennen elk hun eigen karakteristieke ontwikkeling en trends. De grenzen van een kombergingsgebied kunnen in de tijd verschuiven, bijvoorbeeld door het verplaatsen van wantijen of veranderingen in de kustligging. De arealen zijn berekend op basis van de kombergingsgrenzen uit het betreffende jaar: het totale oppervlak per bekken verandert dus met de tijd. Hiermee tonen we voor elk jaar het areaal dat in dat jaar feitelijk tot het bekken behoorde. 
 
-De gemaakte afwegingen en consequenties zijn uitgebreider beschreven in het rapport < link naar rapport >  over de totstandkoming van deze methodiek. 
+De gemaakte afwegingen en consequenties zijn uitgebreider beschreven in het [rapport (Meijers et al., 2025)](https://publications.deltares.nl/11211571_002_0001.pdf) over de totstandkoming van deze methodiek. 
 
-Figuur \@ref(fig:stackedAreas) toont de oppervlaktes van alle diepteklassen per bekken. In Figuur \@ref(fig:barPlotArealen) worden dezelfde oppervlaktes weergegeven als percentage van het bekkenoppervlak. Wanneer alle bekkens naast elkaar worden beschouwd (\@ref(fig:stackedAreas)) valt op dat de bekkens in de westelijke Waddenzee (Marsdiep en Vlie) relatief meer subgetijdegebied en geulen hebben, terwijl de bekkens in de oostelijke Waddenzee voor een groter gedeelte uit intergetijdengebied bestaan. Daarnaast valt op dat de verdeling in arealen binnen de bekkens sinds 1989 relatief constant is. Er zijn weinig sterke verschuivingen en de meeste veranderingen zijn in de orde van enkele procentpunten van het bekkenoppervlak (met als uitzondering de Eems-Dollard, waar het intergetijdengebied sterk is toegenomen). 
+Figuur \@ref(fig:stackedAreas) toont de oppervlaktes van alle diepteklassen per bekken. In Figuur \@ref(fig:barPlotArealen) worden dezelfde oppervlaktes weergegeven als percentage van het bekkenoppervlak. Arealen berekend vóór 1989 bevatten een grotere onzekerheid door de kwaliteit van bodemkaarten en dekking van waterstandsmetingen uit deze periode. De bekkens in de westelijke Waddenzee (Marsdiep en Vlie) hebben relatief meer subgetijdegebied en geulen, terwijl de bekkens in de oostelijke Waddenzee voor een groter gedeelte uit intergetijdengebied bestaan. 
 
 ```{r leesAreaalData}
 
@@ -309,7 +311,8 @@ filenames <- c(
   "Arealen_ELD_19jr.csv",
   "Arealen_MD_19jr.csv",
   "Arealen_GRWAD_19jr.csv",
-  "Arealen_ED_19jr.csv"
+  "Arealen_ED_19jr.csv",
+  "Arealen_Waddenzee_1989_2017_19jr.csv"
 )
 
 arealenfiles = file.path(datadir, "arealen", "arealen_processed", filenames) 
@@ -361,7 +364,8 @@ basins <- c(
   "Pinkegat",
   "Zoutkamperlaag",
   "Groninger Wad",
-  "Eems-Dollard"
+  "Eems-Dollard",
+  "Waddenzee"
 )
 
 ```
@@ -370,33 +374,41 @@ basins <- c(
 
 plot_as_plotly = T
 
-  p <- arealen %>%
-    filter(diepteklasse != "Totaal") %>%
-    mutate(diepteklasse_plotname = factor(diepteklasse_plotname, levels = rev(diepteklassen))) %>%
-    mutate(diepteklasse = factor(diepteklasse, levels = str_replace(diepteklassen, fixed("\n"), ""))) %>%
-    mutate(basin = factor(basin, levels = basins)) %>%
-    ggplot(aes(jaar, area)) +
-    geom_area(
-      aes(fill = diepteklasse_plotname), 
-      # position = position_fill(),
-      alpha = 0.6
-    ) +
-    facet_wrap("basin", scales = "free") +
-    scale_fill_manual(values = colors) +
-    # scale_y_continuous(expand = c(0, 20)) +
-    # scale_x_continuous(expand = c(0, 0)) +
-    theme_bw() +
-    theme(
-      legend.position = "bottom",
-      legend.title = element_blank(),
-      panel.border = element_blank(),
-      panel.spacing.x = unit(1, "lines"),
-      panel.spacing.y = unit(3, "lines")
-    )
+cutoff_year <- 1989
+
+
+p <- arealen %>%
+  filter(diepteklasse != "Totaal") %>%
+  mutate(
+    diepteklasse_plotname = factor(diepteklasse_plotname, 
+                                   levels = rev(diepteklassen)),
+    diepteklasse = factor(diepteklasse, 
+                          levels = str_replace(diepteklassen, fixed("\n"), "")),
+    basin = factor(basin, levels = basins)
+  ) %>%
+  ggplot(aes(jaar, area, fill = diepteklasse_plotname)) +
+
+    # ---- CERTAIN years: years >= cutoff ----
+  geom_area(
+    data = ~subset(.x, jaar >= cutoff_year),
+    alpha = 0.8
+  ) +
+
+  facet_wrap("basin", scales = "free") +
+  scale_fill_manual(values = colors, name = "Diepteklasse") +
+  theme_bw() +
+  theme(
+    legend.position = "bottom",
+    panel.border = element_blank(),
+    panel.spacing.x = unit(1, "lines"),
+    panel.spacing.y = unit(3, "lines")
+  )
+
+
 
   if(plot_as_plotly){
   ggplotly(
-    p + ylab("oppervlakte in km2")
+    p + ylab("Oppervlakte in km2") + xlab(NULL)
       ) %>% 
       plotly::layout(
         legend = list(
@@ -418,44 +430,63 @@ plot_as_plotly = T
       )
   } else{
     p + 
-      ylab(bquote("oppervlakte in  "(km^2)))
+      ylab(bquote("Oppervlakte in  "(km^2)) +
+      xlab(NULL)
+      )
   }
   
 ```
 
+
 -	**Marsdiep**: Dit bekken heeft het kleinste aandeel intergetijdegebied van alle bekkens en ligt voor een relatief groot deel permanent onder water. Er is een toename van subgetijdegebied te zien, die de laatste jaren lijkt af te vlakken.
--	**Eijerlandse Gat**: Tussen 1989 en 2005 is het intergetijdegebied hier toegenomen, ten koste van met name het subgetijdegebied. Sinds 2005 is deze ontwikkeling afgevlakt en is de verdeling in diepteklassen gelijk gebleven.
--	**Vlie**: Het totale bekkenoppervlak is enkele procenten afgenomen door wantijmigratie (met name uitbreiding van het Marsdiep en Eijerlandse Gat). De verdeling van diepteklassen binnen het bekken is relatief gelijk gebleven.
+-	**Eijerlandse Gat**: Het intergetijdegebied is de afgelopen decennia toegenomen, ten koste van met name het subgetijdegebied. Sinds 2005 is deze ontwikkeling afgevlakt en is de verdeling in diepteklassen gelijk gebleven.
+-	**Vlie**: Het totale bekkenoppervlak is enkele procenten afgenomen door wantijmigratie (met name uitbreiding van het Marsdiep en Eijerlandse Gat). Tot 1990 nam het intergetijdegebied sterk toe, en namen de arealen subgetijdegebied en ondiepe geul (-3 tot -5 m NAP) af, maar sinds de jaren '90 is deze ontwikkeling gestagneerd.
 -	**Borndiep**: Het permanent onder water liggende areaal (geulen en subgetijdegebied) neemt licht af, terwijl het kwelderoppervlak enkele procenten uitbreidt, met name door groei van de vastelandskwelders. 
--	**Pinkegat en Zoutkamperlaag** (vormen samen het Friesche Zeegat): de verdeling van diepteklassen is relatief gelijk gebleven. 
--	**Groninger Wad**: Het aandeel intergetijdegebied is afgenomen, met name door een uitbreiding van subgetijdegebied.
--	**Eems-Dollard:** hier is het intergetijdegebied behoorlijk toegenomen (van 46% naar 54%). Dit is ten koste gegaan van met name het subgetijdegebied (12 naar 8%) en de ondiepe geulen (van 8 naar 5%). Deze ontwikkeling kan worden verklaard door grootschalige sedimentatie op met name het Eemshornwad en Hond Paap, waar subgetijdegebied is veranderd in intergetijdegebied (zoals ook wordt beschreven in Elias et al., 2021). 
+-	**Pinkegat en Zoutkamperlaag** (vormen samen het Friesche Zeegat): In het Pinkegat is het oppervlak intergetijdegebied sterk toegenomen voor 1990, en nam het subgetijdegebied af. Sinds 1990 is de verdeling van diepteklassen voor beide bekkens relatief gelijk gebleven. 
+-	**Groninger Wad**: Het aandeel intergetijdegebied is licht afgenomen, met name door een uitbreiding van subgetijdegebied.
+-	**Eems-Dollard:** hier is het intergetijdegebied toegenomen. Dit is ten koste gegaan van met name het subgetijdegebied en de ondiepe geulen. Deze ontwikkeling kan worden verklaard door grootschalige sedimentatie op met name het Eemshornwad en Hond Paap, waar subgetijdegebied is veranderd in intergetijdegebied. 
 
+In de Waddenzee als geheel (getoond van 1989 tot 2017, de periode waarvoor gebiedsdekkende kaarten beschikbaar zijn voor de gehele Waddenzee) is het areaal intergetijdegebied met enkele procentpunten toegenomen en het subgetijdegebied licht afgenomen. 
 
-
-```{r barPlotArealen, fig.width = 8, fig.height = 8, fig.cap = "Relatieve areaalontwikkeling van bekkens in de Waddenzee."}
+```{r barPlotArealen, fig.width = 8, fig.height = 8, fig.cap = "Relatieve areaalontwikkeling van bekkens in de Waddenzee. Let op: data van voor 1989 is weergegeven met transparante staven (aangegeven als 'False' in legenda). Arealen berekend voor deze jaren bevatten een grotere onzekerheid door lagere kwaliteit van historische bodemkaarten en beschikbaarheid van waterstanden."}
 
 p <- arealen %>%
   filter(diepteklasse != "Totaal") %>%
-  # determine order 
-  mutate(diepteklasse_plotname = factor(diepteklasse_plotname, levels = diepteklassen)) %>%
-  mutate(diepteklasse = factor(diepteklasse, levels = str_replace(diepteklassen, fixed("\n"), ""))) %>%
-  mutate(basin = factor(basin, levels = basins)) %>%
+  mutate(
+    # Step 1: ensure jaar is numeric
+    jaar = as.numeric(jaar),
+
+    # Step 2: compute transparency flag BEFORE converting to factor
+    recent = jaar >= 1989,
+
+    # Step 3: convert jaar to ordered factor for plotting
+    jaar = factor(jaar, levels = sort(unique(jaar))),
+
+    # Your existing ordering logic
+    diepteklasse_plotname = factor(diepteklasse_plotname, levels = diepteklassen),
+    diepteklasse = factor(diepteklasse, levels = str_replace(diepteklassen, fixed("\n"), "")),
+    basin = factor(basin, levels = basins)
+  ) %>%
   ggplot(aes(diepteklasse_plotname, percentage)) +
-  geom_col(aes(fill = jaar), position = position_dodge2()) +
+  geom_col(
+    aes(fill = jaar, alpha = recent),
+    position = position_dodge2()
+  ) +
+  scale_alpha_manual(values = c(`TRUE` = 1, `FALSE` = 0.25), guide = "none") +
+  scale_fill_discrete(name = "Jaar") + 
   facet_wrap("basin") +
   theme(
     axis.text.x = element_text(angle = 90, vjust = 1, hjust = 1),
-      panel.spacing.x = unit(1, "lines"),
-      panel.spacing.y = unit(2, "lines")
-    ) +
-  ylab("relatief oppervlakte (%)") +
+    panel.spacing.x = unit(1, "lines"),
+    panel.spacing.y = unit(2, "lines")
+  ) +
+  ylab("Relatief oppervlakte (%)") +
   xlab("")
-# p
 
 ggplotly(p)
 
 ```
+
 
 
 
@@ -538,8 +569,7 @@ save(hoogtediepte_deelgebieden, file = file.path(datadir, "RWS", "bathymetrie", 
 ```
 
 ```{r plaathoogte, fig.cap= "Gemiddelde plaathoogte per bekken. ", eval=FALSE}
-
-load_from_thredds(file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_bekkens.Rdata"))
+load(file = file.path(datadir, "RWS", "bathymetrie", "hoogtediepte_bekkens.Rdata"))
 
 if (remove_seventies_easternWadden){
   hoogtediepte_bekkens <- hoogtediepte_bekkens %>% 
@@ -957,25 +987,15 @@ Naast SIBES bestaan verschillende historische kaarten met het bodemslibgehalte (
 url = "http://opendap.deltares.nl/thredds/dodsC/opendap/rijkswaterstaat/sedimentatlas_waddenzee/korrel.nc"
 con = RNetCDF::open.nc(url)
 
-
-melt_matrix <- function(mat) {
-  data.frame(
-    Var1  = rep(seq_len(nrow(mat)), times = ncol(mat)),
-    Var2  = rep(seq_len(ncol(mat)), each  = nrow(mat)),
-    value = as.vector(mat)
-  )
-}
-
 lats <- RNetCDF::var.get.nc(con, "lat")
 lons <- RNetCDF::var.get.nc(con, "lon")
 diameters <- RNetCDF::var.get.nc(con, "diameter")
-
-sedimentatlas <- melt_matrix(RNetCDF::var.get.nc(con, "phi")) %>%
-  mutate(
-    diam = diameters[Var1],
-    lng  = lons[Var2],
-    lat  = lats[Var2]
-  ) %>%
+sedimentatlas <- reshape2::melt(RNetCDF::var.get.nc(con, "phi")) %>%
+mutate(
+  diam = diameters[Var1],
+  lng = lons[Var2],
+  lat = lats[Var2]
+) %>%
   select(diam, lng, lat, phi = value)
 
 RNetCDF::close.nc(con)
