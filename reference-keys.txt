@@ -48,6 +48,7 @@ fig:ZSdataplot
 fig:plotZSanomalie
 fig:plotZSseason
 fig:gebiedenWaddenzee
+fig:infographicMorfologie
 fig:WaddenBathymetrieLeaflet2
 fig:diffmaps
 fig:Wang2018Sedero

@@ -407,11 +407,11 @@ De jaargemiddelde getijslag wordt berekend door het verschil tussen het jaargemi
 </a>
 <p>Om trends te kunnen bepalen is vervolgens een lineaire trendlijn toegevoegd die varieert met de 18,6-jarige cyclus. Doordat de frequentie van de 18,6-jarige cyclus bekend is en de tijdserie voldoende lang, kan de software zelf de amplitude en de fase van de 18,6-jarige cyclus fitten.</p>
 <pre><code>#&gt; Response [https://watersysteemdata.deltares.nl/thredds/fileServer/watersysteemdata/Wadden/ddl/standard/waterhoogteDelfzijl2021-08-05.Rdata]
-#&gt;   Date: 2026-03-31 13:04
+#&gt;   Date: 2026-04-01 13:15
 #&gt;   Status: 200
 #&gt;   Content-Type: application/octet-stream
 #&gt;   Size: 10.8 MB
-#&gt; &lt;ON DISK&gt;  /tmp/RtmpztPQsr/file34b954a6b836.RData</code></pre>
+#&gt; &lt;ON DISK&gt;  /tmp/RtmpquIuN6/file3a0b3efe70d1.RData</code></pre>
 <div class="figure"><span style="display:block;" id="fig:hooglaagvoorbeeld2"></span>
 <img src="_main_files/figure-html/hooglaagvoorbeeld2-1.png" alt="Gemeten waterstand en hoog- (rood) en laagwater (groen) voor eind maart 2018 (inclusief overgang naar zomertijd van 24 op 25 maart), zoals berekend voor de hele tijdserie." width="100%" />
 <p class="caption">
@@ -671,7 +671,7 @@ De eerste volledige kaart dateert van 1991, met data over de periode 1985-1991. 
 </table>
 <!-- Er is gewerkt met 1 polygoon van het Friesche Zeegat, dat wil zeggen dat voor alle jaren met hetzelfde polygoon is gerekend om de begrenzing van het bekken te bepalen. Daarnaast is er alleen data gebruikt van de cellen (20x20m tegels) die in alle opnamejaren data bevatten. Dit voorkomt dat afwijkingen ontstaan die het gevolg zijn van verschillende ruimtelijke dekking van de data. De getoonde veranderingen zijn daarmee puur het gevolg van veranderingen van de morfologie voor het geanalyseerde gebied. -->
 <p>De visualisatie van de bodemligging van de Waddenzee is interactief beschikbaar gemaakt voor deze Digitale Systeemrapportage. De interactiveit wordt beschikbaar gemaakt met behulp van een r shiny app, die in de rapportage getoond wordt. De bathymetrie wordt hier gepresenteerd als een laag bovenop een Openstreetmap achtergrondkaart. De bathymetrielaag bevat gestapelde zgn. “tiles” van vaklodingen tussen de jaren die gekozen zijn met de slider. De bodemligging kan met en zonder “Hillshading” worden bekeken.</p>
-<p>De oorspronkelijke data is gemeten en opgeleverd door RWS voor elk jaar<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, en opgeslagen op een thredds server van Deltares als netcdf<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. Van elke netcdf is één tiff file per jaar gemaakt door een script<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> en in een Google Cloud storage (gs) map gevat. Hierna is van gs een Google Earth Engine (gee) Image Collection van vaklodingen data gemaakt. De r shiny app gebruikt een API service<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> die de Image Collection leest, op basis van de gegeven input data.</p>
+<p>De oorspronkelijke data is gemeten en opgeleverd door RWS voor elk jaar<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, en opgeslagen op een thredds server van Deltares als netcdf<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. Van elke netcdf is één tiff file per jaar gemaakt door een script<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> en in een Google Cloud storage (gs) map gevat. Hierna is van gs een Google Earth Engine (gee) Image Collection van vaklodingen data gemaakt. De r shiny app gebruikt een API service<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> die de Image Collection leest, op basis van de gegeven input data.</p>
 <p>Voor het berekenen van morfologische indicatoren zijn de vaklodingen als rasters (tiff) samengesteld voor elk jaar voor de hele Waddenzee. De rasters bestaan uit data van het betreffende jaar, gecombineerd met data van alle voorgaande jaren, waarbij alleen de meest recente waarde per pixel gebruikt wordt. Nadeel is dat sommige delen van een raster oudere waarden kunnen bevatten. Het voordeel is dat er voor elk jaar een gebiedsdekkend raster voorhanden is.</p>
 </div>
 <div id="additionele-arealenvisualisatie" class="section level3 hasAnchor" number="10.7.2">
@@ -767,11 +767,11 @@ In formulevorm:</p>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="2">
-<li id="fn2"><p><a href="https://waterinfo-extra.rws.nl/monitoring/morfologie/#h53b817e6-e5cd-49d1-873c-9a0f85d8e416" class="uri">https://waterinfo-extra.rws.nl/monitoring/morfologie/#h53b817e6-e5cd-49d1-873c-9a0f85d8e416</a><a href="data.html#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p><a href="https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html" class="uri">https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html</a><a href="data.html#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p><a href="https://github.com/openearth/eo-bathymetry/blob/master/notebooks/Vaklodingen2EE.ipynb" class="uri">https://github.com/openearth/eo-bathymetry/blob/master/notebooks/Vaklodingen2EE.ipynb</a><a href="data.html#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p><a href="https://github.com/openearth/hydro-engine-service/blob/master/hydroengine_service/main.py" class="uri">https://github.com/openearth/hydro-engine-service/blob/master/hydroengine_service/main.py</a><a href="data.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<ol start="1">
+<li id="fn1"><p><a href="https://waterinfo-extra.rws.nl/monitoring/morfologie/#h53b817e6-e5cd-49d1-873c-9a0f85d8e416" class="uri">https://waterinfo-extra.rws.nl/monitoring/morfologie/#h53b817e6-e5cd-49d1-873c-9a0f85d8e416</a><a href="data.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html" class="uri">https://opendap.deltares.nl/thredds/catalog/opendap/rijkswaterstaat/vaklodingen_new/catalog.html</a><a href="data.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://github.com/openearth/eo-bathymetry/blob/master/notebooks/Vaklodingen2EE.ipynb" class="uri">https://github.com/openearth/eo-bathymetry/blob/master/notebooks/Vaklodingen2EE.ipynb</a><a href="data.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://github.com/openearth/hydro-engine-service/blob/master/hydroengine_service/main.py" class="uri">https://github.com/openearth/hydro-engine-service/blob/master/hydroengine_service/main.py</a><a href="data.html#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
