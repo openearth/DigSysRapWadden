@@ -19,6 +19,15 @@ jobs:
           r-version: "4.5.2"
       - uses: r-lib/actions/setup-pandoc@v2
       - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libuv1-dev \
+            libsecret-1-dev \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev
+      - name: Install system dependencies
         run: sudo apt-get update && sudo apt-get install -y libuv1-dev
       - name: Install system dependencies
         run: sudo apt-get update && sudo apt-get install -y r-base-dev build-essential
