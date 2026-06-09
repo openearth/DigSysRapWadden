@@ -1,33 +1,74 @@
 ---
-title: "Digitale Systeemrapportage van de Waddenzee"
+title: "Welkom bij de Digitale Systeemrapportage van de Waddenzee"
 # author: "Willem Stolte, Julia Vroom, Giorgio Santinelli, Jelmer Veenstra, Claire van Oeveren, Vincent van Zelst, Jasper Dijkstra"
 # date: '`r Sys.Date()`'
 site: bookdown::bookdown_site
-bibliography: ["references/Wadden.bib", "references/WillemsReferences.bib"]
+bibliography: ["references/wadden.bib", "references/WillemsReferences.bib"]
 biblio-style: "apalike"
 link-citations: yes
+output:
+  bookdown::html_document2:
+    css: styles.css
 # number_sections: true
 # cover-image: images/voorplaat.png
-subtitle: "Abiotische indicatoren"
+
 always_allow_html: true
 ---
-
-```{r setup_report}
-
-```
 
 #  {.unnumbered}
 
 <!-- # Voorwoord {- #voorwoord} -->
+Hier vindt u een overzicht van actuele en historische data en trends over de ontwikkeling van de abiotische (niet-levende) natuur in de Waddenzee, zoals waterstanden, waterkwaliteit en morfologische ontwikkeling.
 
-(ref:voorplaatLabel) Luchtfoto van de Zuiderduintjes in 2011 (bron: <https://proxy.archieven.nl/0/DE8E9D519DFD4FC5A6BD82D0952BCF82> © Rijkswaterstaat \| Joop van Houdt).
+### Waar bent u naar op zoek? {-}
 
-```{r voorplaat, width = "100%", fig.cap="(ref:voorplaatLabel)"}
-# ```{r voorplaat, width = "100%", fig.cap="Luchtfoto van Zuiderduintjes in 2011 (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)."}
-knitr::include_graphics("images/voorplaat.png")
+```{r tiles, results="asis", echo=FALSE}
+
+htmltools::HTML('
+
+<div class="tile-container">
+
+<a class="tile" href="verhaal-van-de-wadden.html">
+  <div class="tile-image" style="background-image: url(\'images/tiles_verhaalvdWadden.png\');"></div>
+</a>
+
+<a class="tile" href="hydro.html">
+  <div class="tile-image" style="background-image: url(\'images/tiles_hydrodynamiek.png\');"></div>
+</a>
+
+<a class="tile" href="meteo.html">
+  <div class="tile-image" style="background-image: url(\'images/tiles_meteorologie.png\');"></div>
+</a>
+
+<a class="tile" href="Waterkwaliteit.html">
+  <div class="tile-image" style="background-image: url(\'images/tiles_fysischewaterkwaliteit.png\');"></div>
+</a>
+
+<a class="tile" href="morfologie.html">
+  <div class="tile-image" style="background-image: url(\'images/tiles_morfologie.png\');"></div>
+</a>
+
+<a class="tile" href="geologie.html">
+  <div class="tile-image" style="background-image: url(\'images/tiles_geologie.png\');"></div>
+</a>
+
+<a class="tile" href="ingrepen-door-de-mens.html">
+  <div class="tile-image" style="background-image: url(\'images/tiles_menselijkeIngrepen.png\');"></div>
+</a>
+
+<a class="tile" href="Informatiebehoefte.html">
+  <div class="tile-image" style="background-image: url(\'images/tiles_informatiebehoefte.png\');"></div>
+</a>
+
+<a class="tile" href="data.html">
+  <div class="tile-image" style="background-image: url(\'images/tiles_datadownload.png\');"></div>
+</a>
+
+</div>
+')
+  
 ```
 
-</br>
 
 ```{r, results='asis', echo = FALSE, eval=concept}
 
@@ -45,7 +86,6 @@ metathis::meta() %>%
 ```
 
 
-
 ### Nederlands {-}
 
 Deze watersysteemrapportage is een initiatief van:
@@ -61,7 +101,7 @@ Let op: op dit moment is alleen de inleiding beschikbaar in het Engels en Duits.
 
 Informatie uit deze Digitale Systeemrapportage kan als volgt geciteerd worden: "Stolte, W., Vroom, J., Santinelli, G., Veenstra, J., Van Oeveren, C., Van Zelst, V. and Dijkstra, J. (2023). Digitale Systeemrapportage van de Waddenzee, versie 1.0. <https://systeemrapportage.nl/wadden/>".
 
-Als u gebreken of onvolledigheden constateert horen wij dat graag via: jasper.dijkstra -at- deltares.nl en/of martijn.kleinobbink -at- rws.nl.
+Als u gebreken of onvolledigheden constateert horen wij dat graag via: carlijn.meijers -at- deltares.nl en/of martijn.kleinobbink -at- rws.nl.
 
 ### English {-}
 
@@ -79,7 +119,7 @@ Please note that for now, only the Introduction is available in English and Germ
 
 Information from this Digital System Report can be quoted as follows: "Stolte, W., Vroom, J., Santinelli, G., Veenstra, J., Van Oeveren, C., Van Zelst, V. and Dijkstra, J. (2023). Digital System Report of the Wadden Sea, version 1.0. <https://systeemrapportage.nl/wadden/>".
 
-If you notice any deficiencies or incompleteness we would be pleased to hear from you at: jasper.dijkstra -at- deltares.nl and/or martijn.kleinobbink -at- rws.nl.
+If you notice any deficiencies or incompleteness we would be pleased to hear from you at: carlijn.meijers -at- deltares.nl and/or martijn.kleinobbink -at- rws.nl.
 
 ### Deutsch {-}
 
@@ -96,4 +136,4 @@ Bitte beachten Sie, dass derzeit nur die Einleitung auf Englisch und Deutsch ver
 
 Informationen aus diesem digitalen Systembericht können wie folgt zitiert werden: "Stolte, W., Vroom, J., Santinelli, G., Veenstra, J., Van Oeveren, C., Van Zelst, V. und Dijkstra, J. (2023). Digitaler Systembericht über das Wattenmeer, Version 1.0. <https://systeemrapportage.nl/wadden/>".
 
-Sollten Sie Unzulänglichkeiten oder Unvollständigkeiten feststellen, würden wir uns freuen, von Ihnen zu hören: jasper.dijkstra -at- deltares.nl und/oder martijn.kleinobbink -at- rws.nl.
+Sollten Sie Unzulänglichkeiten oder Unvollständigkeiten feststellen, würden wir uns freuen, von Ihnen zu hören: carlijn.meijers -at- deltares.nl und/oder martijn.kleinobbink -at- rws.nl.
