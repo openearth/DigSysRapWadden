@@ -29,13 +29,12 @@ require(magrittr)
 
 ## Afbakening, definitie en herkomst
 
-**Belang**
+Dit hoofdstuk beschrijft de hydrodynamiek - ofwel de waterbeweging - van de Waddenzee. De volgende parameters worden beschreven:
 
-Hydrodynamiek is sterk bepalend voor -en mede bepaald door- de morfologische en ecologische toestand en ontwikkeling van de Waddenzee. Waterstandsverschillen als gevolg van het getij drijven stromingen aan die voor grootschalig transport van sediment en nutriënten zorgen. Waterstanden bepalen ook de overstromings- of droogvalduur van wadplaten en kwelders, en daarmee welke soorten er wel of niet voor kunnen komen. Golven vergroten bodemschuifspanningen, vooral in ondiepe gebeiden. Daarmee beïnvloeden ze erosie en depositie van sediment, de concentraties van zwevende stof in de waterkolom (troebelheid), de korrelgrootteverdeling en verstoring van biota. Ook de hoeveelheid gespuid zoet water is, naast het directe effect op biota, mede bepalend voor de hydrodynamiek doordat het dichtheidsverschil tussen zoet en zout water stromingen aandrijft.
-
-**Afbakening**
-
-In dit hoofdstuk is de beschrijving van de hydrodynamiek beperkt tot de waterstanden (getij en zeespiegelstijging), golven en de grotere zoetwaterafvoeren. Deze parameters worden continu gemeten en de meetdata zijn goed ontsloten. Metingen van bijvoorbeeld stroomsnelheden zijn schaars en worden niet continu uitgevoerd. Daarom zijn deze (nog) niet opgenomen. Bovendien worden de stroomsnelheden sterk beïnvloed door de lokale bodemligging, waardoor ze minder goed gebruikt kunnen worden voor het volgen van trends. Veranderingen in stroomsnelheden op een bepaald punt zijn namelijk sterk gekoppeld aan lokale veranderingen in bodemligging. Ook debieten door de zeegaten zouden een informatieve indicator kunnen zijn, maar deze zijn evenmin consistent of recentelijk bemeten en daarom ook (nog) niet opgenomen.
+-	**Waterstanden:** Waterstandsverschillen als gevolg van het getij drijven stromingen aan die voor grootschalig transport van sediment en nutriënten zorgen. Waterstanden bepalen ook de overstromings- of droogvalduur van wadplaten en kwelders, en daarmee welke soorten er wel of niet voor kunnen komen. Naast een aantal relevante waterstandsparameters (Gemiddeld hoog- en laagwater, getijslag, getij-asymmetrie en de belangrijkste getijcomponenten) wordt ook de zeespiegsltijging beschreven.
+-	**Stroming:** Stroming wordt gestuurd door waterstandsverschillen door het getij, en speelt een belangrijke rol in zowel de morfologie als ecologie van de Waddenzee.
+-	**Golven:** Golven beïnvloeden de erosie en depositie van sediment, de concentraties van zwevende stof in het water (troebelheid) en verstoring van biota. Naast golfhoogte worden ook orbitaalsnelheid (snelheid op de bodem die wordt veroorzaakt door golven) en golfperiode gegeven.
+-	**Zoetwaterafvoeren:** Vanuit verschillende locaties wordt zoet water op de Waddenzee geloosd (spuien): dit heeft effect op het zoutgehalte in de Waddenzee. Naast dat dit de biota beïnvloedt drijft het dichtheidsverschil tussen zoet en zout water ook stromingen aan. 
 
 **Databronnen**
 
