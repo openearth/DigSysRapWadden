@@ -8,7 +8,7 @@ biblio-style: "apalike"
 link-citations: yes
 output:
   bookdown::html_document2:
-    css: styles.css
+    css: style/deltares.css
 # number_sections: true
 # cover-image: images/voorplaat.png
 
