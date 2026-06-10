@@ -16,6 +16,8 @@ rmd_files: [
 # link-citations: yes
 before_chapter_script: _common.R
 delete_merged_file: true
+output_dir: "_book"
+copy_resources: true
 language:
   ui:
     chapter_name: "Hoofdstuk "
