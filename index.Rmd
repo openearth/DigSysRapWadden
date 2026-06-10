@@ -29,39 +29,39 @@ htmltools::HTML('
 <div class="tile-container">
 
 <a class="tile" href="verhaal-van-de-wadden.html">
-  <div class="tile-image" style="background-image: url(\'../images/tiles_verhaalvdWadden.png\');"></div>
+  <div class="tile-image" style="background-image: url(\'images/tiles_verhaalvdWadden.png\');"></div>
 </a>
 
 <a class="tile" href="hydro.html">
-  <div class="tile-image" style="background-image: url(\'../images/tiles_hydrodynamiek.png\');"></div>
+  <div class="tile-image" style="background-image: url(\'images/tiles_hydrodynamiek.png\');"></div>
 </a>
 
 <a class="tile" href="meteo.html">
-  <div class="tile-image" style="background-image: url(\'../images/tiles_meteorologie.png\');"></div>
+  <div class="tile-image" style="background-image: url(\'images/tiles_meteorologie.png\');"></div>
 </a>
 
 <a class="tile" href="Waterkwaliteit.html">
-  <div class="tile-image" style="background-image: url(\'../images/tiles_fysischewaterkwaliteit.png\');"></div>
+  <div class="tile-image" style="background-image: url(\'images/tiles_fysischewaterkwaliteit.png\');"></div>
 </a>
 
 <a class="tile" href="morfologie.html">
-  <div class="tile-image" style="background-image: url(\'../images/tiles_morfologie.png\');"></div>
+  <div class="tile-image" style="background-image: url(\'images/tiles_morfologie.png\');"></div>
 </a>
 
 <a class="tile" href="geologie.html">
-  <div class="tile-image" style="background-image: url(\'../images/tiles_geologie.png\');"></div>
+  <div class="tile-image" style="background-image: url(\'images/tiles_geologie.png\');"></div>
 </a>
 
 <a class="tile" href="ingrepen-door-de-mens.html">
-  <div class="tile-image" style="background-image: url(\'../images/tiles_menselijkeIngrepen.png\');"></div>
+  <div class="tile-image" style="background-image: url(\'images/tiles_menselijkeIngrepen.png\');"></div>
 </a>
 
 <a class="tile" href="Informatiebehoefte.html">
-  <div class="tile-image" style="background-image: url(\'../images/tiles_informatiebehoefte.png\');"></div>
+  <div class="tile-image" style="background-image: url(\'images/tiles_informatiebehoefte.png\');"></div>
 </a>
 
 <a class="tile" href="data.html">
-  <div class="tile-image" style="background-image: url(\'../images/tiles_datadownload.png\');"></div>
+  <div class="tile-image" style="background-image: url(\'images/tiles_datadownload.png\');"></div>
 </a>
 
 </div>
