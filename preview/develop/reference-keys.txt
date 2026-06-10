@@ -76,7 +76,7 @@ fig:NLOG
 fig:bodemdalingsmonitor-doorwinning
 fig:kunstwerken
 fig:geslotenGebiedenVisserij
-tab:unnamed-chunk-12
+tab:unnamed-chunk-10
 fig:tijdstap
 fig:hooglaagvoorbeeld2
 fig:kaartHydrologischeStationsNLWKN
@@ -85,11 +85,7 @@ eq:plaathoogte
 eq:plaatvolume
 eq:geuldiepte
 eq:geulvolume
-verhaal-van-de-wadden
-introductie
-basismonitoring-wadden
-doel-digitale-systeemrapportage
-informatiebehoefte-en-indicatoren
+add-noindex-tag-to-prevent-search-engines-from-crawling
 handleiding-voor-gebruik
 wettelijke-kaders
 hydro
