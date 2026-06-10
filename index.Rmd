@@ -70,16 +70,6 @@ htmltools::HTML('
 ```
 
 
-```{r, results='asis', echo = FALSE, eval=concept}
-
-cat("## Disclaimer concept systeemrapportage  {-} 
-    
-De informatie op deze website is op dit moment onder constructie en bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden. De voor deze concept systeemrapportage gebruikte data kan bij de bronhouder opgevraagd worden. Voor formeel gebruik en formele referentie wordt verwezen naar deze [website](https://systeemrapportage.nl/wadden/) waar de vigerende definitieve systeemrapportage (versie 1.0) is gepubliceerd.")
-
-```
-
-
-```{r, eval=concept}
 # Add noindex tag to prevent search engines from crawling
 metathis::meta() %>%
   metathis::meta_name("robots" = "noindex")
