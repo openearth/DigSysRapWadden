@@ -18,7 +18,7 @@ always_allow_html: true
 #  {.unnumbered}
 
 <!-- # Voorwoord {- #voorwoord} -->
-Hier vindt u een overzicht van actuele en historische data en trends over de ontwikkeling van de abiotische (niet-levende) natuur in de Waddenzee, zoals waterstanden, waterkwaliteit en morfologische ontwikkeling.
+Test. Hier vindt u een overzicht van actuele en historische data en trends over de ontwikkeling van de abiotische (niet-levende) natuur in de Waddenzee, zoals waterstanden, waterkwaliteit en morfologische ontwikkeling.
 
 ### Waar bent u naar op zoek? {-}
 
@@ -68,13 +68,6 @@ htmltools::HTML('
 ')
   
 ```
-
-
-# Add noindex tag to prevent search engines from crawling
-metathis::meta() %>%
-  metathis::meta_name("robots" = "noindex")
-```
-
 
 ### Nederlands {-}
 
