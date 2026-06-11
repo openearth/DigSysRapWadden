@@ -20,69 +20,11 @@ always_allow_html: true
 <!-- # Voorwoord {- #voorwoord} -->
 Hier vindt u een overzicht van actuele en historische data en trends over de ontwikkeling van de abiotische (niet-levende) natuur in de Waddenzee, zoals waterstanden, waterkwaliteit en morfologische ontwikkeling.
 
-### Waar bent u naar op zoek? {-}
+(ref:voorplaatLabel) Luchtfoto van de Zuiderduintjes in 2011 (bron: <https://proxy.archieven.nl/0/DE8E9D519DFD4FC5A6BD82D0952BCF82> © Rijkswaterstaat \| Joop van Houdt).
 
-```{r tiles, results="asis", echo=FALSE}
-
-htmltools::HTML('
-
-<div class="tile-container">
-
-<a class="tile" href="verhaal-van-de-wadden.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_verhaalvdWadden.png\');"></div>
-</a>
-
-<a class="tile" href="hydro.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_hydrodynamiek.png\');"></div>
-</a>
-
-<a class="tile" href="meteo.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_meteorologie.png\');"></div>
-</a>
-
-<a class="tile" href="Waterkwaliteit.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_fysischewaterkwaliteit.png\');"></div>
-</a>
-
-<a class="tile" href="morfologie.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_morfologie.png\');"></div>
-</a>
-
-<a class="tile" href="geologie.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_geologie.png\');"></div>
-</a>
-
-<a class="tile" href="ingrepen-door-de-mens.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_menselijkeIngrepen.png\');"></div>
-</a>
-
-<a class="tile" href="Informatiebehoefte.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_informatiebehoefte.png\');"></div>
-</a>
-
-<a class="tile" href="data.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_datadownload.png\');"></div>
-</a>
-
-</div>
-')
-  
-```
-
-
-```{r, results='asis', echo = FALSE, eval=concept}
-
-cat("## Disclaimer concept systeemrapportage  {-} 
-    
-De informatie op deze website is op dit moment onder constructie en bedoeld voor een beperkt publiek. Niets van deze website mag worden gebruikt door derden. De voor deze concept systeemrapportage gebruikte data kan bij de bronhouder opgevraagd worden. Voor formeel gebruik en formele referentie wordt verwezen naar deze [website](https://systeemrapportage.nl/wadden/) waar de vigerende definitieve systeemrapportage (versie 1.0) is gepubliceerd.")
-
-```
-
-
-```{r, eval=concept}
-# Add noindex tag to prevent search engines from crawling
-metathis::meta() %>%
-  metathis::meta_name("robots" = "noindex")
+```{r voorplaat, width = "100%", fig.cap="(ref:voorplaatLabel)"}
+# ```{r voorplaat, width = "100%", fig.cap="Luchtfoto van Zuiderduintjes in 2011 (bron: https://beeldbank.rws.nl/MediaObject/Details/412251)."}
+knitr::include_graphics("images/voorplaat.png")
 ```
 
 
