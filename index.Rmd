@@ -24,48 +24,29 @@ Test. Hier vindt u een overzicht van actuele en historische data en trends over 
 
 ```{r tiles, results="asis", echo=FALSE}
 
-htmltools::HTML('
+tiles <- data.frame(
+  href = c("verhaal-van-de-wadden.html", "hydro.html", "meteo.html", 
+           "Waterkwaliteit.html", "morfologie.html", "geologie.html",
+           "ingrepen-door-de-mens.html", "Informatiebehoefte.html", "data.html"),
+  image = c("tiles_verhaalvdWadden.png", "tiles_hydrodynamiek.png", "tiles_meteorologie.png",
+            "tiles_fysischewaterkwaliteit.png", "tiles_morfologie.png", "tiles_geologie.png",
+            "tiles_menselijkeIngrepen.png", "tiles_informatiebehoefte.png", "tiles_datadownload.png")
+)
 
-<div class="tile-container">
+html_output <- '<div class="tile-container">'
 
-<a class="tile" href="verhaal-van-de-wadden.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_verhaalvdWadden.png\');"></div>
-</a>
+for (i in 1:nrow(tiles)) {
+  html_output <- paste0(html_output, 
+    '<a class="tile" href="', tiles$href[i], '">',
+    '  <div class="tile-image" style="background-image: url(\'', 
+    knitr::image_uri(file.path("images", tiles$image[i])), 
+    '\');"></div>',
+    '</a>')
+}
 
-<a class="tile" href="hydro.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_hydrodynamiek.png\');"></div>
-</a>
+html_output <- paste0(html_output, '</div>')
 
-<a class="tile" href="meteo.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_meteorologie.png\');"></div>
-</a>
-
-<a class="tile" href="Waterkwaliteit.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_fysischewaterkwaliteit.png\');"></div>
-</a>
-
-<a class="tile" href="morfologie.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_morfologie.png\');"></div>
-</a>
-
-<a class="tile" href="geologie.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_geologie.png\');"></div>
-</a>
-
-<a class="tile" href="ingrepen-door-de-mens.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_menselijkeIngrepen.png\');"></div>
-</a>
-
-<a class="tile" href="Informatiebehoefte.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_informatiebehoefte.png\');"></div>
-</a>
-
-<a class="tile" href="data.html">
-  <div class="tile-image" style="background-image: url(\'images/tiles_datadownload.png\');"></div>
-</a>
-
-</div>
-')
+htmltools::HTML(html_output)
   
 ```
 
