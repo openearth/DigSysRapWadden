@@ -77,7 +77,7 @@ fig:NLOG
 fig:bodemdalingsmonitor-doorwinning
 fig:kunstwerken
 fig:geslotenGebiedenVisserij
-tab:unnamed-chunk-12
+tab:unnamed-chunk-10
 fig:tijdstap
 fig:hooglaagvoorbeeld2
 fig:kaartHydrologischeStationsNLWKN
