@@ -1,4 +1,3 @@
-fig:voorplaat
 fig:kaartAbiotieklocaties
 tab:kadertabel
 fig:getijVanRijn1994
@@ -73,7 +72,6 @@ fig:erl-morfologie
 fig:erl-multibeam
 fig:bodemdalingsmonitor-geologie
 fig:baggeren20222023
-fig:NLOG
 fig:bodemdalingsmonitor-doorwinning
 fig:kunstwerken
 fig:geslotenGebiedenVisserij
