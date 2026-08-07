@@ -18,7 +18,7 @@ always_allow_html: true
 #  {.unnumbered}
 
 <!-- # Voorwoord {- #voorwoord} -->
-Test. Hier vindt u een overzicht van actuele en historische data en trends over de ontwikkeling van de abiotische (niet-levende) natuur in de Waddenzee, zoals waterstanden, waterkwaliteit en morfologische ontwikkeling.
+Hier vindt u een overzicht van actuele en historische data en trends over de ontwikkeling van de abiotische (niet-levende) natuur in de Waddenzee, zoals waterstanden, waterkwaliteit en morfologische ontwikkeling.
 
 (ref:voorplaatLabel) Luchtfoto van de Zuiderduintjes in 2011 (bron: <https://proxy.archieven.nl/0/DE8E9D519DFD4FC5A6BD82D0952BCF82> © Rijkswaterstaat \| Joop van Houdt).
 
