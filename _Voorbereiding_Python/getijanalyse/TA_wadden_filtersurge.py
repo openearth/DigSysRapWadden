@@ -15,7 +15,7 @@ python TA_wadden.py
 This script can be reran faster when loading the components from pkl files with calc_TA variable
 
 """
-
+#%%
 import os
 import datetime as dt
 import hatyan.analysis_prediction
@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 plt.close('all')
 from matplotlib import cm
 import hatyan
-
+#%%
 dir_base = r'P:\11202493--systeemrap-grevelingen\1_data\Noordzee\ddl\calculated'
 
 dir_TA_filtersurge = os.path.join(dir_base,'TA_filtersurge')
@@ -46,7 +46,6 @@ if not os.path.exists(dir_TA_perstation):
 stationdf = pd.read_csv(r"C:\projecten\RWS\sealevelmonitor\data\rijkswaterstaat\stationcode.csv")
 
 station_list = stationdf['locatie.code'].tolist()
-# station_list = ['HARVT10']
 #defining a list of the components to be analysed (can also be 'half_year' and others, 'year' contains 94 components and the mean waterlevel A0)
 const_list_year = hatyan.get_const_list_hatyan('year')+['SSA'] #['A0','M2','S2','M4'] # TODO: add SSA and maybe other components for better reproduction
 const_list_year3hr = const_list_year[:]

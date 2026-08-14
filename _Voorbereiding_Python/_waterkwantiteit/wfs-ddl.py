@@ -1,4 +1,5 @@
 #%%
+# old script to get data from the WFS services of Rijkswaterstaat. Needs to be adjusted to current version. (still working on old version of DDL)
 import geopandas as gpd
 import pandas as pd
 import requests
