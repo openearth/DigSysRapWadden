@@ -16,7 +16,7 @@ logging.getLogger("ddlpy").setLevel(logging.DEBUG)
 
 #%% TODO write functions and move into jupyter scripts once the functions are there to allow the user for easier data selection and collection
 path = Path.cwd()
-grootheid = ['WATHTE']
+grootheid = ['WATHTE', 'WATHTBRKD']
 save_path = r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\raw\waterhoogte2026'
 
 define_selection = pd.read_excel(os.path.join(path, 'define_parameter_selection.xlsx'))
@@ -53,8 +53,8 @@ selected_stations.plot()
 # get the dataframe with locations and their available parameters
 locations = ddlpy.locations()
 # Filter the locations dataframe with the desired parameters and stations.
-for i in range(len(selected_stations['CODE'].iloc[0:2])):
-    bool_stations = locations.index.isin([(selected_stations['CODE'].unique()[0])])
+for i in range(len(selected_stations['CODE'])):
+    bool_stations = locations.index.isin([(selected_stations['CODE'].unique()[i])])
     # meting/astronomisch/verwachting
     # need to investigate how it works with multiple parameters
     bool_procestype = locations["ProcesType"].isin(define_selection['ProcesType'].to_numpy())
@@ -82,9 +82,7 @@ for i in range(len(selected_stations['CODE'].iloc[0:2])):
 
     if not measurements.empty:
         print("Data was found in RWS Waterwebservices/DDL")
-        print("data for location:", selected['Naam'].iloc[0],"\n"
-            "data for grootheid: ", define_selection['Grootheid.Code'].iloc[0]
-                )
+        print("data for location:", selected['Naam'].iloc[0])
         measurements.plot(y="Meetwaarde.Waarde_Numeriek", linewidth=0.8)
     else:
         print("No Data!")

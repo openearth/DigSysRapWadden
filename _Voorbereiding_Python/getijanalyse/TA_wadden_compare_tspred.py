@@ -14,32 +14,28 @@ import numpy as np
 import hatyan
 hatyan.close('all')
 
-station_list = ['WIERMWD1','WIERMGDN','WESTTSLG','UITHZWD1','TEXNZE','TERSLNZE','SCHIERMNOG','NES','LAUWOG','HUIBGT','HOLWD','HARLGN','EEMSHVN','DENHDR','DELFZL']
-station_list = ['UITHZWD1','WIERMWD1','DENHDR','WESTTSLG','TEXNZE','HARLGN','TERSLNZE','HOLWD','WIERMGDN','NES','HUIBGT','SCHIERMNOG','LAUWOG','EEMSHVN','DELFZL'][::-1] #sorted on M2 amplitude
-#station_list = ['DELFZL']
+# year_list = range(1940,2026)
+dir_base = r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\raw\waterhoogte2026'
 
-year_list = range(1879,2022)
-year_list = range(1940,2021) #rws tidal predictions currently available from 1953
-
-dir_base = r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\calculated'
+stations = pd.read_csv(os.path.join(dir_base,'selected_stations.csv'))
+stations_list = stations['CODE'].unique()
 
 dir_predcomparison = os.path.join(dir_base,'prediction_comparison')
 if not os.path.exists(dir_predcomparison):
     os.mkdir(dir_predcomparison)
 
-for station in station_list:
+for station in stations_list:
     hatyan.close('all')
     ts_meas_rws = pd.DataFrame()
     print(f'reading RWS measurement data for {station} for:',end='')
-    for year in year_list:
-        file_meas_rws_oneyear = os.path.join(dir_base,'..','raw','waterhoogte',f'{station}_OW_WATHTE_NVT_NAP_{year}_ddl_wq.csv')
-        if not os.path.exists(file_meas_rws_oneyear):
-            continue
-        print(f' {year}',end='')
-        ts_meas_rws_oneyear_raw = pd.read_csv(file_meas_rws_oneyear,sep=';',parse_dates=['tijdstip'])#,index_col=0,parse_dates=True) EEMSHVN_OW_WATHTBRKD_NVT_NAP_2000_ddl_wq
-        ts_meas_rws_oneyear = pd.DataFrame({'values':ts_meas_rws_oneyear_raw['numeriekewaarde'].values/100, 'QC':ts_meas_rws_oneyear_raw['kwaliteitswaarde.code'].values},index=ts_meas_rws_oneyear_raw['tijdstip'].dt.tz_localize(None)).sort_index()
-        ts_meas_rws_oneyear[ts_meas_rws_oneyear['QC']!=0] = np.nan
-        ts_meas_rws = pd.concat([ts_meas_rws,ts_meas_rws_oneyear],axis=0)
+    station = station.replace('_','.')
+    file_meas_rws = os.path.join(dir_base,f'{station}_WATHTE.csv')
+    if not os.path.exists(file_meas_rws):
+        continue
+    ts_meas_rwsraw = pd.read_csv(file_meas_rws,sep=';',parse_dates=['tijdstip'])#,index_col=0,parse_dates=True) EEMSHVN_OW_WATHTBRKD_NVT_NAP_2000_ddl_wq
+    ts_meas_rws_oneyear = pd.DataFrame({'values':ts_meas_rwsraw['Meetwaarde.Waarde_Numeriek'].values/100, 'QC':ts_meas_rwsraw[''WaarnemingMetadata.Kwaliteitswaardecode].values},index=ts_meas_rwsraw['time'].dt.tz_localize(None)).sort_index()
+    ts_meas_rws_oneyear[ts_meas_rws_oneyear['QC']!=0] = np.nan
+    ts_meas_rws = pd.concat([ts_meas_rws,ts_meas_rws_oneyear],axis=0)
     print('')
     ts_meas_rws_nodupl = ts_meas_rws[~ts_meas_rws.index.duplicated()]
     ts_meas_rws_hourly = ts_meas_rws_nodupl.loc[ts_meas_rws_nodupl.index.minute==0]
