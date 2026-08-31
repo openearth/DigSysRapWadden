@@ -1,4 +1,19 @@
 # %%
+#TODO change strucutre to become more modular (yml approach)
+
+# data we have so far - normal waterlevels, extremes, waterlevel calculated by RWS
+# needed for DSR to calculate in R script: Gemiddels Hoogwater GLH (from extreme)
+#Gemiddels Laagwater (GLW) from extremes
+#Getijslag (difference GHW and GLW)
+#above can be done in the R code directly using the data fetched from the services, use the 'GETETM2' data to do so
+
+# tidal components - have been derived
+#assymetry has not been derived  #TODO integrating hatyan tidal asymmetry scripts
+
+ #- Gemiddeld LaagLaag water bij Springtij #TODO integrating hatyan tidal indicators scripts
+ # - Gemiddeld HoogHoog water bij springtij #TODO integrating hatyan tidal indicators scripts
+
+#%%
 import pandas as pd
 from pathlib import Path
 import requests
