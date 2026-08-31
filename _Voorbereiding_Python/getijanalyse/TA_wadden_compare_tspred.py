@@ -29,27 +29,24 @@ for station in stations_list:
     ts_meas_rws = pd.DataFrame()
     print(f'reading RWS measurement data for {station} for:',end='')
     station = station.replace('_','.')
-    file_meas_rws = os.path.join(dir_base,f'{station}_WATHTE.csv')
+    file_meas_rws = os.path.join(dir_base,f'{station}_WATHTE_meting.csv')
     if not os.path.exists(file_meas_rws):
         continue
-    ts_meas_rwsraw = pd.read_csv(file_meas_rws,sep=';',parse_dates=['tijdstip'])#,index_col=0,parse_dates=True) EEMSHVN_OW_WATHTBRKD_NVT_NAP_2000_ddl_wq
-    ts_meas_rws_oneyear = pd.DataFrame({'values':ts_meas_rwsraw['Meetwaarde.Waarde_Numeriek'].values/100, 'QC':ts_meas_rwsraw[''WaarnemingMetadata.Kwaliteitswaardecode].values},index=ts_meas_rwsraw['time'].dt.tz_localize(None)).sort_index()
-    ts_meas_rws_oneyear[ts_meas_rws_oneyear['QC']!=0] = np.nan
-    ts_meas_rws = pd.concat([ts_meas_rws,ts_meas_rws_oneyear],axis=0)
+    ts_meas_rws_raw = pd.read_csv(file_meas_rws,sep=';',parse_dates=['time'])#,index_col=0,parse_dates=True) EEMSHVN_OW_WATHTBRKD_NVT_NAP_2000_ddl_wq
+    ts_meas_rws_raw = pd.DataFrame({'values':ts_meas_rws_raw['Meetwaarde.Waarde_Numeriek'].values/100, 'QC':ts_meas_rws_raw['WaarnemingMetadata.Kwaliteitswaardecode'].values},index=ts_meas_rws_raw['time'].dt.tz_localize(None)).sort_index()
+    ts_meas_rws_raw[ts_meas_rws_raw['QC']!=0] = np.nan
+    ts_meas_rws = pd.concat([ts_meas_rws,ts_meas_rws_raw],axis=0)
     print('')
     ts_meas_rws_nodupl = ts_meas_rws[~ts_meas_rws.index.duplicated()]
     ts_meas_rws_hourly = ts_meas_rws_nodupl.loc[ts_meas_rws_nodupl.index.minute==0]
     
     ts_pred_rws = pd.DataFrame()
     print(f'reading RWS prediction data for {station} for:',end='')
-    for year in year_list:
-        file_pred_rws_oneyear = os.path.join(dir_base,'..','raw','waterhoogte',f'{station}_OW_WATHTBRKD_NVT_NAP_{year}_ddl_wq.csv')
-        if not os.path.exists(file_pred_rws_oneyear):
-            continue
-        print(f' {year}',end='')
-        ts_pred_rws_oneyear_raw = pd.read_csv(file_pred_rws_oneyear,sep=';',parse_dates=['tijdstip'])#,index_col=0,parse_dates=True) EEMSHVN_OW_WATHTBRKD_NVT_NAP_2000_ddl_wq
-        ts_pred_rws_oneyear = pd.DataFrame({'values':ts_pred_rws_oneyear_raw['numeriekewaarde'].values/100},index=ts_pred_rws_oneyear_raw['tijdstip'].dt.tz_localize(None)).sort_index()
-        ts_pred_rws = pd.concat([ts_pred_rws,ts_pred_rws_oneyear],axis=0)
+    file_pred_rws = os.path.join(dir_base, f'{station}_WATHTE_astronomisch.csv')
+    if not os.path.exists(file_pred_rws):
+        continue
+    ts_pred_rws_raw = pd.read_csv(file_pred_rws,sep=';',parse_dates=['time'])#,index_col=0,parse_dates=True) EEMSHVN_OW_WATHTBRKD_NVT_NAP_2000_ddl_wq
+    ts_pred_rws = pd.DataFrame({'values':ts_pred_rws_raw['numeriekewaarde'].values/100},index=ts_pred_rws_raw['time'].dt.tz_localize(None)).sort_index()
     print('')
     if len(ts_pred_rws)==0:
         continue
@@ -58,13 +55,11 @@ for station in stations_list:
     
     print(f'reading reanalysis_sameyear prediction data for {station} for:',end='')
     ts_pred_rea = pd.DataFrame()
-    for year in year_list:
-        file_pred_rea_oneyear = os.path.join(dir_base,'waterstand_berekend_m',f'tspred_anasameyear_{station}_OW_WATHTASTRO_{year}.csv')
-        if not os.path.exists(file_pred_rea_oneyear):
-            continue
-        print(f' {year}',end='')
-        ts_pred_rea_oneyear = pd.read_csv(file_pred_rea_oneyear,index_col=0,parse_dates=True)
-        ts_pred_rea = pd.concat([ts_pred_rea,ts_pred_rea_oneyear],axis=0)
+    file_pred_rea_oneyear = os.path.join(dir_base,'waterstand_berekend_m',f'tspred_anasameyear_{station}_OW_WATHTASTRO_{year}.csv')
+    if not os.path.exists(file_pred_rea_oneyear):
+        continue
+    ts_pred_rea_oneyear = pd.read_csv(file_pred_rea_oneyear,index_col=0,parse_dates=True)
+    ts_pred_rea = pd.concat([ts_pred_rea,ts_pred_rea_oneyear],axis=0)
     print('')
     ts_pred_rea_hourly = ts_pred_rea.loc[ts_pred_rea.index.minute==0]
     if len(ts_pred_rea_hourly)==0:
