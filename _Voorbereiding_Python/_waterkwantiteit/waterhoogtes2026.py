@@ -10,9 +10,16 @@
 # tidal components - have been derived
 #assymetry has not been derived  #TODO integrating hatyan tidal asymmetry scripts
 
- #- Gemiddeld LaagLaag water bij Springtij #TODO integrating hatyan tidal indicators scripts
- # - Gemiddeld HoogHoog water bij springtij #TODO integrating hatyan tidal indicators scripts
+#- Gemiddeld LaagLaag water bij Springtij #TODO integrating hatyan tidal indicators scripts
+# - Gemiddeld HoogHoog water bij springtij #TODO integrating hatyan tidal indicators scripts
 
+# opslaan per jaar
+# gebruik de parameter wat omschrijving om dit te doen
+# gebruik gelijk de extremen 
+# verplaats scripts naar een losse folder met een yml en readme erbij
+# later verplaatsen naar gitlab omgeving van RWS 
+# voor de data komt een soort fileserver opgezet
+# makkelijk aanpassen van laatstewaarnemingpunt
 #%%
 import pandas as pd
 from pathlib import Path
@@ -29,9 +36,6 @@ from functions import get_locatielaatstewaarning, get_begrenzing_rijkswateren
 import logging
 logging.basicConfig()
 logging.getLogger("ddlpy").setLevel(logging.DEBUG)
-
-import hatyan.analysis_prediction
-from hatyan import hatyan_core
 
 const_list = hatyan_core.get_const_list_hatyan(listtype='year')
 const_list = const_list + ['SSA'] #['A0','M2','S2','M4'] # TODO: add SSA and maybe other components for better reproduction
