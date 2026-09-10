@@ -36,7 +36,7 @@ path = Path.cwd()
 save_path = r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\raw\waterhoogte2026'
 Path(save_path).mkdir(parents=True, exist_ok=True)
 
-define_selection = pd.read_excel(os.path.join(path, 'define_parameter_selection.xlsx'))
+define_selection = pd.read_excel(os.path.join(path,  '_Voorbereiding_Python', 'waterhoogte2026', 'define_parameter_selection.xlsx'))
 grootheid = define_selection['Grootheid.Code'].unique()
 
 #%% locatielaatstewaarneming -> retrieving stations convert to function
