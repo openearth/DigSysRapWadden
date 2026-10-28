@@ -29,12 +29,12 @@ fig:noorderzijlAfvoerTijdserie
 fig:hunzeAfvoerTijdserie
 fig:KNMIstationsmap
 fig:windroos
-fig:percentilesPerYear
 fig:windHeatmapWaddenzee
 fig:consecHours
 fig:consecHours2
 fig:consecHoursPerDirection
 fig:jaarAggregatiePlot
+fig:percentilesPerYear
 fig:kaartDDLlocaties
 fig:jaargemiddeldeTemp
 fig:seizoensgemiddeldenWatertemperatuur
@@ -114,9 +114,9 @@ meteo
 afbakening-definitie-en-herkomst-1
 wind
 windroos
-windpercentielen
 windseizoen
 windperiodes
+windpercentielen
 Waterkwaliteit
 afbakening-definitie-en-herkomst-2
 watertemperatuur
@@ -192,4 +192,3 @@ overzicht-alle-brondata
 beheer-van-de-dsr
 versiebeheer-en-kwaliteitscontrole
 zelf-aan-de-slag
-gebruikte-software-en-packages

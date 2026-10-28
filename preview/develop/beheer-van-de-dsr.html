@@ -208,9 +208,9 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="meteo.html"><a href="meteo.html#wind"><i class="fa fa-check"></i><b>4.2</b> Wind</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="meteo.html"><a href="meteo.html#windroos"><i class="fa fa-check"></i><b>4.2.1</b> Windsterkte en -richting over de langere termijn</a></li>
-<li class="chapter" data-level="4.2.2" data-path="meteo.html"><a href="meteo.html#windpercentielen"><i class="fa fa-check"></i><b>4.2.2</b> 25, 50, 75 en 95-percentiel van de windsnelheid per jaar</a></li>
-<li class="chapter" data-level="4.2.3" data-path="meteo.html"><a href="meteo.html#windseizoen"><i class="fa fa-check"></i><b>4.2.3</b> Seizoensvariatie</a></li>
-<li class="chapter" data-level="4.2.4" data-path="meteo.html"><a href="meteo.html#windperiodes"><i class="fa fa-check"></i><b>4.2.4</b> Periodes met hoge windsterkte</a></li>
+<li class="chapter" data-level="4.2.2" data-path="meteo.html"><a href="meteo.html#windseizoen"><i class="fa fa-check"></i><b>4.2.2</b> Seizoensvariatie</a></li>
+<li class="chapter" data-level="4.2.3" data-path="meteo.html"><a href="meteo.html#windperiodes"><i class="fa fa-check"></i><b>4.2.3</b> Periodes met hoge windsterkte</a></li>
+<li class="chapter" data-level="4.2.4" data-path="meteo.html"><a href="meteo.html#windpercentielen"><i class="fa fa-check"></i><b>4.2.4</b> 25, 50, 75 en 95-percentiel van de windsnelheid per jaar</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="Waterkwaliteit.html"><a href="Waterkwaliteit.html"><i class="fa fa-check"></i><b>5</b> Fysische waterkwaliteit</a>
@@ -325,7 +325,6 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="B.1" data-path="beheer-van-de-dsr.html"><a href="beheer-van-de-dsr.html#versiebeheer-en-kwaliteitscontrole"><i class="fa fa-check"></i><b>B.1</b> Versiebeheer en kwaliteitscontrole</a></li>
 <li class="chapter" data-level="B.2" data-path="beheer-van-de-dsr.html"><a href="beheer-van-de-dsr.html#zelf-aan-de-slag"><i class="fa fa-check"></i><b>B.2</b> Zelf aan de slag</a></li>
-<li class="chapter" data-level="B.3" data-path="beheer-van-de-dsr.html"><a href="beheer-van-de-dsr.html#gebruikte-software-en-packages"><i class="fa fa-check"></i><b>B.3</b> Gebruikte software en packages</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org/yihui/bookdown/" target="blank">Published with bookdown</a></li>
@@ -369,7 +368,7 @@ div.csl-indent {
 <h1><span class="header-section-number">B</span> Beheer van de DSR<a href="beheer-van-de-dsr.html#beheer-van-de-dsr" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="versiebeheer-en-kwaliteitscontrole" class="section level2 hasAnchor" number="11.1">
 <h2><span class="header-section-number">B.1</span> Versiebeheer en kwaliteitscontrole<a href="beheer-van-de-dsr.html#versiebeheer-en-kwaliteitscontrole" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>De R-code waaruit deze digitale systeemrapportage is gemaakt (tekst, scripts en figuren) wordt bewaard op SVN onder versiebeheer (<a href="https://repos.deltares.nl/repos/DigSysRapWadden/" class="uri">https://repos.deltares.nl/repos/DigSysRapWadden/</a>). Daar is precies te herleiden wanneer en door wie aan een bepaalde indicator is gewerkt, en welke bewerkingen op brondata zijn gedaan.</p>
+<p>De R-code waaruit deze digitale systeemrapportage is gemaakt (tekst, scripts en figuren) wordt bewaard op GitHub onder versiebeheer (<a href="https://github.com/openearth/DigSysRapWadden/" class="uri">https://github.com/openearth/DigSysRapWadden/</a>). Daar is precies te herleiden wanneer en door wie aan een bepaalde indicator is gewerkt, en welke bewerkingen op brondata zijn gedaan.</p>
 <p>Om dat overzicht toegankelijker te maken en eventuele fouten sneller te kunnen verhelpen is onderstaande tabel toegevoegd. Deze tabel laat ook zien voor welke indicatoren de resultaten (waarden, kaarten, grafieken) en bijbehorende teksten gecontroleerd zijn, en door wie. Let wel: deze kwaliteitscontrole is beperkt en gericht op de voor de DSR gedane bewerkingen, omdat de DSR voornamelijk data uit andere bronnen ontsluit, en er noodzakelijkerwijs vanuit gegaan wordt dat daar reeds kwaliteitscontrole heeft plaatsgevonden. Deze tabel is alleen ingevuld voor de indicatoren die recent toegevoegd of wezenlijk veranderd zijn.</p>
 <table>
 <colgroup>
@@ -786,19 +785,11 @@ div.csl-indent {
 </div>
 <div id="zelf-aan-de-slag" class="section level2 hasAnchor" number="11.2">
 <h2><span class="header-section-number">B.2</span> Zelf aan de slag<a href="beheer-van-de-dsr.html#zelf-aan-de-slag" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Wil je de code achter de digitale systeemrapportage downloaden en aanpassen voor eigen gebruik? Neem contact op met jasper.dijkstra -at- deltares.nl voor toegang tot de DSR. Vraag vervolgens een Open Earth account aan. Via het programma Tortoise kan je een lokale kopie op je computer zetten om verder te bewerken. Op de <a href="https://publicwiki.deltares.nl/display/OET/TortoiseSVN">publicwiki van Deltares</a> lees je hoe je een Open Earth account kunt aanvragen en een lokale kopie op je computer kunt zetten.</p>
-<p>Waarschijnlijk wordt deze systeemrapportage gemigreerd naar een Github code, waarmee de toegang tot de broncode eenvoudiger wordt.</p>
-</div>
-<div id="gebruikte-software-en-packages" class="section level2 hasAnchor" number="11.3">
-<h2><span class="header-section-number">B.3</span> Gebruikte software en packages<a href="beheer-van-de-dsr.html#gebruikte-software-en-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>R version 4.5.2 (2025-10-31)</strong></p>
-<p><strong>Platform:</strong> x86_64-pc-linux-gnu</p>
-<p><strong>attached base packages:</strong>
-<em>stats</em>, <em>graphics</em>, <em>grDevices</em>, <em>datasets</em>, <em>utils</em>, <em>methods</em> and <em>base</em></p>
-<p><strong>other attached packages:</strong>
-<em>ows4R(v.0.5)</em>, <em>RNetCDF(v.2.11-1)</em>, <em>magrittr(v.2.0.4)</em>, <em>jpeg(v.0.1-11)</em>, <em>raster(v.3.6-32)</em>, <em>sp(v.2.2-1)</em>, <em>downloadthis(v.0.5.0)</em>, <em>leaflet.extras(v.2.0.1.9000)</em>, <em>ggthemes(v.5.2.0)</em>, <em>readxl(v.1.4.5)</em>, <em>plotly(v.4.12.0)</em>, <em>forcats(v.1.0.1)</em>, <em>stringr(v.1.6.0)</em>, <em>dplyr(v.1.2.0)</em>, <em>purrr(v.1.2.1)</em>, <em>readr(v.2.2.0)</em>, <em>tidyr(v.1.3.2)</em>, <em>tibble(v.3.3.1)</em>, <em>ggplot2(v.4.0.2)</em>, <em>tidyverse(v.2.0.0)</em>, <em>RColorBrewer(v.1.1-3)</em>, <em>scales(v.1.4.0)</em>, <em>leaflet(v.2.2.3)</em>, <em>lubridate(v.1.9.5)</em>, <em>httr(v.1.4.8)</em>, <em>zoo(v.1.8-15)</em>, <em>data.table(v.1.18.2.1)</em>, <em>pander(v.0.6.6)</em>, <em>bookdown(v.0.46)</em>, <em>sf(v.1.1-0)</em> and <em>rmarkdown(v.2.30)</em></p>
-<p><strong>loaded via a namespace (and not attached):</strong>
-<em>DBI(v.1.3.0)</em>, <em>rlang(v.1.1.7)</em>, <em>otel(v.0.2.0)</em>, <em>e1071(v.1.7-17)</em>, <em>compiler(v.4.5.2)</em>, <em>mgcv(v.1.9-3)</em>, <em>vctrs(v.0.7.1)</em>, <em>pkgconfig(v.2.0.3)</em>, <em>crayon(v.1.5.3)</em>, <em>fastmap(v.1.2.0)</em>, <em>backports(v.1.5.0)</em>, <em>labeling(v.0.4.3)</em>, <em>tzdb(v.0.5.0)</em>, <em>bit(v.4.6.0)</em>, <em>xfun(v.0.56)</em>, <em>cachem(v.1.1.0)</em>, <em>jsonlite(v.2.0.0)</em>, <em>terra(v.1.9-1)</em>, <em>parallel(v.4.5.2)</em>, <em>R6(v.2.6.1)</em>, <em>bslib(v.0.10.0)</em>, <em>stringi(v.1.8.7)</em>, <em>bsplus(v.0.1.5)</em>, <em>jquerylib(v.0.1.4)</em>, <em>cellranger(v.1.1.0)</em>, <em>geometa(v.0.9.3)</em>, <em>Rcpp(v.1.1.1)</em>, <em>knitr(v.1.51)</em>, <em>leaflet.providers(v.2.0.0)</em>, <em>Matrix(v.1.7-4)</em>, <em>splines(v.4.5.2)</em>, <em>timechange(v.0.4.0)</em>, <em>tidyselect(v.1.2.1)</em>, <em>rstudioapi(v.0.18.0)</em>, <em>yaml(v.2.3.12)</em>, <em>codetools(v.0.2-20)</em>, <em>curl(v.7.0.0)</em>, <em>lattice(v.0.22-7)</em>, <em>withr(v.3.0.2)</em>, <em>S7(v.0.2.1)</em>, <em>askpass(v.1.2.1)</em>, <em>evaluate(v.1.0.5)</em>, <em>units(v.1.0-1)</em>, <em>proxy(v.0.4-29)</em>, <em>pillar(v.1.11.1)</em>, <em>KernSmooth(v.2.23-26)</em>, <em>renv(v.1.3.1)</em>, <em>generics(v.0.1.4)</em>, <em>vroom(v.1.7.0)</em>, <em>hms(v.1.1.4)</em>, <em>class(v.7.3-23)</em>, <em>glue(v.1.8.0)</em>, <em>lazyeval(v.0.2.2)</em>, <em>tools(v.4.5.2)</em>, <em>XML(v.3.99-0.22)</em>, <em>grid(v.4.5.2)</em>, <em>bibtex(v.0.5.2)</em>, <em>crosstalk(v.1.2.2)</em>, <em>nlme(v.3.1-168)</em>, <em>cli(v.3.6.5)</em>, <em>viridisLite(v.0.4.3)</em>, <em>keyring(v.1.4.1)</em>, <em>gtable(v.0.3.6)</em>, <em>sass(v.0.4.10)</em>, <em>digest(v.0.6.39)</em>, <em>classInt(v.0.4-11)</em>, <em>htmlwidgets(v.1.6.4)</em>, <em>farver(v.2.1.2)</em>, <em>htmltools(v.0.5.9)</em>, <em>lifecycle(v.1.0.5)</em>, <em>mime(v.0.13)</em>, <em>openssl(v.2.3.5)</em> and <em>bit64(v.4.6.0-1)</em></p>
+<p>Wil je de code achter de digitale systeemrapportage downloaden en aanpassen voor eigen gebruik? Neem contact op met carlijn.meijers -at- deltares.nl voor toegang tot de DSR.</p>
+<!-- ## Gebruikte software en packages -->
+<!-- ```{r} -->
+<!-- pander::pander(sessionInfo(), RNG = TRUE, locale = FALSE) -->
+<!-- ``` -->
 
 </div>
 </div>
