@@ -1,0 +1,106 @@
+@font-face {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.book .book-body .page-wrapper .page-inner {
+  max-width: 65%;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+caption,.caption {
+  font-style: italic;
+  font-size: smaller;
+}
+
+h1,h2,h3,h4 {
+  color: #2E89BF;
+}
+
+# Styling tables
+table  {
+  border-collapse: collapse;
+  border-color: #9ABAD9;
+  border-spacing:0;
+}
+table td {
+  background-color: #EBF5FF;
+  border-color:#9ABAD9;
+  border-style:solid;
+  border-width:0px;
+  color:#444;
+  overflow:hidden;
+  padding:9px 11px;
+  word-break:normal;
+}
+table th {
+  background-color:#2E89BF;
+  border-color:#9ABAD9;
+  border-style:solid;
+  border-width:0px;
+  color:#fff;
+  font-weight:normal;
+  overflow:hidden;
+  padding:9px 11px;
+  word-break:normal;
+}
+table table-lboi {
+  border-color:inherit;
+  text-align:left;
+  vertical-align:middle
+}
+
+table table-48yq{
+  background-color:#D2E4FC;
+  border-color:inherit;
+  text-align:left;
+  vertical-align:middle
+}
+
+/* Container for all tiles */
+.tile-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 35px;
+  margin-top: 30px;
+}
+
+/* Entire tile is clickable */
+.tile {
+  display: block;
+  position: relative;
+  height: 210px;
+  overflow: hidden;
+  border-radius: 4px;
+  text-decoration: none;
+  color: black;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+
+/* Hover effect */
+.tile:hover {
+  transform: scale(1.03);
+}
+
+/* Background image */
+.tile-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Title bar */
+.tile-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background: rgba(255,255,255,0.8);
+  font-size: 1.2em;
+  font-weight: 600;
+}
