@@ -11,11 +11,17 @@ editor_options:
 De Waddenzee is één van de drukste natuurgebieden die we kennen. Menselijk medegebruik, zoals scheepvaart, visserij en de winning van delfstoffen vindt op veel plekken in de Waddenzee plaats. In de systeemrapportage zijn de menselijke ingrepen toegevoegd die relevant geacht worden voor de morfologische ontwikkeling van de
 Waddenzee. Deze hebben betrekking op de ligging of verstoring van de
 bodem, en/of op volumes door de mens verplaatst sediment. De volgende parameters zijn hier opgenomen:
+
 - **Bagger- en verspreidingswerken:** Om de vaargeulen naar de havens en de eilanden bereikbaar te houden moet er op veel plaatsen in de Waddenzee worden gebaggerd. Hierbij wordt materiaal uit geulen verplaatst naar andere gebieden, waar het wordt verspreid. Om mee te kunnen groeien met zeespiegelstijging mag er tegenwoordig geen zand meer gewonnen worden uit de Waddenzee, dwz. al het gebaggerde materiaal wordt in de Waddenzee weer verspreid. In het verleden werd er wel zand gewonnen in de Waddenzee, wat relevant is om de historische ontwikkeling te begrijpen. Zodra er een goed overzicht is van historische zandwinning zal dit hier worden ontsloten.
+
 - **Zandsuppleties:** Structurele zandsuppleties worden alleen uitgevoerd aan de noordzeezijde, maar een deel van dit sediment komt ook de Waddenzee binnen.
+
 - **Bodemdaling:** Bodemdaling onder de Waddenzee bestaat uit een combinatie van natuurlijke (geologische) en door mensen veroorzaakte bodemdaling, door de winning van gas en zout onder de bodem. De bodemdalingsmonitor in paragraaf \@ref(winningbodemdaling) toont de bodemdaling over de afgelopen 30 jaar.
+
 - **Bedijking**: De historische bedijkingsgeschiedenis van de Waddenzee heeft een grote invloed gehad op de huidige vorm en ontwikkeling van de Waddenzee. Paragraaf \@ref(kunstwerken) toont een overzicht van dijken, sluizen en gemalen rondom de Waddenzee.
+
 - **Gebieden gesloten voor bodemberoerende visserij:** Delen van de Waddenzee zijng esloten voor (bodemberoerende) visserij. Paragraaf \@ref(gebiedenGeslotenVisserij) geeft een overzicht van de gebieden gesloten voor bodemberoerende visserij in de Noordzee. Er bestaat helaas geen eenduidig overzicht van de visserij-activiteiten die in de Waddenzee plaatsvinden.
+
 - **Schelpenwinning:** Paragraaf \ref(schelpenwinning) toont een overzicht van gebieden waar schelpenwinning is toegestaan en waar schelpenbanken zich bevinden.
 
 
@@ -54,24 +60,24 @@ suppleties zijn beschikbaar via de
 niet precies bekend hoeveel van het gesuppleerde volume daadwerkelijk in de
 Waddenzee terecht komt, dit is af te leiden uit de sedimentbalans. In de afgelopen jaren hebben ook enkele
 incidentele suppleties plaatsgevonden in de Waddenzee zelf (bijvoorbeeld
-de Prins Hendrik Zanddijk, de 'mudmotor' ten oosten van Harlingen) die
+de Prins Hendrik Zanddijk en de  'mudmotor' ten oosten van Harlingen) die
 niet in de kustviewer staan, en daarom niet zijn ontsloten.
 
 ## Bodemdaling {#winningbodemdaling}
 
-In de [Bodemdalingsmonitor (Deltares, 2026)](https://publications.deltares.nl/11212814_003_0001.pdf) is een overzicht gegeven van de opgetreden en verwachte bodemdaling als gevolg van de winning van gas, olie en zout. Figuur \@ref(fig:Bodemdaling) toont de totale bodemdaling over de afgelopen 100 jaar (links) en de afgelopen 30 jaar (rechts) als gevolg van geologische bodemdaling en daling door het winnen van delfstoffen. De grootschalige trend van geologische bodemdaling geeft ca 5.5 cm per eeuw in grote delen van de Waddenzee (lichtgroen vlak). Daarnaast zijn in de Waddenzee duidelijk de bodemdalingsschotels te zien als gevolg van de gaswinning rondom Delfzijl en de oostpunt van Ameland, en als gevolg van zoutwinning bij Harlingen.
+In de [Bodemdalingsmonitor (Deltares, 2026)](https://publications.deltares.nl/11212814_003_0001.pdf) is een overzicht gegeven van de opgetreden en verwachte bodemdaling als gevolg van de winning van gas, olie en zout. Figuur \@ref(fig:Bodemdaling) toont de totale bodemdaling over de afgelopen 30 jaar (links) en de verwachte bodemdaling voor de komende 30 jaar (rechts) als gevolg van geologische bodemdaling en daling door het winnen van delfstoffen. De grootschalige trend van geologische bodemdaling geeft ca 5.5 cm per eeuw in grote delen van de Waddenzee (lichtgroen vlak). Daarnaast zijn in de Waddenzee duidelijk de bodemdalingsschotels te zien als gevolg van de gaswinning rondom Delfzijl en de oostpunt van Ameland, en als gevolg van zoutwinning bij Harlingen.
 
 Naast de afgelopen periode is ook een verwachting gemaakt voor de komende 30 jaar. Doordat de gaswinning in meerdere gebieden is beëindigd of sterk afneemt, worden de meeste bodemdalingsvolumes kleiner. Door na-ijlingseffecten blijft bodemdaling door gaswinning in de Waddenzee echter ook de komende 30 jaar nog relevant. Daarnaast is de verwachting dat het bodemdalingsvolume in het Vlie zal toenemen door de zoutwinning bij de Ballastplaat nabij Harlingen (Deltares, 2026).
 
 
-```{r Bodemdaling, fig.cap="Totale bodemdaling over de afgelopen 100 jaar (links) en de afgelopen 30 jaar (rechts) als gevolg van geologische bodemdaling en daling door het winnen van delfstoffen. Bron: Bodemdalingsmonitor (Deltares, 2026)"}
+```{r Bodemdaling, fig.cap="Totale bodemdaling over de afgelopen 30 jaar (links) en de verwachte bodemdaling voor de komende 30 jaar (rechts) als gevolg van geologische bodemdaling en daling door het winnen van delfstoffen. Bron: Bodemdalingsmonitor (Deltares, 2026)"}
 
-knitr::include_graphics("images/Bodemdaling_100jr_30jr_2026.png")
+knitr::include_graphics("images/bodemdaling_30jr_verwacht.png")
 ```
 
 ## Bedijking en kunstwerken {#kunstwerken}
 
-**Historische bedijking van de Waddenzee:**
+**Historische bedijking van de Waddenzee**
 
 De Waddenzee kent een lange geschiedenis van bedijking en inpolderingen. Deze hebben een grote invloed gehad in hoe de Waddenzee er tegenwoordig uitziet en bepalen nog altijd de morfologische ontwikkelingen die we zien. 
 
@@ -83,7 +89,7 @@ Vroeger was de Waddenzee veel groter, zoals Figuur \@ref(fig:Bedijkingsgeschiede
 knitr::include_graphics("images/Bedijkingsgeschiedenis_Waddenzee.png")
 ```
 
-**Huidige bedijking en kunstwerken:**
+**Huidige bedijking en kunstwerken**
 
 Onder kunstwerken verstaan we menselijke bouwwerken die doorgaans niet
 voor bewoning bestemd zijn, zoals dijken, sluizen en gemalen. Onderstaande figuur \@ref(fig:kunstwerken) toont de locaties van verschillende kunstwerken rond de Waddenzee, waaronder sluizen, gemalen
