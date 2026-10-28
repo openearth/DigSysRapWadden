@@ -16,15 +16,16 @@ dtwind <- fread(file.path(datadir, "KNMI", "raw", "uurgegevenswind.csv"))
 
 **Belang**
 
-In een ondiep systeem zoals de Waddenzee heeft de meteorologie (wind, luchtdruk, temperatuur, instraling en neerslag) een sterke invloed op zowel biotische als abiotische processen. Meteorologie is dus belangrijk voor het beschrijven en verklaren van trends en fluctuaties. Biotische processen zoals algen- en plantengroei worden direct beïnvloed door temperatuur en instraling van zonlicht. Via de abiotiek is naast de saliniteit (mede bepaald door neerslag) vooral de wind van groot belang voor hydromorfologische en ecologische processen: het grootse deel van de golven (zie hoofdstuk \@ref(hydro)) in de Waddenzee wordt namelijk lokaal door de wind gegenereerd. Daarnaast is de wind, in combinatie met de luchtdruk, bepalend voor de opzet (of afzet) van waterhoogtes tijdens stormen (zie paragraaf \@ref(waterhoogte-bij-storm)). Zo kan wind ook voor transporten over de wantijen zorgen, wat van belang is voor de connectiviteit tussen de verschillende kombergingsgebieden.
+In een ondiep systeem zoals de Waddenzee heeft de meteorologie (wind, luchtdruk, temperatuur, instraling en neerslag) een sterke invloed op zowel biotische als abiotische processen:
 
-**Afbakening**
-
-In dit hoofdstuk is de beschrijving van de meteorologie beperkt tot de wind (richting en sterkte). De temperatuur is in deze systeemrapportage opgenomen als een verklarende waterkwaliteitsparameter in paragraaf \@ref(watertemperatuur). Deze is het gevolg van, en daarmee informatiever dan, zuiver meteorologische parameters als luchttemperatuur, zoninstraling en bewolking, welke daarom buiten beschouwing zijn gelaten. Luchtdruk en neerslag zijn ook niet opgenomen in deze rapportage. Voor luchtdruk geldt dat getij en wind een veel sterkere invloed op waterstanden hebben, waardoor luchtdruk van ondergeschikt belang is. Neerslag is niet opgenomen omdat de saliniteitsverdeling in de Waddenzee sterker afhangt van het spuien van zoet water dan van directe neerslag. Deze afvoeren zijn daarom wél opgenomen, in paragraaf \@ref(zoetwaterafvoeren).
+-	**Wind:** In dit hoofdstuk is alleen de wind (richting, sterkte en seizoensvariatie) opgenomen. Het grootse deel van de golven (zie paragraaf \@ref(golfhoogte)) in de Waddenzee wordt namelijk lokaal door de wind gegenereerd. Daarnaast is de wind, in combinatie met de luchtdruk, bepalend voor de opzet (of afzet) van waterhoogtes tijdens stormen (zie paragraaf \@ref(waterhoogte-bij-storm)). Zo kan wind ook voor transporten over de wantijen zorgen, wat van belang is voor de connectiviteit tussen de verschillende kombergingsgebieden.
+-	**Luchtdruk:** Naast wind kan ook luchtdruk de waterhoogte beïnvloeden. Luchtdruk is niet opgenomen in deze rapportage omdat getij en wind een veel sterkere invloed op waterstanden hebben, waardoor luchtdruk van ondergeschikt belang is.
+-	**Neerslag:** Neerslag kan, samen met temperatuur, de saliniteit beïnvloeden. De salniiteitsverdeling in de Waddenzee hangt echter veel sterker af van het spuien van zoet water (zie paragraaf \@ref(zoetwaterafvoeren)) dan van directe neersla, daarom is deze niet meegenomen
+-	**Temperatuur:** Temperatuur en instraling van zonlicht beïnvloeden de watertemperatuur en daarmee biotische processen zoals algen- en plantengroei. De watertemperatuur is opgenomen in het hoofdstuk over Fysische waterkwaliteit in paragraaf \@ref(watertemperatuur). 
 
 **Databronnen**
 
-De wind wordt geanalyseerd en gevisualiseerd op vier KNMI stations (zie bron in Appendix \@ref(Appwind)): De Kooy, Lauwersoog, Hoorn Terschelling, Vlieland. Zie figuur \@ref(fig:KNMIstationsmap) voor de ligging van deze stations.
+De wind wordt geanalyseerd en gevisualiseerd op vier KNMI stations (zie bron in Appendix \@ref(Appwind)): De Kooy, Lauwersoog, Hoorn Terschelling, Vlieland. Figuur \@ref(fig:KNMIstationsmap) toont de ligging van deze stations.
 
 ```{r KNMIstationsmap, fig.cap="Kaart met gebruikte KNMI waarnemingsstations voor de parameter wind."}
 
@@ -80,41 +81,10 @@ walk(
 
 ```
 
-### 25, 50, 75 en 95-percentiel van de windsnelheid per jaar {#windpercentielen}
-
-Om meer inzicht te krijgen in trendmatige veranderingen in de windsnelheid, worden de verschillende percentielen van de windsnelheid per jaar weergegeven in figuur \@ref(fig:percentilesPerYear). Doordat de data tot op 1 decimaal achter de komma worden opgeslagen, tonen de figuren een vrij schokkerig verloop. De figuur laat geen duidelijke trends zien. De verschillende percentielen en stations laten een vergelijkbaar verloop zien.
-
-```{r percentilesPerYear, fig.height=6, fig.width=7, fig.cap="25, 50, 75 en 95-percentiel van de windsnelheid per jaar. De kleuren geven de stations aan, het lijntype het percentiel voorkomen."}
-
-dtwind %>% 
-  filter(year < 2021 ) %>%
-  select(year, station, `Windsnelheid in 0.1 m/s`) %>%
-  group_by(year, station) %>%
-  summarize(
-    # y05 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.05, na.rm = T),
-    y25 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.25, na.rm = T),
-    y50 = median(`Windsnelheid in 0.1 m/s`/10, na.rm = T),
-    y75 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.75, na.rm = T),
-    y95 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.95, na.rm = T)#,
-    # y98 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.995, na.rm = T)
-  ) %>% ungroup() %>% 
-  pivot_longer(cols = c(y25, y50, y75, y95), names_to = "percentiel", values_to = "value") %>%
-  mutate(percentiel = as.factor(percentiel)) %>%
-  mutate(percentiel = fct_reorder(percentiel, -value)) %>%
-ggplot(aes(year, value)) +
- #  geom_boxplot(
- #   aes(ymin = y05, lower = y25, middle = y50, upper = y75, ymax = y95, group = interaction(year, station), fill = station), stat = "identity", size = 1
- # ) +
-  geom_line(aes(color = station, linetype = percentiel), size = 1) +
-  # facet_grid(percentiel ~.) +
-  ylab ("Windsnelheid in m/s") + xlab( "Jaar") +
-  theme_met +
-  theme(legend.position = "bottom")
-```
 
 ### Seizoensvariatie {#windseizoen}
 
-Hogere windsnelheden komen vaker voor in de winter dan in de zomer. Dit is te zien in een heatmap van de maandgemiddelde windsnelheden, uitgezet tegen jaren (horizontale as) en maanden (verticale as) in figuur \@ref(fig:windHeatmapWaddenzee). Hierin is zowel de lange termijn variatie te zien (horizontaal) als de seizoensvariatie (verticaal). Over het geheel gesproken bevestigt dit het beeld dat de windsnelheid in de wintermaanden (de onderste en bovenste banden) hoger is dan in de zomer (de middelste banden). Er lijkt geen structurele trend in de tijd te zijn wat betreft gemiddelde windsnelheid of de variatie per seizoen.
+Hogere windsnelheden komen vaker voor in de winter dan in de zomer. Dit is te zien in een heatmap van de maandgemiddelde windsnelheden per jaar in Figuur \@ref(fig:windHeatmapWaddenzee). Hierin is zowel de lange termijn variatie te zien (horizontaal) als de seizoensvariatie (verticaal). Over het geheel gesproken bevestigt dit het beeld dat de windsnelheid in de wintermaanden hoger is dan in de zomer (de middelste banden). Er lijkt geen structurele trend in de tijd te zijn wat betreft gemiddelde windsnelheid of de variatie per seizoen.
 
 ```{r windHeatmapWaddenzee, fig.height=6, fig.width = 8, fig.cap="Variatie van windsnelheden over de lange termijn (horizontaal) en over het jaar (verticaal) over de periode 1998 - 2018. Grijze vlakken zijn maanden zonder data. "}
 dtwind %>% 
@@ -242,4 +212,36 @@ dtwind %>% filter(year > 2010) %>%
 
 ```{r cleanupWind}
 rm(dtwind, winddatalist, winddata)
+```
+
+### 25, 50, 75 en 95-percentiel van de windsnelheid per jaar {#windpercentielen}
+
+Om meer inzicht te krijgen in trendmatige veranderingen in de windsnelheid, worden de verschillende percentielen van de windsnelheid per jaar weergegeven in figuur \@ref(fig:percentilesPerYear). Doordat de data tot op 1 decimaal achter de komma worden opgeslagen, tonen de figuren een vrij schokkerig verloop. De figuur laat geen duidelijke trends zien. De verschillende percentielen en stations laten een vergelijkbaar verloop zien.
+
+```{r percentilesPerYear, fig.height=6, fig.width=7, fig.cap="25, 50, 75 en 95-percentiel van de windsnelheid per jaar. De kleuren geven de stations aan, het lijntype het percentiel voorkomen."}
+
+dtwind %>% 
+  filter(year < 2021 ) %>%
+  select(year, station, `Windsnelheid in 0.1 m/s`) %>%
+  group_by(year, station) %>%
+  summarize(
+    # y05 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.05, na.rm = T),
+    y25 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.25, na.rm = T),
+    y50 = median(`Windsnelheid in 0.1 m/s`/10, na.rm = T),
+    y75 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.75, na.rm = T),
+    y95 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.95, na.rm = T)#,
+    # y98 = quantile(`Windsnelheid in 0.1 m/s`/10, 0.995, na.rm = T)
+  ) %>% ungroup() %>% 
+  pivot_longer(cols = c(y25, y50, y75, y95), names_to = "percentiel", values_to = "value") %>%
+  mutate(percentiel = as.factor(percentiel)) %>%
+  mutate(percentiel = fct_reorder(percentiel, -value)) %>%
+ggplot(aes(year, value)) +
+ #  geom_boxplot(
+ #   aes(ymin = y05, lower = y25, middle = y50, upper = y75, ymax = y95, group = interaction(year, station), fill = station), stat = "identity", size = 1
+ # ) +
+  geom_line(aes(color = station, linetype = percentiel), size = 1) +
+  # facet_grid(percentiel ~.) +
+  ylab ("Windsnelheid in m/s") + xlab( "Jaar") +
+  theme_met +
+  theme(legend.position = "bottom")
 ```

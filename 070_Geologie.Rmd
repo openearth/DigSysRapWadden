@@ -12,6 +12,7 @@
 De ondiepe ondergrond van de Waddenzee ontstaan door een opeenvolging van verschillende omstandigheden (zoals ijstijden, afwisselend hoge of lage zeespiegel, open mariene omgeving of in een delta/rivier) en door verschillende processen ontstaan. De verschillende perioden hebben allemaal andere bodemlagen achtergelaten, die samen de huidige Waddenzee vormen.
 
 **IJstijden**
+
 Twee keer is dit gebied bedekt geraakt onder het landijs: tijdens het Elsterien glaciaal (465.000 -- 418.000 jaar geleden) en het Saalien glaciaal (238.000 - 126.000 jaar geleden). In het oostelijke gedeelte van de Waddenzee kunnen afzettingen uit het Elsterien worden gevonden. Het gaat hierbij om zanden maar ook klei die in grote smeltwatermeren werd afgezet. Deze klei wordt ook wel 'Potklei' genoemd en is zeer erosiebestendig. Lokaal beïnvloeden deze harde kleilagen nog altijd de morfologie in de Waddenzee. Voor de kust van Ameland ligt deze laag op de bodem van het Borndiep, en ook in de Eems is Potklei te vinden op de bodem van de geulen. Het effect van deze erosieresistente lagen wordt in paragraaf \@ref(erluitleg) verder uitgelegd. 
 
 In de warme periode tussen de Elsterien en Saalien ijstijden (het Holsteinien interglaciaal) stond het gebied onder water en werden er voornamelijk fijnkorrelige, schelphoudende zandlagen afgezet. Bij de terugkeer van het landijs in het Saalien werd onder de gletsjers keileem afgezet: een erosiebestendige klei/leemlaag waarin ook grind en grotere keien aanwezig zijn. Deze keileem laag is later deels weer geërodeerd, maar een deel ervan is bewaard gebleven en wordt voornamelijk in het westelijke gedeelte van de Waddenzee aangetroffen, bijvoorbeeld rond Texel.
@@ -19,6 +20,7 @@ In de warme periode tussen de Elsterien en Saalien ijstijden (het Holsteinien in
 In de daarop volgende warme periode, het Eemien (126.000 -- 116.000 jaar geleden), drong de zee weer delen van het Waddenzeegebied binnen en werden op de zeebodem zand- en kleilagen afgezet. In de laatste ijstijd, het Weichselien (116.000 -- 11.700 jaar geleden) kwam het landijs niet verder dan Noord-Denemarken. De Waddenzee lag droog en veranderde in een toendralandschap. Er werd voornamelijk zand afgezet onder invloed van de wind, beken en smeltwater van de ten noorden gelegen ijskap.
 
 **Holoceen**
+
 Toen in het Holoceen (11.700 jaar geleden - heden) de zeespiegel steeg ontstond er kortstondig een veenmoeras door de verhoogde grondwaterstanden, waardoor er op de onderliggende zanden een laag veen ontstond die 'basisveen' wordt genoemd. Deze laag basisveen is op enkele plekken nog bewaard gebleven. Erboven wordt geregeld een kleilaag aangetroffen die onder de eerste mariene invloeden werd afgezet nadat de zeespiegel nog verder was gestegen. Deze opeenvolging van veen en klei vormt bijvoorbeeld de erosie-resistente laag in de geulwand van het Borndiep.
 
 Naarmate de zee verder steeg en het getijdenbekken zijn huidige vorm kreeg zijn de oudere afzettingen geërodeerd en omgewerkt door migrerende getijdengeulen. Op veel plekken, met name waar de oudere lagen goed bestand zijn tegen erosie, zijn de lagen bewaard gebleven en kunnen ze nog steeds bepalend zijn voor de morfologische ontwikkeling van geulen.
@@ -31,6 +33,7 @@ De ligging van deze erosieresistente lagen is in een eerder onderzoek [@Onselen2
 
 
 (ref:erl-kaartLabel) Interactieve kaart van erosie-resistente lagen in het Waddengebied. Klikken op een (mogelijke) ERL laat de verandering in dwarsdoorsnede in de loop van de tijd zien ([Link naar Schermvullende versie](https://www.testsysteemrapportage.nl/ERL%20kaart%20NL%20v1.0/index.html#10/53.2167/5.6978)). 
+
 ```{r erl-kaart, fig.cap= "(ref:erl-kaartLabel)"}
 
 if(knitr::is_html_output())knitr::include_url("../ERL kaart NL v1.0/index.html#10/53.2167/5.6978", height = "600px") else{
