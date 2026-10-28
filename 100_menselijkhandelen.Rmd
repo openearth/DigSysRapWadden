@@ -12,7 +12,7 @@ De Waddenzee is één van de drukste natuurgebieden die we kennen. Menselijk med
 Waddenzee. Deze hebben betrekking op de ligging of verstoring van de
 bodem, en/of op volumes door de mens verplaatst sediment. De volgende parameters zijn hier opgenomen:
 
-- **Bagger- en verspreidingswerken:** Om de vaargeulen naar de havens en de eilanden bereikbaar te houden moet er op veel plaatsen in de Waddenzee worden gebaggerd. Hierbij wordt materiaal uit geulen verplaatst naar andere gebieden, waar het wordt verspreid. Om mee te kunnen groeien met zeespiegelstijging mag er tegenwoordig geen zand meer gewonnen worden uit de Waddenzee, dwz. al het gebaggerde materiaal wordt in de Waddenzee weer verspreid. In het verleden werd er wel zand gewonnen in de Waddenzee, wat relevant is om de historische ontwikkeling te begrijpen. Zodra er een goed overzicht is van historische zandwinning zal dit hier worden ontsloten.
+-	**Bagger- en verspreidingswerken:** Om de vaargeulen naar de havens en de eilanden bereikbaar te houden moet er op veel plaatsen in de Waddenzee worden gebaggerd. Hierbij wordt materiaal uit geulen verplaatst naar andere gebieden, waar het wordt verspreid. Om mee te kunnen groeien met zeespiegelstijging mag er tegenwoordig geen zand meer gewonnen worden uit de Waddenzee, dwz. al het gebaggerde materiaal wordt in de Waddenzee weer verspreid. In het verleden werd er wel zand gewonnen in de Waddenzee, wat relevant is om de historische ontwikkeling te begrijpen. Zodra er een goed overzicht is van historische zandwinning zal dit hier worden ontsloten.
 
 - **Zandsuppleties:** Structurele zandsuppleties worden alleen uitgevoerd aan de noordzeezijde, maar een deel van dit sediment komt ook de Waddenzee binnen.
 
