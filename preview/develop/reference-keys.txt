@@ -143,10 +143,8 @@ ecotopenkaart
 ecotopenkaart-2017
 geologie
 geologie-achtergrond
-erl-uitleg
-belang
-afbakening-1
-conceptueel-model-effecten-erls
+erluitleg
+effect-van-erosieresistente-lagen-op-de-morfologie
 geobodemdaling
 ingrepen-door-de-mens
 bagger--en-verspreidingswerken
