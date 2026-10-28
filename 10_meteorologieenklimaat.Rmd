@@ -210,10 +210,6 @@ dtwind %>% filter(year > 2010) %>%
   theme_met
 ```
 
-```{r cleanupWind}
-rm(dtwind, winddatalist, winddata)
-```
-
 ### 25, 50, 75 en 95-percentiel van de windsnelheid per jaar {#windpercentielen}
 
 Om meer inzicht te krijgen in trendmatige veranderingen in de windsnelheid, worden de verschillende percentielen van de windsnelheid per jaar weergegeven in figuur \@ref(fig:percentilesPerYear). Doordat de data tot op 1 decimaal achter de komma worden opgeslagen, tonen de figuren een vrij schokkerig verloop. De figuur laat geen duidelijke trends zien. De verschillende percentielen en stations laten een vergelijkbaar verloop zien.
@@ -244,4 +240,8 @@ ggplot(aes(year, value)) +
   ylab ("Windsnelheid in m/s") + xlab( "Jaar") +
   theme_met +
   theme(legend.position = "bottom")
+```
+
+```{r cleanupWind}
+rm(dtwind, winddatalist, winddata)
 ```
