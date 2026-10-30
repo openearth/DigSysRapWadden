@@ -8,51 +8,36 @@ editor_options:
 
 # Ingrepen door de mens
 
-In 2024 ziin een aantal indicatoren voor menselijk ingrepen toegevoegd,
-die relevant geacht worden voor de morfologische ontwikkeling van de
+De Waddenzee is één van de drukste natuurgebieden die we kennen. Menselijk medegebruik, zoals scheepvaart, visserij en de winning van delfstoffen vindt op veel plekken in de Waddenzee plaats. In de systeemrapportage zijn de menselijke ingrepen toegevoegd die relevant geacht worden voor de morfologische ontwikkeling van de
 Waddenzee. Deze hebben betrekking op de ligging of verstoring van de
-bodem, en/of op volumes door de mens verplaatst sediment. Omdat ook
-visserij-activiteiten de bodem beroer(d)en is het wenselijk deze ook op
-te nemen, maar daarvoor ontbreekt vooralsnog de juiste brondatawat reden
-is om deze voorlopig nog niet te tonen. Daarnaast geldt, met name voor
-visserij-activiteiten, dat er vaak een verschil is tussen wat er volgens
-een duidelijke omschrijving in een vergunning mag plaatsvinden en wat er
-daadwerkelijk gebeurd is. Bijvoorbeeld: een gebied kan in principe open
-zijn voor een bepaald type visserij, maar het kan zijn dat er niet
-gevist is. Deze categorie indicatoren kan dus nog niet zomaar eenduidig
-ontsloten worden.
+bodem, en/of op volumes door de mens verplaatst sediment. De volgende parameters zijn hier opgenomen:
+
+-	**Bagger- en verspreidingswerken:** Om de vaargeulen naar de havens en de eilanden bereikbaar te houden moet er op veel plaatsen in de Waddenzee worden gebaggerd. Hierbij wordt materiaal uit geulen verplaatst naar andere gebieden, waar het wordt verspreid. Om mee te kunnen groeien met zeespiegelstijging mag er tegenwoordig geen zand meer gewonnen worden uit de Waddenzee, dwz. al het gebaggerde materiaal wordt in de Waddenzee weer verspreid. In het verleden werd er wel zand gewonnen in de Waddenzee, wat relevant is om de historische ontwikkeling te begrijpen. Zodra er een goed overzicht is van historische zandwinning zal dit hier worden ontsloten.
+
+- **Zandsuppleties:** Structurele zandsuppleties worden alleen uitgevoerd aan de noordzeezijde, maar een deel van dit sediment komt ook de Waddenzee binnen.
+
+- **Bodemdaling:** Bodemdaling onder de Waddenzee bestaat uit een combinatie van natuurlijke (geologische) en door mensen veroorzaakte bodemdaling, door de winning van gas en zout onder de bodem. De bodemdalingsmonitor in paragraaf \@ref(winningbodemdaling) toont de bodemdaling over de afgelopen 30 jaar.
+
+- **Bedijking**: De historische bedijkingsgeschiedenis van de Waddenzee heeft een grote invloed gehad op de huidige vorm en ontwikkeling van de Waddenzee. Paragraaf \@ref(kunstwerken) toont een overzicht van dijken, sluizen en gemalen rondom de Waddenzee.
+
+- **Gebieden gesloten voor bodemberoerende visserij:** Delen van de Waddenzee zijng esloten voor (bodemberoerende) visserij. Paragraaf \@ref(gebiedenGeslotenVisserij) geeft een overzicht van de gebieden gesloten voor bodemberoerende visserij in de Noordzee. Er bestaat helaas geen eenduidig overzicht van de visserij-activiteiten die in de Waddenzee plaatsvinden.
+
+- **Schelpenwinning:** Paragraaf \ref(schelpenwinning) toont een overzicht van gebieden waar schelpenwinning is toegestaan en waar schelpenbanken zich bevinden.
+
 
 ## Bagger- en verspreidingswerken
 
-De wens is om hier baggervolumes/massa in combinatie met bagger- en
-verspreidingslocaties te tonen, over de afgelopen jaren. Deze data is
-echter niet digitaal openbaar ontsloten, wel beschikbaar in
-jaarrapportages. Deze rapportages bevatten geen regristratie van het
-soort materiaal (zand of slib) maar dat kan wel enigszins uit de
-baggerlocatie herleid worden. Op basis van de jaarraportages wordt door
-Rijkswaterstaat gewerkt aan een ArcGIS storymap; als deze gereed is zal
-daar naar verwezen worden.
+Om de vaargeulen naar de havens en de eilanden bereikbaar te houden moet er op veel plaatsen in de Waddenzee worden gebaggerd. Al het gebaggerde materiaal wordt ook binnen de Waddenzee weer verspreid, om het sediment binnen het systeem te behouden met het oog op zeespiegelstijging. Dit verspreiden gebeurt op speciaal aangewezen verspreidingslocaties, veelal met hoge stroomsnelheden, waar het materiaal snel door het systeem wordt opgenomen. Een overzicht van de gebaggerde volumes per bekken wordt gegeven in Figuur \@ref(fig:baggeren20222023), waarin ook de locatie van de baggervakken en verspreidingsvakken staat aangegeven.
 
-Voor nu geeft figuur \@ref(fig:baggeren20222023), gebaseerd op de studie
-[Abiotische effecten baggeren en verspreiden in de Waddenzee (Deltares,
-2024)](https://publicwiki.deltares.nl/display/MORFWAD/Producten?preview=/137135283/314311761/11210370-014-ZKS-0001_v1.0-Abiotische%20effecten%20baggeren%20en%20verspreiden%20in%20de%20Waddenzee%20-%20voor%20publicatie.pdf),
-een goed overzicht van waar gebaggerd is (baggervakken), waar gebaggerd
-materiaal verspreid is (verspreidingsvakken) en hoeveel m^3^ per jaar
-dit gemiddeld geweest is over de jaren 2022 en 2023, per
-Waddenzeebekken. De data gebruikt in deze studie is dezelfde als in de
-[Jaarrapportages baggerwerkzaamheden Waddenzee 2022 en
-2023](https://open.rijkswaterstaat.nl/publish/pages/195118/jaarrapportage_baggerwerkzaamheden_waddenzee_2023.pdf).
-Deze en eerdere jaarrapportages geven meer inzicht in variaties tussen
-jaren en in de verdeling binnen een bekken.
+De vaarwegen worden onderhouden door Rijkswaterstaat, havens veelal door lokale beheerders. Een overzicht van baggervolumes per jaar kan worden gevonden in de door Rijkswaterstaat gepubliceerde jaarrapportages, bijvoorbeeld de [Jaarrapportage baggerwerkzaamheden Waddenzee 2025](https://open.rijkswaterstaat.nl//@301384/jaarrapportage-baggerwerkzaamheden/). Deze en eerdere jaarrapportages geven meer inzicht in variaties tussen
+jaren en in de verdeling binnen een bekken. Daarnaast geeft de studie [Abiotische effecten baggeren en verspreiden in de Waddenzee (Deltares,
+2024)](https://publicwiki.deltares.nl/display/MORFWAD/Producten?preview=/137135283/314311761/11210370-014-ZKS-0001_v1.0-Abiotische%20effecten%20baggeren%20en%20verspreiden%20in%20de%20Waddenzee%20-%20voor%20publicatie.pdf)
+een goed overzicht van baggervolumes, trends, en de invloed van het baggeren op de Waddenzee. 
 
-Deze volumes omvatten zowel baggerwerken in havens (veelal gebaggerd
-door lokale beheerders) als in vaarwegen (veelal gebaggerd door
-Rijkswaterstaat). Naast deze volumes wordt er ook een deel door middel
-van de baggermethode ploegen herverdeeld; dat is hier niet opgenomen. In
-het Marsdiep en het Vlie vormen de baggerwerken in de havens
+In het Marsdiep en het Vlie vormen de baggerwerken in de havens
 (Marinehaven Den Helder, Harlingen) het grootste volume. In het Borndiep
 is het in havens gebaggerde volume juist heel klein, en komt vrijwel het
-gehele volume op het conto van de Veerbootroute Ameland-Holwerd.Het
+gehele volume op het conto van de Veerbootroute Ameland-Holwerd. Het
 baggervolume in Eems-Dollard is duidelijk het grootste van de
 Waddenzeebekkens, waarbij vooral het baggervolume in de geulen sinds de
 vaarwegverruiming in 2017/2018 aanzienlijk gegroeid is naar circa 3,5
@@ -75,26 +60,39 @@ suppleties zijn beschikbaar via de
 niet precies bekend hoeveel van het gesuppleerde volume daadwerkelijk in de
 Waddenzee terecht komt, dit is af te leiden uit de sedimentbalans. In de afgelopen jaren hebben ook enkele
 incidentele suppleties plaatsgevonden in de Waddenzee zelf (bijvoorbeeld
-de Prins Hendrik Zanddijk, de 'mudmotor' ten oosten van Harlingen) die
+de Prins Hendrik Zanddijk en de  'mudmotor' ten oosten van Harlingen) die
 niet in de kustviewer staan, en daarom niet zijn ontsloten.
 
 ## Bodemdaling {#winningbodemdaling}
 
-**Afgelopen 30 jaar**
+In de [Bodemdalingsmonitor (Deltares, 2026)](https://publications.deltares.nl/11212814_003_0001.pdf) is een overzicht gegeven van de opgetreden en verwachte bodemdaling als gevolg van de winning van gas, olie en zout. Figuur \@ref(fig:Bodemdaling) toont de totale bodemdaling over de afgelopen 30 jaar (links) en de verwachte bodemdaling voor de komende 30 jaar (rechts) als gevolg van geologische bodemdaling en daling door het winnen van delfstoffen. De grootschalige trend van geologische bodemdaling geeft ca 5.5 cm per eeuw in grote delen van de Waddenzee (lichtgroen vlak). Daarnaast zijn in de Waddenzee duidelijk de bodemdalingsschotels te zien als gevolg van de gaswinning rondom Delfzijl en de oostpunt van Ameland, en als gevolg van zoutwinning bij Harlingen.
 
-In de Bodemdalingsmonitor (2022) zijn overzichten gegeven van de opgetreden en verwachte bodemdaling als gevolg van de winning van gas, olie en zout. Uit een eerder rapport (2018) bleek dat bodemdaling door het winnen van water niet relevant is voor het kustfundament en getijdenbekkens als de Waddenzee. Er zijn kaarten opgesteld voor de periode 1917-2017, 1987-2017 (hieronder, in \@ref(fig:bodemdalingsmonitor-doorwinning) ) en de periode 2020-2050. De onzekerheid rondom de bodemdalingsgetallen is vrij groot, voor opgetreden bodemdaling is deze geschat op ± 25%, voor toekomstige bodemdaling op ± 50%.
-De meeste bodemdaling is opgetreden bij de oostpunt van Ameland en bij de monding van de Eems. Ook de bodemdalingsschotel van de winning ten oosten van Vlieland (Zuidwal) is goed zichtbaar. In de meeste gebieden treedt er de komende 30 jaar minder bodemdaling op dan in de afgelopen 30 jaar. Dit geldt niet voor de omgeving van de Ballastplaat ten westen van Harlingen waar door zoutwinning de komende tientallen jaren naar verwachting meer dan 1 m bodemdaling zal optreden in het centrum van de bodemdalingsschotel. De bodemdalingskaarten van de Bodemdalingsmonitor zullen regelmatig geactualiseerd moeten worden om in te spelen op veranderende productieplannen en wingebieden.
+Naast de afgelopen periode is ook een verwachting gemaakt voor de komende 30 jaar. Doordat de gaswinning in meerdere gebieden is beëindigd of sterk afneemt, worden de meeste bodemdalingsvolumes kleiner. Door na-ijlingseffecten blijft bodemdaling door gaswinning in de Waddenzee echter ook de komende 30 jaar nog relevant. Daarnaast is de verwachting dat het bodemdalingsvolume in het Vlie zal toenemen door de zoutwinning bij de Ballastplaat nabij Harlingen (Deltares, 2026).
 
-```{r bodemdalingsmonitor-doorwinning, fig.cap="Bodembeweging door delfstofwinning tussen 1987-2017 in het kustfundament en de getijdenbekkens. Bron: Bodemdalingsmonitor"}
 
-knitr::include_graphics("images/bodemdalingsmonitor_doorwinning.png")
+```{r Bodemdaling, fig.cap="Totale bodemdaling over de afgelopen 30 jaar (links) en de verwachte bodemdaling voor de komende 30 jaar (rechts) als gevolg van geologische bodemdaling en daling door het winnen van delfstoffen. Bron: Bodemdalingsmonitor (Deltares, 2026)"}
+
+knitr::include_graphics("images/bodemdaling_30jr_verwacht.png")
 ```
 
-## Kunstwerken
+## Bedijking en kunstwerken {#kunstwerken}
+
+**Historische bedijking van de Waddenzee**
+
+De Waddenzee kent een lange geschiedenis van bedijking en inpolderingen. Deze hebben een grote invloed gehad in hoe de Waddenzee er tegenwoordig uitziet en bepalen nog altijd de morfologische ontwikkelingen die we zien. 
+
+Vroeger was de Waddenzee veel groter, zoals Figuur \@ref(fig:BedijkingsgeschiedenisWaddenzee) De Waddenzee stond in open verbinding met de Zuiderzee (tegenwoordig IJsselmeer) en de Lauwerszee (tegenwoordig Lauwersmeer). Daarnaast was een deel van het huidige Friesland en Groningen vroeger zee. Sinds de Middeleeuwen is stap voor stap steeds meer gebied ingepolderd en bedijkt. Hierdoor is het oppervlak van de Waddenzee de afgelopen duizend jaar met ongeveer twee derde afgenomen (Rijkswaterstaat (2021). Dit heeft gevolgen voor de waterbeweging (getijdevoortplanting) en de ligging van geulen en platen. Van veel van deze ingrepen merken we nog altijd de effecten in het huidige gedrag van de Waddenzee. De afsluiting van de Zuiderzee is hiervan het meest bekende voorbeeld, maar ook de afsluiting van de Lauwerszee, de inpoldering van de Dollard en zelfs de Middelzee hebben hun sporen nagelaten in hoe het huidige systeem eruit ziet. Een duidelijke uitleg van deze historische effecten kan worden gevonden in de [Brochure Morfologische Veranderingen van Rijkswaterstaat (2021)](https://waddenzee.nl/publish/pages/337/brochure_morfologische_veranderingen_wadden.pdf)
+
+
+```{r BedijkingsgeschiedenisWaddenzee, fig.cap="Bedijkingsgeschiedenis van de Waddenzee en het Eems-Dollard Estuarium. Bron: Brochure Morfologische Veranderingen Waddenzee (Rijkswaterstaat, 2021)"}
+
+knitr::include_graphics("images/Bedijkingsgeschiedenis_Waddenzee.png")
+```
+
+**Huidige bedijking en kunstwerken**
 
 Onder kunstwerken verstaan we menselijke bouwwerken die doorgaans niet
-voor bewoning bestemd zijn. Onderstaande figuur toont de locaties van
-verschillende kunstwerken rond de Waddenzee, waaronder sluizen, gemalen
+voor bewoning bestemd zijn, zoals dijken, sluizen en gemalen. Onderstaande figuur \@ref(fig:kunstwerken) toont de locaties van verschillende kunstwerken rond de Waddenzee, waaronder sluizen, gemalen
 en duikers. In de figuur wordt per locatie het type kunstwerk vermeld.
 
 ```{r kunstwerken, out.height="450px", fig.cap="Kunstwerken in de Waddenzee, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/6c39918c-b1ed-4472-b4ce-eb1efeac788d", out.width = "100%"}
@@ -105,10 +103,6 @@ en duikers. In de figuur wordt per locatie het type kunstwerk vermeld.
 
 Wadden <- sf::st_read(file.path(datadir, "RWS", "menselijkhandelen", "Waddenzee_Noordzeekust", "Waddenzee_Noordzeekust.geojson"), quiet = TRUE)
 
-#
-# oude url (werkt niet meer) 
-# kunstwerkenurl <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/primaire_waterkering/ows?request=GetFeature&service=WFS&version=2.0.0&outputFormat=application%2Fjson&typeNames=primaire_waterkering:kunstwerken"
-# 
 kunstwerkenurl <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/dijkringen_historie/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=kunstwerken_2012&outputFormat=json&content-disposition=attachment"
 
 dijkringenurl <- "https://geo.rijkswaterstaat.nl/services/ogc/gdr/dijkringen_historie/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=dijkring_l_2012&outputFormat=json&content-disposition=attachment"
@@ -122,70 +116,64 @@ leaflet(kunstwerken) %>%
   addCircleMarkers(label = ~kd_type_om, radius=3) %>%
   addPolylines(data = dijkringen, label = ~wk_type, stroke = 3, color = "green")
 
-# cat("Deze laag met kunstwerken is niet meer actief. Zie [deze link](https://rijkswaterstaatdata.nl/meldingen-storingen/meldingen-storingen/webservice-primaire-waterkering/). Lagen zijn niet meer via standaard OGS services opvraagbaar maar alleen via arcig REST via https://geo.rijkswaterstaat.nl/arcgis/rest/services/GDR/dijkringen_historie/FeatureServer. ")
 
 ```
 
-## Kabels en leidingen
+<!-- ## Kabels en leidingen -->
 
-Er lopen verschillende kabels en leidingen tussen het vasteland en de
-Waddeneilanden. Voor het overzicht is besloten om alleen het deel van de
-kabels en leidingen te tonen welke binnen de Waddenzee en de
-Noordzeekustzone gelegen zijn. Voor pijpleidingen wordt binnen de figuur
-getoond welke stof (gas, olie, water, etc.) vervoerd wordt. Voor de
-telecomkabels wordt voor zover bekend weergegeven wat voor soort kabel
-het is (coaxiaal of glasvezel). Deze data zijn naar alle
-waarschijnlijkheid niet compleet, aangezien voor lang niet alle
-Waddeneilanden verbindingen met het vasteland getoond worden, terwijl
-deze er wel zijn.
+<!-- Er lopen verschillende kabels en leidingen tussen het vasteland en de -->
+<!-- Waddeneilanden. Voor het overzicht is besloten om alleen het deel van de -->
+<!-- kabels en leidingen te tonen welke binnen de Waddenzee en de -->
+<!-- Noordzeekustzone gelegen zijn. Voor pijpleidingen wordt binnen de figuur -->
+<!-- getoond welke stof (gas, olie, water, etc.) vervoerd wordt. Voor de -->
+<!-- telecomkabels wordt voor zover bekend weergegeven wat voor soort kabel -->
+<!-- het is (coaxiaal of glasvezel). Deze data zijn naar alle -->
+<!-- waarschijnlijkheid niet compleet, aangezien voor lang niet alle -->
+<!-- Waddeneilanden verbindingen met het vasteland getoond worden, terwijl -->
+<!-- deze er wel zijn. -->
 
-<Figuur kabels en leidingen kan niet getoond worden, deze is niet meer beschikbaar>
+<!-- <Figuur kabels en leidingen kan niet getoond worden, deze is niet meer beschikbaar> -->
 
-```{r kabelsEnLeidingen, eval=FALSE, echo =FALSE, out.height="450px", fig.cap="Pijpleidingen, telecomkabels en elektrakabels in de Waddenzee. NB: tussen Den Helder en Texel lopen zowel telecomkabels als pijpleidingen, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/66bacf5b-b5fa-4dce-aa31-1938f37f11c7", out.width = "100%", message=FALSE}
+<!-- ```{r kabelsEnLeidingen, eval=FALSE, echo =FALSE, out.height="450px", fig.cap="Pijpleidingen, telecomkabels en elektrakabels in de Waddenzee. NB: tussen Den Helder en Texel lopen zowel telecomkabels als pijpleidingen, Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/66bacf5b-b5fa-4dce-aa31-1938f37f11c7", out.width = "100%", message=FALSE} -->
 
-wfs_geo <- 'https://geo.rijkswaterstaat.nl/services/ogc/gdr/kabels_en_leidingen_noordzee/ows?service=WFS&request=getcapabilities&version=2.0.0'
+<!-- wfs_geo <- 'https://geo.rijkswaterstaat.nl/services/ogc/gdr/kabels_en_leidingen_noordzee/ows?service=WFS&request=getcapabilities&version=2.0.0' -->
 
-pijpleidingen.lay <- 'kabels_en_leidingen_noordzee:pijpleidingen_noordzee'
-telecom_kabels.lay <- 'kabels_en_leidingen_noordzee:telecom_kabels_noordzee'
-elektra_kabels.lay <- 'kabels_en_leidingen_noordzee:electra_kabels_noordzee'
+<!-- pijpleidingen.lay <- 'kabels_en_leidingen_noordzee:pijpleidingen_noordzee' -->
+<!-- telecom_kabels.lay <- 'kabels_en_leidingen_noordzee:telecom_kabels_noordzee' -->
+<!-- elektra_kabels.lay <- 'kabels_en_leidingen_noordzee:electra_kabels_noordzee' -->
 
-pijpleidingen <- st_read(dsn = wfs_geo, layer = pijpleidingen.lay, quiet=TRUE) %>% 
-  st_transform(4326)
+<!-- pijpleidingen <- st_read(dsn = wfs_geo, layer = pijpleidingen.lay, quiet=TRUE) %>% -->
+<!--   st_transform(4326) -->
 
-pijpleidingenWadden <- st_intersection(pijpleidingen, Wadden)
+<!-- pijpleidingenWadden <- st_intersection(pijpleidingen, Wadden) -->
 
-telecom_kabels <- st_read(dsn = wfs_geo, layer = telecom_kabels.lay, quiet=TRUE) %>% 
-  st_transform(4326)
+<!-- telecom_kabels <- st_read(dsn = wfs_geo, layer = telecom_kabels.lay, quiet=TRUE) %>% -->
+<!--   st_transform(4326) -->
 
-telecom_kabelsWadden <- st_intersection(telecom_kabels, Wadden) 
+<!-- telecom_kabelsWadden <- st_intersection(telecom_kabels, Wadden) -->
 
-elektra_kabels <- st_read(dsn=wfs_geo, layer = elektra_kabels.lay, quiet=TRUE) %>% 
-  st_transform(4326)
+<!-- elektra_kabels <- st_read(dsn=wfs_geo, layer = elektra_kabels.lay, quiet=TRUE) %>% -->
+<!--   st_transform(4326) -->
 
-elektra_kabelsWadden <- st_intersection(elektra_kabels, Wadden)
+<!-- elektra_kabelsWadden <- st_intersection(elektra_kabels, Wadden) -->
 
-leaflet() %>%
-  addTiles() %>%
-  addPolylines(data=pijpleidingenWadden, 
-               color = 'red', label = ~stofnaam) %>%
-  addPolylines(data=telecom_kabelsWadden, 
-               color = 'blue', label = ~kabel_type) %>%
-  addPolylines(data=elektra_kabelsWadden, 
-               color = 'yellow', label = ~kabelsoort) %>% 
-  addLegend(colors = c("red", "blue", 'yellow'), 
-            labels = c("Pijpleidingen", "Telecom Kabels", 'Elektra Kabels'), opacity = 1, title = "Legenda")
+<!-- leaflet() %>% -->
+<!--   addTiles() %>% -->
+<!--   addPolylines(data=pijpleidingenWadden, -->
+<!--                color = 'red', label = ~stofnaam) %>% -->
+<!--   addPolylines(data=telecom_kabelsWadden, -->
+<!--                color = 'blue', label = ~kabel_type) %>% -->
+<!--   addPolylines(data=elektra_kabelsWadden, -->
+<!--                color = 'yellow', label = ~kabelsoort) %>% -->
+<!--   addLegend(colors = c("red", "blue", 'yellow'), -->
+<!--             labels = c("Pijpleidingen", "Telecom Kabels", 'Elektra Kabels'), opacity = 1, title = "Legenda") -->
 
-```
+<!-- ``` -->
 
-## Gesloten gebieden voor bodemberoerende visserij
+## Gesloten gebieden voor bodemberoerende visserij {#gebiedenGeslotenVisserij}
 
-In de Waddenzee zijn veel delen op een of andere manier gesloten voor visserij. Dit verschilt per soort visserij, en ook is er binnen gebeiden onderscheid tussen subtidale en intertidale visserij. Daarnaast zijn er naast wettelijk gesloten gebieden ook convenanten van toepassing. Deze veelvoud aan regels, en een manco aan te ontsluiten brondata van de diverse gebieden, maakt dat deze indicator vooralsnog niet ingevuld is. 
+In de Waddenzee zijn veel delen op een of andere manier gesloten voor visserij. Dit verschilt per soort visserij, en ook is er binnen gebieden onderscheid tussen subtidale en intertidale visserij. Naast wettelijk gesloten gebieden zijn er ook convenanten van toepassing. Onderstaande figuur toont de gebieden gesloten voor visserij op basis van de momenteel beschikbare data, met name op de Noordzee. De gebieden in de Waddenzee die zijn gesloten voor bodemberoerende visserij zijn hier helaas nog niet ontsloten.
 
-!!! In de Waddenzee is in het Groninger Wad een gebied gesloten voor
-bodemberoerende visserij. Dit is nog niet opgenomen op onderstaande
-kaart. !!!
-
-!!!! vernieuwde kaart van RVO, nog tekst bij schrijven
 
 ```{r geslotenGebiedenVisserij, out.height="450px", fig.cap="Gesloten gebieden voor bodemberoerende visserij in de Noordzee. Bron: https://nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/b96f972a-c7e9-4059-9f85-540c830eec8d", out.width = "100%"}
 
@@ -233,38 +221,27 @@ leaflet() %>%
   )
 ```
 
-## Zandwinning
+<!-- ## Zandwinning -->
 
-Zandwinning in de Waddenzee is gestopt, maar de data (volumes en locaties) is nog wel
-relevant voor het begrijpen van de historische ontwikkeling. Er is momenteel nog geen goed overzicht om hier te ontsluiten.
+<!-- Zandwinning in de Waddenzee is gestopt, maar de data (volumes en locaties) is nog wel -->
+<!-- relevant voor het begrijpen van de historische ontwikkeling. Er is momenteel nog geen goed overzicht om hier te ontsluiten. -->
 
-## Schelpenwinning
+## Schelpenwinning {#schelpenwinning} 
 
-Schelpenwinning is één van de economische activiteiten in de Waddenzee. De gewonnen schelpen worden al decennia gebruikt als grondstof voor toepassingen in de bouw of voor de aanleg van schelpenpaden. Schelpenwinning gebeurt in de Waddenzee middels schepen, op schelpenbanken in de grote geulen (Marsdiep, Vlie, Friese Zeegat) waar zich hoge concentraties schelpen vormen aan de hand van natuurlijke transportprocessen.
-Voor de morfologie van de Waddenzee zijn deze schelpenbanken van beperkt belang (Mestdagh, 2024, Reijngoud et al., 2001), al kunnen ze wanneer ze aan of nabij het sedimentoppervlak komen te liggen, ervoor zorgen dat erosie van de zachte geulbodem vertraagd wordt. Vooral in buitenbochten kan de aanwezigheid van schelpenbanken op die manier een geul stabiliseren. Om een rol van betekenis te spelen in de vorming van eilanden of voor het beïnvloeden van stroomsnelheden is de winning op schelpenbanken in de Waddenzee waarschijnlijk te klein en verwaarloosbaar in vergelijking met de autonome kustdynamiek. 
-Vanuit ecologisch standpunt vormen ze waarschijnlijk een uniek habitat door de aanwezigheid van hard substraat, zolang de banken zich nabij of aan het sedimentoppervlak bevinden. Alle winlocaties vallen op de ecotopenkaart uit 2017 binnen het hoogdynamisch (doorgaans diep, soms ondiep) sublitoraal.
-Gewonnen hoeveelheden (2016-2022), op basis van Blackboxgegevens zoals doorgegeven aan Rijkswaterstaat door de drie betrokken bedrijven zijn voor elk geulsysteem weergegeven in onderstaande tabel en Figuren \@ref(fig:schelpenwinning_Marsdiep), \@ref(fig:schelpenwinning_Vlie), \@ref(fig:schelpenwinning_FZ). In sommige gebieden wordt doorlopend gewonnen, in andere fluctueert de winning zonder bekende oorzaak. Op alle winlocaties worden losse schelpen gewonnen. Dat gebeurt met steekzuigers, waarbij een winningsschip min of meer stilligt en met een steekbuis sediment en schelpen opzuigt tot 4 meter onder het sedimentoppervlak. De schelpen worden tijdens de winning ter plaatse gezeefd en het gezeefde sediment wordt teruggestort. Schelpenwinputten vullen na de winning geleidelijk op in een proces dat vier tot vijf maanden kan duren.
+In de Waddenzee worden al decennia schelpen gewonnen, die worden gebruikt als grondstof voor toepassingen in de bouw of voor de aanleg van schelpenpaden. Schelpenwinning gebeurt in de Waddenzee middels schepen, op schelpenbanken in de grote geulen (Marsdiep, Vlie, Friese Zeegat). Hier vormen zich hoge concentraties schelpen aan de hand van natuurlijke transportprocessen. Figuur \@ref(fig:SchelpenwinningCombined) toont de winlocaties tussen 2016 en 2022. Alle winlocaties vallen op de ecotopenkaart uit 2017 binnen het hoogdynamisch sublitoraal. Gewonnen hoeveelheden (2016 - 2020) op basis van Blackboxgegevens zoals doorgegeven aan Rijkswaterstaat door de drie betrokken bedrijven zijn weergegeven in onderstaande tabel.
+
+Voor de morfologie van de Waddenzee zijn deze schelpenbanken van beperkt belang (Mestdagh, 2024, Reijngoud et al., 2001), al kunnen ze wanneer ze aan of nabij het sedimentoppervlak komen te liggen, ervoor zorgen dat erosie van de zachte geulbodem vertraagd wordt. Vooral in buitenbochten kan de aanwezigheid van schelpenbanken op die manier een geul stabiliseren. De schelpenwinning in de Waddenzee is waarschijnlijk echter verwaarloosbaar in vergelijking met de autonome kustdynamiek om een rol van betekenis te spelen in de vorming van eilanden of voor het beïnvloeden van stroomsnelheden. Vanuit ecologisch standpunt vormen schelpenbanken waarschijnlijk een uniek habitat door de aanwezigheid van hard substraat, zolang de banken zich nabij of aan het sedimentoppervlak bevinden. 
+
+Schelpenwinning gebeurt met steekzuigers, waarbij een winningsschip min of meer stilligt en met een steekbuis sediment en schelpen opzuigt tot 4 meter onder het sedimentoppervlak. De schelpen worden tijdens de winning ter plaatse gezeefd en het gezeefde sediment wordt teruggestort. Schelpenwinputten vullen na de winning geleidelijk op in een proces dat vier tot vijf maanden kan duren.
+
+
+```{r SchelpenwinningCombined, fig.cap="Schelpenwinning tussen 2016-2022 op basis van Blackbox data in het Marsdiep (linksboven), Vlie (rechtsboven) en Friesche Zeegat (rechtsonder), geprojecteerd op de ecotopenkaart 2017. Het grote gebied voor Lauwersoog (Friesche) waar vooral in 2016 werd gewonnen, is mogelijk een overschatting doordat de MS Vertrouwen het winnen niet als afzonderlijke activiteit registreert. De polygoon is ingetekend op basis van een dichte wolk datapunten met het label “zandpomp aan”. Bron: Mestdagh (2024)"}
+
+knitr::include_graphics("images/Schelpenwinning_combined.png")
+```
 
 ```{r}
 schelpenwinningTable <- readr::read_delim(file.path(datadir, "RWS", "menselijkhandelen", "Mestdagh2024_Schelpenwinning2016_2022.csv"), delim = ";")
 schelpenwinningTable %>%
   knitr::kable(caption = "Hoeveelheden gewonnen schelpen (in m3) in de Waddenzee per geulsysteem, over de periode 2016-2022. In de laatste kolom wordt het maximum toegelaten ontgonnen volume in de hele Waddenzee weergegeven. Data aangeleverd door Rijkswaterstaat. De gegevens voor 2020 zijn waarschijnlijk niet correct. De door Rijkswaterstaat aangeleverde invoertabellen zijn leeg, maar uit de Blackboxgegevens blijkt dat zowel de MS Vertrouwen als de MS Waddenzee dat jaar actief waren op verschillende plaatsen in de Waddenzee.") 
 ```
-
-```{r schelpenwinning_Marsdiep, fig.cap="Schelpenwinning tussen 2016-2022 in het Marsdiep op basis van Blackbox data, geprojecteerd op de ecotopenkaart 2017. Bron: Mestdagh, 2024"}
-
-knitr::include_graphics("images/schelpenwinning_Marsdiep.png")
-```
-
-```{r schelpenwinning_Vlie, fig.cap="Schelpenwinning tussen 2016-2022 in het Vlie op basis van Blackbox data, geprojecteerd op de ecotopenkaart 2017. Bron: Mestdagh, 2024"}
-
-knitr::include_graphics("images/schelpenwinning_Vlie.png")
-```
-
-
-```{r schelpenwinning_FZ, fig.cap="Schelpenwinning tussen 2016-2022 in het Friesche Zeegat op basis van Blackbox data, geprojecteerd op de ecotopenkaart 2017. Het grote gebied voor Lauwersoog waar vooral in 2016 werd gewonnen, is mogelijk een overschatting doordat de MS Vertrouwen het winnen niet als afzonderlijke activiteit registreert. De polygoon is ingetekend op basis van een dichte wolk datapunten met het label “zandpomp aan”. Bron: Mestdagh, 2024"}
-
-knitr::include_graphics("images/schelpenwinning_Friesche Zeegat.png")
-```
-
-Er is geen goed te ontsluiten brondata van de daadwerkelijke schelpenwinning (alleen Blackbox data), evenmin van de gebieden waar dit toegestaan is. Bovenstaande tekst en gegevens zijn daarom gebaseerd op het memo ‘Kennisoverzicht en aanbevelingen schelpenwinning Waddenzee’ (Deltares memo 1210370-013-ZKS-0001 door S. Mestdagh, oktober 2024), waarin een synthese van deze data gemaakt is. 

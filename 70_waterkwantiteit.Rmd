@@ -431,7 +431,7 @@ gdf %>%
   theme(legend.position = "bottom")
 ```
 
-## Stroming
+## Stroming {#stroming}
 De stroming is sterk bepalend voor zowel de abiotische (morfologische) als de biotische ontwikkeling. In gebieden met hogere stroomsnelheden treedt meer morfodynamiek op, terwijl in rustiger gebieden meer geleidelijke sedimentatie plaatsvindt. Sommige soorten prefereren deze dynamiek en een ruim aanbod van vers water, terwijl andere juist goed gedijen bij rustiger omstandigheden.
 
 Het is belangrijk om te realiseren dat de hier weergegeven stroomsnelheden geen gemeten data betreft maar gebaseerd is op modelbewerkingen die ook gebruikt zijn voor het maken van de huidige ecotopenkaarten. Hoewel geen gemeten data, zijn deze stroomsnelheden op verzoek van veel gebruikers toch opgenomen in de digtiale systeemrapportage omdat ze een goed eerste inzicht in de ruimtelijke verdeling van stroomsnelheden geven, welke voor veel ecologische en morfologische processen van belang is. Voor sommige toepassingen is het tijdsgemiddelde indicatief, in andere gevallen juist de meer extreem hoge of lage waarden. Daarom zijn er zijn drie verschillende kaarten beschikbaar via de Waddenviewer: de 5%, 50% en de 95% overschrijdingswaarden. Absolute minima en maxima treden gedurende zo'n korte tijd op dat deze óf niet beperkend zijn voor de biotiek óf het gevolg van kunstmatige extremen door numerieke processen bij bijvoorbeeld het onderlopen of droogvallen van platen.
