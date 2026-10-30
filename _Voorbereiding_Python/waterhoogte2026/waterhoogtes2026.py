@@ -11,19 +11,17 @@
 # gebruik de parameter wat omschrijving om dit te doen
 # gebruik gelijk de extremen 
 # verplaats scripts naar een losse folder met een yml en readme erbij
-# later verplaatsen naar gitlab omgeving van RWS 
-# voor de data komt een soort fileserver opgezet
 # makkelijk aanpassen van laatstewaarnemingpunt
 #%%
+import os
+os.environ["PROJ_LIB"] = r"C:\Users\dees\.conda\envs\ddlpy\Library\share\proj" #if you're having problems with your projection installation
+import geopandas as gpd  #try on next installation conda install -c conda-forge pyproj proj
 import pandas as pd
 from pathlib import Path
 import requests
-import os
-os.environ["PROJ_LIB"] = r"C:\Users\dees\.conda\envs\ddlpy\Library\share\proj" #if you're having problems with your projection installation
-import ddlpy
 import datetime as dt
-import geopandas as gpd  #try on next installation conda install -c conda-forge pyproj proj
 import numpy as np
+import ddlpy
 
 from functions import get_locatielaatstewaarning, get_begrenzing_rijkswateren
 
@@ -36,8 +34,15 @@ path = Path.cwd()
 save_path = r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\raw\waterhoogte2026'
 Path(save_path).mkdir(parents=True, exist_ok=True)
 
-define_selection = pd.read_excel(os.path.join(path,  '_Voorbereiding_Python', 'waterhoogte2026', 'define_parameter_selection.xlsx'))
+#run in terminal\
+# define_selection = pd.read_excel(os.path.join(path, '_Voorbereiding_Python', 'waterhoogte2026', 'define_parameter_selection.xlsx'))
+define_selection = pd.read_excel(os.path.join(path, 'define_parameter_selection.xlsx'))
+
 grootheid = define_selection['Grootheid.Code'].unique()
+
+#MANUAL WORK
+waddenzee = ['Waddenzee', 'Eems-Dollard']
+cutoff = pd.Timestamp('2000-01-01')
 
 #%% locatielaatstewaarneming -> retrieving stations convert to function
 gdf = get_locatielaatstewaarning()
@@ -53,16 +58,25 @@ print(gdf_rijkswateren.columns)
 # for area in unique_areas:
 #     area_gdf = gdf_rijkswateren[gdf_rijkswateren['identificatie'] == area] #voor het uitwerken per watersysteem
 
-waddenzee = ['Waddenzee', 'Eems-Dollard']
+#%%
 ## gdf_rijkswateren = gdf_rijkswateren.to_crs(epsg=25831)  # Reproject to match the stations GeoDataFrame
 selection_areas = gdf_rijkswateren[gdf_rijkswateren['identificatie'].isin(waddenzee)]
 selection_areas = selection_areas.dissolve()
-selection_areas.plot()
-
 stations = stations.to_crs(epsg=28992)  # Reproject to match the selection areas GeoDataFrame
 selected_stations = gpd.sjoin(stations, selection_areas)
-selected_stations.plot()
+# selected_stations.plot()
+# Normalize values and cutoff to the same timezone-naive datetime dtype.
+selected_stations['TIJDSTIP_LAATSTE_METING'] = (
+    pd.to_datetime(selected_stations['TIJDSTIP_LAATSTE_METING'], errors='coerce', utc=True)
+    .dt.tz_localize(None)
+)
 
+min_value = selected_stations['TIJDSTIP_LAATSTE_METING'].min()
+selected_stations = selected_stations[
+    selected_stations['TIJDSTIP_LAATSTE_METING'] > cutoff
+]
+
+selected_stations.to_csv(os.path.join(path, 'selected_stations.csv'), index=False)
 #%% use ddlpy to retrieve information on each basin, or basin you need
 # get the dataframe with locations and their available parameters
 locations = ddlpy.locations()
@@ -70,7 +84,7 @@ locations = ddlpy.locations()
 # do we take WaarnemingsMetadata.Statuswaarde =  ongecontroleerd or only gecontroleerd?
 
 # for station in selected_stations['CODE'].unique():
-for j in range(len(selected_stations['CODE'].unique()[0:1])):
+for j in range(len(selected_stations['CODE'].unique())):
     station = selected_stations['CODE'].unique()[j]
     for i in range(len(define_selection)):
         define_selection_pars = define_selection.iloc[i]
@@ -83,20 +97,23 @@ for j in range(len(selected_stations['CODE'].unique()[0:1])):
         # timeseries ("") versus extremes (GETETM2/GETETMSL2/GETETBRKD2/GETETBRKDMSL2)
         if pd.isna(define_selection_pars['Groepering.Code']):  
             define_selection_pars['Groepering.Code'] = ""  # if no groepering is defined, we don't filter on it
-        bool_groepering = locations["Groepering.Code"].isin([define_selection_pars['Groepering.Code']])
+
+        # test
+        if define_selection_pars['Groepering.Code'] =='GETETM2':
+            bool_groepering = locations["Groepering.Code"].isin([define_selection_pars['Groepering.Code']])
         # bool_parameter = locations["Parameter.Code"].isin(["Cl"])
         # vertical reference (NAP/MSL)
         bool_hoedanigheid = locations["Hoedanigheid.Code"].isin([define_selection_pars['Hoedanigheid.Code']])
         selected = locations.loc[
             bool_procestype
             & bool_stations
-            & bool_grootheid
+            & bool_grootheid  
             # & bool_parameter
             & bool_groepering
             & bool_hoedanigheid
             ]
 
-        start_date = selected_stations['TIJDSTIP_LAATSTE_METING'].min()  # Use the earliest measurement date from the selected stations
+        start_date = min_value  # Use the earliest measurement date from the selected stations
         end_date = selected_stations['TIJDSTIP_LAATSTE_METING'].max()
 
         # start_date = dt.datetime(1950, 1, 1)  # Use a fixed start date for testing only
@@ -107,14 +124,14 @@ for j in range(len(selected_stations['CODE'].unique()[0:1])):
             measurements = ddlpy.measurements(selected.iloc[0], start_date=start_date, end_date=end_date)
         except Exception as e:
             print("Error retrieving measurements for station:", station)
-            print(selected.iloc[0]) #sometimes selected ends up empty then creates error. print this and continue
+            # print(selected.iloc[0]) #sometimes selected ends up empty then creates error. print this and continue #TODO do we want to write this somewhere?
 
-        if not measurements.empty:
-            print("Data was found in RWS Waterwebservices/DDL")
-            print("data for location:", selected['Naam'].iloc[0])
-            measurements.plot(y="Meetwaarde.Waarde_Numeriek", linewidth=0.8)
-        else:
-            print("No Data!")
+        # if not measurements.empty:
+        #     print("Data was found in RWS Waterwebservices/DDL")
+        #     print("data for location:", selected['Naam'].iloc[0])
+        #     measurements.plot(y="Meetwaarde.Waarde_Numeriek", linewidth=0.8)
+        # else:
+        #     print("No Data!")
 
 
         cols_tokeep = ['WaarnemingMetadata.Bemonsteringshoogte',
@@ -148,3 +165,5 @@ for j in range(len(selected_stations['CODE'].unique()[0:1])):
             f"{define_selection_pars['Groepering.Code']}.csv"
         )  ##TODO check if it needs to be stored with timezone information or not
         measurements.to_csv(os.path.join(save_path, output_filename), index=True)
+
+# %%

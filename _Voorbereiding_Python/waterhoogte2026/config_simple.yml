@@ -1,0 +1,53 @@
+# Water level data retrieval - Simple YAML Configuration
+# Two modes available: 'function' (automatic regional) or 'manual' (specific stations)
+
+station_selection:
+  mode: 'function'  # or 'manual'
+  
+  function:
+    # Geographic regions (function mode only)
+    regions:
+      - 'Waddenzee'
+      - 'Eems-Dollard'
+    
+    # Date cutoff: stations with last measurement after this date
+    cutoff_date: '2000-01-01'
+    
+    # Excel file with parameter selection
+    # Relative or absolute path: 'file.xlsx' or r'C:\path\file.xlsx'
+    parameter_file: C:\projecten\DigSysRapWadden\_Voorbereiding_Python\waterhoogte2026\define_parameter_selection.xlsx
+  
+  manual:
+    # Specific station codes (manual mode only)
+    stations:
+      - 'MAES'
+      - 'DELF'
+      - 'TERHD'
+
+data_retrieval:
+  # Date range for retrieval (null = auto-detect from stations)
+  # Format: YYYY-MM-DD
+  start_date: 1900-01-01
+  end_date: 2026-10-30
+  
+  # Parameters to retrieve - creates one CSV per combination
+  parameters:
+    # Timeseries
+    - Grootheid.Code: 'WATHTE'
+      ProcesType: 'meting'
+      Hoedanigheid.Code: 'NAP'
+      Groepering.Code: null
+    
+    # Extremes
+    - Grootheid.Code: 'WATHTE'
+      ProcesType: 'meting'
+      Hoedanigheid.Code: 'NAP'
+      Groepering.Code: 'GETETM2'
+
+output:
+  # Output directory: relative or absolute path
+  save_path: P:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\raw\waterhoogte2026
+
+  
+  # Columns to keep (empty list = all columns)
+  keep_columns: []

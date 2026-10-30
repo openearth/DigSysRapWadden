@@ -1,0 +1,133 @@
+# Configuration for water level data retrieval (2026)
+# You can use either 'function' mode (automatic selection) or 'manual' mode (provide specific stations)
+#
+# PATH TYPES USED IN THIS CONFIG:
+# - relative_path: Relative to the script location (e.g., 'output/waterhoogte2026')
+# - absolute_path: Full path (e.g., 'C:\path\to\folder' on Windows or '/path/to/folder' on Unix)
+# - file_path: Path to a file (can be relative or absolute)
+# - directory_path: Path to a directory (can be relative or absolute)
+#
+# EXAMPLES:
+# relative_path: 'output/waterhoogte2026'
+# absolute_path_windows: r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\raw\waterhoogte2026'
+# absolute_path_unix: '/mnt/shared/data/waterhoogte2026'
+# file_path: 'define_parameter_selection.xlsx'
+# file_path_absolute: r'C:\Users\username\Documents\define_parameter_selection.xlsx'
+
+station_selection:
+  # Options: 'function' or 'manual'
+  mode: 'function'
+  
+  # Used only when mode is 'function'
+  function:
+    # Geographic regions to filter by (e.g., 'Waddenzee', 'Eems-Dollard')
+    regions:
+      - 'Waddenzee'
+      - 'Eems-Dollard'
+    
+    # Cutoff date - only include stations with measurements after this date
+    # Format: YYYY-MM-DD (ISO format)
+    cutoff_date: '2000-01-01'
+    
+    # Path to Excel file defining parameter selection
+    # Type: relative_path or absolute_path
+    # Relative path: relative to script location (e.g., 'define_parameter_selection.xlsx')
+    # Absolute path Windows: r'C:\Users\username\Documents\define_parameter_selection.xlsx'
+    # Absolute path Unix: '/home/username/Documents/define_parameter_selection.xlsx'
+    parameter_file: 'define_parameter_selection.xlsx'
+  
+  # Used only when mode is 'manual'
+  # manual:
+  #   # List specific station codes to retrieve
+  #   stations:
+  #     - 'MAES'
+  #     - 'DELF'
+  #     - 'TERHD'
+
+# Data retrieval settings
+data_retrieval:
+  # Start and end dates (format: YYYY-MM-DD in ISO format)
+  # If not specified (null), will use automatic detection from station metadata
+  # Examples:
+  #   start_date: '2015-01-01'
+  #   end_date: '2020-12-31'
+  start_date: null  # null means automatic detection
+  end_date: null    # null means automatic detection
+  
+  # Parameter definitions to retrieve
+  parameters:
+    - Grootheid.Code: 'WATHTE'
+      ProcesType: 'meting'
+      Hoedanigheid.Code: 'NAP'
+      Groepering.Code: null  # null means timeseries
+    
+    - Grootheid.Code: 'WATHTE'
+      ProcesType: 'meting'
+      Hoedanigheid.Code: 'NAP'
+      Groepering.Code: 'GETETM2'  # Extremes
+
+# Output settings
+output:
+  # Directory to save CSV files
+  # Type: relative_path or absolute_path
+  # Relative path: relative to script location
+  #   Examples: 'output/waterhoogte2026', 'data/results', '../output'
+  # Absolute path Windows (use raw string r'...'):
+  #   Example: r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\raw\waterhoogte2026'
+  # Absolute path Unix/Linux/Mac:
+  #   Example: '/mnt/shared/data/waterhoogte2026'
+  # The directory will be created if it doesn't exist
+  save_path: r'P:\11202493--systeemrap-grevelingen\1_data\Wadden\ddl\raw\waterhoogte2026'
+  
+  # Whether to overwrite existing files
+  overwrite: true
+  
+  # Columns to keep in output CSV
+  keep_columns:
+    - 'WaarnemingMetadata.Bemonsteringshoogte'
+    - 'WaarnemingMetadata.Kwaliteitswaardecode'
+    - 'WaarnemingMetadata.OpdrachtgevendeInstantie'
+    - 'WaarnemingMetadata.Referentievlak'
+    - 'WaarnemingMetadata.Statuswaarde'
+    - 'BemonsteringsApparaat.Code'
+    - 'BemonsteringsApparaat.Omschrijving'
+    - 'BemonsteringsMethode.Code'
+    - 'BemonsteringsMethode.Omschrijving'
+    - 'BemonsteringsSoort.Code'
+    - 'BemonsteringsSoort.Omschrijving'
+    - 'Compartiment.Code'
+    - 'Compartiment.Omschrijving'
+    - 'Eenheid.Code'
+    - 'Eenheid.Omschrijving'
+    - 'Groepering.Code'
+    - 'Groepering.Omschrijving'
+    - 'Grootheid.Code'
+    - 'Grootheid.Omschrijving'
+    - 'Hoedanigheid.Code'
+    - 'Hoedanigheid.Omschrijving'
+    - 'MeetApparaat.Code'
+    - 'MeetApparaat.Omschrijving'
+    - 'Parameter.Code'
+    - 'Parameter.Omschrijving'
+    - 'Parameter_Wat_Omschrijving'
+    - 'ProcesType'
+    - 'Typering.Code'
+    - 'Typering.Omschrijving'
+    - 'WaardeBepalingsMethode.Code'
+    - 'WaardeBepalingsMethode.Omschrijving'
+    - 'WaardeBepalingsTechniek.Code'
+    - 'WaardeBepalingsTechniek.Omschrijving'
+    - 'WaardeBewerkingsMethode.Code'
+    - 'WaardeBewerkingsMethode.Omschrijving'
+    - 'Meetwaarde.Waarde_Alfanumeriek'
+    - 'Meetwaarde.Waarde_Numeriek'
+    - 'Code'
+    - 'Coordinatenstelsel'
+    - 'Naam'
+    - 'Lon'
+    - 'Lat'
+
+# Logging settings
+logging:
+  level: 'DEBUG'  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'

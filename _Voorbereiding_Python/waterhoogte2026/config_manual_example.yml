@@ -1,0 +1,86 @@
+# Example configuration for manual station selection
+# Copy this to 'config_manual_example.yml' and modify for your use case
+#
+# PATH NOTES:
+# - save_path: Can be relative (e.g., 'output/folder') or absolute (e.g., r'P:\path\to\folder')
+# See PATH_GUIDE.md for complete path configuration documentation
+
+station_selection:
+  # Use 'manual' mode to specify exact stations
+  mode: 'manual'
+  
+  manual:
+    # List of specific station codes to retrieve
+    # These must match exact codes in the DDL services
+    stations:
+      - 'MAES'          # Maeslant
+      - 'DELF'          # Delfzijl
+      - 'TERHD'         # Terheide
+      - 'LAUWERSOG'     # Lauwersoord
+      - 'HARGEN'        # Harlingen
+      - 'SCHEVN'        # Scheveningen
+
+# Data retrieval settings
+data_retrieval:
+  # Specify exact date range (or leave null for auto-detection)
+  # Format: YYYY-MM-DD (ISO format)
+  # Examples:
+  #   start_date: '2010-01-01'
+  #   end_date: '2023-12-31'
+  start_date: '2010-01-01'
+  end_date: '2023-12-31'
+  
+  # Parameters to retrieve
+  # Each combination generates a separate output file
+  parameters:
+    # Timeseries data (regular measurements)
+    - Grootheid.Code: 'WATHTE'
+      ProcesType: 'meting'
+      Hoedanigheid.Code: 'NAP'
+      Groepering.Code: null  # null means no grouping (timeseries)
+    
+    # Extreme data - highest/lowest water levels
+    - Grootheid.Code: 'WATHTE'
+      ProcesType: 'meting'
+      Hoedanigheid.Code: 'NAP'
+      Groepering.Code: 'GETETM2'  # Extremes
+
+# Output settings
+output:
+  # Directory to save CSV files
+  # Type: relative_path or absolute_path
+  # Examples:
+  #   Relative: 'output/manual_selection'
+  #   Absolute Windows: r'P:\11202493--systeemrap\1_data\Wadden\ddl\raw\manual'
+  #   Absolute Network: r'\\fileserver\data\waterhoogte\manual'
+  # See PATH_GUIDE.md for complete path documentation
+  save_path: 'output/manual_selection'
+  overwrite: true
+  keep_columns:
+    - 'WaarnemingMetadata.Bemonsteringshoogte'
+    - 'WaarnemingMetadata.Kwaliteitswaardecode'
+    - 'WaarnemingMetadata.OpdrachtgevendeInstantie'
+    - 'WaarnemingMetadata.Referentievlak'
+    - 'WaarnemingMetadata.Statuswaarde'
+    - 'BemonsteringsApparaat.Code'
+    - 'BemonsteringsApparaat.Omschrijving'
+    - 'Eenheid.Code'
+    - 'Eenheid.Omschrijving'
+    - 'Groepering.Code'
+    - 'Groepering.Omschrijving'
+    - 'Grootheid.Code'
+    - 'Grootheid.Omschrijving'
+    - 'Hoedanigheid.Code'
+    - 'Hoedanigheid.Omschrijving'
+    - 'Parameter.Code'
+    - 'Parameter.Omschrijving'
+    - 'ProcesType'
+    - 'Meetwaarde.Waarde_Alfanumeriek'
+    - 'Meetwaarde.Waarde_Numeriek'
+    - 'Code'
+    - 'Naam'
+    - 'Lon'
+    - 'Lat'
+
+logging:
+  level: 'INFO'  # Can be DEBUG, INFO, WARNING, ERROR

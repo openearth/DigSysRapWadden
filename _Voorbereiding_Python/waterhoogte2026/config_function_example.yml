@@ -1,0 +1,91 @@
+# Example configuration for function-based (automatic) station selection
+# This example shows various geographic regions you can select from
+#
+# PATH NOTES:
+# - parameter_file: Can be relative (e.g., 'file.xlsx') or absolute (e.g., r'C:\path\to\file.xlsx')
+# - save_path: Can be relative (e.g., 'output/folder') or absolute (e.g., r'P:\path\to\folder')
+# See PATH_GUIDE.md for complete path configuration documentation
+
+station_selection:
+  # Use 'function' mode for automatic spatial selection
+  mode: 'function'
+  
+  function:
+    # Geographic regions to include
+    # Common regions: 'Waddenzee', 'Eems-Dollard', 'IJsselmeer', 'Markermeer', etc.
+    # Run get_begrenzing_rijkswateren() to see all available regions
+    regions:
+      - 'Waddenzee'
+      - 'Eems-Dollard'
+    
+    # Only include stations with measurements after this date
+    # Set to earliest date you're interested in
+    # Format: YYYY-MM-DD
+    cutoff_date: '2000-01-01'
+    
+    # Path to Excel file with parameter selection
+    # Type: relative_path or absolute_path
+    # Examples:
+    #   Relative: 'define_parameter_selection.xlsx'
+    #   Absolute Windows: r'C:\Users\username\data\define_parameter_selection.xlsx'
+    #   Absolute Network: r'P:\11202493--systeemrap\data\define_parameter_selection.xlsx'
+    # See PATH_GUIDE.md for more details
+    # This file defines which measurements to retrieve
+    parameter_file: 'define_parameter_selection.xlsx'
+
+# Data retrieval settings
+data_retrieval:
+  # Leave null to auto-detect from station metadata
+  start_date: null
+  end_date: null
+  
+  parameters:
+    # Regular timeseries measurements
+    - Grootheid.Code: 'WATHTE'
+      ProcesType: 'meting'
+      Hoedanigheid.Code: 'NAP'
+      Groepering.Code: null
+    
+    # Extremes (max/min water levels)
+    - Grootheid.Code: 'WATHTE'
+      ProcesType: 'meting'
+      Hoedanigheid.Code: 'NAP'
+      Groepering.Code: 'GETETM2'
+
+# Output settings
+output:
+  # Directory to save CSV files
+  # Type: relative_path or absolute_path
+  # Examples:
+  #   Relative: 'output/waddenzee_2026'
+  #   Absolute Windows: r'P:\11202493--systeemrap\1_data\Wadden\ddl\raw\waddenzee'
+  #   Absolute Network: r'\\fileserver\data\waterhoogte'
+  # See PATH_GUIDE.md for complete path documentation
+  save_path: 'output/waddenzee_2026'
+  overwrite: true
+  keep_columns:
+    - 'WaarnemingMetadata.Bemonsteringshoogte'
+    - 'WaarnemingMetadata.Kwaliteitswaardecode'
+    - 'WaarnemingMetadata.OpdrachtgevendeInstantie'
+    - 'WaarnemingMetadata.Referentievlak'
+    - 'WaarnemingMetadata.Statuswaarde'
+    - 'Eenheid.Code'
+    - 'Eenheid.Omschrijving'
+    - 'Groepering.Code'
+    - 'Groepering.Omschrijving'
+    - 'Grootheid.Code'
+    - 'Grootheid.Omschrijving'
+    - 'Hoedanigheid.Code'
+    - 'Hoedanigheid.Omschrijving'
+    - 'Parameter.Code'
+    - 'Parameter.Omschrijving'
+    - 'ProcesType'
+    - 'Meetwaarde.Waarde_Alfanumeriek'
+    - 'Meetwaarde.Waarde_Numeriek'
+    - 'Code'
+    - 'Naam'
+    - 'Lon'
+    - 'Lat'
+
+logging:
+  level: 'INFO'
