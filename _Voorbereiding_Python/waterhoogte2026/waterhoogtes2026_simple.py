@@ -11,6 +11,7 @@ import pandas as pd
 import geopandas as gpd
 from pathlib import Path
 import ddlpy
+import hatyan
 
 from functions import get_locatielaatstewaarning, get_begrenzing_rijkswateren
 
@@ -123,27 +124,31 @@ def main(config_path=config_path):
             bool_group = locations["Groepering.Code"].isin([groepering])
             
             selected = locations.loc[bool_proces & bool_station & bool_groot & bool_group & bool_hoedanig]
-            
+
             if selected.empty:
                 print(f"  [{count}/{total}] {station} - No data found")
                 continue
             
             try:
-                measurements = ddlpy.measurements(
-                    selected.iloc[0], 
-                    start_date=start_date, 
+                # Retrieve the complete ddlpy result
+                measurements_raw = ddlpy.measurements(
+                    selected.iloc[0],
+                    start_date=start_date,
                     end_date=end_date
                 )
-                
-                if measurements.empty:
+
+                if measurements_raw.empty:
                     print(f"  [{count}/{total}] {station} - Empty result")
                     continue
-                
-                # Filter columns if specified
+
+                # Make a copy for the normal CSV output
+                measurements = measurements_raw.copy()
+
+                # Filter only the CSV version
                 if output_cols:
                     keep = [c for c in output_cols if c in measurements.columns]
                     measurements = measurements[keep]
-                
+                                
                 # Save to file
                 station_safe = station.replace('.', '_')
                 groot = param['Grootheid.Code']
@@ -156,6 +161,70 @@ def main(config_path=config_path):
                 measurements.to_csv(save_path / filename, index=True)
                 
                 print(f"  [{count}/{total}] {station} - OK ({len(measurements)} rows)")
+
+                if groepering == "GETETM2":
+                    print(f"Processing GETETM2 + GETETTPE for station {station}")
+
+                    # Select the separate series containing the extreme type
+                    bool_exttype_grootheid = locations["Grootheid.Code"].isin(["NVT"])
+                    bool_exttype_typering = locations["Typering.Code"].isin(["GETETTPE"])
+                    bool_exttype_group = locations["Groepering.Code"].isin(["GETETM2"])
+
+                    selected_exttypes = locations.loc[
+                        bool_station
+                        & bool_proces
+                        & bool_exttype_grootheid
+                        & bool_exttype_typering
+                        & bool_exttype_group
+                    ]
+
+                    if selected_exttypes.empty:
+                        print(
+                            f"  [{count}/{total}] {station} - "
+                            "No GETETTPE series found"
+                        )
+
+                    elif len(selected_exttypes) > 1:
+                        print(
+                            f"  [{count}/{total}] {station} - "
+                            f"Multiple GETETTPE series found: {len(selected_exttypes)}"
+                        )
+
+                    else:
+                        # Download extreme-type information
+                        measurements_exttypes = ddlpy.measurements(
+                            selected_exttypes.iloc[0],
+                            start_date=start_date,
+                            end_date=end_date
+                        )
+
+                        if measurements_exttypes.empty:
+                            print(
+                                f"  [{count}/{total}] {station} - "
+                                "GETETTPE result is empty"
+                            )
+
+                        else:
+                            # Combine GETETM2 values + GETETTPE types using Hatyan
+                            ts_extremes = hatyan.ddlpy_to_hatyan(
+                                measurements_raw,
+                                measurements_exttypes
+                            )
+
+                            # Save the combined Hatyan result
+                            hatyan_filename = (
+                                f"{station_safe}_WATHTE_{proces}_GETETM2_hatyan.csv"
+                            )
+
+                            ts_extremes.to_csv(
+                                save_path / hatyan_filename,
+                                index=True
+                            )
+
+                            print(
+                                f"  [{count}/{total}] {station} - "
+                                f"Hatyan extremes OK ({len(ts_extremes)} rows)"
+                            )
                 
             except Exception as e:
                 print(f"  [{count}/{total}] {station} - Error: {str(e)}")

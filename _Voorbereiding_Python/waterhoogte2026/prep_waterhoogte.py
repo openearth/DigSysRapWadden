@@ -93,6 +93,7 @@ for s in station:
 
         #     print(tides)
             dfs.append(extrema)
+            print(dfs)
         #     # Add metadata for TIMESERIES (no GETETM2)
         #     station_metadata.append({
         #         'station': s,
