@@ -6,14 +6,10 @@
 
 # THIS SCRIPT DOES NOT WORK YET!!
 #%%
-import pandas as pd
-from pathlib import Path
-import requests
 import os
-os.environ["PROJ_LIB"] = r"C:\Users\dees\.conda\envs\ddlpy\Library\share\proj" #if you're having problems with your projection installation
-import ddlpy
 import datetime as dt
-import geopandas as gpd  #try on next installation conda install -c conda-forge pyproj proj
+from pathlib import Path
+
 import numpy as np
 import hatyan
 
